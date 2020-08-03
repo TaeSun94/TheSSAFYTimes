@@ -83,7 +83,7 @@ export default {
             this.login = true;
             this.memberId = id;
         }
-    }
+    },
 }
 </script>
 
