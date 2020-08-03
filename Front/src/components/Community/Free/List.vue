@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-11">
+        <v-container class="elevation-5 col-lg-7">
             <v-card>
                 <v-card-title>
                     <div class="textfield">
@@ -27,6 +27,7 @@
                     hide-default-footer
                     :per-page="perPage"
                     @click:row="handleClick"
+                    class="table"
                 >
                 <template v-slot:item.freeBoardDatetime="{ item }">
                     <span>{{new Date(item.freeBoardDatetime).toLocaleString()}}</span>
