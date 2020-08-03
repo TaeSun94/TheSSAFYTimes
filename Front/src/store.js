@@ -18,10 +18,12 @@ export default new Vuex.Store({
         followers_count:'',
         articles_count:'',
         profile:{},
+        program_comments: [],
 
         // free
         frees: [],
         free: {},
+        
     },
     getters: {
         // login
@@ -34,6 +36,9 @@ export default new Vuex.Store({
         },
         program(state) {
             return state.program;
+        },
+        program_comments(state) {
+            return state.program_comments;
         },
         articles(state){
             return state.articles;
@@ -64,6 +69,9 @@ export default new Vuex.Store({
         },
         setProgram(state, payload) {
             state.program = payload;
+        },
+        setProgramComments(state, payload) {
+            state.program_comments = payload;
         },
         setProfile(state, payload){
             state.profile=payload.member;
@@ -141,7 +149,12 @@ export default new Vuex.Store({
         },
         getProgram(context, payload) {
             http.get(payload).then(({data}) => {
-                context.commit("setProgram", data);
+                context.commit("setProgram", data.programBoard);
+            });
+        },
+        getProgramComments(context, payload) {
+            http.get(payload).then(({data}) => {
+                context.commit("setProgramComments", data.programCommentList);
             });
         },
         // 멤버확인할때
