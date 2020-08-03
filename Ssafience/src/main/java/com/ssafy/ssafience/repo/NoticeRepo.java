@@ -1,13 +1,18 @@
 package com.ssafy.ssafience.repo;
 
-import java.util.Optional;
+import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.mapstruct.Mapper;
 
-import com.ssafy.ssafience.model.notice.Notice;
+import com.ssafy.ssafience.model.dto.Notice;
+import com.ssafy.ssafience.model.notice.NoticeModifyRequest;
+import com.ssafy.ssafience.model.notice.NoticeWriteRequest;
 
-@Repository("NoticeJPARepo")
-public interface NoticeRepo extends JpaRepository<Notice, Integer>{
-	Optional<Notice> findByNoticeNo(int noticeNo);
+@Mapper
+public interface NoticeRepo {
+	public List<Notice> getNoticeList();
+	public Notice getNoticeOne(int noticeNo);
+	public int insert(NoticeWriteRequest request);
+	public int update(NoticeModifyRequest request);
+	public int delete(int noticeNo);
 }
