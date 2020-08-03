@@ -1,67 +1,76 @@
-
-
 package com.ssafy.ssafience.service.board;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.ssafy.ssafience.model.board.FreeBoard;
-import com.ssafy.ssafience.repo.FreeBoardRepo;
+import com.ssafy.ssafience.model.board.BoardResult;
+import com.ssafy.ssafience.model.board.FreeModifyRequest;
+import com.ssafy.ssafience.model.board.FreeWriteRequest;
+import com.ssafy.ssafience.model.dto.FreeBoard;
+import com.ssafy.ssafience.model.dto.Member;
+import com.ssafy.ssafience.repo.FreeRepo;
+import com.ssafy.ssafience.repo.MemberRepo;
 
-@Service("FreeBoardServiceImpl")
+@Service
 public class FreeBoardServiceImpl implements FreeBoardService{
+	
+	@Autowired
+	private FreeRepo repo;
 
 	@Autowired
-	@Qualifier("FreeBoardJPARepo")
-	FreeBoardRepo repo;
+	private MemberRepo mRepo;
 	
 	@Override
-	public List<FreeBoard> getFreeBoardList() throws Exception {
-		return repo.findAll();
+	public List<FreeBoard> selectBoardList() throws Exception {
+		return repo.selectBoardList();
 	}
 
 	@Override
-	public FreeBoard getBoardOne(int freeBoardNo) throws Exception {
-		Optional<FreeBoard> boardOpt = repo.findByFreeBoardNo(freeBoardNo);
-		if (boardOpt.isPresent()) {
-			FreeBoard tempBoard = boardOpt.get();
-			tempBoard.setFreeBoardHit(tempBoard.getFreeBoardHit()+1);
-			FreeBoard board =  repo.save(tempBoard);
+	public BoardResult<FreeBoard> selectMemberBoardList(String memberId) throws Exception {
+		BoardResult<FreeBoard> result = new BoardResult<FreeBoard>();
+		Member member = mRepo.selectMemberOne(memberId);
+		if (member != null) {
+			List<FreeBoard> list = repo.selectMemberBoardList(memberId);
+			result.setAuthor(true);			
+			result.setBoardList(list);
+		} else {
+			result.setAuthor(false); // 없는 회원
+		}		
+		return result;
+	}
+
+	@Override
+	public FreeBoard selectBoardOne(int boardNo) throws Exception {
+		FreeBoard board = repo.selectBoardOne(boardNo);
+		if (board != null) {
 			return board;
-		}
-		else return null;
+		} else return null;
 	}
 
 	@Override
-	public FreeBoard insertBoard(FreeBoard board) throws Exception {
-		return repo.save(board);
+	public int insert(FreeWriteRequest request) throws Exception {
+		Member member = mRepo.selectMemberOne(request.getMemberId());
+		if (member != null) {
+			return repo.insert(request);
+		} else return -1;
 	}
 
 	@Override
-	public boolean updateBoard(FreeBoard board) throws Exception {
-		Optional<FreeBoard> boardOpt = repo.findByFreeBoardNo(board.getFreeBoardNo());
-		if (boardOpt.isPresent()) {
-			FreeBoard tempBoard = boardOpt.get();
-			tempBoard.setFreeBoardContent(board.getFreeBoardContent());
-			tempBoard.setFreeBoardTitle(board.getFreeBoardTitle());
-			tempBoard.setFreeBoardUpdateDatetime(new Date());
-			repo.save(tempBoard);
-			return true;
-		} else return false;
+	public int update(FreeModifyRequest request) throws Exception {
+		FreeBoard board = repo.selectBoardOne(request.getFreeBoardNo());
+		if (board != null && board.getMemberId().equals(request.getMemberId())) {
+			return repo.update(request);
+		} else return -1;
 	}
 
 	@Override
-	public boolean deleteBoard(int freeBoardNo) throws Exception {
-		Optional<FreeBoard> boardOpt = repo.findByFreeBoardNo(freeBoardNo);
-		if (boardOpt.isPresent()) {
-			repo.delete(boardOpt.get());
-			return true;
-		} else return false;
+	public int delete(int boardNo) throws Exception {
+		FreeBoard board = repo.selectBoardOne(boardNo);
+		if (board != null) {
+			return repo.delete(boardNo);
+		} else return -1;
 	}
 
 }
