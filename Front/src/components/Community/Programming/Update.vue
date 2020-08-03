@@ -8,11 +8,12 @@
             </div>
             <editor 
               :options="editorOptions"
+              :initialValue="program.programBoardContent"
               height="500px"
               previewStyle="vertical"
               ref="toastuiEditor"/>
             <div class="text-right mt-3">
-                <v-btn @click="checkHandler"> 등록할래요 👌</v-btn>
+                <v-btn @click="checkHandler"> 수정할래요 👌</v-btn>
             </div>
         </v-container>
     </div>
@@ -25,6 +26,7 @@ import http from "@/http-common";
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/vue-editor';
+import { mapGetters } from "vuex";
 
 export default {
     name:"ProgramWrite",
@@ -36,8 +38,12 @@ export default {
             title: "",
             editorOptions: {
                 hideModeSwitch: true
-            }
+            },
+            content: "",
         };
+    },
+    computed: {
+        ...mapGetters(["program"])
     },
     methods: {
         checkHandler() {
@@ -47,27 +53,35 @@ export default {
             } else if(content =="") {
                 alert("글 내용을 입력하세요.");
             } else  {
-                this.createHandler();
+                this.updateHandler();
             }
         },
-        createHandler() {
+        updateHandler() {
             var content = this.$refs.toastuiEditor.invoke("getMarkdown");
-            http.post("/board/program", {
+            http.put("/board/program", {
                 memberId: sessionStorage.getItem("memberId"),
                 programBoardTitle: this.title,
                 programBoardContent: content,
-                programBoardTrack: 0,
+                programBoardTrack: this.program.programBoardTrack,
+                programBoardNo : this.program.programBoardNo
             }).
             then(({data}) => {
                 if(data.result == "success"){
                     alert(data.message);
-                    this.$router.push("/community/programlist");
+                    this.$router.push(`/community/programdetail/${this.$route.params.no}`);
                 } else {
                     alert(data.message);
                     return;
                 }
             })
         }
+    },
+    created() {
+        this.$store.dispatch("getProgram", `/board/program/${this.$route.params.no}`);
+    },
+    updated() {
+        this.title = this.program.programBoardTitle;
+        this.content = this.program.programBoardContent;
     }
 }
 </script>

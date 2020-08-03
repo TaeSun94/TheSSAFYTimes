@@ -12,7 +12,9 @@
                 <small class="description"> SSAFY {{program.programBoardTrack}} {{program.memberId}} / </small>
                 <small class="description">{{program.programBoardDatetime | moment('YYYY-MM-DD HH:mm')}}  </small>
             </div>
-            <div v-html="program.programBoardContent" class="inner"></div>
+            <Viewer :value="program.programContent" class="inner" />
+            <v-btn v-show="canEdit === true" @click="deleteHandler" class="mr-5" style="float: right;">삭제하기!</v-btn>
+            <v-btn v-show="canEdit === true" @click="toUpdate()" class="mr-1" style="float: right;">수정하기!</v-btn>
             <div class="likeContent">
                 <h3 class="like ml-5">❤️ 이 글 좋아요 </h3>
                 <h3 class="like">10</h3>
@@ -62,25 +64,35 @@
 <script>
 import { mapGetters } from "vuex";
 import { VueScrollProgressBar } from '@guillaumebriday/vue-scroll-progress-bar'
-import http from "@/http-common.js"
+import http from "@/http-common.js";
+import "codemirror/lib/codemirror.css";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import { Viewer } from "@toast-ui/vue-editor";
 
 export default {
     name:"ProgramDetail",
     components: {
-      VueScrollProgressBar
+        VueScrollProgressBar,
+        Viewer
     },
     data() {
         return {
-            programTitle: '<h1>1번째 글</h1>',
-            programContent: '<p>hihi</p>',
+            programTitle: '',
             programNo: '',
             programWriter: '',
             programHit: '',
             programLikeCount: '',
+            programContent: '',
+            programDatatime: '',
+
             content: false,
             //comment 
             commentContent: true,
             commentInput: '',
+            
+            //edit, delete관련
+            canEdit: false,
+
         }
     },
     computed: {
@@ -117,12 +129,35 @@ export default {
                     return;
                 }
             })
+        },
+        deleteHandler() {
+            http.delete(`/board/program/${this.$route.params.no}`).then(({data}) => {
+                if(data.result == "success"){
+                    alert(data.message);
+                    this.$router.push("/community/programlist");
+                } else {
+                    alert(data.message);
+                    return;
+                }
+            });
+        },
+        toUpdate() {
+            this.$router.push(`/community/programupdate/${this.$route.params.no}`);
         }
 
     },
     created() {
         this.$store.dispatch("getProgram", `/board/program/${this.$route.params.no}`);
         this.$store.dispatch("getProgramComments", `/program/${this.$route.params.no}/comment?programBoardNo=${this.$route.params.no}`);
+    },
+    mounted() {
+
+    },
+    updated() {
+        var id = sessionStorage.getItem('memberId');
+        var author = this.$store.state.program.memberId;
+        if(id != author) { this.canEdit = false }
+        else {this.canEdit = true }
     }
 }
 </script>
