@@ -3,6 +3,7 @@
     <side-bar app></side-bar>
     <v-main style="background-color:#ebebeb ">
     <nav-bar app></nav-bar>
+    <vue-scroll-progress-bar height="0.4rem" backgroundColor="orange" style=""/>
     <router-view></router-view>
     </v-main>
     
@@ -10,9 +11,13 @@
 </template>
 
 <script>
+import { VueScrollProgressBar } from '@guillaumebriday/vue-scroll-progress-bar'
 
 export default {
   name: 'App',
+  components: {
+      VueScrollProgressBar,
+    }
 };
 </script>
 

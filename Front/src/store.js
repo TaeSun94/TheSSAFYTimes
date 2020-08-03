@@ -22,8 +22,16 @@ export default new Vuex.Store({
 
         // free
         frees: [],
-        free: {},
-        
+        free: {
+            freeBoard: {},
+            freeBoardList: [],
+            message : "",
+            result : "",
+            status: "",
+
+        },
+        // comment
+        free_comments: [],
     },
     getters: {
         // login
@@ -54,7 +62,11 @@ export default new Vuex.Store({
         },
         free(state) {
             return state.free;
-        }
+        },
+        free_comments(state) {
+            return state.free_comments;
+        },
+
     },
     mutations: {
         // login
@@ -76,6 +88,7 @@ export default new Vuex.Store({
         setProfile(state, payload){
             state.profile=payload.member;
         },
+
         //profile 등록 및 수정
         updateProfile(state, payload){
             console.log(payload);
@@ -113,7 +126,11 @@ export default new Vuex.Store({
         },
         setFree(state, payload){
             state.free = payload;
-        }
+        },
+        setFreeComments(state, payload){
+            state.free_comments = payload;
+        },
+
     },
     actions: {
         //login
@@ -219,7 +236,7 @@ export default new Vuex.Store({
         //Free
         getFrees(context,payload) {
             http.get(payload).then(({data}) => {
-                context.commit("setFrees", data)
+                context.commit("setFrees", data.freeBoardList)
 
             });
         },
@@ -229,10 +246,11 @@ export default new Vuex.Store({
                 context.commit("setFree", data);
             })
         },
-        freeCreate(context, {freeBoardTitle, freeBoardContent}) {
+        freeCreate(context, {freeBoardTitle, freeBoardContent, memberId}) {
             http.post('/free/board',{
                 freeBoardTitle,
-                freeBoardContent
+                freeBoardContent,
+                memberId,
             })
             .then(({data})=> {
                 if(data.result=='success'){
@@ -241,7 +259,21 @@ export default new Vuex.Store({
                 }
             })
         },
-
+        deleteFree(context, payload) {
+            http.delete(`/free/board/${payload}`).then(({data})=>{
+                console.log(data)
+                if (data.result === "success") {
+                    location.href='/community/freelist';
+                } else {
+                    alert("삭제불가")
+                }
+            })
+        },
+        getFreeComments(context, payload){
+            http.get(payload).then((({data})=>{
+                context.commit("setFreeComments", data.freeCommentList);
+            }))
+        }
     }
     
 })
