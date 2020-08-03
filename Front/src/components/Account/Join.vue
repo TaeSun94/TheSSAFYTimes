@@ -1,0 +1,211 @@
+<template>     
+  <div class="wrapper" style="margin-top:5%">
+    <div class="row">
+      <v-container class="col-lg-5 elevation-5"> 
+        <div class="form sm-m-0">
+          <v-form ref="form" lazy-validation>
+              <!--Id-->
+            <v-text-field 
+            v-model="memberId"
+            :rules="IdRules"
+            :counter="10"
+            label="ID*"
+            required
+            @blur="checkIdDup"
+            ></v-text-field>
+            <!--Email-->
+            <v-text-field
+            v-model="memberEmail"
+            :rules="emailRules"
+            label="이메일*"
+            required
+            >
+              <template v-slot:append-outer>
+                <v-btn @click="checkEmail">
+                  체크
+                </v-btn>
+              </template>
+            </v-text-field>
+            
+            <!--Pw-->
+            <v-text-field 
+            v-model="memberPw"
+            :rules="PwRules"
+            :counter="20"
+            label="비밀번호*"
+            type="password"
+            required
+            ></v-text-field>
+            <!--Pw 확인-->
+            <v-text-field 
+            v-model="memberPw2"
+            :rules="PwRules2"
+            :counter="20"
+            label="비밀번호 확인*"
+            type="password"
+            required
+            @blur="checkPw"
+            >
+            </v-text-field>
+            <footer class="login-foot mt-3">
+
+              <!-- <button
+                class="primary-button  is-fullwidth"
+                @click="submit">
+                가입하기
+              </button> -->
+              <v-btn @click="submit"
+              dark
+              large
+              tile
+              width=100%>
+                가입하기
+              </v-btn>
+              <!-- <button
+                class="primary-button  is-fullwidth"
+                @click="clear">
+                CLEAR
+              </button> -->
+              <p class="login-option mt-5 text-center">이미 계정이 있으신가요?
+              <router-link class="login-option-link" :to="{path:'/login'}">로그인</router-link>
+              </p>                                    
+            </footer>
+          </v-form>
+        </div>
+     </v-container>
+    </div>
+  <footer-bar></footer-bar>
+</div>
+</template>
+
+<script>
+import http from '@/http-common'
+  export default {
+    name: 'Join', 
+    data: () => ({
+      memberId: '',
+      IdRules: [
+        v => !!v || 'ID를 입력해주세요.',
+        v => (v && v.length <= 10) || 'Name must be less than 10 characters'
+      ],
+      memberPw: '',
+      PwRules: [
+        v => !!v || '비밀번호를 입력해주세요.',
+        v => (v && v.length <= 20) || 'Name must be less than 20 characters'
+      ],
+      memberPw2: '',
+      PwRules2: [
+        v => !!v || '비밀번호를 입력해주세요.',
+        v => (v && v.length <= 20) || 'Name must be less than 20 characters'
+      ],
+      memberEmail: '',
+      emailRules: [
+        v => !!v || '이메일을 입력해주세요.',
+        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || '이메일 형식이 틀립니다!'
+      ],
+      idck: false,
+      pwck: false,
+      emailck: false
+    }),
+
+    methods: {
+      submitJoin () {
+          this.$router.push('/EmailCheck')
+      },
+      submit () {
+        if(this.idck==true && this.pwck==true && this.emailck==true){
+          http.post('/member/signup', {
+            memberId: this.memberId,
+            memberEmail: this.memberEmail,
+            memberPw: this.memberPw,
+          })
+          .then(({data})=> {
+            if(data.result=="success"){
+              alert(data.message);
+              this.$router.push({path: '/login'});
+            } else if(data.result=="fail"){
+              alert(data.message);
+            }
+          });
+        }
+      },
+      clear () {
+        this.$refs.form.reset()
+      },
+      checkIdDup() {
+        http.post('/valid/idValid', {
+          memberId : this.memberId
+        })
+        .then(({data})=> {
+          if(data.result == "fail") {
+            this.idck=false;
+            alert(data.message);
+            return;
+          } else if(data.result == "success") {
+            this.idck=true;
+            alert(data.message);
+            return;
+          }
+        })
+      },
+      checkPw() {
+        if(this.memberPw != this.memberPw2){
+          this.pwck = false;
+          alert("비밀번호가 일치하지 않습니다.");
+        } else {
+          this.pwck = true;
+        }
+      },
+      checkEmail() {
+        http.post('/valid/emailValid', {
+          memberEmail : this.memberEmail
+        })
+        .then(({data})=> {
+          if(data.result == "success") {
+            this.emailck = true;
+            alert(data.message);
+          } else if(data.result == "fail"){
+            this.emailck = false;
+            alert(data.message);
+          }
+        })
+      }
+    },
+  }
+</script>
+<style scoped>
+.is-fullwidth {
+  width: 100%;
+  display: block;
+  margin: 5px;
+}
+.primary-button {
+    display: inline-block;
+    min-width: 104px;
+    background: #fb7800;
+    padding: 11px 1.5rem 12px;
+    border-radius: 0;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    background: #161616;
+    border: 1px solid #161616;
+    color: #fff;
+}
+.form {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.btn{
+    margin-top: 20px; 
+    margin-right: 10px;
+}
+.theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
+    background-color: #f5f5f5;
+}
+
+
+.v-text-field {
+    padding-top: 30px;
+}
+</style>
