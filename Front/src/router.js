@@ -29,6 +29,7 @@ import AboutUsIndex from "@/components/AboutUs/AboutUsIndex.vue";
 import FreeList from "@/components/Community/Free/List";
 import FreeWrite from "@/components/Community/Free/Write";
 import FreeDetail from "@/components/Community/Free/Detail";
+import ProgramUpdate from "@/components/Community/Programming/Update";
 
 Vue.use(VueRouter);
 
@@ -104,6 +105,11 @@ export default new VueRouter({
                     path:"programwrite",
                     name:"ProgramWrite",
                     component: ProgramWrite,
+                },
+                {
+                    path:"programupdate/:no",
+                    name:"ProgramUpdate",
+                    component: ProgramUpdate,
                 },
                 {
                     path:"teamlist",
