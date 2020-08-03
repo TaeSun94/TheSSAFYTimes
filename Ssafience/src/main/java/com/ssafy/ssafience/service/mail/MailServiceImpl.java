@@ -32,7 +32,7 @@ public class MailServiceImpl implements MailService{
 			SsafienceMailHandler mailHandler = new SsafienceMailHandler(mailSender);
 			mailHandler.setSubject("[Ssafience 이메일 인증 요청의 건]");
 			mailHandler.setText(request.getMemberEmail(), memberAuth);
-			mailHandler.setFrom("glglthssla@naver.com", "Ssafience");
+			mailHandler.setFrom("ssafience@gmail.com", "Ssafience");
 			mailHandler.setTo(request.getMemberEmail());
 			mailHandler.send();
 			result.setSaveKey(mRepo.setMemberAuth(request.getMemberEmail(), memberAuth));
