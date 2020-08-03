@@ -112,7 +112,7 @@
                         <br>
                     </div>
                     <!-- infinite loading -->
-                    <!-- <infinite-loading ></infinite-loading> -->
+                    <infinite-loading @infinite="infiniteHandler"></infinite-loading>
                 </div>
                 <div v-else class="text-center">
                     <h3>등록된 기사가 없습니다.</h3>
@@ -157,22 +157,24 @@
 </template>
 <script>
     // import BussinessCard from './BusinessCard'
-    // import InfiniteLoading from 'vue-infinite-loading'
+    import InfiniteLoading from 'vue-infinite-loading'
     import AddFollowing from "./AddFollowing"
     import ProfileCard from "./ProfileCard"
     // import WriteArticle from "./Profile/WriteArticle"
     import {mapState, mapGetters, mapActions} from 'vuex';
-
+    import http from "@/http-common.js";
     export default {
         name: 'UserProfile',
         components:{
             AddFollowing,
             ProfileCard,
-            // InfiniteLoading,
+            InfiniteLoading,
             // BussinessCard
         },
         data() {
             return {
+                page: 1,
+                list:[],
                 selected: null,
                 options: [
                     { value: '사회', text: '사회' },
@@ -206,8 +208,9 @@
             }
         },
         created(){
-            this.$store.dispatch('getProfile','tyzlddy');
-            this.$store.dispatch('getMyArticles','tyzlddy');
+            console.log(this.$route.params.memberId);
+            this.$store.dispatch('getProfile',this.$route.params.memberId);
+            this.$store.dispatch('getMyArticles',this.$route.params.memberId);
         },
         computed:{
             ...mapState({article: state=> state.article},{member: state=>state.profile}),
@@ -215,7 +218,34 @@
             ...mapGetters(['profile','articles','article'])
         },
         methods:{
-            ...mapActions(['writeArticle'])
+            ...mapActions(['writeArticle']),
+            // infiniteHandler($state){
+            //     http.get(`/article/${this.$route.params.memberId}`,{
+            //         params:{
+            //             page: this.page,
+            //         },
+            //     }).then(({data})=>{
+            //     context.commit('setMyArticles',data);
+            //     console.log(data);
+            // });
+            // },
+            infiniteHandler($state) {
+                http.get(`/article/${this.$route.params.memberId}`
+                // , {
+                //     params: {
+                //         page: this.page,
+                //     },
+                // }
+                ).then(({ data }) => {
+                    if (data.articleList.length) {
+                        // this.page += 1;
+                        this.$store.state.articles.push(data.articleList);
+                        $state.loaded();
+                    } else {
+                        $state.complete();
+                    }
+                });
+            },
         }
     };
 </script>
