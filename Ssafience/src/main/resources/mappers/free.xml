@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ssafience.repo.FreeRepo">
+
+	<!-- 게시글 관련-->	
+	
+	<select id="selectBoardOne" resultType="freeboard">
+		select *
+		from free_board
+		where free_board_no = #{boardNo}
+	</select>
+	
+	<select id="selectBoardList" resultType="freeboard">
+		select *
+		from free_board
+		order by free_board_no desc
+	</select>
+	
+	<select id="selectMemberBoardList" resultType="freeboard">
+		select *
+		from free_board
+		where member_id = #{memberId}
+		order by free_board_no desc
+	</select>
+	
+	<insert id="insert">
+		insert into free_board 
+			(
+				member_id, free_board_title, free_board_content
+			)
+		values (#{memberId}, #{freeBoardTitle}, #{freeBoardContent})
+	</insert>
+	
+	<update id="update">
+		update free_board
+		set free_board_title = #{freeBoardTitle},
+			free_board_content = #{freeBoardContent},
+			free_board_update_datetime = now()
+		where free_board_no = #{freeBoardNo}
+	</update>
+	
+	<delete id="delete">
+		delete from free_board
+		where free_board_no = #{boardNo}
+	</delete>
+
+	<!-- 댓글 관련 -->
+	<select id="selectBoardCommentList" resultType="freeComment">
+		select * 
+		from free_comment
+		where free_board_no = #{boardNo}
+	</select>
+	
+	<select id="selectCommentOne" resultType="freeComment">
+		select * 
+		from free_comment
+		where free_comment_no = #{commentNo}
+	</select>
+	
+	<insert id="insertComment">
+		insert into free_comment 
+				(member_id, free_board_no, 
+				free_comment_content)
+				
+		values (#{memberId}, #{boardNo}, 
+				#{commentContent})	
+	</insert>
+
+	<update id="updateComment">
+		update free_comment
+		set	free_comment_content = #{commentContent}
+		where free_comment_no = #{commentNo}
+	</update>
+
+	<delete id="deleteComment">
+		delete from free_comment
+		where free_comment_no = #{commentNo}
+	</delete>
+	
+</mapper>
+
