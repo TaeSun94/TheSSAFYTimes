@@ -9,7 +9,9 @@ import com.ssafy.ssafience.model.board.FreeWriteRequest;
 import com.ssafy.ssafience.model.comment.CommentModifyRequest;
 import com.ssafy.ssafience.model.comment.CommentWriteRequest;
 import com.ssafy.ssafience.model.dto.FreeBoard;
+import com.ssafy.ssafience.model.dto.FreeBoardLike;
 import com.ssafy.ssafience.model.dto.FreeComment;
+import com.ssafy.ssafience.model.like.LikeRequest;
 
 @Mapper
 public interface FreeRepo {
@@ -25,5 +27,7 @@ public interface FreeRepo {
 	public int insertComment(CommentWriteRequest request);
 	public int updateComment(CommentModifyRequest request);
 	public int deleteComment(int commentNo);
+	
+	public int insertLike(LikeRequest request);
 
 }
