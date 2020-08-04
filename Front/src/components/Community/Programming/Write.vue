@@ -1,12 +1,16 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-7">
+        <v-container class="elevation-5 col-lg-10">
             <div class="textfield">
                 <input type="text" class="textfield-input" v-model="title" placeholder="제목을 입력하세요" value="">
                 <hr>
             </div>
-            <vue-editor id="editor" useCustomImageHandler @imageAdded="handleImageAdded" v-model="htmlForEditor"></vue-editor>
+            <editor 
+              :options="editorOptions"
+              height="500px"
+              previewStyle="vertical"
+              ref="toastuiEditor"/>
             <div class="text-right mt-3">
                 <v-btn @click="checkHandler"> 등록할래요 👌</v-btn>
             </div>
@@ -17,56 +21,41 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
-import axios from "axios";
 import http from "@/http-common";
+import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/vue-editor';
+
 export default {
     name:"ProgramWrite",
     components: {
-        VueEditor
+        editor: Editor
     },
     data() {
         return {
-            htmlForEditor: "",
             title: "",
+            editorOptions: {
+                hideModeSwitch: true
+            }
         };
     },
     methods: {
-        handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
-            var formData = new FormData();
-            formData.append("image", file);
-
-            axios({
-                url: "https://fakeapi.yoursite.com/images",
-                method: "POST",
-                data: formData
-            })
-            .then(result => {
-                let url = result.data.url; // Get url from response
-                Editor.insertEmbed(cursorLocation, "image", url);
-                resetUploader();
-            })
-            .catch(err => {
-                console.log(err);
-            });
-        },
-        handleSavingContent: function() {
-            this.$router.push('/community/programlist');
-        },
         checkHandler() {
+            var content = this.$refs.toastuiEditor.invoke("getMarkdown");
             if(this.title ==""){
                 alert("글 제목을 입력하세요.");
-            } else if(this.htmlForEditor =="") {
+            } else if(content =="") {
                 alert("글 내용을 입력하세요.");
             } else  {
                 this.createHandler();
             }
         },
         createHandler() {
+            var content = this.$refs.toastuiEditor.invoke("getMarkdown");
             http.post("/board/program", {
                 memberId: sessionStorage.getItem("memberId"),
                 programBoardTitle: this.title,
-                programBoardContent: this.htmlForEditor,
+                programBoardContent: content,
                 programBoardTrack: 0,
             }).
             then(({data}) => {

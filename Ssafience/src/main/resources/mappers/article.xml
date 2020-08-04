@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ssafience.repo.ArticleRepo">
+	
+ 	<select id="selectArticleOne" resultType="article">
+		select *
+		from article
+		where article_no = #{articleNo}
+	</select>
+	
+	<select id="selectArticleList" resultType="article">
+		select *
+		from article
+		order by article_no desc
+	</select>
+	
+	<select id="selectMemberArticleList" resultType="article">
+		select *
+		from article
+		where member_id = #{memberId}
+		order by article_no desc
+	</select>
+	
+	<insert id="insert">
+		insert into article 
+			(
+				member_id, article_title, article_content, article_type					
+			)
+		values (#{memberId}, #{articleTitle}, #{articleContent}, #{articelType})
+	</insert>
+	
+	<update id="update">
+		update article
+		set article_title = #{articleTitle},
+			article_content = #{articleContent},
+			article_type = #{articelType}
+		where article_no = #{articleNo}
+	</update>
+	
+	<delete id="delete">
+		delete from article
+		where article_no = #{articleNo}
+	</delete>
+
+</mapper>
+

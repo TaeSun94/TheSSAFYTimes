@@ -2,8 +2,9 @@ package com.ssafy.ssafience.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,11 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.ssafience.model.BasicResponse;
-import com.ssafy.ssafience.model.follow.Follow;
-import com.ssafy.ssafience.model.follow.FollowMember;
-import com.ssafy.ssafience.model.follow.FollowResponse;
-import com.ssafy.ssafience.service.FollowService;
+import com.ssafy.ssafience.model.ListResponse;
+import com.ssafy.ssafience.model.dto.FollowMember;
+import com.ssafy.ssafience.model.follow.FollowWriteRequest;
+import com.ssafy.ssafience.service.follow.FollowService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -30,97 +32,116 @@ import io.swagger.annotations.ApiResponses;
         @ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
         @ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
 
+//@CrossOrigin(origins = { "http://localhost:3000" })
+@Api(tags = "Follow : 팔로우")
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/follow")
 public class FollowController {
-	
+
+	private static final Logger logger = LoggerFactory.getLogger(FollowController.class);
+
 	static final String SUCCESS = "success";
 	static final String FAIL = "fail";
 	static final String NOTAVAILABLE = "notavailable";
 	
 	@Autowired
-	@Qualifier("FollowServiceImpl")
 	FollowService fService;
 	
-	@GetMapping("/testeset/stes")
-	@ApiOperation(value = "Entity Manage TEST")
-	public List<FollowMember> test(){
-		return fService.test();
-	}
-	
-	@GetMapping("/{memberId}/er")
-	@ApiOperation(value = "팔로워 목록 가져오기")
-	public ResponseEntity<FollowResponse> getFollowerList(@PathVariable String memberId){
-		final FollowResponse result = new FollowResponse();
-		
-		return new ResponseEntity<FollowResponse>(result, HttpStatus.OK);
-	}
-
-	@GetMapping("/{memberId}/ing")
-	@ApiOperation(value = "팔로잉 목록 가져오기")
-	public ResponseEntity<FollowResponse> getFollowingList(@PathVariable String memberId){
-		final FollowResponse result = new FollowResponse();
-		
-		return new ResponseEntity<FollowResponse>(result, HttpStatus.OK);
-	}
-
-	// 자신제외, 자신이 등록하지 않은 사람들 목록 API
-	
-
-	@PostMapping
-	@ApiOperation(value = "From이 To를 팔로우")
-	public ResponseEntity<BasicResponse> follow(@RequestBody Follow f){
-		final BasicResponse result = new BasicResponse();
-		if (f.getMemberIdFrom().trim().equals(f.getMemberIdTo().trim())) {
-			result.result = NOTAVAILABLE;
-			result.status = HttpStatus.UNPROCESSABLE_ENTITY;
-			result.message="자기 자신을 팔로우할 수 없습니다. ";			
-		} else {			
-			try {
-				boolean insertFollow = fService.insertFollow(f);
-				if (insertFollow) {
-					result.result = SUCCESS;
-					result.status = HttpStatus.OK;
-					result.message="팔로잉이 성공적으로 이루어졌습니다.";		
-				} else {	
-					result.result = NOTAVAILABLE;
-					result.status = HttpStatus.UNPROCESSABLE_ENTITY;
-					result.message="이미 등록됐습니다. ";			
-				}
-			} catch (Exception e) {
-				result.result = FAIL;
-				result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-				result.message="팔로잉 등록 중 문제가 발생했습니다. \n 잠시후 다시 시도해주세요. ";
-				e.printStackTrace();
-			}			
-		}
-		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);		
-	}
-	
-	@DeleteMapping
-	@ApiOperation(value = "From이 To를 언팔로우")
-	public ResponseEntity<BasicResponse> unfollow(@RequestBody Follow f){
-		final BasicResponse result = new BasicResponse();
+	@GetMapping("/{memberid}/er")
+	@ApiOperation(value = "memberId를 팔로워하는 사람들 목록(아이디, 이메일) 가져오기")
+	public ResponseEntity<ListResponse<FollowMember>> getFollowerList(@PathVariable String memberid){
+		final ListResponse<FollowMember> result = new ListResponse<>();
 		try {
-			boolean insertFollow = fService.deleteFollow(f.getFollowNo());
-			if (insertFollow) {
-				result.result = SUCCESS;
-				result.status = HttpStatus.OK;
-				result.message="팔로잉 해제가 성공적으로 이루어졌습니다.";		
-			} else {	
-				result.result = NOTAVAILABLE;
-				result.status = HttpStatus.UNPROCESSABLE_ENTITY;
-				result.message="이미 해제됐습니다. ";			
-			}
+			List<FollowMember> followList = fService.getFollowerList(memberid);
+			result.result = SUCCESS;
+			result.message = "당신의 팔로워 목록 조회가 성공적으로 이뤄졌습니다.";
+			result.status = HttpStatus.OK;
+			result.setList(followList);
+			
 		} catch (Exception e) {
 			result.result = FAIL;
+			result.message = "팔로워 목록 조회 중 문제가 발생했습니다.";
 			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-			result.message="팔로잉 해제 중 문제가 발생했습니다. \n 잠시후 다시 시도해주세요. ";
+			e.printStackTrace();
+		}
+		return new ResponseEntity<ListResponse<FollowMember>>(result, HttpStatus.OK);
+	}
+
+	@GetMapping("/{memberid}/ing")
+	@ApiOperation(value = "memberId가 팔로잉하는 사람들 목록(아이디, 이메일) 가져오기")
+	public ResponseEntity<ListResponse<FollowMember>> getFollowingList(@PathVariable String memberid){
+		final ListResponse<FollowMember> result = new ListResponse<>();
+		try {
+			List<FollowMember> followList = fService.getFollowingList(memberid);
+			result.result = SUCCESS;
+			result.message = "당신의 팔로잉 목록 조회가 성공적으로 이뤄졌습니다.";
+			result.status = HttpStatus.OK;
+			result.setList(followList);
+			
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.message = "팔로잉 목록 조회 중 문제가 발생했습니다.";
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			e.printStackTrace();
+		}
+		return new ResponseEntity<ListResponse<FollowMember>>(result, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "From이 To를 팔로우 한다.")
+	@PostMapping
+	public ResponseEntity<BasicResponse> follow(@RequestBody FollowWriteRequest request){
+		final BasicResponse result = new BasicResponse();
+		try {
+			int followCheck = fService.follow(request);
+			if (followCheck == -1) {
+				result.result = NOTAVAILABLE;
+				result.message = "이미 팔로우 중입니다.";
+				result.status = HttpStatus.UNPROCESSABLE_ENTITY;
+			} else if (followCheck == 1) {
+				result.result = SUCCESS;
+				result.message = "팔로우가 성공적으로 이뤄졌습니다.";
+				result.status = HttpStatus.OK;
+			} else {
+				result.result = FAIL;
+				result.message = "팔로우에 실패했습니다.";
+				result.status = HttpStatus.NO_CONTENT;
+			}
+			
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.message = "팔로우 등록 중 문제가 발생했습니다.";
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
 			e.printStackTrace();
 		}
 		
-		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);		
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "From이 To를 언팔로우 한다.")
+	@DeleteMapping("/{followno}")
+	public ResponseEntity<BasicResponse> unfollow(@PathVariable int followno){
+		final BasicResponse result = new BasicResponse();
+		try {
+			int followCheck = fService.unfollow(followno);
+			if (followCheck == 1) {
+				result.result = SUCCESS;
+				result.message = "언팔로우가 성공적으로 이뤄졌습니다.";
+				result.status = HttpStatus.OK;
+			} else {
+				result.result = FAIL;
+				result.message = "언팔로우에 실패했습니다.";
+				result.status = HttpStatus.NO_CONTENT;
+			}
+			
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.message = "언팔로우 중 문제가 발생했습니다.";
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
 }
