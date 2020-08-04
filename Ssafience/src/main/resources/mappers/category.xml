@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ssafience.repo.CategoryRepo">
+	
+ 	<select id="getRegionList" resultType="category">
+		select *
+		from category
+		where category_manage_no = 1
+	</select>
+	
+	<select id="getUnitList" resultType="category">
+		select *
+		from category
+		where category_manage_no = 2
+		and category_no_parent = #{categoryNo}
+	</select>
+	
+	<select id="getTrackList" resultType="category">
+		select *
+		from category
+		where category_manage_no = 3
+		and category_no_parent = #{categoryNo}
+	</select>
+
+	<select id="getSkillAndLanguageList" resultType="category">
+		select *
+		from category
+		where category_manage_no = 4
+	</select>
+
+	<select id="getArticleList" resultType="category">
+		select *
+		from category
+		where category_manage_no = 5
+	</select>
+
+	<select id="getProjectList" resultType="category">
+		select *
+		from category
+		where category_manage_no = 6
+	</select>
+
+
+</mapper>
+
