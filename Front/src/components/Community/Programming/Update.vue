@@ -3,12 +3,13 @@
     <div class="row">
         <v-container class="elevation-5 col-lg-10">
             <div class="textfield">
-                <input type="text" class="textfield-input" v-model="title" placeholder="제목을 입력하세요" value="">
+                <input type="text" class="textfield-input" v-model="programTitle" placeholder="제목을 입력하세요" value="">
                 <hr>
             </div>
-            <editor 
+            <editor
+               v-if="programContent !== ''"
               :options="editorOptions"
-              :initialValue="program.programBoardContent"
+              :initialValue="programContent"
               height="500px"
               previewStyle="vertical"
               ref="toastuiEditor"/>
@@ -35,11 +36,16 @@ export default {
     },
     data() {
         return {
-            title: "",
             editorOptions: {
                 hideModeSwitch: true
             },
-            content: "",
+            programNo: 0,
+            programTitle: '',
+            programWriter: '',
+            programDatetime: '',
+            programTrack: '',
+            programContent: '',
+            programHit: 0,
         };
     },
     computed: {
@@ -48,7 +54,7 @@ export default {
     methods: {
         checkHandler() {
             var content = this.$refs.toastuiEditor.invoke("getMarkdown");
-            if(this.title ==""){
+            if(this.programTitle ==""){
                 alert("글 제목을 입력하세요.");
             } else if(content =="") {
                 alert("글 내용을 입력하세요.");
@@ -60,10 +66,10 @@ export default {
             var content = this.$refs.toastuiEditor.invoke("getMarkdown");
             http.put("/board/program", {
                 memberId: sessionStorage.getItem("memberId"),
-                programBoardTitle: this.title,
+                programBoardTitle: this.programTitle,
                 programBoardContent: content,
-                programBoardTrack: this.program.programBoardTrack,
-                programBoardNo : this.program.programBoardNo
+                programBoardTrack: this.programTrack,
+                programBoardNo : this.programNo
             }).
             then(({data}) => {
                 if(data.result == "success"){
@@ -77,11 +83,20 @@ export default {
         }
     },
     created() {
-        this.$store.dispatch("getProgram", `/board/program/${this.$route.params.no}`);
+        http.get(`/board/program/${this.$route.params.no}`).then(({data})=> {
+            var board = data.programBoard;
+            this.programNo = board.programBoardNo;
+            this.programTitle = board.programBoardTitle;
+            this.programWriter = board.memberId;
+            this.programDatetime = board.programBoardDatetime;
+            this.programTrack = board.programBoardTrack;
+            this.programContent = board.programBoardContent;
+            this.programHit = board.programBoardHit;
+        });
     },
     updated() {
-        this.title = this.program.programBoardTitle;
-        this.content = this.program.programBoardContent;
+        // this.title = this.program.programBoardTitle;
+        // this.content = this.program.programBoardContent;
     }
 }
 </script>
