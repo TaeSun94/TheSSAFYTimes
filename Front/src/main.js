@@ -11,7 +11,7 @@ import VueMarkdownEditor from '@kangc/v-md-editor';
 import '@kangc/v-md-editor/lib/style/base-editor.css';
 import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
 import Vue2Editor from "vue2-editor";
-import vueMoment from 'vue-moment' ;
+import vueMoment from 'vue-moment';
 
 VueMarkdownEditor.use(vuepressTheme);
 Vue.use(vueMoment)
