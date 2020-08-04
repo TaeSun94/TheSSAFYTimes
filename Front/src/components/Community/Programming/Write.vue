@@ -41,7 +41,7 @@ export default {
     },
     methods: {
         checkHandler() {
-            var content = this.$refs.toastuiEditor.invoke("getHtml");
+            var content = this.$refs.toastuiEditor.invoke("getMarkdown");
             if(this.title ==""){
                 alert("글 제목을 입력하세요.");
             } else if(content =="") {
@@ -51,7 +51,7 @@ export default {
             }
         },
         createHandler() {
-            var content = this.$refs.toastuiEditor.invoke("getHtml");
+            var content = this.$refs.toastuiEditor.invoke("getMarkdown");
             http.post("/board/program", {
                 memberId: sessionStorage.getItem("memberId"),
                 programBoardTitle: this.title,

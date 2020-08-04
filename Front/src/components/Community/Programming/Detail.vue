@@ -4,15 +4,18 @@
         <v-container class="elevation-5 col-lg-5">
             <vue-scroll-progress-bar height="0.3rem" backgroundColor="orange"/>
             <div class="textfield">
-                <div class="ml-4"><h1>{{program.programBoardNo}}번째 글</h1></div>
+                <div class="ml-4"><h1>{{programNo}}번째 글</h1></div>
                 <hr>
             </div>
             <div class="text-right mr-5">
-                <small class="description">👀 조회수 {{program.programBoardHit}} / </small>
-                <small class="description"> SSAFY {{program.programBoardTrack}} {{program.memberId}} / </small>
-                <small class="description">{{program.programBoardDatetime | moment('YYYY-MM-DD HH:mm')}}  </small>
+                <small class="description">👀 조회수 {{programHit}} / </small>
+                <small class="description"> SSAFY {{programTrack}} {{programWriter}} / </small>
+                <small class="description">{{programDatetime | moment('YYYY-MM-DD HH:MM')}}  </small>
             </div>
-            <div v-html="program.programBoardContent" class="inner"></div>
+            <div></div>
+            <Viewer v-if="programContent !== ''" :initialValue="programContent" class="inner" />
+            <v-btn depressed dark v-show="canEdit === true" @click="deleteHandler" class="mr-5" style="float: right;">삭제하기!</v-btn>
+            <v-btn depressed dark v-show="canEdit === true" @click="toUpdate()" class="mr-1" style="float: right;">수정하기!</v-btn>
             <div class="likeContent">
                 <h3 class="like ml-5">❤️ 이 글 좋아요 </h3>
                 <h3 class="like">10</h3>
@@ -62,25 +65,35 @@
 <script>
 import { mapGetters } from "vuex";
 import { VueScrollProgressBar } from '@guillaumebriday/vue-scroll-progress-bar'
-import http from "@/http-common.js"
+import http from "@/http-common.js";
+import "codemirror/lib/codemirror.css";
+import "@toast-ui/editor/dist/toastui-editor.css";
+import { Viewer } from "@toast-ui/vue-editor";
 
 export default {
     name:"ProgramDetail",
     components: {
-      VueScrollProgressBar
+        VueScrollProgressBar,
+        Viewer,
     },
     data() {
         return {
-            programTitle: '<h1>1번째 글</h1>',
-            programContent: '<p>hihi</p>',
-            programNo: '',
+            programNo: 0,
+            programTitle: '',
             programWriter: '',
-            programHit: '',
-            programLikeCount: '',
+            programDatetime: new Date(),
+            programTrack: '',
+            programContent: "",
+            programHit: 0,
+
             content: false,
             //comment 
             commentContent: true,
             commentInput: '',
+            
+            //edit, delete관련
+            canEdit: false,
+            xx: '',
         }
     },
     computed: {
@@ -90,9 +103,6 @@ export default {
     methods: {
         commentShow() {
             this.content = !this.content
-        },
-        datatime() {
-            return this.program.programBoardList
         },
         commentCheck() {
             if(this.commentInput == ""){
@@ -117,12 +127,44 @@ export default {
                     return;
                 }
             })
+        },
+        deleteHandler() {
+            http.delete(`/board/program/${this.$route.params.no}`).then(({data}) => {
+                if(data.result == "success"){
+                    alert(data.message);
+                    this.$router.push("/community/programlist");
+                } else {
+                    alert(data.message);
+                    return;
+                }
+            });
+        },
+        toUpdate() {
+            this.$router.push(`/community/programupdate/${this.$route.params.no}`);
         }
 
     },
     created() {
-        this.$store.dispatch("getProgram", `/board/program/${this.$route.params.no}`);
+        // this.$store.dispatch("getProgram", `/board/program/${this.$route.params.no}`);
         this.$store.dispatch("getProgramComments", `/program/${this.$route.params.no}/comment?programBoardNo=${this.$route.params.no}`);
+        http.get(`/board/program/${this.$route.params.no}`).then(({data})=> {
+            var board = data.programBoard;
+            this.programNo = board.programBoardNo;
+            this.programTitle = board.programBoardTitle;
+            this.programWriter = board.memberId;
+            this.programDatetime = board.programBoardDatetime;
+            this.programTrack = board.programBoardTrack;
+            this.programContent = board.programBoardContent;
+            this.programHit = board.programBoardHit;
+        });
+    },
+    mounted() {
+    },
+    updated() {
+        var id = sessionStorage.getItem('memberId');
+        var author = this.programWriter;
+        if(id != author) { this.canEdit = false }
+        else {this.canEdit = true }
     }
 }
 </script>
