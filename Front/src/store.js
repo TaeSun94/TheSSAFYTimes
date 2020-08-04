@@ -23,7 +23,8 @@ export default new Vuex.Store({
         // free
         frees: [],
         free: {},
-        
+        //notices
+        notices: [],
     },
     getters: {
         // login
@@ -54,7 +55,10 @@ export default new Vuex.Store({
         },
         free(state) {
             return state.free;
-        }
+        },
+        notices(state) {
+            return state.notices;
+        },
     },
     mutations: {
         // login
@@ -113,7 +117,11 @@ export default new Vuex.Store({
         },
         setFree(state, payload){
             state.free = payload;
-        }
+        },
+        // Notice
+        setNotices(state, payload) {
+            state.notices = payload;
+        },
     },
     actions: {
         //login
@@ -241,7 +249,12 @@ export default new Vuex.Store({
                 }
             })
         },
-
+        // notice
+        getNotices(context, payload) {
+            http.get(payload).then(({data}) => {
+                context.commit("setNotices", data.noticeList);
+            })
+        }
     }
     
 })
