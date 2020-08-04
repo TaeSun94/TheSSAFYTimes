@@ -115,7 +115,7 @@ export default {
         this.memberId = id
         this.$store.dispatch("getFree", `/free/board/${this.$route.params.no}`)
         this.$store.dispatch("getFreeComments", `/free/${this.$route.params.no}/comment?freeBoardNo=${this.$route.params.no}`)
-        if(this.free.freeBoard.memberId==this.memberId){
+        if(this.free.freeBoard.memberId==sessionStorage.getItem('memberId')){
             this.check = true
             console.log(this.check)
         } else  {
