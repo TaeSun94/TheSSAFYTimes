@@ -28,12 +28,7 @@ CREATE OR REPLACE TABLE `board` (
     FOREIGN KEY (board_group_no) REFERENCES board_group(board_group_no) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-ALTER TABLE board CHANGE board__name board_name VARCHAR(256);
-
-SELECT * from board;
-
 /*============================================================================*/
-
 
 /*
 제작일: 2020.07.23
@@ -41,7 +36,7 @@ SELECT * from board;
 설명: 프로그래밍 게시판 테이블
 */
 
-CREATE OR REPLACE TABLE `program_board` (
+CREATE TABLE `program_board` (
     program_board_no INT PRIMARY KEY AUTO_INCREMENT,
     member_id VARCHAR(20) ,
     program_board_title VARCHAR(200) NOT NULL ,
@@ -50,12 +45,13 @@ CREATE OR REPLACE TABLE `program_board` (
     program_board_content TEXT,
     program_board_hit INT NOT NULL DEFAULT 0,
     program_board_update_datetime DATETIME,
-    program_board_like_count INT NOT NULL DEFAULT 0,
+    program_board_like INT NOT NULL DEFAULT 0,
+    program_board_dislike INT NOT NULL DEFAULT 0,
     FOREIGN KEY (member_id) REFERENCES member(member_id) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
 
-CREATE TABLE IF NOT EXISTS `program_comment` (
+CREATE TABLE `program_comment` (
     program_comment_no INT PRIMARY KEY AUTO_INCREMENT ,
     program_board_no INT ,
     member_id VARCHAR(20) ,
@@ -73,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `program_comment` (
 유형: Table
 설명: 프로그래밍 게시판의 게시글 좋아요 테이블 || 해당 글의 좋아요 또는 싫어요 수를 볼 수 있음
 */
-CREATE TABLE IF NOT EXISTS `program_board_like` (
+CREATE TABLE `program_board_like` (
     program_board_like_no INT PRIMARY KEY AUTO_INCREMENT ,
     program_board_no INT NOT NULL,
     member_id VARCHAR(20),
@@ -93,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `program_board_like` (
 유형: Table
 설명: 게시판의 정보를 담고있는 테이블
 */
-CREATE TABLE IF NOT EXISTS `notice` (
+CREATE TABLE `notice` (
     notice_no INT PRIMARY KEY AUTO_INCREMENT,
     member_id VARCHAR(20) ,
     notice_title VARCHAR(200) NOT NULL ,
@@ -104,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `notice` (
 
 /*============================================================================*/
 
-CREATE TABLE IF NOT EXISTS `free_board` (
+CREATE TABLE `free_board` (
     free_board_no INT PRIMARY KEY AUTO_INCREMENT,
     member_id VARCHAR(20) ,
     free_board_title VARCHAR(200) NOT NULL ,
@@ -112,11 +108,12 @@ CREATE TABLE IF NOT EXISTS `free_board` (
     free_board_hit INT NOT NULL DEFAULT 0,
     free_board_update_datetime DATETIME,
     free_board_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-    free_board_like_count INT NOT NULL DEFAULT 0,
+    free_board_like INT NOT NULL DEFAULT 0,
+    free_board_dislike INT NOT NULL DEFAULT 0,
     FOREIGN KEY (member_id) REFERENCES member(member_id) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
-CREATE TABLE IF NOT EXISTS `free_comment` (
+CREATE TABLE `free_comment` (
     free_comment_no INT PRIMARY KEY AUTO_INCREMENT ,
     free_board_no INT ,
     member_id VARCHAR(20) ,
@@ -128,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `free_comment` (
     FOREIGN KEY (member_id) REFERENCES member(member_id) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
-CREATE TABLE IF NOT EXISTS `free_board_like` (
+CREATE TABLE `free_board_like` (
     free_board_like_no INT PRIMARY KEY AUTO_INCREMENT ,
     free_board_no INT NOT NULL,
     member_id VARCHAR(20),
@@ -145,18 +142,22 @@ ALTER TABLE free_board_like MODIFY COLUMN free_board_like_check BOOL;
 /*
 제작일: 2020.07.27
 유형: Trigger
-설명: 각 게시판의 like_count를 자동으로 증가/감소 시킴
+설명: 각 게시판의 like count를 자동으로 증가/감소 시킴
 */
 DELIMITER //
 CREATE OR REPLACE TRIGGER TRG_FREE_BOARD_LIKE_INSERT
 AFTER INSERT ON free_board_like
 FOR EACH ROW
     BEGIN
-        DECLARE update_like INT;
-        SET update_like = IF(NEW.free_board_like_check, 1, -1);
-        UPDATE free_board
-        SET free_board_like_count = free_board_like_count + update_like
-        WHERE free_board_no = NEW.free_board_no;
+        IF NEW.free_board_like_check THEN
+            UPDATE free_board
+            SET free_board_like = free_board_like + 1
+            WHERE free_board_no = NEW.free_board_no;
+        ELSE
+            UPDATE free_board
+            SET free_board_dislike = free_board_dislike + 1
+            WHERE free_board_no = NEW.free_board_no;
+        END IF;
     END //
 DELIMITER ;
 
@@ -165,13 +166,12 @@ CREATE OR REPLACE TRIGGER TRG_FREE_BOARD_LIKE_UPDATE
 AFTER UPDATE ON free_board_like
 FOR EACH ROW
     BEGIN
-        DECLARE update_like_new INT;
-        DECLARE update_like_old INT;
-        SET update_like_new = IF(NEW.free_board_like_check, 1, -1);
-        SET update_like_old = IF(OLD.free_board_like_check, 1, -1);
+        DECLARE update_like_diff INT;
+        SET update_like_diff = NEW.free_board_like_check - OLD.free_board_like_check;
 
         UPDATE free_board
-        SET free_board_like_count = free_board_like_count + update_like_new - update_like_old
+        SET free_board_like = free_board_like + update_like_diff,
+            free_board_dislike = free_board_dislike - update_like_diff
         WHERE free_board_no = NEW.free_board_no;
     END //
 DELIMITER ;
@@ -181,11 +181,15 @@ CREATE OR REPLACE TRIGGER TRG_FREE_BOARD_LIKE_DELETE
 AFTER DELETE ON free_board_like
 FOR EACH ROW
     BEGIN
-        DECLARE update_like INT;
-        SET update_like = IF(OLD.free_board_like_check, 1, -1);
-        UPDATE free_board
-        SET free_board_like_count = free_board_like_count - update_like
-        WHERE free_board_no = OLD.free_board_no;
+        IF OLD.free_board_like_check THEN
+            UPDATE free_board
+            SET free_board_like = free_board_like - 1
+            WHERE free_board_no = OLD.free_board_no;
+        ELSE
+            UPDATE free_board
+            SET free_board_dislike = free_board_dislike - 1
+            WHERE free_board_no = OLD.free_board_no;
+        END IF;
     END //
 DELIMITER ;
 
@@ -194,11 +198,15 @@ CREATE OR REPLACE TRIGGER TRG_PROGRAM_BOARD_LIKE_INSERT
 AFTER INSERT ON program_board_like
 FOR EACH ROW
     BEGIN
-        DECLARE update_like INT;
-        SET update_like = IF(NEW.program_board_like_check, 1, -1);
-        UPDATE program_board
-        SET program_board_like_count = program_board_like_count + update_like
-        WHERE program_board_no = NEW.program_board_no;
+        IF NEW.program_board_like_check THEN
+            UPDATE program_board
+            SET program_board_like = program_board_like + 1
+            WHERE program_board_no = NEW.program_board_no;
+        ELSE
+            UPDATE program_board
+            SET program_board_dislike = program_board_dislike + 1
+            WHERE program_board_no = NEW.program_board_no;
+        END IF;
     END //
 DELIMITER ;
 
@@ -207,12 +215,12 @@ CREATE OR REPLACE TRIGGER TRG_PROGRAM_BOARD_LIKE_UPDATE
 AFTER UPDATE ON program_board_like
 FOR EACH ROW
     BEGIN
-        DECLARE update_like_new INT;
-        DECLARE update_like_old INT;
-        SET update_like_new = IF(NEW.program_board_like_check, 1, -1);
-        SET update_like_old = IF(OLD.program_board_like_check, 1, -1);
+        DECLARE update_like_diff INT;
+        SET update_like_diff = NEW.program_board_like_check - OLD.program_board_like_check;
+
         UPDATE program_board
-        SET program_board_like_count = program_board_like_count + update_like_new - update_like_old
+        SET program_board_like = program_board_like + update_like_diff,
+            program_board_dislike = program_board_dislike - update_like_diff
         WHERE program_board_no = NEW.program_board_no;
     END //
 DELIMITER ;
@@ -222,11 +230,15 @@ CREATE OR REPLACE TRIGGER TRG_PROGRAM_BOARD_LIKE_DELETE
 AFTER DELETE ON program_board_like
 FOR EACH ROW
     BEGIN
-        DECLARE update_like INT;
-        SET update_like = IF(OLD.program_board_like_check, 1, -1);
-        UPDATE program_board
-        SET program_board_like_count = program_board_like_count - update_like
-        WHERE program_board_no = OLD.program_board_no;
+        IF OLD.program_board_like_check THEN
+            UPDATE program_board
+            SET program_board_like = program_board_like - 1
+            WHERE program_board_no = OLD.program_board_no;
+        ELSE
+            UPDATE program_board
+            SET program_board_dislike = program_board_dislike - 1
+            WHERE program_board_no = OLD.program_board_no;
+        END IF;
     END //
 DELIMITER ;
 
@@ -242,4 +254,5 @@ ON DUPLICATE KEY UPDATE free_board_like_check = 0;
 
 -- 좋아요 삭제
 DELETE FROM free_board_like WHERE free_board_no = 3;
+
 
