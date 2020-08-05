@@ -4,6 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.ssafience.repo.ValidRepo">
 	
+	<!-- 아이디 중복 확인 -->
+ 	<select id="getId" resultType="string">
+		select member_id
+		from member
+		where member_id = #{memberId}
+	</select>
+	
 	<!-- 이메일 중복 확인 -->
  	<select id="getEmail" resultType="string">
 		select member_email

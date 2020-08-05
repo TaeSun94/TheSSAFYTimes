@@ -31,6 +31,8 @@ export default new Vuex.Store({
         },
         // comment
         free_comments: [],
+        //notices
+        notices: [],
     },
     getters: {
         // login
@@ -65,7 +67,9 @@ export default new Vuex.Store({
         free_comments(state) {
             return state.free_comments;
         },
-
+        notices(state) {
+            return state.notices;
+        },
     },
     mutations: {
         // login
@@ -129,7 +133,10 @@ export default new Vuex.Store({
         setFreeComments(state, payload){
             state.free_comments = payload;
         },
-
+        // Notice
+        setNotices(state, payload) {
+            state.notices = payload;
+        },
     },
     actions: {
         //login
@@ -275,6 +282,11 @@ export default new Vuex.Store({
             http.get(payload).then((({data})=>{
                 context.commit("setFreeComments", data.list);
             }))
+        // notice
+        getNotices(context, payload) {
+            http.get(payload).then(({data}) => {
+                context.commit("setNotices", data.noticeList);
+            })
         }
     }
     
