@@ -22,7 +22,15 @@ export default new Vuex.Store({
 
         // free
         frees: [],
-        free: {},
+        free: {
+            data: {},
+            message : "",
+            result : "",
+            status: "",
+
+        },
+        // comment
+        free_comments: [],
         //notices
         notices: [],
     },
@@ -56,6 +64,9 @@ export default new Vuex.Store({
         free(state) {
             return state.free;
         },
+        free_comments(state) {
+            return state.free_comments;
+        },
         notices(state) {
             return state.notices;
         },
@@ -80,6 +91,7 @@ export default new Vuex.Store({
         setProfile(state, payload){
             state.profile=payload.member;
         },
+
         //profile 등록 및 수정
         updateProfile(state, payload){
             console.log(payload);
@@ -118,6 +130,9 @@ export default new Vuex.Store({
         setFree(state, payload){
             state.free = payload;
         },
+        setFreeComments(state, payload){
+            state.free_comments = payload;
+        },
         // Notice
         setNotices(state, payload) {
             state.notices = payload;
@@ -125,9 +140,9 @@ export default new Vuex.Store({
     },
     actions: {
         //login
-        login(context, {memberId, memberPw}) {
-            http.post('/member/login',{
-                memberId,
+        login(context, {memberEmail, memberPw}) {
+            http.post('/account/signin',{
+                memberEmail,
                 memberPw
             })
             .then(({data})=> {
@@ -152,12 +167,13 @@ export default new Vuex.Store({
         // program
         getPrograms(context, payload) {
             http.get(payload).then(({data}) => {
-                context.commit("setPrograms", data.programBoardList);
+                context.commit("setPrograms", data.list);
             });
         },
         getProgram(context, payload) {
             http.get(payload).then(({data}) => {
-                context.commit("setProgram", data.programBoard);
+                console.log(data)
+                context.commit("setProgram", data);
             });
         },
         getProgramComments(context, payload) {
@@ -227,28 +243,45 @@ export default new Vuex.Store({
         //Free
         getFrees(context,payload) {
             http.get(payload).then(({data}) => {
-                context.commit("setFrees", data)
+                context.commit("setFrees", data.list)
 
             });
         },
         getFree(context, payload) {
             http.get(payload).then(({data}) => {
-                
                 context.commit("setFree", data);
             })
         },
-        freeCreate(context, {freeBoardTitle, freeBoardContent}) {
+        freeCreate(context, {freeBoardTitle, freeBoardContent, memberId}) {
             http.post('/free/board',{
                 freeBoardTitle,
-                freeBoardContent
+                freeBoardContent,
+                memberId,
             })
             .then(({data})=> {
                 if(data.result=='success'){
                     context.commit("setFree", data);
                     location.href='/community/freelist';
+                } else {
+                    alert(data.message);
+                    return;
                 }
             })
         },
+        deleteFree(context, payload) {
+            http.delete(`/free/board/${payload}`).then(({data})=>{
+                console.log(data)
+                if (data.result === "success") {
+                    location.href='/community/freelist';
+                } else {
+                    alert("삭제불가")
+                }
+            })
+        },
+        getFreeComments(context, payload){
+            http.get(payload).then((({data})=>{
+                context.commit("setFreeComments", data.list);
+            }))
         // notice
         getNotices(context, payload) {
             http.get(payload).then(({data}) => {
