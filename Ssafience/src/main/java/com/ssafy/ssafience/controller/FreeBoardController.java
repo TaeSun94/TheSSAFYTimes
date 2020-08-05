@@ -78,8 +78,35 @@ public class FreeBoardController {
 		return new ResponseEntity<ListResponse<FreeBoard>>(result, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "특정 자유게시판 상세 조회")
+	@GetMapping("/{boardno}")
+	public ResponseEntity<SingleResponse<FreeBoard>> getBoardOne(@PathVariable int boardno){
+		final SingleResponse<FreeBoard> result = new SingleResponse<>();
+		
+		try {
+			FreeBoard board = fService.selectBoardOne(boardno);
+			if (board != null) {
+				result.result = SUCCESS;
+				result.status = HttpStatus.OK;
+				result.message="자유게시판 상세조회에 성공했습니다.";	
+				result.setData(board);
+			} else {
+				result.result = NOTAVAILABLE;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message="존재하지 않는 게시글 입니다. 확인 후 다시 시도해주세요.";				
+			}			
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message="자유게시판 목록 가져오는 중 문제가 발생했습니다.";
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<SingleResponse<FreeBoard>>(result, HttpStatus.OK);
+	}
+	
 	@ApiOperation(value = "특정 회원의 자유게시판 목록 반환")
-	@GetMapping("/{memberid}")
+	@GetMapping("/{memberid}/list")
 	public ResponseEntity<ListResponse<FreeBoard>> getMemberBoardList(@PathVariable String memberid){
 		final ListResponse<FreeBoard> result = new ListResponse<>();
 		
