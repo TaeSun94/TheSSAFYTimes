@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.ssafience.model.BasicResponse;
 import com.ssafy.ssafience.model.valid.EmailCheckRequest;
+import com.ssafy.ssafience.model.valid.IdCheckRequest;
 import com.ssafy.ssafience.service.valid.ValidService;
 
 import io.swagger.annotations.Api;
@@ -62,6 +63,33 @@ public class ValidController {
 			result.result = FAIL;
 			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
 			result.message = "이메일 중복 확인 중 문제가 발생했습니다.";
+			e.printStackTrace();
+		}
+		
+		
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "아이디(닉네임) 중복 확인")
+	@PostMapping("id")
+	public ResponseEntity<BasicResponse> checkId (@RequestBody IdCheckRequest request){
+		final BasicResponse result = new BasicResponse();
+		
+		try {
+			boolean checkId = vService.idDupCheck(request);
+			if (checkId) {
+				result.result = SUCCESS;
+				result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+				result.message = "사용가능한 닉네임 입니다.";
+			} else {
+				result.result = NOTAVAILABLE;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "이미 사용 중인 닉네임 입니다.";
+			}
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message = "닉네임 중복 확인 중 문제가 발생했습니다.";
 			e.printStackTrace();
 		}
 		
