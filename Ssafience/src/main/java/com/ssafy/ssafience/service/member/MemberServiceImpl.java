@@ -64,7 +64,7 @@ public class MemberServiceImpl implements MemberService{
 	public int insert(SignUpRequest request) throws Exception {
 		String encodePw = encoder.encode(request.getMemberPw());
 		Member member = Member.builder()
-//				.memberId(request.getMemberId())
+				.memberId(request.getMemberId())
 				.memberPw(encodePw)
 				.memberEmail(request.getMemberEmail())
 				.build();
