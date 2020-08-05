@@ -64,7 +64,7 @@ export default {
         },
         updateHandler() {
             var content = this.$refs.toastuiEditor.invoke("getMarkdown");
-            http.put("/board/program", {
+            http.put("/program/board", {
                 memberId: sessionStorage.getItem("memberId"),
                 programBoardTitle: this.programTitle,
                 programBoardContent: content,
@@ -83,8 +83,8 @@ export default {
         }
     },
     created() {
-        http.get(`/board/program/${this.$route.params.no}`).then(({data})=> {
-            var board = data.programBoard;
+        http.get(`/program/board/${this.$route.params.no}`).then(({data})=> {
+            var board = data.data;
             this.programNo = board.programBoardNo;
             this.programTitle = board.programBoardTitle;
             this.programWriter = board.memberId;

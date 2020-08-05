@@ -96,10 +96,6 @@ export default {
     data () {
       return {
         drawer: null,
-        items: [
-          { title: 'Home' },
-          { title: 'About' },
-        ],
         login: false,
         memberId: '',
         memberEmail: '',
@@ -114,6 +110,8 @@ export default {
             this.$router.push({path:'/'});
             alert("로그아웃 되었습니다.");
             location.reload();
+            this.$store.dispatch('logout');
+            this.$router.push('/');
         }
     },
     created() {

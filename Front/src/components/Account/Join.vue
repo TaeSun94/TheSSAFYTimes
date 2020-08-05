@@ -9,7 +9,7 @@
             v-model="memberId"
             :rules="IdRules"
             :counter="10"
-            label="ID*"
+            label="닉네임*"
             required
             @blur="checkIdDup"
             ></v-text-field>
@@ -85,7 +85,7 @@ import http from '@/http-common'
     data: () => ({
       memberId: '',
       IdRules: [
-        v => !!v || 'ID를 입력해주세요.',
+        v => !!v || '닉네임을 입력해주세요.',
         v => (v && v.length <= 10) || 'Name must be less than 10 characters'
       ],
       memberPw: '',
@@ -114,7 +114,7 @@ import http from '@/http-common'
       },
       submit () {
         if(this.idck==true && this.pwck==true && this.emailck==true){
-          http.post('/member/signup', {
+          http.post('/account/signup', {
             memberId: this.memberId,
             memberEmail: this.memberEmail,
             memberPw: this.memberPw,
@@ -157,7 +157,7 @@ import http from '@/http-common'
         }
       },
       checkEmail() {
-        http.post('/valid/emailValid', {
+        http.post('/valid/email', {
           memberEmail : this.memberEmail
         })
         .then(({data})=> {

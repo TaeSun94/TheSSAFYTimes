@@ -52,7 +52,7 @@ export default {
         },
         createHandler() {
             var content = this.$refs.toastuiEditor.invoke("getMarkdown");
-            http.post("/board/program", {
+            http.post("/program/board", {
                 memberId: sessionStorage.getItem("memberId"),
                 programBoardTitle: this.title,
                 programBoardContent: content,

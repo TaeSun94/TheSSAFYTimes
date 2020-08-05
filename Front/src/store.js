@@ -64,8 +64,8 @@ export default new Vuex.Store({
         // login
         setMember(state, payload) {
             state.member = payload;
-            sessionStorage.setItem('memberId', payload.member.memberId);
-            sessionStorage.setItem('memberEmail', payload.member.memberEmail);
+            sessionStorage.setItem('memberId', payload.memberId);
+            sessionStorage.setItem('memberEmail', payload.memberEmail);
         },
         // program
         setPrograms(state, payload) {
@@ -125,9 +125,9 @@ export default new Vuex.Store({
     },
     actions: {
         //login
-        login(context, {memberId, memberPw}) {
-            http.post('/member/login',{
-                memberId,
+        login(context, {memberEmail, memberPw}) {
+            http.post('/account/signin',{
+                memberEmail,
                 memberPw
             })
             .then(({data})=> {
@@ -137,13 +137,13 @@ export default new Vuex.Store({
                     this.$router.push("/login");
                 } else if(data.result=='notavailable'){
                     alert(data.message);
-                    context.commit("setMember", data);
+                    context.commit("setMember", data.data);
                     //이메일 인증페이지로 가면 됌
                     router.push("/EmailCheck");
                     location.reload();
                 } else if(data.result=='success'){
                     alert(data.message);
-                    context.commit("setMember", data);
+                    context.commit("setMember", data.data);
                     router.push("/");
                     location.reload();
                 }
@@ -152,17 +152,17 @@ export default new Vuex.Store({
         // program
         getPrograms(context, payload) {
             http.get(payload).then(({data}) => {
-                context.commit("setPrograms", data.programBoardList);
+                context.commit("setPrograms", data.list);
             });
         },
         getProgram(context, payload) {
             http.get(payload).then(({data}) => {
-                context.commit("setProgram", data.programBoard);
+                context.commit("setProgram", data.list);
             });
         },
         getProgramComments(context, payload) {
             http.get(payload).then(({data}) => {
-                context.commit("setProgramComments", data.programCommentList);
+                context.commit("setProgramComments", data.list);
             });
         },
         // 멤버확인할때
@@ -252,7 +252,7 @@ export default new Vuex.Store({
         // notice
         getNotices(context, payload) {
             http.get(payload).then(({data}) => {
-                context.commit("setNotices", data.noticeList);
+                context.commit("setNotices", data.list);
             })
         }
     }
