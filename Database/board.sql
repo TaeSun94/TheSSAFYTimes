@@ -94,9 +94,11 @@ CREATE TABLE `notice` (
     member_id VARCHAR(20) ,
     notice_title VARCHAR(200) NOT NULL ,
     notice_content TEXT,
-    notice_datetime DATETIME ,
+    notice_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
     FOREIGN KEY (member_id) REFERENCES member(member_id) ON UPDATE CASCADE ON DELETE SET NULL
 );
+ALTER TABLE notice MODIFY COLUMN notice_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
+SHOW CREATE TABLE
 
 /*============================================================================*/
 
