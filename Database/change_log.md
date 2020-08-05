@@ -54,4 +54,6 @@
 
 # 0805
 
-* [추가] team_board, team_apply 테이블 추가
+* [추가] team_board, team_apply 테이블
+* [수정] notice 테이블 notice_datetime 기본값 설정 안 되어있었음 (X -> CURRENT_TIMESTAMP)
+* [추가] team_board, team_apply 테이블 datetime 컬럼
