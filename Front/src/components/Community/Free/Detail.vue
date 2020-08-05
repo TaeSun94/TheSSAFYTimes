@@ -9,19 +9,19 @@
             <v-container class="elevation-5 col-lg-7">
                 <div id="app">
                     <div class="textfield">
-                        <div v-html="this.free.freeBoard.freeBoardTitle" class="ml-4 textfield-input"></div>
+                        <div v-html="this.free.data.freeBoardTitle" class="ml-4 textfield-input"></div>
                         <hr>
                         
                     </div>
                                     
                     <div class="text-right mr-5">
 
-                        <small class="description">👀 조회수 {{ this.free.freeBoard.freeBoardHit }} /</small>
-                        <small class="description"> SSAFY 3기 {{ this.free.freeBoard.memberId }} / </small>
-                        <small class="description"> {{$moment(this.free.freeBoard.freeBoardDatetime).format('YYYY-MM-DD hh:mm:ss')}} </small>
+                        <small class="description">👀 조회수 {{ this.free.data.freeBoardHit }} /</small>
+                        <small class="description"> SSAFY 3기 / </small>
+                        <small class="description"> {{$moment(this.free.data.freeBoardDatetime).format('YYYY-MM-DD hh:mm:ss')}} </small>
 
                     </div>
-                    <div v-html="this.free.freeBoard.freeBoardContent" class="inner">
+                    <div v-html="this.free.data.freeBoardContent" class="inner">
                     </div>
                     <div class="delete text-right mr-5">
                         <v-btn rounded @click="deleteHandler" v-if="check"> 삭제 </v-btn>     
@@ -29,7 +29,7 @@
                     <div class="likeContent">
                         <h3 class="like ml-3 like-button" @click="likeButton" v-html="likeTrue"> </h3> 
                         <h3 class="like"> 이 글 좋아요</h3>
-                        <h3 class="like"> {{ this.free.freeBoard.freeBoardLikeCount }}</h3>       
+                        <h3 class="like"> {{ this.free.data.freeBoardLikeCount }}</h3>       
                     </div>
 
 
@@ -90,13 +90,7 @@ export default {
     name: 'FreeDetail',
     data() {
         return {
-            replys: [
-                {
-                    no:1,
-                    content:'댓글입니다. 댓글입니다. 댓글입니다.댓다.댓글입니다.댓글입니다.',
-                    memberid:'옴팡'
-                }
-            ],
+
           content: false,
           commentContent: true,
           likeControll: true,
@@ -114,13 +108,13 @@ export default {
         var id = sessionStorage.getItem('memberId');
         this.memberId = id
         this.$store.dispatch("getFree", `/free/board/${this.$route.params.no}`)
-        this.$store.dispatch("getFreeComments", `/free/${this.$route.params.no}/comment?freeBoardNo=${this.$route.params.no}`)
-        if(this.free.freeBoard.memberId==sessionStorage.getItem('memberId')){
-            this.check = true
-            console.log(this.check)
-        } else  {
-            this.check = false
-        }     
+        this.$store.dispatch("getFreeComments", `/free/${this.$route.params.no}/comment`)
+        // if(this.free.freeBoard.memberEmail==sessionStorage.getItem('memberEmail')){
+        //     this.check = true
+        //     console.log(this.check)
+        // } else  {
+        //     this.check = false
+        // }     
     },
     methods: {
         commentShow() {

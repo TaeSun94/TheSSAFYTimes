@@ -23,8 +23,7 @@ export default new Vuex.Store({
         // free
         frees: [],
         free: {
-            freeBoard: {},
-            freeBoardList: [],
+            data: {},
             message : "",
             result : "",
             status: "",
@@ -134,9 +133,9 @@ export default new Vuex.Store({
     },
     actions: {
         //login
-        login(context, {memberId, memberPw}) {
-            http.post('/member/login',{
-                memberId,
+        login(context, {memberEmail, memberPw}) {
+            http.post('/account/signin',{
+                memberEmail,
                 memberPw
             })
             .then(({data})=> {
@@ -161,12 +160,13 @@ export default new Vuex.Store({
         // program
         getPrograms(context, payload) {
             http.get(payload).then(({data}) => {
-                context.commit("setPrograms", data.programBoardList);
+                context.commit("setPrograms", data.list);
             });
         },
         getProgram(context, payload) {
             http.get(payload).then(({data}) => {
-                context.commit("setProgram", data.programBoard);
+                console.log(data)
+                context.commit("setProgram", data);
             });
         },
         getProgramComments(context, payload) {
@@ -236,13 +236,12 @@ export default new Vuex.Store({
         //Free
         getFrees(context,payload) {
             http.get(payload).then(({data}) => {
-                context.commit("setFrees", data.freeBoardList)
+                context.commit("setFrees", data.list)
 
             });
         },
         getFree(context, payload) {
             http.get(payload).then(({data}) => {
-                
                 context.commit("setFree", data);
             })
         },
@@ -256,6 +255,9 @@ export default new Vuex.Store({
                 if(data.result=='success'){
                     context.commit("setFree", data);
                     location.href='/community/freelist';
+                } else {
+                    alert(data.message);
+                    return;
                 }
             })
         },
@@ -271,7 +273,7 @@ export default new Vuex.Store({
         },
         getFreeComments(context, payload){
             http.get(payload).then((({data})=>{
-                context.commit("setFreeComments", data.freeCommentList);
+                context.commit("setFreeComments", data.list);
             }))
         }
     }

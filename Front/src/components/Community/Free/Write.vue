@@ -73,7 +73,8 @@ export default {
         // 만약, 내용이 다 입력되어 있다면 createHandler 호출
         var freeBoardTitle = this.freeBoardTitle
         var freeBoardContent = this.freeBoardContent
-        this.$store.dispatch("freeCreate", { freeBoardTitle, freeBoardContent });
+        var memberId = sessionStorage.getItem("memberId")
+        this.$store.dispatch("freeCreate", { freeBoardTitle, freeBoardContent, memberId });
       }
     },
   }

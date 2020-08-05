@@ -9,102 +9,66 @@
                     </div>
                     <v-spacer></v-spacer>
                 </v-card-title>
-                <div  class="text-right mr-5">
+                <div class="text-right mr-5">
                   <router-link class="write-link" :to="{path:'/community/teamWrite'}">팀원 구하기</router-link>
                 </div>
-  
-            </v-card>
-            <v-card
-                class="col-3"
-                color="#26c6da"
-                dark
-                max-width="400"
-            >
-                <v-card-title>
-                <v-icon
-                    large
-                    left
-                >
-                    mdi-twitter
-                </v-icon>
-                <span class="title font-weight-light">Twitter</span>
-                </v-card-title>
+             <v-container fluid class="text-center">
+                <div class="item_card recruit_card" v-for="item in 5" :key="item.index">
+                    <a href="/team/4666">
+                        <div class="card_image">
+                            <a style="background-color:#ffb347"></a>
+                        </div>
+                    </a> 
+                    <div class="card_contents">
+                        <div class="title">
+                            <a>공모전 나가실 팀원 분 구해요</a>
+                        </div> 
+                        <div class="sub_title  mb-3">
+                            <span class="by_writer">SSAFY 3기 홍길동</span> 
 
-                <v-card-text class="headline font-weight-bold">
-                "Turns out semicolon-less style is easier and safer in TS because most gotcha edge cases are type invalid as well."
-                </v-card-text>
+                        </div> 
+                        <div class="recruit_title">
+                            <v-chip
+                            class="ma-2"
+                            color="green"
+                            text-color="white"
+                            >
+                            Vue.js
+                            <v-icon right></v-icon>
+                            </v-chip>
+                            <v-chip
+                            class="ma-2"
+                            color="green"
+                            text-color="white"
+                            >
+                            JAVA
+                            <v-icon right></v-icon>
+                            </v-chip>
+                                                        <v-chip
+                            class="ma-2"
+                            color="green"
+                            text-color="white"
+                            >
+                            Spring
+                            <v-icon right></v-icon>
+                            </v-chip>
+                        </div> 
+                        <div class="recruit_desc">
+                            <li>프론트엔드 2명</li>
+                            <li> 백엔드 2명 </li>
+                        </div> 
+                        <div class="mt-3 text-right">
+                            <v-btn icon>
+                                <v-icon>mdi-heart</v-icon>
+                            </v-btn>
+                            <v-btn icon>
+                                <v-icon>mdi-bookmark</v-icon>
+                            </v-btn>
+                        </div> 
+                    </div>
+                </div>
 
-                <v-card-actions>
-                <v-list-item class="grow">
-                    <v-list-item-avatar color="grey darken-3">
-                    <v-img
-                        class="elevation-6"
-                        src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-                    ></v-img>
-                    </v-list-item-avatar>
-
-                    <v-list-item-content>
-                    <v-list-item-title>Evan You</v-list-item-title>
-                    </v-list-item-content>
-
-                    <v-row
-                    align="center"
-                    justify="end"
-                    >
-                    <v-icon class="mr-1">mdi-heart</v-icon>
-                    <span class="subheading mr-2">256</span>
-                    <span class="mr-1">·</span>
-                    <v-icon class="mr-1">mdi-share-variant</v-icon>
-                    <span class="subheading">45</span>
-                    </v-row>
-                </v-list-item>
-                </v-card-actions>
-            </v-card>
-         <v-card
-                class="col-3"
-                color="#26c6da"
-                dark
-                max-width="400"
-            >
-                <v-card-title>
-                <v-icon
-                    large
-                    left
-                >
-                    mdi-twitter
-                </v-icon>
-                <span class="title font-weight-light">Twitter</span>
-                </v-card-title>
-
-                <v-card-text class="headline font-weight-bold">
-                "Turns out semicolon-less style is easier and safer in TS because most gotcha edge cases are type invalid as well."
-                </v-card-text>
-
-                <v-card-actions>
-                <v-list-item class="grow">
-                    <v-list-item-avatar color="grey darken-3">
-                    <v-img
-                        class="elevation-6"
-                        src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
-                    ></v-img>
-                    </v-list-item-avatar>
-
-                    <v-list-item-content>
-                    <v-list-item-title>Evan You</v-list-item-title>
-                    </v-list-item-content>
-
-                    <v-row
-                    align="center"
-                    justify="end"
-                    >
-                    <v-icon class="mr-1">mdi-heart</v-icon>
-                    <span class="subheading mr-2">256</span>
-                    <span class="mr-1">·</span>
-                    <v-icon class="mr-1">mdi-share-variant</v-icon>
-                    <span class="subheading">45</span>
-                    </v-row>
-                </v-list-item>
-                </v-card-actions>
+            </v-container>
             </v-card>
         </v-container>
     </div>
@@ -122,7 +86,8 @@ export default {
             page:1,
             perPage: 25,
             pageLength: 0,
-            pageCount: this.pageLength/this.perPage
+            pageCount: this.pageLength/this.perPage,
+
         }
     },
     computed: {
@@ -139,6 +104,110 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
+.text-content{
+    height: 250px;
+    display: flex;
+    align-items: center;
+}
+
+.recruit_card {
+    height: 400px;
+    border-radius: 10px;
+    border:0.3px solid grey;
+}
+.bottom_section{
+    margin-top:20px;
+}
+
+.item_card:hover {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.item_card {
+    position: relative;
+    width: 330px;
+    vertical-align: top;
+    margin: 20px 15px;
+    background-color: #ffffff;
+    display: inline-block;
+    text-align: left;
+    box-shadow: 0px 0px 30px #eee;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.45s ease-in-out;
+  transition: all 0.45s ease-in-out;
+
+}
+a {
+    color: #3c3c3c;
+    text-decoration: none;
+}
+
+.recruit_card .card_image > a {
+    width: 100%;
+    height: 100px;
+    display: inline-block;
+    background-position: center center;
+    transition-duration: 0.2s;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.recruit_card .card_image .card_hover {
+    opacity: 0;
+    transition-duration: 0.2s;
+    background-color: #ffd112;
+    width: 100%;
+    height: 120px;
+    position: absolute;
+    top: 0px;
+    text-align: center;
+    cursor: pointer;
+}
+.recruit_card .card_contents .sub_title {
+    color: #979797;
+    font-size: 14px;
+}
+.item_card .bottom_section {
+    position: absolute;
+    width: 100%;
+    height: 20px;
+    left: 0px;
+    bottom: 23px;
+}
+.item_card .bottom_section .writing_time {
+    position: absolute;
+    top: 3px;
+    left: 30px;
+}
+.item_card .bottom_section .ic_bookmark {
+    position: absolute;
+    right: 28px;
+    top: 6px;
+    cursor: pointer;
+}
+a {
+    color: #3c3c3c!important;
+    text-decoration: none!important;
+}
+.recruit_card .card_contents .recruit_desc {
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 25px;
+    margin-top: 5px;
+    color: #707070;
+    word-break: keep-all;
+}
+.recruit_card .card_contents .title {
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    overflow: hidden;
+    margin-bottom: 20px;
+    text-overflow: ellipsis;
+}
+.recruit_card .card_contents {
+    padding: 25px 30px;
+}
 </style>

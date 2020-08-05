@@ -8,7 +8,7 @@
                         <h1 class="m-4"> 🧑‍🤝‍🧑 자유게시판 </h1>
                     </div>
                     <v-spacer></v-spacer>
-                    <v-btn v-if="login===false"  disabled large tile depressed :to="{ path: '/community/freewrite'}" class="writeBtn" >글쓰기!</v-btn>
+                    <v-btn v-if="login===false"  large tile depressed :to="{ path: '/community/freewrite'}" class="writeBtn" >글쓰기!</v-btn>
                     <v-btn v-if="login===true" tile large depressed dark  :to="{ path: '/community/freewrite'}" class="writeBtn" >글쓰기!</v-btn>
                 </v-card-title>
                 <v-card-title>
@@ -29,9 +29,7 @@
                     @click:row="handleClick"
                     class="table"
                 >
-                <template v-slot:item.freeBoardDatetime="{ item }">
-                    <span>{{new Date(item.freeBoardDatetime).toLocaleString()}}</span>
-                </template>
+
                 </v-data-table>
                 <div class="text-center pt-2">
                     <v-pagination v-model="page" :length="pageCount"></v-pagination>
