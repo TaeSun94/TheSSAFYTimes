@@ -7,5 +7,5 @@ public class ProgramWriteRequest {
 	private String memberId;
 	private String programBoardTitle;
 	private String programBoardContent;
-	private String programBoardTrack;
+	private int programBoardTrack;
 }

@@ -1,6 +1,6 @@
 package com.ssafy.ssafience.model.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -13,7 +13,7 @@ public class ProgramBoard {
 	private String memberId;
 	private String programBoardTitle;
 	private String programBoardContent;
-	private String programBoardTrack;
+	private int programBoardTrack;
 	private int programBoardHit;
 	private Date programBoardUpdateDatetime;
 	private Date programBoardDatetime;

@@ -3,10 +3,10 @@
     <div class="row">
         <v-container class="elevation-5 col-lg-12">
             <v-card-actions class="ml-3">
-                <div class="ml-7">
+                <div class="col-lg-3">
                     <connect-here v-model="member"></connect-here>
                 </div>
-                <div class="ml-10" style="position:relative;">
+                <div class="col-lg-6 text-center" style="position:relative;">
                     <v-avatar :size="150">
                         <img
                             src="@/assets/logo.png"
@@ -14,13 +14,23 @@
                         >  
                     </v-avatar>
                 </div>
-                <div class="ml-7">
+                <div class="col-lg-3">
+                    <!-- 만약 세션이 나이고 쿼리를 통해 들어온거와 같다면 -->
+                    <!-- <div v-if=""> -->
                     <div v-if="member.memberFirstName === null || member.memberFirstName === ''">
                         <v-btn class="primary" @click="mvEditProfile">등록</v-btn>
                     </div>
                     <div v-else>
                         <v-btn class="primary" @click="mvEditProfile">수정</v-btn>
                     </div>
+                    <!-- </div> -->
+
+                    <!-- 아니라면 -->
+                    <!-- <div v-else> -->
+                    <!-- <div>
+                        <v-btn class="primary" @click="mvEditProfile">친구추가</v-btn>
+                    </div> -->
+                    <!-- </div> -->
                 </div>
             </v-card-actions>
             <div v-if="member.memberFirstName !== null && member.memberFirstName !==''">
