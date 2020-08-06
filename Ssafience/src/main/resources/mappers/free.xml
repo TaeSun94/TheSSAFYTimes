@@ -79,5 +79,13 @@
 		where free_comment_no = #{commentNo}
 	</delete>
 	
+	<!-- 좋아요 -->
+	<insert id="insertLike">
+		insert ignore into free_board_like
+				(free_board_no, member_id, free_board_like_check)
+		values
+				(#{boardNo}, #{memberId}, #{boardLikeCheck})
+				
+	</insert>	
 </mapper>
 

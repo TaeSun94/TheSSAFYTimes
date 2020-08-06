@@ -20,17 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.ssafience.model.BasicResponse;
 import com.ssafy.ssafience.model.ListResponse;
 import com.ssafy.ssafience.model.SingleResponse;
-import com.ssafy.ssafience.model.article.ArticleModifyRequest;
-import com.ssafy.ssafience.model.article.ArticleResult;
-import com.ssafy.ssafience.model.article.WriteRequest;
-import com.ssafy.ssafience.model.board.BoardResult;
 import com.ssafy.ssafience.model.board.FreeModifyRequest;
 import com.ssafy.ssafience.model.board.FreeWriteRequest;
-import com.ssafy.ssafience.model.dto.Article;
 import com.ssafy.ssafience.model.dto.FreeBoard;
-import com.ssafy.ssafience.model.dto.Member;
-import com.ssafy.ssafience.service.article.ArticleService;
-import com.ssafy.ssafience.service.board.FreeBoardService;
+import com.ssafy.ssafience.model.dto.TeamBoard;
+import com.ssafy.ssafience.model.team.TeamModifyRequest;
+import com.ssafy.ssafience.model.team.TeamWriteRequest;
+import com.ssafy.ssafience.service.board.TeamService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,52 +39,53 @@ import io.swagger.annotations.ApiResponses;
         @ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
 
 //@CrossOrigin(origins = { "http://localhost:3000" })
-@Api(tags = "FreeBoard : 자유게시판")
+@Api(tags = "Team : 팀 매칭")
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/free/board")
-public class FreeBoardController {
+@RequestMapping("/api/team/board")
+public class TeamController {
 
-	private static final Logger logger = LoggerFactory.getLogger(FreeBoardController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 
 	static final String SUCCESS = "success";
 	static final String FAIL = "fail";
 	static final String NOTAVAILABLE = "notavailable";
 	
 	@Autowired
-	private FreeBoardService fService;
+	TeamService tService;
 	
-	@ApiOperation(value = "모든 자유게시판 목록 반환")
+	@ApiOperation(value = "모든 팀 매칭 게시판 목록 반환")
 	@GetMapping
-	public ResponseEntity<ListResponse<FreeBoard>> getBoardList(){
-		final ListResponse<FreeBoard> result = new ListResponse<>();
+	public ResponseEntity<ListResponse<TeamBoard>> getBoardList(){
+		final ListResponse<TeamBoard> result = new ListResponse<>();
 		try {
-			List<FreeBoard> list = fService.selectBoardList();
+			List<TeamBoard> list = tService.selectBoardList();
 			result.result = SUCCESS;
 			result.status = HttpStatus.OK;
 			result.setList(list);
-			result.message="자유게시판 목록 가져오는데 성공했습니다.";				
+			result.message="팀 매칭 게시판 목록 가져오는데 성공했습니다.";				
 			
 		} catch (Exception e) {
 			result.result = FAIL;
 			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-			result.message="모든 자유게시판 목록 가져오는 중 문제가 발생했습니다.";
+			result.message="모든 팀 매칭 게시판 목록 가져오는 중 문제가 발생했습니다.";
 			e.printStackTrace();
 		}
-		return new ResponseEntity<ListResponse<FreeBoard>>(result, HttpStatus.OK);
+		return new ResponseEntity<ListResponse<TeamBoard>>(result, HttpStatus.OK);
 	}
+
 	
-	@ApiOperation(value = "특정 자유게시판 상세 조회")
+	@ApiOperation(value = "특정 팀 매칭 게시판 상세 조회")
 	@GetMapping("/{boardno}")
-	public ResponseEntity<SingleResponse<FreeBoard>> getBoardOne(@PathVariable int boardno){
-		final SingleResponse<FreeBoard> result = new SingleResponse<>();
+	public ResponseEntity<SingleResponse<TeamBoard>> getBoardOne(@PathVariable int boardno){
+		final SingleResponse<TeamBoard> result = new SingleResponse<>();
 		
 		try {
-			FreeBoard board = fService.selectBoardOne(boardno);
+			TeamBoard board = tService.selectBoardOne(boardno);
 			if (board != null) {
 				result.result = SUCCESS;
 				result.status = HttpStatus.OK;
-				result.message="자유게시판 상세조회에 성공했습니다.";	
+				result.message=" 팀 매칭 게시판 상세조회에 성공했습니다.";	
 				result.setData(board);
 			} else {
 				result.result = NOTAVAILABLE;
@@ -98,48 +95,20 @@ public class FreeBoardController {
 		} catch (Exception e) {
 			result.result = FAIL;
 			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-			result.message="자유게시판 목록 가져오는 중 문제가 발생했습니다.";
+			result.message=" 팀 매칭 게시판 목록 가져오는 중 문제가 발생했습니다.";
 			e.printStackTrace();
 		}
 		
-		return new ResponseEntity<SingleResponse<FreeBoard>>(result, HttpStatus.OK);
+		return new ResponseEntity<SingleResponse<TeamBoard>>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "특정 회원의 자유게시판 목록 반환")
-	@GetMapping("/{memberid}/list")
-	public ResponseEntity<ListResponse<FreeBoard>> getMemberBoardList(@PathVariable String memberid){
-		final ListResponse<FreeBoard> result = new ListResponse<>();
-		
-		try {
-			BoardResult<FreeBoard> myBoardResult = fService.selectMemberBoardList(memberid);
-			if (myBoardResult.isAuthor()) {
-				result.result = SUCCESS;
-				result.status = HttpStatus.OK;
-				result.setList(myBoardResult.getBoardList());
-				result.message="자유게시판 목록 가져오는데 성공했습니다.";				
-			} else {
-				result.result = NOTAVAILABLE;
-				result.status = HttpStatus.NO_CONTENT;
-				result.message="존재하지 않는 회원입니다. 회원가입을 진행해주세요.";				
-			}
-			
-		} catch (Exception e) {
-			result.result = FAIL;
-			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-			result.message="자유게시판 목록 가져오는 중 문제가 발생했습니다.";
-			e.printStackTrace();
-		}
-		
-		return new ResponseEntity<ListResponse<FreeBoard>>(result, HttpStatus.OK);
-	}
-	
-	@ApiOperation(value = "새로운 자유게시판 게시글 등록")
+	@ApiOperation(value = "새로운 팀 매칭 게시판 게시글 등록")
 	@PostMapping
-	public ResponseEntity<BasicResponse> insertBoard(@RequestBody FreeWriteRequest request){
+	public ResponseEntity<BasicResponse> insertBoard(@RequestBody TeamWriteRequest request){
 		final BasicResponse result = new BasicResponse();
 		
 		try {
-			int insertBoard = fService.insert(request);
+			int insertBoard = tService.insert(request);
 			if (insertBoard == -1) {
 				result.result = NOTAVAILABLE;
 				result.status = HttpStatus.NO_CONTENT;
@@ -163,13 +132,13 @@ public class FreeBoardController {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "자유게시판 게시글 수정")
+	@ApiOperation(value = "팀 매칭 게시판 게시글 수정")
 	@PutMapping
-	public ResponseEntity<BasicResponse> updateBoard(@RequestBody FreeModifyRequest request){
+	public ResponseEntity<BasicResponse> updateBoard(@RequestBody TeamModifyRequest request){
 		final BasicResponse result = new BasicResponse();
 		
 		try {
-			int updateBoard = fService.update(request);
+			int updateBoard = tService.update(request);
 			if (updateBoard == -1) {
 				result.result = NOTAVAILABLE;
 				result.status = HttpStatus.NO_CONTENT;
@@ -193,13 +162,13 @@ public class FreeBoardController {
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "자유게시판 게시글 삭제")
+	@ApiOperation(value = "팀 매칭 게시판 게시글 삭제")
 	@DeleteMapping("/{boardno}")
 	public ResponseEntity<BasicResponse> deleteBoard(@PathVariable int boardno){
 		final BasicResponse result = new BasicResponse();
 		
 		try {
-			int deleteBoard = fService.delete(boardno);
+			int deleteBoard = tService.delete(boardno);
 			if (deleteBoard == -1) {
 				result.result = NOTAVAILABLE;
 				result.status = HttpStatus.NO_CONTENT;
@@ -225,19 +194,3 @@ public class FreeBoardController {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
