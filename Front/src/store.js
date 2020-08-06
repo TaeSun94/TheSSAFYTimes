@@ -2,7 +2,6 @@ import Vue from "vue";
 import Vuex from "vuex";
 import http from "@/http-common";
 import router from "./router";
-
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -105,8 +104,7 @@ export default new Vuex.Store({
         // login
         setMember(state, payload) {
             state.member = payload;
-            sessionStorage.setItem('memberId', payload.member.memberId);
-            sessionStorage.setItem('memberEmail', payload.member.memberEmail);
+            document.$cookies.set("memberId", payload.memberId);
         },
         // program
         setPrograms(state, payload) {
@@ -200,19 +198,18 @@ export default new Vuex.Store({
                 memberPw
             })
             .then(({data})=> {
-                console.log(data);
                 if(data.result=='fail'){    
                     alert(data.message);
                     this.$router.push("/login");
                 } else if(data.result=='notavailable'){
                     alert(data.message);
-                    context.commit("setMember", data);
+                    document.$cookies.set("memberEmail", memberEmail, "1D");
                     //이메일 인증페이지로 가면 됌
                     router.push("/EmailCheck");
                     location.reload();
                 } else if(data.result=='success'){
                     alert(data.message);
-                    context.commit("setMember", data);
+                    context.commit("setMember", data.data);
                     router.push("/");
                     location.reload();
                 }
@@ -226,13 +223,12 @@ export default new Vuex.Store({
         },
         getProgram(context, payload) {
             http.get(payload).then(({data}) => {
-                console.log(data)
-                context.commit("setProgram", data);
+                context.commit("setProgram", data.list);
             });
         },
         getProgramComments(context, payload) {
             http.get(payload).then(({data}) => {
-                context.commit("setProgramComments", data.programCommentList);
+                context.commit("setProgramComments", data.list);
             });
         },
         // 멤버확인할때
@@ -377,7 +373,7 @@ export default new Vuex.Store({
         // notice
         getNotices(context, payload) {
             http.get(payload).then(({data}) => {
-                context.commit("setNotices", data.noticeList);
+                context.commit("setNotices", data.list);
             })
         }
     }
