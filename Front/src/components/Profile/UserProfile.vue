@@ -55,7 +55,7 @@
                                                     <div class="col-md-4" id="se">
                                                         <v-select
                                                             v-model="article.articleType"
-                                                            :items="options"
+                                                            :items="articleTypes"
                                                             label="기사 분류"
                                                             multiple
                                                             chips
@@ -85,7 +85,6 @@
             <br>
             <div>
                 <div v-if="articles.length">
-                    
                     <div v-for="(item, index) in articles" :key="index + '_articles'">
                 <!-- 작성된 기사 부분 -->
                         <v-container class="elevation-5">
@@ -112,7 +111,7 @@
                         <br>
                     </div>
                     <!-- infinite loading -->
-                    <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+                    <!-- <infinite-loading @infinite="infiniteHandler"></infinite-loading> -->
                 </div>
                 <div v-else class="text-center">
                     <h3>등록된 기사가 없습니다.</h3>
@@ -122,16 +121,13 @@
         <!-- 프로필 및 친구 관계가 들어갈 공간 -->
         <div class="col-lg-4 mr-15">
         <!-- <v-container class="elevation-5 col-lg-12"> -->
-            <profile-card></profile-card>
+            <profile-card v-model="profile.memberId"></profile-card>
         <!-- </v-container> -->
         <br>
         <v-container class="elevation-5 col-lg-12">
             <div class="col mb-4">
                 <div class="col-lg-4" style="float:left;">
                     <h4> Followers</h4>
-                </div>
-                <div class="" style="position:relative; float:right;">
-                    <add-following v-model="followings"></add-following>
                 </div>
                 <hr class="my-4 mt-10" />
             </div>
@@ -157,43 +153,24 @@
 </template>
 <script>
     // import BussinessCard from './BusinessCard'
-    import InfiniteLoading from 'vue-infinite-loading'
-    import AddFollowing from "./AddFollowing"
+    // import InfiniteLoading from 'vue-infinite-loading'
     import ProfileCard from "./ProfileCard"
     // import WriteArticle from "./Profile/WriteArticle"
     import {mapState, mapGetters, mapActions} from 'vuex';
-    import http from "@/http-common.js";
+    // import http from "@/http-common.js";
     export default {
         name: 'UserProfile',
         components:{
-            AddFollowing,
             ProfileCard,
-            InfiniteLoading,
+            // InfiniteLoading,
             // BussinessCard
         },
         data() {
             return {
                 page: 1,
                 list:[],
+                followings:[],
                 selected: null,
-                options: [
-                    { value: '사회', text: '사회' },
-                    { value: '과학', text: '과학' },
-                    { value: '기술', text: '기술'},
-                    { value: '기타', text: '기타'}
-                ],
-                followings:[
-                    {
-                        memberId:'ki0',
-                        memberRegion:'광주',
-                        memberUnit:'3',
-                    },
-                    {
-                        memberId:'성우',
-                        memberRegion:'서울',
-                        memberUnit:'3',
-                    },
-                ],
                 show: false,
                 article_show : false,
                 subject_rules:[
@@ -208,14 +185,18 @@
             }
         },
         created(){
-            console.log(this.$route.params.memberId);
-            this.$store.dispatch('getProfile',this.$route.params.memberId);
-            this.$store.dispatch('getMyArticles',this.$route.params.memberId);
+            // sessionStorage.setItem('memberId', "admin");
+            // console.log(this.$route.params.memberId);
+            this.$store.dispatch('getProfile',"admin");
+            this.$store.dispatch('getMyArticles',"admin");
+            // this.$store.dispatch('getFollowings',"admin");
+            this.$store.dispatch('getArticleTypes');
+            this.$store.dispatch('getFollowings',"admin");
         },
         computed:{
             ...mapState({article: state=> state.article},{member: state=>state.profile}),
             
-            ...mapGetters(['profile','articles','article'])
+            ...mapGetters(['profile','articles','article','articleTypes','followings'])
         },
         methods:{
             ...mapActions(['writeArticle']),
@@ -229,23 +210,23 @@
             //     console.log(data);
             // });
             // },
-            infiniteHandler($state) {
-                http.get(`/article/${this.$route.params.memberId}`
-                // , {
-                //     params: {
-                //         page: this.page,
-                //     },
-                // }
-                ).then(({ data }) => {
-                    if (data.articleList.length) {
-                        // this.page += 1;
-                        this.$store.state.articles.push(data.articleList);
-                        $state.loaded();
-                    } else {
-                        $state.complete();
-                    }
-                });
-            },
+            // infiniteHandler($state) {
+            //     http.get(`/article/${this.$route.params.memberId}`
+            //     // , {
+            //     //     params: {
+            //     //         page: this.page,
+            //     //     },
+            //     // }
+            //     ).then(({ data }) => {
+            //         if (data.articleList.length) {
+            //             // this.page += 1;
+            //             this.$store.state.articles.push(data.articleList);
+            //             $state.loaded();
+            //         } else {
+            //             $state.complete();
+            //         }
+            //     });
+            // },
         }
     };
 </script>
