@@ -2,7 +2,6 @@
 <div class="wrapper" style="margin-top:5%">
     <div class="row">
         <v-container class="elevation-5 col-lg-7">
-            <v-card>
                 <v-card-title>
                     <div class="textfield">
                         <h1 class="m-4"> 🧑‍🤝‍🧑 자유게시판 </h1>
@@ -34,7 +33,6 @@
                 <div class="text-center pt-2">
                     <v-pagination v-model="page" :length="pageCount"></v-pagination>
                 </div>
-            </v-card>
         </v-container>
     </div>
     <footer-bar></footer-bar>
@@ -102,8 +100,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.container{
+  background: #fff;
+  border-radius: 20px;
+}
 .textfield {
     display: block;
     font-size: 0.8em;
@@ -112,6 +113,7 @@ export default {
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     font-weight: bold;
+    
 }
 .writeBtn{
     border-radius: 10px;
