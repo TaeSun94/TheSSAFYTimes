@@ -65,7 +65,7 @@ export default {
         updateHandler() {
             var content = this.$refs.toastuiEditor.invoke("getMarkdown");
             http.put("/program/board", {
-                memberId: sessionStorage.getItem("memberId"),
+                memberId: this.programWriter,
                 programBoardTitle: this.programTitle,
                 programBoardContent: content,
                 programBoardTrack: this.programTrack,

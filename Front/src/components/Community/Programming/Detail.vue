@@ -114,7 +114,7 @@ export default {
         },
         commentCreate() {
             http.post("/program/comment", {
-                memberId : sessionStorage.getItem("memberId"),
+                memberId : this.$cookies.get("memberId"),
                 commentContent: this.commentInput,
                 boardNo :  parseInt(`${this.$route.params.no}`)
             }).
@@ -161,7 +161,7 @@ export default {
     mounted() {
     },
     updated() {
-        var id = sessionStorage.getItem('memberId');
+        var id = this.$cookies.get('memberId');
         var author = this.programWriter;
         if(id != author) { this.canEdit = false }
         else {this.canEdit = true }

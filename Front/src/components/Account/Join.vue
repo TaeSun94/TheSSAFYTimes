@@ -48,12 +48,6 @@
             >
             </v-text-field>
             <footer class="login-foot mt-3">
-
-              <!-- <button
-                class="primary-button  is-fullwidth"
-                @click="submit">
-                가입하기
-              </button> -->
               <v-btn @click="submit"
               dark
               large
@@ -61,11 +55,6 @@
               width=100%>
                 가입하기
               </v-btn>
-              <!-- <button
-                class="primary-button  is-fullwidth"
-                @click="clear">
-                CLEAR
-              </button> -->
               <p class="login-option mt-5 text-center">이미 계정이 있으신가요?
               <router-link class="login-option-link" :to="{path:'/login'}">로그인</router-link>
               </p>                                    
@@ -133,11 +122,11 @@ import http from '@/http-common'
         this.$refs.form.reset()
       },
       checkIdDup() {
-        http.post('/valid/idValid', {
+        http.post('/valid/id', {
           memberId : this.memberId
         })
         .then(({data})=> {
-          if(data.result == "fail") {
+          if(data.result == "notavailable") {
             this.idck=false;
             alert(data.message);
             return;
@@ -164,7 +153,7 @@ import http from '@/http-common'
           if(data.result == "success") {
             this.emailck = true;
             alert(data.message);
-          } else if(data.result == "fail"){
+          } else if(data.result == "notavailable"){
             this.emailck = false;
             alert(data.message);
           }

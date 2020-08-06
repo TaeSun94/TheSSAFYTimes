@@ -2,7 +2,6 @@ import Vue from "vue";
 import Vuex from "vuex";
 import http from "@/http-common";
 import router from "./router";
-
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -64,8 +63,7 @@ export default new Vuex.Store({
         // login
         setMember(state, payload) {
             state.member = payload;
-            sessionStorage.setItem('memberId', payload.memberId);
-            sessionStorage.setItem('memberEmail', payload.memberEmail);
+            document.$cookies.set("memberId", payload.memberId);
         },
         // program
         setPrograms(state, payload) {
@@ -131,13 +129,12 @@ export default new Vuex.Store({
                 memberPw
             })
             .then(({data})=> {
-                console.log(data);
                 if(data.result=='fail'){    
                     alert(data.message);
                     this.$router.push("/login");
                 } else if(data.result=='notavailable'){
                     alert(data.message);
-                    context.commit("setMember", data.data);
+                    document.$cookies.set("memberEmail", memberEmail, "1D");
                     //이메일 인증페이지로 가면 됌
                     router.push("/EmailCheck");
                     location.reload();

@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import http from "@/http-common.js";
+
 export default {
     name: 'Login',
     data: () => ({
@@ -64,7 +66,25 @@ export default {
         if (this.$refs.form.validate()) {
           var memberEmail = this.memberEmail;
           var memberPw = this.memberPw;
-          this.$store.dispatch("login", {memberEmail, memberPw});
+          http.post('/account/signin', { memberEmail, memberPw})
+          .then(({data})=> {
+            if(data.result == 'notavailable') {
+              alert(data.message);
+              location.reload();
+            } else if(data.result == 'notvalid') {
+              alert(data.message);
+              this.$cookies.remove("memberEmail");
+              this.$cookies.set("memberEmail", memberEmail, "1D");
+              this.$router.push("/EmailCheck");
+              location.reload();
+            } else if(data.result == 'success') {
+              alert(data.message);
+              this.$cookies.set("memberId", data.data.memberId, "1D");
+              this.$cookies.set("memberEmail", memberEmail, "1D");
+              this.$router.push("/");
+              location.reload();
+            }
+          })
         }
       },
     }

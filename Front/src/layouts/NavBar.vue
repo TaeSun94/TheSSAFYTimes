@@ -106,25 +106,22 @@ export default {
             this.$router.push({path: url});
         },
         invalidate() {
-            sessionStorage.clear();
+            this.$cookies.remove("memberId");
+            this.$cookies.remove("memberEmail");
             this.$router.push({path:'/'});
             alert("로그아웃 되었습니다.");
             location.reload();
-            this.$store.dispatch('logout');
             this.$router.push('/');
         }
     },
     created() {
-        var id = sessionStorage.getItem('memberId');
-        var email = sessionStorage.getItem('memberEmail');
+        var id = this.$cookies.get("memberId");
         if(id==null){
             this.login = false;
             this.memberId = '';
-            this.memberEmail = '';
         } else  {
             this.login = true;
             this.memberId = id;
-            this.memberEmail = email;
         }
     }
 }
