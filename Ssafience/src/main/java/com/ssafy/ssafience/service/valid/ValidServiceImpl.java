@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.ssafience.model.valid.EmailCheckRequest;
+import com.ssafy.ssafience.model.valid.IdCheckRequest;
 import com.ssafy.ssafience.repo.ValidRepo;
 
 @Service
@@ -20,6 +21,13 @@ public class ValidServiceImpl implements ValidService{
 		if (check!=null) return false;
 		else return true;
 	}
+	
+	@Override
+	public boolean idDupCheck(IdCheckRequest request) throws Exception {
+		String check = repo.getId(request.getMemberId().trim());
+		if (check != null) return false;
+		else return true;
+	}
 
 	@Override
 	public boolean checkEmailRegex(String memberEmail) throws Exception {
@@ -28,4 +36,5 @@ public class ValidServiceImpl implements ValidService{
 		emailValid = Pattern.matches(regex, memberEmail);		
 		return emailValid;
 	}
+	
 }

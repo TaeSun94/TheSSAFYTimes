@@ -106,6 +106,7 @@ public class AccountController {
 					result.result = SUCCESS;
 					result.status = HttpStatus.OK;
 					result.message="성공적으로 로그인되었습니다. ";					
+					result.setData(member);
 				} else {
 					result.result = NOTVALID;
 					result.status = HttpStatus.OK;

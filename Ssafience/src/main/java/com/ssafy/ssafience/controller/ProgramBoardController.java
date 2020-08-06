@@ -83,7 +83,7 @@ public class ProgramBoardController {
 	}
 	
 	@ApiOperation(value = "특정 회원의 프로그래밍 게시판 목록 반환")
-	@GetMapping("/{memberId}")
+	@GetMapping("/{memberId}/list")
 	public ResponseEntity<ListResponse<ProgramBoard>> getMemberBoardList(@PathVariable String memberId){
 		final ListResponse<ProgramBoard> result = new ListResponse<>();
 		
@@ -108,6 +108,33 @@ public class ProgramBoardController {
 		}
 		
 		return new ResponseEntity<ListResponse<ProgramBoard>>(result, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "특정 프로그래밍 게시판 상세 조회")
+	@GetMapping("/{boardno}")
+	public ResponseEntity<SingleResponse<ProgramBoard>> getBoardOne(@PathVariable int boardno){
+		final SingleResponse<ProgramBoard> result = new SingleResponse<>();
+		
+		try {
+			ProgramBoard board = fService.selectBoardOne(boardno);
+			if (board != null) {
+				result.result = SUCCESS;
+				result.status = HttpStatus.OK;
+				result.message="프로그래밍 게시판 상세조회에 성공했습니다.";	
+				result.setData(board);
+			} else {
+				result.result = NOTAVAILABLE;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message="존재하지 않는 게시글 입니다. 확인 후 다시 시도해주세요.";				
+			}			
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message="프로그래밍 게시판 목록 가져오는 중 문제가 발생했습니다.";
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<SingleResponse<ProgramBoard>>(result, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "새로운 프로그래밍 게시판 게시글 등록")
