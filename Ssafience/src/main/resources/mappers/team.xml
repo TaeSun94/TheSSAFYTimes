@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ssafience.repo.TeamRepo">
+
+	<!-- 게시글 관련-->	
+	
+	<select id="selectBoardOne" resultType="teamboard">
+		select *
+		from team_board
+		where team_board_no = #{boardNo}
+	</select>
+	
+	<select id="selectBoardList" resultType="teamboard">
+		select *
+		from team_board
+		order by team_board_no desc
+	</select>
+	
+	<insert id="insert">
+		insert into team_board 
+			(
+				member_id, team_board_category, team_board_title, team_board_content,
+				team_board_start_datetime, team_board_end_datetime, team_board_total_count,
+				team_board_front_remain_count, team_board_back_remain_count
+			)
+		values 
+			(
+				#{memberId}, #{teamBoardCategory}, #{teamBoardTitle}, #{teamBoardContent},
+				#{teamBoardStartDatetime}, #{teamBoardEndDatetime}, #{teamBoardTotalCount},
+				#{teamBoardFrontRemainCount}, #{teamBoardBackRemainCount}				
+			)
+	</insert>
+	
+	<update id="update">
+		update team_board
+		set team_board_title = #{boardTitle},
+			team_board_content = #{boardContent},
+			team_board_category = #{boardCategory},
+			team_board_start_datetime = #{boardStartDatetime},
+			team_board_end_datetime = #{boardEndDatetime},
+			team_board_total_count = #{boardTotalCount},
+			team_board_front_remain_count = #{boardFrontRemainCount},
+			team_board_back_remain_count = #{boardBackRemainCount}			
+		where team_board_no = #{boardNo}
+	</update>
+	
+	<delete id="delete">
+		delete from team_board
+		where team_board_no = #{boardNo}
+	</delete>
+
+</mapper>
+
