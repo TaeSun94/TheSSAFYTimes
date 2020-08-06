@@ -35,21 +35,23 @@ CREATE OR REPLACE TABLE `board` (
 유형: Table
 설명: 프로그래밍 게시판 테이블
 */
-
 CREATE TABLE `program_board` (
     program_board_no INT PRIMARY KEY AUTO_INCREMENT,
     member_id VARCHAR(20) ,
     program_board_title VARCHAR(200) NOT NULL ,
     program_board_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-    program_board_track VARCHAR(10) ,
+    program_board_track INT ,
     program_board_content TEXT,
     program_board_hit INT NOT NULL DEFAULT 0,
     program_board_update_datetime DATETIME,
     program_board_like INT NOT NULL DEFAULT 0,
     program_board_dislike INT NOT NULL DEFAULT 0,
-    FOREIGN KEY (member_id) REFERENCES member(member_id) ON UPDATE CASCADE ON DELETE SET NULL
+    FOREIGN KEY (member_id) REFERENCES member(member_id) ON UPDATE CASCADE ON DELETE SET NULL ,
+    FOREIGN KEY (program_board_track) REFERENCES category(category_no) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
+ALTER TABLE program_board MODIFY COLUMN program_board_track INT;
+ALTER TABLE program_board ADD FOREIGN KEY (program_board_track) REFERENCES category(category_no) ON UPDATE CASCADE ON DELETE SET NULL ;
 
 CREATE TABLE `program_comment` (
     program_comment_no INT PRIMARY KEY AUTO_INCREMENT ,
@@ -97,8 +99,7 @@ CREATE TABLE `notice` (
     notice_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
     FOREIGN KEY (member_id) REFERENCES member(member_id) ON UPDATE CASCADE ON DELETE SET NULL
 );
-ALTER TABLE notice MODIFY COLUMN notice_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
-SHOW CREATE TABLE
+
 
 /*============================================================================*/
 
