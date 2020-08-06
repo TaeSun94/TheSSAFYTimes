@@ -129,7 +129,7 @@ progress {
     padding: 30px;
 }
 .main-title h1{
-  color: #FFA372
+  color: #FFB459
 }
 img {
     border-radius: 70%;
@@ -167,7 +167,7 @@ img {
     height: 300px;
 }
 .container{
-    background-color: #FAFAFA;
+    background-color: #fff;
     padding: 20px;
 
 }
