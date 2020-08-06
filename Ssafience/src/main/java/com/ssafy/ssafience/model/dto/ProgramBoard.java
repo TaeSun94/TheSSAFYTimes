@@ -13,7 +13,7 @@ public class ProgramBoard {
 	private String memberId;
 	private String programBoardTitle;
 	private String programBoardContent;
-	private String programBoardTrack;
+	private int programBoardTrack;
 	private int programBoardHit;
 	private Date programBoardUpdateDatetime;
 	private Date programBoardDatetime;
