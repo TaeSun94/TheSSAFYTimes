@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-11">
+        <v-container class="elevation-5 col-lg-8">
             <v-card>
                 <v-card-title>
                     프로그래밍
@@ -73,9 +73,9 @@ export default {
         },
     },
     created() {
-        this.$store.dispatch("getPrograms", '/board/program');
+        this.$store.dispatch("getPrograms", '/program/board');
         //지금은 이메일 인증이 안되도 쓸수 있는데 된 사람만 쓸 수 있게 status를 들고와야함
-        var id = sessionStorage.getItem('memberId');
+        var id = this.$cookies.get('memberId');
         if(id==null){
             this.login = false;
             this.memberId = '';

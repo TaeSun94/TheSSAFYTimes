@@ -61,7 +61,7 @@
                       <v-col cols="8" class="text--secondary">
                         <v-fade-transition leave-absolute>
                           <span v-if="open">
-                            {{item.noticeDatetime | moment("YYYY MM DD HH:MM")}}
+                            {{item.noticeDatetime}}
                           </span>
                         </v-fade-transition>
                       </v-col>
@@ -145,7 +145,7 @@ export default {
     created() {
       this.$store.dispatch("getNotices", '/notice');
       var id = sessionStorage.getItem('memberId');
-      if(id == null) {
+      if(id != 'admin') {
         this.isAdmin = false;
         this.memberId = '';
       } else {

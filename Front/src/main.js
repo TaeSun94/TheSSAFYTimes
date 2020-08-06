@@ -12,6 +12,7 @@ import '@kangc/v-md-editor/lib/style/base-editor.css';
 import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
 import Vue2Editor from "vue2-editor";
 import vueMoment from 'vue-moment';
+import VueCookies from 'vue-cookies'
 
 VueMarkdownEditor.use(vuepressTheme);
 Vue.use(vueMoment)
@@ -22,6 +23,7 @@ Vue.use(Editor);
 Vue.config.productionTip = false;
 Vue.prototype.$Axios = axios;
 Vue.use(globalcomponents);
+Vue.use(VueCookies);
 // use
 new Vue({
   vuetify,

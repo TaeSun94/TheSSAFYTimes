@@ -36,8 +36,15 @@ export default {
             title: "",
             editorOptions: {
                 hideModeSwitch: true
-            }
+            },
+            member : {},
         };
+    },
+    created() {
+        var id = this.$cookies.get('memberId');
+        http.get("/member/"+id).then(({data})=> {
+            this.member = data.data;
+        })
     },
     methods: {
         checkHandler() {
@@ -52,11 +59,11 @@ export default {
         },
         createHandler() {
             var content = this.$refs.toastuiEditor.invoke("getMarkdown");
-            http.post("/board/program", {
-                memberId: sessionStorage.getItem("memberId"),
+            http.post("/program/board", {
+                memberId: this.$cookies.get("memberId"),
                 programBoardTitle: this.title,
                 programBoardContent: content,
-                programBoardTrack: 0,
+                programBoardTrack: this.member.memberTrack,
             }).
             then(({data}) => {
                 if(data.result == "success"){

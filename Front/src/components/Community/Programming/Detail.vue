@@ -1,10 +1,10 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-5">
+        <v-container class="elevation-5 col-lg-6">
             <vue-scroll-progress-bar height="0.3rem" backgroundColor="orange"/>
             <div class="textfield">
-                <div class="ml-4"><h1>{{programNo}}번째 글</h1></div>
+                <div class="ml-4"><h1>{{programTitle}}</h1></div>
                 <hr>
             </div>
             <div class="text-right mr-5">
@@ -114,9 +114,9 @@ export default {
         },
         commentCreate() {
             http.post("/program/comment", {
-                memberId : sessionStorage.getItem("memberId"),
-                programCommentContent: this.commentInput,
-                programBoardNo :  parseInt(`${this.$route.params.no}`)
+                memberId : this.$cookies.get("memberId"),
+                commentContent: this.commentInput,
+                boardNo :  parseInt(`${this.$route.params.no}`)
             }).
             then(({data}) =>{
                 if(data.result == "success") {
@@ -129,7 +129,7 @@ export default {
             })
         },
         deleteHandler() {
-            http.delete(`/board/program/${this.$route.params.no}`).then(({data}) => {
+            http.delete(`/program/board/${this.$route.params.no}`).then(({data}) => {
                 if(data.result == "success"){
                     alert(data.message);
                     this.$router.push("/community/programlist");
@@ -146,9 +146,9 @@ export default {
     },
     created() {
         // this.$store.dispatch("getProgram", `/board/program/${this.$route.params.no}`);
-        this.$store.dispatch("getProgramComments", `/program/${this.$route.params.no}/comment?programBoardNo=${this.$route.params.no}`);
-        http.get(`/board/program/${this.$route.params.no}`).then(({data})=> {
-            var board = data.programBoard;
+        this.$store.dispatch("getProgramComments", `/program/${this.$route.params.no}/comment`);
+        http.get(`/program/board/${this.$route.params.no}`).then(({data})=> {
+            var board = data.data;
             this.programNo = board.programBoardNo;
             this.programTitle = board.programBoardTitle;
             this.programWriter = board.memberId;
@@ -161,7 +161,7 @@ export default {
     mounted() {
     },
     updated() {
-        var id = sessionStorage.getItem('memberId');
+        var id = this.$cookies.get('memberId');
         var author = this.programWriter;
         if(id != author) { this.canEdit = false }
         else {this.canEdit = true }
