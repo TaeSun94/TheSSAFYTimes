@@ -26,10 +26,21 @@
                     <div class="delete text-right mr-5">
                         <v-btn rounded @click="deleteHandler" v-if="check"> 삭제 </v-btn>     
                     </div>
-                    <div class="likeContent">
-                        <h3 class="like ml-3 like-button" @click="likeButton" v-html="likeTrue"> </h3> 
-                        <h3 class="like"> 이 글 좋아요</h3>
-                        <h3 class="like"> {{ this.free.data.freeBoardLikeCount }}</h3>       
+                    <div class="u_likeit">
+                        <ul class="u_likeit_layer _faceLayer" role="menu">
+                            <li class="u_likeit_list good" role="menuitem">
+                                <a class="u_likeit_list_button _button nclicks(abt_presslink) off" data-type="like" data-log="RTC.like|RTC.unlike" href="#" role="button" aria-selected="false" aria-pressed="false">
+                                    <span class="u_likeit_list_name _label"> Up 👍</span>
+                                    <span class="u_likeit_list_count _count">176</span>
+                                </a>
+                            </li>
+                            <li class="u_likeit_list warm" role="menuitem">
+                                <a class="u_likeit_list_button _button off" data-type="warm" data-log="RTC.warm|RTC.unwarm" href="#" role="button" aria-selected="false" aria-pressed="false">
+                                    <span class="u_likeit_list_name _label">Down 👎</span>
+                                    <span class="u_likeit_list_count _count">11</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
 
 
@@ -94,7 +105,6 @@ export default {
           content: false,
           commentContent: true,
           likeControll: true,
-          likeTrue:'❤️',
           check: false,
           memberId: '',
           commentInput: '',
@@ -169,6 +179,50 @@ export default {
 </script>
 
 <style scoped>
+.u_likeit{
+    display: flex;
+    justify-content: center;
+    border-top:0.3px solid  #ccc;
+    border-bottom: 0.3px solid #ccc;
+    width: 80%;
+    text-align: center;
+    margin: auto;
+    margin-top:100px;
+    margin-bottom: 100px;
+}
+.u_likeit_list_name {
+    margin: 0 -5px 6px;
+    font-size: 12px;
+    color: #999;
+    line-height: 14px;
+}
+.u_likeit_list_count {
+    font-size: 15px;
+    color: #000;
+    line-height: 14px;
+    font-weight: normal;
+}
+.u_likeit_list_count {
+    display: block;
+    text-align: center;
+    padding: 10px;
+}
+.u_likeit_list_name {
+    display: block;
+    font-size: 1.2rem;
+}
+.u_likeit > .u_likeit_layer .u_likeit_list {
+    display: table-cell;
+    padding: 50px;
+}
+.u_likeit > .u_likeit_layer .u_likeit_list_button {
+    width: auto;
+}
+.u_likeit a, .u_likeit a:hover, .u_likeit a:visited {
+    white-space: nowrap;
+    text-decoration: none;
+}
+
 .textfield-input {
     display: block;
     width: 100%;
@@ -200,10 +254,6 @@ hr{
     margin-left:20px;
     margin-top:30px;
     margin-bottom:30px;
-}
-.like {
-    
-    display: inline;
 }
 .comment {
     cursor: pointer;

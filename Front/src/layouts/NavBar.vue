@@ -138,9 +138,7 @@ export default {
 }
 @media (max-width: 750px) {
   .topnav-centered img{
-    width: 350px;
-    top:70px!important;
-    left: 55%!important;
+      display: none;
   }
 }
 .topnav-centered img {
