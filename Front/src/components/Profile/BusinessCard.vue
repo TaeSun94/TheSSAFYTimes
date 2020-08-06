@@ -50,11 +50,11 @@ export default {
         }
     },
     created(){
-        this.$store.dispatch('getProfile',this.$route.query.num);
+        this.$store.dispatch('getProfile',this.$route.query.memberId);
     },
     methods:{
         moveBlog(){
-            this.$route.push('/otherprofile');
+            this.$route.push({path: `/profile/${profile.memberId}`});
         }
     }
 }

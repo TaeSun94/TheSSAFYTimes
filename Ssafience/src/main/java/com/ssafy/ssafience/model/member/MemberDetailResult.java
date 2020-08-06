@@ -1,5 +1,6 @@
 package com.ssafy.ssafience.model.member;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ssafy.ssafience.model.dto.Member;
@@ -15,7 +16,7 @@ public class MemberDetailResult extends Member{
 	private List<String> memberInterestedList;
 	private List<String> memberSkillList;	
 	
-	public MemberDetailResult(Member m, List<String> memberInterestedList, List<String> memberSkillList) {
+	public MemberDetailResult(Member m) {
 		super.setMemberNo(m.getMemberNo());
 		super.setMemberId(m.getMemberId());
 		super.setMemberPw(m.getMemberPw());
@@ -36,7 +37,15 @@ public class MemberDetailResult extends Member{
 		super.setMemberFollower(m.getMemberFollower());
 		super.setMemberDatetime(m.getMemberDatetime());
 		super.setMemberAuthDatetime(m.getMemberAuthDatetime());
+		this.memberInterestedList = new ArrayList<String>();
+		this.memberSkillList = new ArrayList<>();
+	}
+	
+	public void insertIntList(List<String> memberInterestedList) {
 		this.memberInterestedList = memberInterestedList;
-		this.memberSkillList = memberSkillList;
+	}
+	
+	public void insertSkillList(List<String> memberSkillList) {
+		this.memberSkillList = memberSkillList;		
 	}
 }

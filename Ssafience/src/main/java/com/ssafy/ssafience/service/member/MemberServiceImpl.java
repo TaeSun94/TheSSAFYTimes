@@ -32,11 +32,26 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public MemberDetailResult selectMemberOneDetail(String memberId) throws Exception {
+		MemberDetailResult result = null;
 		Member member = repo.selectMemberOne(memberId);
-		List<String> interestedList = Arrays.asList(member.getMemberInterested().split(","));
-		List<String> skillList = Arrays.asList(member.getMemberSkill().split(","));
-		MemberDetailResult result = new MemberDetailResult(member, interestedList, skillList);
-		return result;
+		System.out.println(memberId+":"+member);
+		System.out.println(member != null);
+		if (member != null) {
+			result = new MemberDetailResult(member);
+			if (member.getMemberInterested()!=null) {
+				List<String> interestedList = Arrays.asList(member.getMemberInterested().split(","));				
+				result.insertIntList(interestedList);
+			}
+			if (member.getMemberSkill()!=null) {
+				List<String> skillList = Arrays.asList(member.getMemberSkill().split(","));
+				result.insertSkillList(skillList);
+			}
+			System.out.println(memberId+":"+result);
+			return result;
+		} else {
+			System.out.println(memberId+":"+result);
+			return result;
+		}
 	}
 	
 	@Override
@@ -62,9 +77,10 @@ public class MemberServiceImpl implements MemberService{
 	// 회원가입
 	@Override
 	public int insert(SignUpRequest request) throws Exception {
+		System.out.println(request);
 		String encodePw = encoder.encode(request.getMemberPw());
 		Member member = Member.builder()
-//				.memberId(request.getMemberId())
+				.memberId(request.getMemberId())
 				.memberPw(encodePw)
 				.memberEmail(request.getMemberEmail())
 				.build();

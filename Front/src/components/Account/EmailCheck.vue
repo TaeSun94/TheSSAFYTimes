@@ -36,15 +36,13 @@ export default {
     name: 'EmailCheck',
     data: () => ({
         memberEmail: '',
-        memberId: '',
         emailRules: [
         v => !!v || '이메일을 입력해주세요.',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || '이메일 형식이 틀립니다!'
       ],
     }),
     created() {
-        this.memberEmail = sessionStorage.getItem('memberEmail');
-        this.memberId = sessionStorage.getItem('memberId');
+        this.memberEmail = this.$cookies.get('memberEmail');
     },
     methods: {
         emailValid() {
@@ -55,7 +53,6 @@ export default {
                 console.log(data);
                 if(data.result=="success"){
                     alert(data.message);
-                    this.$store.dispatch("getMember", `/member/${this.memberId}`);
                 } else if(data.result=="fail"){
                     alert(data.message);
                 }

@@ -1,9 +1,9 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-10"> <!-- 기본틀 푸터까지 -->
-            <vue-scroll-progress-bar height="1rem" backgroundColor="orange"/>
-            <v-data-table
+        <v-container class="elevation-5 col-lg-7"> <!-- 기본틀 푸터까지 -->
+            <vue-scroll-progress-bar height="0.3rem" backgroundColor="orange"/>
+            <!-- <v-data-table
               :headers="headers"
               :items="desserts"
               :page.sync="page"
@@ -15,17 +15,79 @@
               @click:row="rowClicked"
               popout
             >
-            </v-data-table>
-            <div class="text-center pt-2">
-              <v-pagination v-model="page" :length="pageCount"></v-pagination>
-            </div>
+            </v-data-table> -->
+            <v-card>
+              <v-card-title>
+                The SSAFY Time Notice
+                <v-spacer></v-spacer>
+                <v-dialog v-if="isAdmin===true" v-model="dialog" persistent max-width="45%">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn tile large depressed dark v-bind="attrs" v-on="on">
+                      글쓰기!
+                    </v-btn>
+                  </template>
+                  <v-card>
+                    <v-card-title>
+                      <span class="headline">공지사항 작성</span>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-container>
+                        <v-row>
+                          <v-col cols="12" sm="6" md="6">
+                            <v-text-field label="제목*" required v-model="title"></v-text-field>
+                          </v-col>
+                          <v-col cols="12">
+                            <v-textarea solo clearable auto-grow label="내용*" v-model="content"/>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="orange darken-1" dark tile @click="createHandler()">쓰기</v-btn>
+                      <v-btn color="grey darken-1" dark tile @click="dialog = false">닫기</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-card-title>
+              <v-expansion-panels inset>
+                <v-expansion-panel
+                  v-for="item in this.notices"
+                  :key="item.noticeNo"
+                >
+                  <v-expansion-panel-header v-slot="{ open }">
+                    <v-row no-gutters>
+                      <v-col cols="4">{{item.noticeTitle}}</v-col>
+                      <v-col cols="8" class="text--secondary">
+                        <v-fade-transition leave-absolute>
+                          <span v-if="open">
+                            {{item.noticeDatetime}}
+                          </span>
+                        </v-fade-transition>
+                      </v-col>
+                    </v-row>
+                  </v-expansion-panel-header>
+                  <v-expansion-panel-content>
+                    {{item.noticeContent}}
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <!-- <v-btn v-if="isAdmin == true" text color="info"> 수정하기 </v-btn> -->
+                      <v-btn v-if="isAdmin == true" text color="red" @click="deleteHandler(item.noticeNo)"> 삭제하기 </v-btn>
+                    </v-card-actions>
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
+            </v-card>
         </v-container>
     </div>
     <footer-bar></footer-bar>
 </div>
 </template>
 <script>
-import { VueScrollProgressBar } from '@guillaumebriday/vue-scroll-progress-bar'
+import { VueScrollProgressBar } from '@guillaumebriday/vue-scroll-progress-bar';
+import { mapGetters } from "vuex";
+import http from "@/http-common.js";
+
 export default {
     name: "NoticeList",
     components: {
@@ -33,119 +95,62 @@ export default {
     },
     data () {
       return {
-        page:1,
-        perPage:5,
-        pageCount:10/5,
-        headers: [
-          {
-            text: 'Dessert (100g serving)',
-            align: 'start',
-            sortable: false,
-            value: 'name',
-          },
-          { text: 'Calories', value: 'calories' },
-          { text: 'Fat (g)', value: 'fat' },
-          { text: 'Carbs (g)', value: 'carbs' },
-          { text: 'Protein (g)', value: 'protein' },
-          { text: 'Iron (%)', value: 'iron' },
-        ],
-        desserts: [
-          {
-            no:1,
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
-          },
-          {
-            no:2,
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-            iron: '1%',
-          },
-          {
-            no:3,
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0,
-            iron: '7%',
-          },
-          {
-            no:4,
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            iron: '8%',
-          },
-          {
-            no:5,
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9,
-            iron: '16%',
-          },
-          {
-            no:6,
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0,
-            iron: '0%',
-          },
-          {
-            no:7,
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0,
-            iron: '2%',
-          },
-          {
-            no:8,
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5,
-            iron: '45%',
-          },
-          {
-            no:9,
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-            iron: '22%',
-          },
-          {
-            no:10,
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-            iron: '6%',
-          },
-        ],
+        // page:1,
+        // perPage:1,
+        isAdmin : false,
+        dialog: false,
+        title: '',
+        content: '',
       }
     },
+    computed: {
+      ...mapGetters(["notices"]),
+      // pageLength() {
+      //   return this.notices.length;
+      // },
+      // pageCount() {
+      //   return Math.ceil(this.pageLength / 1);
+      // }
+    },
     methods: {
-      rowClicked(row) {
-        this.$router.push({path: `/notice/detail/${row.no}`});
+      // rowClicked(row) {
+      //   this.$router.push({path: `/notice/detail/${row.no}`});
+      // }
+      deleteHandler(no) {
+        http.delete(`/notice/${no}`).then(({data})=> {
+          if(data.result=="success") {
+            alert(data.message);
+            location.reload();
+          } else {
+            alert(data.message);
+            return;
+          }
+        })
+      },
+      createHandler() {
+        http.post("/notice", {
+          member_id: sessionStorage.getItem("memberId"),
+          noticeContent: this.content,
+          noticeTitle: this.title
+        }).then(({data})=> {
+          if(data.result == "success") {
+            location.reload();
+          } else {
+            alert(data.message);
+            return;
+          }
+        })
+      }
+    },
+    created() {
+      this.$store.dispatch("getNotices", '/notice');
+      var id = sessionStorage.getItem('memberId');
+      if(id != 'admin') {
+        this.isAdmin = false;
+        this.memberId = '';
+      } else {
+        this.isAdmin = true;
+        this.memberId = id;
       }
     }
 }

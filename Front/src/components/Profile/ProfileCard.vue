@@ -3,10 +3,10 @@
     <div class="row">
         <v-container class="elevation-5 col-lg-12">
             <v-card-actions class="ml-3">
-                <div class="ml-7">
+                <div class="col-lg-3">
                     <connect-here v-model="member"></connect-here>
                 </div>
-                <div class="ml-10" style="position:relative;">
+                <div class="col-lg-6 text-center" style="position:relative;">
                     <v-avatar :size="150">
                         <img
                             src="@/assets/logo.png"
@@ -14,13 +14,24 @@
                         >  
                     </v-avatar>
                 </div>
-                <div class="ml-7">
-                    <div v-if="member.memberFirstName === null || member.memberFirstName === ''">
-                        <v-btn class="primary" @click="mvEditProfile">등록</v-btn>
-                    </div>
-                    <div v-else>
-                        <v-btn class="primary" @click="mvEditProfile">수정</v-btn>
-                    </div>
+                <div class="col-lg-3">
+                    <!-- 만약 세션이 나이고 쿼리를 통해 들어온거와 같다면 -->
+                    <!-- <div v-if="member.memberId === sessionStorage.getItem('memberId')"> -->
+                        <div v-if="member.memberFirstName === null || member.memberFirstName === ''">
+                            <v-btn class="primary" @click="mvEditProfile">등록</v-btn>
+                        </div>
+                        <div v-else>
+                            <v-btn class="primary" @click="mvEditProfile">수정</v-btn>
+                        </div>
+                    <!-- </div> -->
+
+                    <!-- 아니라면 -->
+                    <!-- <div v-else> -->
+                        <!-- 만약 친구라면 언팔 친구가 아니면 팔로우 -->
+                        <div>
+                            <v-btn class="primary" @click="addFollow">팔로우</v-btn>
+                        </div>
+                    <!-- </div> -->
                 </div>
             </v-card-actions>
             <div v-if="member.memberFirstName !== null && member.memberFirstName !==''">
@@ -33,11 +44,11 @@
                                     <span class="description">내가 쓴 기사 수(Articles)</span>
                                 </div>
                                 <div>
-                                    <!-- <span class="heading">{{ followers_count}}</span> -->
+                                    <span class="heading">{{ member.memberFollower}}</span>
                                     <span class="description">팔로워 수(Followers)</span>
                                 </div>
                                 <div>
-                                    <!-- <span class="heading">{{ followings_count }}</span> -->
+                                    <span class="heading">{{ member.memberFollow }}</span>
                                     <span class="description">팔로잉 수(Followings)</span>
                                 </div>
                             </div>
@@ -63,10 +74,10 @@
                         <v-slide-y-transition>
                             <v-card-text v-show="show">
                                 <p style="font-size:23px"><b>관심 기술 및 언어</b></p>
-                                    <div v-if="member.memberInterested !== null">
+                                    <div v-if="member.memberInterestedList !== null || member.memberInterestedList === ''">
                                         <tr>
-                                            <td v-for="(item, index) in member.memberInterested" :key="index +'_memberInterested'">
-                                                <i v-if="index !== member.memberInterested.length-1">{{item}},&nbsp;&nbsp; </i>
+                                            <td v-for="(item, index) in member.memberInterestedList" :key="index +'_memberInterested'">
+                                                <i v-if="index !== member.memberInterestedList.length-1">{{item}},&nbsp;&nbsp; </i>
                                                 <i v-else>{{item}}</i>
                                             </td>
                                         </tr>
@@ -76,10 +87,10 @@
                                     </div>
                                 <br>
                                 <p style="font-size:23px"><b>사용 가능 기술</b></p>
-                                    <div  v-if="member.memberSkill !== null || member.memberSkill === ''">
+                                    <div  v-if="member.memberSkillList !== null || member.memberSkillList === ''">
                                         <tr>
-                                            <td v-for="(item, index) in member.memberSkill" :key="index +'_memberSkill'">
-                                                <i v-if="index !== member.memberSkill.length-1">{{item}},&nbsp;&nbsp; </i>
+                                            <td v-for="(item, index) in member.memberSkillList" :key="index +'_memberSkill'">
+                                                <i v-if="index !== member.memberSkillList.length-1">{{item}},&nbsp;&nbsp; </i>
                                                 <i v-else>{{item}}</i>
                                             </td>
                                         </tr>
@@ -88,9 +99,6 @@
                                         <p>등록된 사용 기술 및 언어가 없습니다.</p>
                                     </div>
                                     <br>
-                                    <div class="text-center">
-                                <a href="#">{{member.memberLastName}}{{member.memberFirstName}}님의 Blog로 방문하기!</a>
-                                    </div>
                             </v-card-text>
                         </v-slide-y-transition>                                    
                     </div>
@@ -131,8 +139,6 @@
                         </div>
                         <hr class="my-4" />
                         <p>자신이 관심있어하는 기술과 잘하는 기술을 나열</p>
-                        <a href="#">Show more</a>
-                        <!-- 여기에 show more을 누르는 순간 해당 인원의 profile로 이동-->
                     </div>
                 </div>
             </div>
@@ -142,8 +148,8 @@
 </template>
 
 <script>
-    import ConnectHere from "./ConnectHere"
-    import { mapState,mapGetters } from "vuex"
+    import ConnectHere from "./ConnectHere";
+    import {mapGetters} from 'vuex';
     export default {
         name:"ProfileCard",
         data() {
@@ -155,16 +161,15 @@
         components:{
             ConnectHere,
         },
-        created(){
-            this.$store.dispatch('getProfile','tyzlddy');
-        },
         computed:{
-            ...mapState({member: state=>state.profile}),
-            ...mapGetters(['profile']),
+            ...mapGetters({member: 'profile'}),
         },
         methods:{
             mvEditProfile(){
-                this.$router.push('/profileEdit')
+                this.$router.push('/profileEdit',this.$store.state.profile.memberId)
+            },
+            addFollow(){
+                
             }
         }
     }

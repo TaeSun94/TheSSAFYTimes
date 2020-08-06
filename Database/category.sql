@@ -75,4 +75,7 @@ END //
 DELIMITER ;
 
 /*사용 예*/
-CALL PROC_INSERT_CATEGORY('기술 및 언어', 'Python', NULL, 0);
+CALL PROC_INSERT_CATEGORY('Project', '기타', NULL, 100);
+
+SELECT * FROM category_manage;
+SELECT * FROM category;
