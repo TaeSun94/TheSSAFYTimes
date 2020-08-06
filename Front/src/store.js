@@ -19,6 +19,7 @@ export default new Vuex.Store({
 
         // free
         frees: [],
+        // free: {},
         
         //followings
         followings:[],
@@ -320,6 +321,7 @@ export default new Vuex.Store({
                 }
             })
         },
+
         //category 불러오기
         getArticleTypes(context){
             http.get(`/category/article`).then(({data})=>{
@@ -367,9 +369,10 @@ export default new Vuex.Store({
             })
         },
         getFreeComments(context, payload){
-            http.get(payload).then((({data})=>{
+            http.get(payload).then(({data})=>{
                 context.commit("setFreeComments", data.list);
-            }))
+            })
+        },
         // notice
         getNotices(context, payload) {
             http.get(payload).then(({data}) => {
