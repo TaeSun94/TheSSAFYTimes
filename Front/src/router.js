@@ -22,7 +22,6 @@ import TeamList from "@/components/Community/Team/TeamList";
 import TeamWrite from "@/components/Community/Team/TeamWrite";
 import TeamDetail from "@/components/Community/Team/TeamDetail";
 import DetailPage from "@/components/Editor/DetailPage.vue";
-import OtherProfile from "@/components/Profile/OtherProfile";
 // import ProfileCard from "@/components/Profile/ProfileCard";
 import AboutUs from "@/components/AboutUs.vue";
 import AboutUsIndex from "@/components/AboutUs/AboutUsIndex.vue";
@@ -158,7 +157,7 @@ export default new VueRouter({
             component: EditProfile,
         },
         {
-            path:'/profile',
+            path:'/profile/:memberid',
             name:"Profile",
             component: UserProfile,
             // children:[
@@ -173,11 +172,6 @@ export default new VueRouter({
             path:'/profileEdit',
             name:'ProfileEdit',
             component: ProfileEdit,
-        },
-        {
-            path:'/otherprofile',
-            name:'OtherProfile',
-            component: OtherProfile,
         },
         {
             path: "/detail",
