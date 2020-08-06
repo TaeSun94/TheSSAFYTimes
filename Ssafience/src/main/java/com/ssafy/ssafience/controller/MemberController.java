@@ -49,18 +49,17 @@ public class MemberController {
 	@Autowired
 	private MemberService mService;
 
-	@ApiOperation(value = "특정 회원 목록 반환")
+	@ApiOperation(value = "특정 회원 정보 반환")
 	@GetMapping("/{memberid}")
 	public ResponseEntity<SingleResponse<MemberDetailResult>> getMemberList(@PathVariable String memberid) {
 		final SingleResponse<MemberDetailResult> result = new SingleResponse<>();
 
 		try {
-			MemberDetailResult member = mService.selectMemberOneDetail(memberid);
-			if (member != null) {
-				System.out.println(member);
+			MemberDetailResult memberResult = mService.selectMemberOneDetail(memberid);
+			if (memberResult != null) {
 				result.result = SUCCESS;
 				result.status = HttpStatus.OK;
-				result.setData(member);
+				result.setData(memberResult);
 				result.message = "회원 목록 가져오는데 성공했습니다.";
 			} else {
 				result.result = NOTAVAILABLE;
@@ -72,6 +71,7 @@ public class MemberController {
 			result.result = FAIL;
 			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
 			result.message = "모든 회원 목록 가져오는 중 문제가 발생했습니다.";
+			e.printStackTrace();
 		}
 
 		return new ResponseEntity<SingleResponse<MemberDetailResult>>(result, HttpStatus.OK);
