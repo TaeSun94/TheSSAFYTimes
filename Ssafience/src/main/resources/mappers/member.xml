@@ -17,8 +17,8 @@
 	</select>
 	
 	<insert id="insert">
-		insert into member (member_pw, member_email)
-		values ( #{memberPw}, #{memberEmail})
+		insert into member (member_id, member_pw, member_email)
+		values ( #{memberId}, #{memberPw}, #{memberEmail})
 	</insert>
 	
 	<update id="update">

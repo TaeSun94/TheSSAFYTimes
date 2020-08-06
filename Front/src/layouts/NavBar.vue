@@ -8,7 +8,11 @@
             class="ml-10"
             ><v-icon>mdi-menu</v-icon></v-btn>
         </div>
-        <div class="topnav-centered"><button><img @click="to('/')" width="480" src="@/assets/times.png"/></button></div>
+        <div class="topnav-centered">
+            <router-link :to="{ path: '/'}"><img width="480" src="@/assets/times.png"/></router-link>
+        
+        </div>
+        
 
         <v-navigation-drawer
             v-model="drawer"
@@ -132,7 +136,13 @@ export default {
   position: relative;
   overflow: hidden;
 }
-
+@media (max-width: 750px) {
+  .topnav-centered img{
+    width: 350px;
+    top:70px!important;
+    left: 55%!important;
+  }
+}
 .topnav-centered img {
   float: none;
   position: absolute;

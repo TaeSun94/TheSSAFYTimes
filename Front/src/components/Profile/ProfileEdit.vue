@@ -33,21 +33,23 @@
                 <div class="row">
                     <v-select class="col-lg-2"
                         v-model="member.memberRegion"
-                        :items="options"
+                        :items="regions"
                         label="지역"
                         chips
                         persistent-hint
+                        @change="getUnit(member.memberRegion)"
                     ></v-select>
                     <v-select class="col-lg-2"
                         v-model="member.memberUnit"
-                        :items="options"
+                        :items="units"
                         label="기수"
                         chips
                         persistent-hint
+                        @change="getTrack(member.memberUnit)"
                     ></v-select>
                     <v-select class="col-lg-2"
                         v-model="member.memberTrack"
-                        :items="options"
+                        :items="tracks"
                         label="트랙"
                         chips
                         persistent-hint
@@ -56,7 +58,7 @@
                 <!-- select로 설정 (multiple) -->
                 <v-select
                     v-model="member.memberInterested"
-                    :items="options"
+                    :items="skillLanguages"
                     label="관심 기술 및 언어"
                     multiple
                     chips
@@ -65,7 +67,7 @@
                 <br>
                 <v-select
                     v-model="member.memberSkill"
-                    :items="options"
+                    :items="skillLanguages"
                     label="사용 기술 및 언어"
                     multiple
                     chips
@@ -87,18 +89,28 @@
         name: 'ProfileEdit',
         data() {
             return {
-                options:[],
+                region:[],
             }
         },
         created(){
-          this.$store.dispatch('getProfile','tyzlddy');
+          this.$store.dispatch('getProfile','admin');
+          this.$store.dispatch('getRegions');
+          this.$store.dispatch('getSkillLanguages');
         },
         computed:{
-            ...mapGetters(['profile']),
+            ...mapGetters(['profile','regions','skillLanguages','units','tracks']),
             ...mapState({member: state=>state.profile}),
         },
         methods:{
-            ...mapActions(['modifyProfile'])
+            ...mapActions(['modifyProfile']),
+            getUnit(value){
+                console.log(value);
+                this.$store.dispatch('getUnits',value);
+            },
+            getTrack(value){
+                console.log(value);
+                this.$store.dispatch('getTracks',value);
+            }
         },
     };
 </script>

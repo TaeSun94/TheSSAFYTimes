@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.ssafience.model.BasicResponse;
-import com.ssafy.ssafience.model.valid.EmailCheckRequest;
-import com.ssafy.ssafience.model.valid.IdCheckRequest;
-import com.ssafy.ssafience.service.valid.ValidService;
+import com.ssafy.ssafience.model.like.LikeRequest;
+import com.ssafy.ssafience.model.like.LikeResult;
+import com.ssafy.ssafience.service.like.FreeLikeService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,75 +27,49 @@ import io.swagger.annotations.ApiResponses;
         @ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
 
 //@CrossOrigin(origins = { "http://localhost:3000" })
-@Api(tags = "Valid : 검증")
+@Api(tags = "FreeLike : 자유게시판 좋아요")
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/valid")
-public class ValidController {
+@RequestMapping("/api/free")
+public class FreeLikeController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ValidController.class);
+	private static final Logger logger = LoggerFactory.getLogger(FreeLikeController.class);
 
 	static final String SUCCESS = "success";
 	static final String FAIL = "fail";
 	static final String NOTAVAILABLE = "notavailable";
 	
 	@Autowired
-	ValidService vService;
+	FreeLikeService fService;
 	
+	@ApiOperation(value = "좋아요(1) / 싫어요(0)")
+	@PostMapping("/like")
+	public ResponseEntity<BasicResponse> likeFreeBoard(@RequestBody LikeRequest request){
+		final BasicResponse result = new BasicResponse();
+		
+		try {
+			LikeResult insertLike = fService.insertLike(request);
+			if (!insertLike.isThere()) {
+				result.result = NOTAVAILABLE;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "일치하는 게시글이 없습니다. 확인하고 다시 시도해주세요.";
+			} else if (!insertLike.isIn()) {
+				result.result = SUCCESS;
+				result.status = HttpStatus.OK;
+				result.message = "성공적으로 등록됨!";
+			} else {
+				result.result = NOTAVAILABLE;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "이미 등록됨!";
+			}
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message = "등록 중 문제발생";
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
 
-	@ApiOperation(value = "이메일 중복 확인")
-	@PostMapping("email")
-	public ResponseEntity<BasicResponse> checkEmail(@RequestBody EmailCheckRequest request){
-		final BasicResponse result = new BasicResponse();
-		
-		try {
-			boolean checkId = vService.emailDupCheck(request);
-			if (checkId) {
-				result.result = SUCCESS;
-				result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-				result.message = "사용가능한 이메일 입니다.";
-			} else {
-				result.result = NOTAVAILABLE;
-				result.status = HttpStatus.NO_CONTENT;
-				result.message = "이미 사용 중인 이메일 입니다.";
-			}
-		} catch (Exception e) {
-			result.result = FAIL;
-			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-			result.message = "이메일 중복 확인 중 문제가 발생했습니다.";
-			e.printStackTrace();
-		}
-		
-		
-		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
-	}
-	
-	@ApiOperation(value = "아이디(닉네임) 중복 확인")
-	@PostMapping("id")
-	public ResponseEntity<BasicResponse> checkId (@RequestBody IdCheckRequest request){
-		final BasicResponse result = new BasicResponse();
-		
-		try {
-			boolean checkId = vService.idDupCheck(request);
-			if (checkId) {
-				result.result = SUCCESS;
-				result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-				result.message = "사용가능한 닉네임 입니다.";
-			} else {
-				result.result = NOTAVAILABLE;
-				result.status = HttpStatus.NO_CONTENT;
-				result.message = "이미 사용 중인 닉네임 입니다.";
-			}
-		} catch (Exception e) {
-			result.result = FAIL;
-			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-			result.message = "닉네임 중복 확인 중 문제가 발생했습니다.";
-			e.printStackTrace();
-		}
-		
-		
-		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
-	}
-	
-	
 }

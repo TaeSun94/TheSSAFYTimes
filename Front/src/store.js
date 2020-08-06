@@ -13,15 +13,32 @@ export default new Vuex.Store({
         program: {},
         articles:[],
         article:{},
-        followings_count:'',
-        followers_count:'',
         articles_count:'',
         profile:{},
         program_comments: [],
 
         // free
         frees: [],
-        free: {},
+        
+        //followings
+        followings:[],
+
+        //categorys
+        article_types:[],
+        tracks:[],
+        units:[],
+        projects:[],
+        regions:[],
+        skill_languages:[],
+        free: {
+            data: {},
+            message : "",
+            result : "",
+            status: "",
+
+        },
+        // comment
+        free_comments: [],
         //notices
         notices: [],
     },
@@ -55,6 +72,30 @@ export default new Vuex.Store({
         free(state) {
             return state.free;
         },
+        articleTypes(state){
+            return state.article_types;
+        },
+        tracks(state){
+            return state.tracks;
+        },
+        units(state){
+            return state.units;
+        },
+        projects(state){
+            return state.projects;
+        },
+        regions(state){
+            return state.regions;
+        },
+        skillLanguages(state){
+            return state.skill_languages;
+        },
+        followings(state){
+            return state.followings;
+        },
+        free_comments(state) {
+            return state.free_comments;
+        },
         notices(state) {
             return state.notices;
         },
@@ -76,12 +117,13 @@ export default new Vuex.Store({
             state.program_comments = payload;
         },
         setProfile(state, payload){
-            state.profile=payload.member;
+            state.profile=payload;
+            console.log(state.profile);
         },
+
         //profile 등록 및 수정
         updateProfile(state, payload){
             console.log(payload);
-            state.profile ={};
             if(payload.result === "success"){
                 alert("프로필 등록 및 수정 완료");
                 // alert(payload.message);
@@ -89,24 +131,27 @@ export default new Vuex.Store({
             else{
                 alert("프로필 등록 및 수정중 에러발생");
             }
-            location.href='/profile';
+
+            location.href=`/profile/${state.profile.memberId}`;
+            state.profile ={};
         },
         //기사 관련
         insertArticle(state, payload){
             console.log(payload);
-            state.article ={};
             if(payload.result ==='success'){
                 alert("기사 등록 완료!");
-                location.href='/profile';
+                location.href=`/profile/${state.profile.memberId}`;
+                state.profile ={};
             }
             else{
                 alert("기사 등록중 오류 발생!");
-                location.href='/profile';
+                location.href=`/profile/${state.profile.memberId}`;
+                state.profile ={};
             }
             
         },
         setMyArticles(state,payload){
-            state.articles = payload.articleList;
+            state.articles = payload.list;
         },
         // Free
         setFrees(state, payload){
@@ -115,6 +160,30 @@ export default new Vuex.Store({
         },
         setFree(state, payload){
             state.free = payload;
+        },
+        setArticleTypes(state,payload){
+            state.article_types = payload;
+        },
+        setTracks(state,payload){
+            state.tracks = payload;
+        },
+        setUnits(state,payload){
+            state.units = payload;
+        },
+        setProjects(state,payload){
+            state.projects = payload;
+        },
+        setRegions(state,payload){
+            state.regions = payload;
+        },
+        setSkillLanguages(state,payload){
+            state.skill_languages = payload;
+        },
+        setFollowings(state,payload){
+            state.followings = payload;
+        },
+        setFreeComments(state, payload){
+            state.free_comments = payload;
         },
         // Notice
         setNotices(state, payload) {
@@ -171,7 +240,7 @@ export default new Vuex.Store({
         //profile
         modifyProfile(context){
             const path = this.state;
-            console.log(path.profile.memberId);
+            console.log(path.profile.memberInterested);
             http.put(`/member`,{
                 memberAddress: path.profile.memberAddress,
                 memberClass: path.profile.memberClass,
@@ -183,28 +252,30 @@ export default new Vuex.Store({
                 memberRegion: path.profile.memberRegion,
                 memberTrack: path.profile.memberTrack,
                 memberUnit: path.profile.memberUnit,
-                memberId: path.profile.memberId
+                memberId: path.profile.memberId,
+                memberInterestedList: path.profile.memberInterested,
+                memberSkillList: path.profile.memberSkill
             }).then(({data})=>{
-                console.log(data);
+                // console.log(data);
                 context.commit('updateProfile',data);
             });
         },
         getProfile(context, payload){
             http.get(`/member/${payload}`).then(({data})=>{
-                console.log(data);
-                context.commit('setProfile',data);
+                // console.log(data);
+                context.commit('setProfile',data.data);
             });
         },
         writeArticle(context){
             const path = this.state;
-            console.log(path.article.articleContent);
-            console.log(path.article.articleTitle);
-            console.log(path.article.articleType);
+            // console.log(path.article.articleContent);
+            // console.log(path.article.articleTitle);
+            // console.log(path.article.articleType);
             http.post('/article',{
                 articleContent: path.article.articleContent,
                 articleTitle: path.article.articleTitle,
-                articleType: 1,
-                memberId: "tyzlddy"
+                articleType: path.article.articleType,
+                memberId: "admin"
             }).then(({data})=>{
                 console.log(data);
                 context.commit('insertArticle',data);
@@ -224,28 +295,81 @@ export default new Vuex.Store({
         //Free
         getFrees(context,payload) {
             http.get(payload).then(({data}) => {
-                context.commit("setFrees", data)
+                context.commit("setFrees", data.list)
 
             });
         },
         getFree(context, payload) {
             http.get(payload).then(({data}) => {
-                
                 context.commit("setFree", data);
             })
         },
-        freeCreate(context, {freeBoardTitle, freeBoardContent}) {
+        freeCreate(context, {freeBoardTitle, freeBoardContent, memberId}) {
             http.post('/free/board',{
                 freeBoardTitle,
-                freeBoardContent
+                freeBoardContent,
+                memberId,
             })
             .then(({data})=> {
                 if(data.result=='success'){
                     context.commit("setFree", data);
                     location.href='/community/freelist';
+                } else {
+                    alert(data.message);
+                    return;
                 }
             })
         },
+        //category 불러오기
+        getArticleTypes(context){
+            http.get(`/category/article`).then(({data})=>{
+                context.commit('setArticleTypes', data.list);
+            })
+        },
+        getTracks(context,payload){
+            http.get(`/category/${payload}/track`).then(({data})=>{
+                context.commit('setTracks', data.list);
+            })
+        },
+        getUnits(context,payload){
+            http.get(`/category/${payload}/unit`).then(({data})=>{
+                context.commit('setUnits', data.list);
+            })
+        },
+        getProjects(context){
+            http.get(`/category/project`).then(({data})=>{
+                context.commit('setProjects', data.list);
+            })
+        },
+        getRegions(context){
+            http.get(`/category/region`).then(({data})=>{
+                context.commit('setRegions', data.list);
+            })
+        },
+        getSkillLanguages(context){
+            http.get(`/category/skill-language`).then(({data})=>{
+                context.commit('setSkillLanguages', data.list);
+            })
+        },
+        getFollowings(context,payload){
+            http.get(`/follow/${payload}/ing`).then(({data})=>{
+                context.commit('setFollowings',data.list);
+            })
+        },
+        deleteFree(context, payload) {
+            http.delete(`/free/board/${payload}`).then(({data})=>{
+                console.log(data)
+                if (data.result === "success") {
+                    location.href='/community/freelist';
+                } else {
+                    alert("삭제불가")
+                }
+            })
+        },
+        getFreeComments(context, payload){
+            http.get(payload).then((({data})=>{
+                context.commit("setFreeComments", data.list);
+            }))
         // notice
         getNotices(context, payload) {
             http.get(payload).then(({data}) => {

@@ -5,14 +5,14 @@
         <div class="form sm-m-0">
           <v-form ref="form" lazy-validation>
               <!--Id-->
-            <v-text-field 
+            <!-- <v-text-field 
             v-model="memberId"
             :rules="IdRules"
             :counter="10"
             label="닉네임*"
             required
             @blur="checkIdDup"
-            ></v-text-field>
+            ></v-text-field> -->
             <!--Email-->
             <v-text-field
             v-model="memberEmail"

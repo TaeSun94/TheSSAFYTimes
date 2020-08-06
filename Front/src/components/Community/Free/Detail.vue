@@ -9,31 +9,36 @@
             <v-container class="elevation-5 col-lg-7">
                 <div id="app">
                     <div class="textfield">
-                        <div v-html="this.free.freeBoard.freeBoardTitle" class="ml-4 textfield-input"></div>
+                        <div v-html="this.free.data.freeBoardTitle" class="ml-4 textfield-input"></div>
                         <hr>
-
+                        
                     </div>
                                     
                     <div class="text-right mr-5">
 
-                        <small class="description">👀 조회수 {{ this.free.freeBoard.freeBoardHit }} /</small>
-                        <small class="description"> SSAFY 3기 이승경 / </small>
-                        <small class="description"> {{ this.free.freeBoard.freeBoardDatetime }} </small>
+                        <small class="description">👀 조회수 {{ this.free.data.freeBoardHit }} /</small>
+                        <small class="description"> SSAFY 3기 / </small>
+                        <small class="description"> {{$moment(this.free.data.freeBoardDatetime).format('YYYY-MM-DD hh:mm:ss')}} </small>
+
                     </div>
-                    <div v-html="this.free.freeBoard.freeBoardContent" class="inner"></div>
+                    <div v-html="this.free.data.freeBoardContent" class="inner">
+                    </div>
+                    <div class="delete text-right mr-5">
+                        <v-btn rounded @click="deleteHandler" v-if="check"> 삭제 </v-btn>     
+                    </div>
                     <div class="likeContent">
-                        <h3 class="like ml-5 like-button" @click="likeButton" v-html="likeTrue"> </h3> 
-                        <h3 class="like">{{ this.free.freeBoard.freeBoardLikeCount }}</h3>
-            
+                        <h3 class="like ml-3 like-button" @click="likeButton" v-html="likeTrue"> </h3> 
+                        <h3 class="like"> 이 글 좋아요</h3>
+                        <h3 class="like"> {{ this.free.data.freeBoardLikeCount }}</h3>       
                     </div>
 
 
                     <!--댓글 쓰기 폼-->
                     <div>
                         <div class="text-right comment" @click="commentShow">
-                            댓글 달기  
+                            댓글 달기
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
-                        </div> 
+                        </div>
                         <div v-show="content" class="inner-comment">
                             <v-container>
                                 <v-textarea
@@ -42,11 +47,11 @@
                                     auto-grow
                                     label="댓글을 달아주세요!"
                                     prepend-icon="mdi-comment"
-                                    @keydown.enter="hi"
+                                    @keydown.enter="commentCheck"
                                     hint="댓글을 달려면 Enter를 눌러주세요."
                                     style="margin:3%"
-                                >
-                                </v-textarea>
+                                    v-model="commentInput"
+                                ></v-textarea>
                             </v-container>
                         </div>
                     </div>
@@ -54,25 +59,13 @@
                     
                     <!--댓글 목록-->
                     <div v-show="commentContent">
-                        <div class="comment-content">
+                        <div class="comment-content" v-for="item in free_comments" :key="item.freeCommentNo">
                             <v-simple-table>
                                 <template v-slot:default>
                                 <tbody >
-                                    <tr v-for="item in replys" :key="item.no">
-                                        <p class="faq-content">{{ item.content }}<br></p>
-                                        <p class="faq-txt text-right">🧑 {{ item.memberid }}님</p>
-                                    </tr>
-                                </tbody>
-                                </template>
-                            </v-simple-table>
-                        </div>
-                        <div class="comment-content">
-                            <v-simple-table>
-                                <template v-slot:default>
-                                <tbody >
-                                    <tr v-for="item in replys" :key="item.no">
-                                        <p class="faq-content">{{ item.content }}<br></p>
-                                        <p class="faq-txt text-right">🧑 {{ item.memberid }}님</p>
+                                    <tr>
+                                        <p class="faq-content">{{ item.freeCommentContent }}<br></p>
+                                        <p class="faq-txt text-right">🧑 {{ item.memberId }}님</p>
                                     </tr>
                                 </tbody>
                                 </template>
@@ -90,45 +83,66 @@
 
 <script>
 import { mapGetters } from 'vuex'
-
+import http from "@/http-common.js"
 
 export default {
+
     name: 'FreeDetail',
     data() {
         return {
-            replys: [
-                {
-                    no:1,
-                    content:'댓글입니다. 댓글입니다. 댓글입니다.댓다.댓글입니다.댓글입니다.',
-                    memberid:'옴팡'
-                }
-            ],
-          freeTitle: '',
-          freeContent: '',
-          freeNo: '',
-          freeWriter: '',
-          freeHit: '',
-          freeLikeCount: '',
+
           content: false,
           commentContent: true,
           likeControll: true,
-          likeTrue:'❤️'
+          likeTrue:'❤️',
+          check: false,
+          memberId: '',
+          commentInput: '',
         }
     },
     computed: {
-        ...mapGetters(["free"])
+        ...mapGetters(["free"]),
+        ...mapGetters(["free_comments"])
     },
     created() {
+        var id = sessionStorage.getItem('memberId');
+        this.memberId = id
         this.$store.dispatch("getFree", `/free/board/${this.$route.params.no}`)
-        
-
+        this.$store.dispatch("getFreeComments", `/free/${this.$route.params.no}/comment`)
+        // if(this.free.freeBoard.memberEmail==sessionStorage.getItem('memberEmail')){
+        //     this.check = true
+        //     console.log(this.check)
+        // } else  {
+        //     this.check = false
+        // }     
     },
     methods: {
         commentShow() {
             this.content = !this.content
         },
-        hi() {
-            alert("댓글등록할거임 ㅋ");
+        commentCreate() {
+            http.post("/free/comment", {
+                memberId : sessionStorage.getItem("memberId"),
+                freeCommentContent: this.commentInput,
+                freeBoardNo :  parseInt(`${this.$route.params.no}`)
+            }).
+            then(({data}) =>{
+                if(data.result == "success") {
+                    alert(data.message);
+                    location.reload();
+                } else {
+                    alert(data.message);
+                    return;
+                }
+            })
+        },
+        commentCheck() {
+            if(this.commentInput == ""){
+                alert("댓글을 입력하세요");
+                return;
+            } else {
+                this.commentCreate();
+            }
         },
         likeButton(){
             if (this.likeControll == true){
@@ -144,6 +158,10 @@ export default {
                 this.free.freeBoard.freeBoardLikeCount++;
             }
         },
+        deleteHandler() {
+            console.log('삭제')
+            this.$store.dispatch("deleteFree", this.$route.params.no)
+        }
 
     }
 
