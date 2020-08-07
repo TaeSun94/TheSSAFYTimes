@@ -24,6 +24,12 @@
 		and category_no_parent = #{categoryNo}
 	</select>
 
+	<select id="getBoardTrackList" resultType="category">
+		select *
+		from category
+		where category_manage_no = 7
+	</select>
+
 	<select id="getSkillAndLanguageList" resultType="category">
 		select *
 		from category
@@ -40,6 +46,15 @@
 		select *
 		from category
 		where category_manage_no = 6
+	</select>
+
+	<select id="getInterestedAndSkillList" resultType="string">
+		select category_name
+		from category
+		where category_no in
+		<foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+			#{item}
+		</foreach>
 	</select>
 
 
