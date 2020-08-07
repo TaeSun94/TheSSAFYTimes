@@ -79,5 +79,15 @@
 		delete from program_comment
 		where program_comment_no = #{commentNo}
 	</delete>
+	
+	<!-- 좋아요 -->
+	<insert id="insertLike">
+		insert ignore into program_board_like
+				(program_board_no, member_id, program_board_like_check)
+		values
+				(#{boardNo}, #{memberId}, #{boardLikeCheck})
+				
+	</insert>	
+	
 </mapper>
 
