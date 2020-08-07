@@ -10,6 +10,7 @@ import com.ssafy.ssafience.model.comment.CommentModifyRequest;
 import com.ssafy.ssafience.model.comment.CommentWriteRequest;
 import com.ssafy.ssafience.model.dto.ProgramBoard;
 import com.ssafy.ssafience.model.dto.ProgramComment;
+import com.ssafy.ssafience.model.like.LikeRequest;
 
 @Mapper
 public interface ProgramRepo {
@@ -25,5 +26,7 @@ public interface ProgramRepo {
 	public int insertComment(CommentWriteRequest request);
 	public int updateComment(CommentModifyRequest request);
 	public int deleteComment(int commentNo);
+
+	public int insertLike(LikeRequest request);
 
 }
