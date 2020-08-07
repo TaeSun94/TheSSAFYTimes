@@ -12,9 +12,25 @@
 		where team_board_no = #{boardNo}
 	</select>
 	
-	<select id="selectBoardList" resultType="teamboard">
-		select *
-		from team_board
+	<select id="selectBoardDetailOne" resultType="teamboardresultdto">
+		select t.team_board_no, t.member_id, t.team_board_title,
+				t.team_board_content, t.team_board_start_datetime, t.team_board_end_datetime,
+				t.team_board_total_count, t.team_board_front_remain_count,
+				t.team_board_back_remain_count, t.team_board_datetime ,
+				c.category_name team_board_category			
+		from team_board t LEFT OUTER JOIN category c
+		on t.team_board_category = c.category_no
+		where t.team_board_no = #{boardNo}
+	</select>
+	
+	<select id="selectBoardList" resultType="teamboardresultdto">
+		select t.team_board_no, t.member_id, t.team_board_title,
+				t.team_board_content, t.team_board_start_datetime, t.team_board_end_datetime,
+				t.team_board_total_count, t.team_board_front_remain_count,
+				t.team_board_back_remain_count, t.team_board_datetime ,
+				c.category_name team_board_category			
+		from team_board t LEFT OUTER JOIN category c
+		on t.team_board_category = c.category_no
 		order by team_board_no desc
 	</select>
 	
@@ -50,6 +66,35 @@
 		delete from team_board
 		where team_board_no = #{boardNo}
 	</delete>
+	
+	<!-- 지원 목록 -->
+	<select id="selectApplyList" resultType="teamapply">
+		select *
+		from team_apply
+		where team_board_no = #{boardNo}
+	</select>
+
+
+	<!-- 지원 -->
+	<insert id="apply">
+		insert ignore into team_apply
+			(
+				member_id, team_board_no, team_apply_content, team_apply_position
+			)
+		values 
+			(
+				#{memberId}, #{teamBoardNo}, #{teamApplyContent}, #{teamApplyPosition}
+			)
+	</insert>
+
+	<!-- 영입 -->
+	<update id="accept">
+		update team_apply
+		set team_apply_status = 1
+		where team_apply_no = #{applyNo}
+	</update>
+	
+	
 
 </mapper>
 
