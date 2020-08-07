@@ -17,6 +17,7 @@ public class ProgramBoard {
 	private int programBoardHit;
 	private Date programBoardUpdateDatetime;
 	private Date programBoardDatetime;
-	private int programBoardLikeCount;
+	private int programBoardLike;
+	private int programBoardDislike;
 
 }
