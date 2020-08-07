@@ -151,8 +151,8 @@ public class CategoryController {
 		return new ResponseEntity<ListResponse<CategoryResult>>(result, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "프로젝트 종류 카테고리 목록 조회")
-	@GetMapping("/project")
+	@ApiOperation(value = "팀 매칭 관련 프로젝트 종류 카테고리 목록 조회")
+	@GetMapping("/team")
 	public ResponseEntity<ListResponse<CategoryResult>> getProjectList(){
 		final ListResponse<CategoryResult> result = new ListResponse<>();
 		
