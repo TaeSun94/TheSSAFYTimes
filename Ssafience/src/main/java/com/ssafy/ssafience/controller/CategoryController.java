@@ -108,6 +108,27 @@ public class CategoryController {
 		return new ResponseEntity<ListResponse<CategoryResult>>(result, HttpStatus.OK);
 	}
 	
+	@ApiOperation(value = "프로그래밍 게시판 트랙 카테고리 목록 조회")
+	@GetMapping("/program-track")
+	public ResponseEntity<ListResponse<CategoryResult>> getBoardTrackList(){
+		final ListResponse<CategoryResult> result = new ListResponse<>();
+		
+		try {
+			List<CategoryResult> categoryList = cService.getBoardTrackList();
+			result.result = SUCCESS;
+			result.status = HttpStatus.OK;
+			result.message = "프로그래밍 게시판 트랙 카테고리 목록 조회가 성공적으로 이루어졌습니다. ";
+			result.setList(categoryList);
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message = "프로그래밍 게시판 트랙 카테고리 목록을 가져오던 중 문제가 발생했습니다. ";
+			e.printStackTrace();
+		}
+		
+		return new ResponseEntity<ListResponse<CategoryResult>>(result, HttpStatus.OK);
+	}
+	
 
 	@ApiOperation(value = "관심 기술 및 언어, 사용 기술 및 언어 카테고리 목록 조회")
 	@GetMapping("/skill-language")
@@ -172,5 +193,4 @@ public class CategoryController {
 		return new ResponseEntity<ListResponse<CategoryResult>>(result, HttpStatus.OK);
 	}
 	
-
 }
