@@ -12,15 +12,33 @@
 		where program_board_no = #{boardNo}
 	</select>
 	
-	<select id="selectBoardList" resultType="programboard">
-		select *
-		from program_board
+	<select id="selectBoardDetailOne" resultType="programboardresultdto">
+		SELECT pb.program_board_no, pb.member_id, pb.program_board_title, pb.program_board_content, 
+				pb.program_board_hit, pb.program_board_update_datetime,
+				pb.program_board_datetime, pb.program_board_like, pb.program_board_dislike,
+					c.category_name program_board_track 
+		FROM program_board pb LEFT OUTER JOIN category c 
+		ON pb.program_board_track = c.category_no		
+		where pb.program_board_no = #{boardNo}
+	</select>
+	
+	<select id="selectBoardList" resultType="programboardresultdto">
+		SELECT pb.program_board_no, pb.member_id, pb.program_board_title, pb.program_board_content, 
+				pb.program_board_hit, pb.program_board_update_datetime,
+				pb.program_board_datetime, pb.program_board_like, pb.program_board_dislike,
+					c.category_name program_board_track 
+		FROM program_board pb LEFT OUTER JOIN category c 
+		ON pb.program_board_track = c.category_no		
 		order by program_board_no desc
 	</select>
 	
-	<select id="selectMemberBoardList" resultType="programboard">
-		select *
-		from program_board
+	<select id="selectMemberBoardList" resultType="programboardresultdto">
+		SELECT pb.program_board_no, pb.member_id, pb.program_board_title, pb.program_board_content, 
+				pb.program_board_hit, pb.program_board_update_datetime,
+				pb.program_board_datetime, pb.program_board_like, pb.program_board_dislike,
+					c.category_name program_board_track 
+		FROM program_board pb LEFT OUTER JOIN category c 
+		ON pb.program_board_track = c.category_no		
 		where member_id = #{memberId}
 		order by program_board_no desc
 	</select>
