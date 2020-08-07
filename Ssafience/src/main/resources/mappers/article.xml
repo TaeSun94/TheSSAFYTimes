@@ -10,15 +10,24 @@
 		where article_no = #{articleNo}
 	</select>
 	
-	<select id="selectArticleList" resultType="article">
-		select *
-		from article
+ 	<select id="selectArticleDetailOne" resultType="articleresultdto">
+		SELECT a.article_no , a.member_id, a.article_title, a.article_content, c.category_name article_type, a.article_datetime 
+		FROM article a LEFT OUTER JOIN category c 
+		ON a.article_type = c.category_no		
+		where article_no = #{articleNo}
+	</select>
+	
+	<select id="selectArticleList" resultType="articleresultdto">
+		SELECT a.article_no , a.member_id, a.article_title, a.article_content, c.category_name article_type, a.article_datetime 
+		FROM article a LEFT OUTER JOIN category c 
+		ON a.article_type = c.category_no		
 		order by article_no desc
 	</select>
 	
-	<select id="selectMemberArticleList" resultType="article">
-		select *
-		from article
+	<select id="selectMemberArticleList" resultType="articleresultdto">
+		SELECT a.article_no , a.member_id, a.article_title, a.article_content, c.category_name article_type, a.article_datetime 
+		FROM article a LEFT OUTER JOIN category c 
+		ON a.article_type = c.category_no		
 		where member_id = #{memberId}
 		order by article_no desc
 	</select>

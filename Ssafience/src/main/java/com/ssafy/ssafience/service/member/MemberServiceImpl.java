@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.ssafience.model.dto.Member;
-import com.ssafy.ssafience.model.dto.MemberResult;
+import com.ssafy.ssafience.model.dto.MemberResultDTO;
 import com.ssafy.ssafience.model.member.LoginResult;
 import com.ssafy.ssafience.model.member.MemberDetailResult;
 import com.ssafy.ssafience.model.member.ModifyRepoRequest;
@@ -38,7 +38,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public MemberDetailResult selectMemberOneDetail(String memberId) throws Exception {
 		MemberDetailResult result = null;
-		MemberResult member = repo.selectMemberDetail(memberId);
+		MemberResultDTO member = repo.selectMemberDetail(memberId);
 		System.out.println(member);
 		if (member != null) {
 			result = new MemberDetailResult(member);

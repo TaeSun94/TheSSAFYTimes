@@ -23,6 +23,7 @@ import com.ssafy.ssafience.model.article.ArticleModifyRequest;
 import com.ssafy.ssafience.model.article.ArticleResult;
 import com.ssafy.ssafience.model.article.WriteRequest;
 import com.ssafy.ssafience.model.dto.Article;
+import com.ssafy.ssafience.model.dto.ArticleResultDTO;
 import com.ssafy.ssafience.service.article.ArticleService;
 
 import io.swagger.annotations.Api;
@@ -53,11 +54,11 @@ public class ArticleController {
 	
 	@ApiOperation(value = "모든 뉴스피드 목록 반환")
 	@GetMapping
-	public ResponseEntity<ListResponse<Article>> getArticleList(){
+	public ResponseEntity<ListResponse<ArticleResultDTO>> getArticleList(){
 		logger.debug("getArticleList 호출");
-		final ListResponse<Article> result = new ListResponse<>();
+		final ListResponse<ArticleResultDTO> result = new ListResponse<>();
 		try {
-			List<Article> list = aService.selectArticleList();
+			List<ArticleResultDTO> list = aService.selectArticleList();
 			result.result = SUCCESS;
 			result.status = HttpStatus.OK;
 			result.setList(list);
@@ -68,7 +69,7 @@ public class ArticleController {
 			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
 			result.message="모든 뉴스피드 목록 가져오는 중 문제가 발생했습니다.";
 		}
-		return new ResponseEntity<ListResponse<Article>>(result, HttpStatus.OK);
+		return new ResponseEntity<ListResponse<ArticleResultDTO>>(result, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "특정 회원의 뉴스피드 목록 반환")
