@@ -1,10 +1,5 @@
 <h1>The SSAFIENCE</h1>
 
-<h2>Google Docs</h2>
-<h4>기획</h4>
-
-<h4>변수명</h4>
-
 
 # &#128240;The SSAFY Times
 
