@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.ssafience.model.BasicResponse;
 import com.ssafy.ssafience.model.ListResponse;
 import com.ssafy.ssafience.model.SingleResponse;
-import com.ssafy.ssafience.model.board.FreeModifyRequest;
-import com.ssafy.ssafience.model.board.FreeWriteRequest;
-import com.ssafy.ssafience.model.dto.FreeBoard;
-import com.ssafy.ssafience.model.dto.TeamBoard;
+import com.ssafy.ssafience.model.dto.TeamApply;
+import com.ssafy.ssafience.model.dto.TeamBoardResultDTO;
+import com.ssafy.ssafience.model.team.TeamApplyAcceptRequest;
+import com.ssafy.ssafience.model.team.TeamApplyRequest;
 import com.ssafy.ssafience.model.team.TeamModifyRequest;
 import com.ssafy.ssafience.model.team.TeamWriteRequest;
 import com.ssafy.ssafience.service.board.TeamService;
@@ -34,9 +34,9 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @ApiResponses(value = { @ApiResponse(code = 401, message = "Unauthorized", response = BasicResponse.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
-        @ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
-        @ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
+		@ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
+		@ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
+		@ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
 
 //@CrossOrigin(origins = { "http://localhost:3000" })
 @Api(tags = "Team : 팀 매칭")
@@ -50,63 +50,64 @@ public class TeamController {
 	static final String SUCCESS = "success";
 	static final String FAIL = "fail";
 	static final String NOTAVAILABLE = "notavailable";
-	
+	static final String ALREADY = "already";
+
 	@Autowired
 	TeamService tService;
-	
+
 	@ApiOperation(value = "모든 팀 매칭 게시판 목록 반환")
 	@GetMapping
-	public ResponseEntity<ListResponse<TeamBoard>> getBoardList(){
-		final ListResponse<TeamBoard> result = new ListResponse<>();
+	public ResponseEntity<ListResponse<TeamBoardResultDTO>> getBoardList() {
+
+		final ListResponse<TeamBoardResultDTO> result = new ListResponse<>();
 		try {
-			List<TeamBoard> list = tService.selectBoardList();
+			List<TeamBoardResultDTO> list = tService.selectBoardList();
 			result.result = SUCCESS;
 			result.status = HttpStatus.OK;
 			result.setList(list);
-			result.message="팀 매칭 게시판 목록 가져오는데 성공했습니다.";				
-			
+			result.message = "팀 매칭 게시판 목록 가져오는데 성공했습니다.";
+
 		} catch (Exception e) {
 			result.result = FAIL;
 			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-			result.message="모든 팀 매칭 게시판 목록 가져오는 중 문제가 발생했습니다.";
+			result.message = "모든 팀 매칭 게시판 목록 가져오는 중 문제가 발생했습니다.";
 			e.printStackTrace();
 		}
-		return new ResponseEntity<ListResponse<TeamBoard>>(result, HttpStatus.OK);
+		return new ResponseEntity<ListResponse<TeamBoardResultDTO>>(result, HttpStatus.OK);
 	}
 
-	
 	@ApiOperation(value = "특정 팀 매칭 게시판 상세 조회")
 	@GetMapping("/{boardno}")
-	public ResponseEntity<SingleResponse<TeamBoard>> getBoardOne(@PathVariable int boardno){
-		final SingleResponse<TeamBoard> result = new SingleResponse<>();
-		
+	public ResponseEntity<SingleResponse<TeamBoardResultDTO>> getBoardOne(@PathVariable int boardno) {
+		final SingleResponse<TeamBoardResultDTO> result = new SingleResponse<>();
+
 		try {
-			TeamBoard board = tService.selectBoardOne(boardno);
+			TeamBoardResultDTO board = tService.selectBoardDetailOne(boardno);
 			if (board != null) {
 				result.result = SUCCESS;
 				result.status = HttpStatus.OK;
-				result.message=" 팀 매칭 게시판 상세조회에 성공했습니다.";	
+				result.message = " 팀 매칭 게시판 상세조회에 성공했습니다.";
 				result.setData(board);
 			} else {
 				result.result = NOTAVAILABLE;
 				result.status = HttpStatus.NO_CONTENT;
-				result.message="존재하지 않는 게시글 입니다. 확인 후 다시 시도해주세요.";				
-			}			
+				result.message = "존재하지 않는 게시글 입니다. 확인 후 다시 시도해주세요.";
+			}
 		} catch (Exception e) {
 			result.result = FAIL;
 			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-			result.message=" 팀 매칭 게시판 목록 가져오는 중 문제가 발생했습니다.";
+			result.message = " 팀 매칭 게시판 목록 가져오는 중 문제가 발생했습니다.";
 			e.printStackTrace();
 		}
-		
-		return new ResponseEntity<SingleResponse<TeamBoard>>(result, HttpStatus.OK);
+
+		return new ResponseEntity<SingleResponse<TeamBoardResultDTO>>(result, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "새로운 팀 매칭 게시판 게시글 등록")
 	@PostMapping
-	public ResponseEntity<BasicResponse> insertBoard(@RequestBody TeamWriteRequest request){
+	public ResponseEntity<BasicResponse> insertBoard(@RequestBody TeamWriteRequest request) {
 		final BasicResponse result = new BasicResponse();
-		
+
 		try {
 			int insertBoard = tService.insert(request);
 			if (insertBoard == -1) {
@@ -128,15 +129,15 @@ public class TeamController {
 			result.message = "등록 중 문제발생";
 			e.printStackTrace();
 		}
-		
+
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "팀 매칭 게시판 게시글 수정")
 	@PutMapping
-	public ResponseEntity<BasicResponse> updateBoard(@RequestBody TeamModifyRequest request){
+	public ResponseEntity<BasicResponse> updateBoard(@RequestBody TeamModifyRequest request) {
 		final BasicResponse result = new BasicResponse();
-		
+
 		try {
 			int updateBoard = tService.update(request);
 			if (updateBoard == -1) {
@@ -161,12 +162,12 @@ public class TeamController {
 
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "팀 매칭 게시판 게시글 삭제")
 	@DeleteMapping("/{boardno}")
-	public ResponseEntity<BasicResponse> deleteBoard(@PathVariable int boardno){
+	public ResponseEntity<BasicResponse> deleteBoard(@PathVariable int boardno) {
 		final BasicResponse result = new BasicResponse();
-		
+
 		try {
 			int deleteBoard = tService.delete(boardno);
 			if (deleteBoard == -1) {
@@ -188,9 +189,95 @@ public class TeamController {
 			result.message = "삭제 중 문제발생";
 			e.printStackTrace();
 		}
-		
+
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
-		
+
 	}
 
+	// 지원 (Apply)
+	@ApiOperation(value = "특정 팀 매칭 게시판 지원 목록")
+	@GetMapping("/apply/{boardno}/list")
+	public ResponseEntity<ListResponse<TeamApply>> getApplyList(@PathVariable int boardno) {
+		final ListResponse<TeamApply> result = new ListResponse<>();
+		try {
+			List<TeamApply> list = tService.selectApplyList(boardno);
+			if (list != null) {
+				result.result = SUCCESS;
+				result.status = HttpStatus.OK;
+				result.setList(list);
+				result.message = "팀 매칭 게시글 지원 목록 가져오는데 성공했습니다.";				
+			} else {
+				result.result = NOTAVAILABLE;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "존재하지 않는 팀 매칭 게시글 입니다. ";				
+			}
+
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message = "팀 매칭 게시글 지원 목록 가져오는 중 문제가 발생했습니다.";
+			e.printStackTrace();
+		}
+		return new ResponseEntity<ListResponse<TeamApply>>(result, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "특정 팀 매칭 게시판에 지원하기")
+	@PostMapping("/apply")
+	public ResponseEntity<BasicResponse> apply(@RequestBody TeamApplyRequest request) {
+		final BasicResponse result = new BasicResponse();
+
+		try {
+			int applyTeam = tService.apply(request);
+			if (applyTeam == -1) {
+				result.result = NOTAVAILABLE;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "존재하지 않는 게시글 입니다. 회원가입을 진행해주세요.";
+			} else if (applyTeam == 1) {
+				result.result = SUCCESS;
+				result.status = HttpStatus.OK;
+				result.message = "지원이 성공적으로 이루어졌습니다.";
+			} else if (applyTeam == 0) {
+				result.result = ALREADY;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "이미 지원했습니다.";
+			} else {
+				result.result = NOTAVAILABLE;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "지원에 실패했습니다. 다시 시도해 주세요.";
+			}
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message = "등록 중 문제발생";
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "지원자 영입")
+	@PutMapping("/apply")
+	public ResponseEntity<BasicResponse> accept(@RequestBody TeamApplyAcceptRequest request) {
+		final BasicResponse result = new BasicResponse();
+
+		try {
+			int acceptApply = tService.accept(request.getTeamApplyNo());
+			if (acceptApply == 1) {
+				result.result = SUCCESS;
+				result.status = HttpStatus.OK;
+				result.message = "지원자 영입이 성공적으로 이루어졌습니다.";
+			} else {
+				result.result = NOTAVAILABLE;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "지원자 영입에 실패했습니다.";
+			}
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message = "영입 중 문제발생";
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
 }
