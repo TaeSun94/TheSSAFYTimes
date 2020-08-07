@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ssafy.ssafience.model.dto.Member;
+import com.ssafy.ssafience.model.dto.MemberResult;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,11 +13,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MemberDetailResult extends Member{
+public class MemberDetailResult extends MemberResult{
 	private List<String> memberInterestedList;
 	private List<String> memberSkillList;	
 	
-	public MemberDetailResult(Member m) {
+	public MemberDetailResult(MemberResult m) {
 		super.setMemberNo(m.getMemberNo());
 		super.setMemberId(m.getMemberId());
 		super.setMemberPw(m.getMemberPw());
@@ -37,6 +38,8 @@ public class MemberDetailResult extends Member{
 		super.setMemberFollower(m.getMemberFollower());
 		super.setMemberDatetime(m.getMemberDatetime());
 		super.setMemberAuthDatetime(m.getMemberAuthDatetime());
+		super.setMemberInterested(m.getMemberInterested());
+		super.setMemberSkill(m.getMemberSkill());
 		this.memberInterestedList = new ArrayList<String>();
 		this.memberSkillList = new ArrayList<>();
 	}
