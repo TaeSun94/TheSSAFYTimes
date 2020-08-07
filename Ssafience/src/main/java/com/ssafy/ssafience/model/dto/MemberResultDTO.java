@@ -14,7 +14,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class MemberResult {
+public class MemberResultDTO {
 
 	private int memberNo;
 	private String memberId;
@@ -45,7 +45,7 @@ public class MemberResult {
 
 	
 	@Builder
-	public MemberResult(String memberId, String memberPw, String memberEmail) {
+	public MemberResultDTO(String memberId, String memberPw, String memberEmail) {
 		this.memberId = memberId;
 		this.memberPw = memberPw;
 		this.memberEmail = memberEmail;
