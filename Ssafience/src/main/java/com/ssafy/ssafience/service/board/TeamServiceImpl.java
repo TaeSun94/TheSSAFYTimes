@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.ssafience.model.dto.Member;
+import com.ssafy.ssafience.model.dto.TeamApply;
 import com.ssafy.ssafience.model.dto.TeamBoard;
+import com.ssafy.ssafience.model.dto.TeamBoardResultDTO;
+import com.ssafy.ssafience.model.team.TeamApplyRequest;
 import com.ssafy.ssafience.model.team.TeamModifyRequest;
 import com.ssafy.ssafience.model.team.TeamWriteRequest;
 import com.ssafy.ssafience.repo.MemberRepo;
@@ -22,8 +25,17 @@ public class TeamServiceImpl implements TeamService{
 	private MemberRepo mRepo;
 	
 	@Override
-	public List<TeamBoard> selectBoardList() throws Exception {
+	public List<TeamBoardResultDTO> selectBoardList() throws Exception {
 		return repo.selectBoardList();
+	}
+	
+	@Override
+	public TeamBoardResultDTO selectBoardDetailOne(int boardNo) throws Exception {
+		TeamBoardResultDTO board = repo.selectBoardDetailOne(boardNo);
+		System.out.println(board);
+		if (board != null) {
+			return board;
+		} else return null;
 	}
 
 	@Override
@@ -61,6 +73,27 @@ public class TeamServiceImpl implements TeamService{
 		if (board != null) {
 			return repo.delete(boardNo);
 		} else return -1;
+	}
+	
+	@Override
+	public List<TeamApply> selectApplyList(int boardNo) throws Exception {
+		TeamBoard board = repo.selectBoardOne(boardNo);
+		if (board != null) {
+			return repo.selectApplyList(boardNo);
+		} else return null;
+	}
+	
+	@Override
+	public int apply(TeamApplyRequest request) throws Exception {
+		TeamBoard board = repo.selectBoardOne(request.getTeamBoardNo());
+		if (board != null) {
+			return repo.apply(request);
+		} else return -1;
+	}
+	
+	@Override
+	public int accept(int applyNo) throws Exception {
+		return repo.accept(applyNo);
 	}
 
 }
