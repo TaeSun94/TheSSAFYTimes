@@ -32,6 +32,7 @@ import com.ssafy.ssafience.model.dto.Article;
 import com.ssafy.ssafience.model.dto.FreeBoard;
 import com.ssafy.ssafience.model.dto.Member;
 import com.ssafy.ssafience.model.dto.ProgramBoard;
+import com.ssafy.ssafience.model.dto.ProgramBoardResultDTO;
 import com.ssafy.ssafience.service.article.ArticleService;
 import com.ssafy.ssafience.service.board.FreeBoardService;
 import com.ssafy.ssafience.service.board.ProgramBoardService;
@@ -64,10 +65,10 @@ public class ProgramBoardController {
 	
 	@ApiOperation(value = "모든 프로그래밍 게시판 목록 반환")
 	@GetMapping
-	public ResponseEntity<ListResponse<ProgramBoard>> getBoardList(){
-		final ListResponse<ProgramBoard> result = new ListResponse<>();
+	public ResponseEntity<ListResponse<ProgramBoardResultDTO>> getBoardList(){
+		final ListResponse<ProgramBoardResultDTO> result = new ListResponse<>();
 		try {
-			List<ProgramBoard> list = fService.selectBoardList();
+			List<ProgramBoardResultDTO> list = fService.selectBoardList();
 			result.result = SUCCESS;
 			result.status = HttpStatus.OK;
 			result.setList(list);
@@ -79,16 +80,16 @@ public class ProgramBoardController {
 			result.message="모든 프로그래밍게시판 목록 가져오는 중 문제가 발생했습니다.";
 			e.printStackTrace();
 		}
-		return new ResponseEntity<ListResponse<ProgramBoard>>(result, HttpStatus.OK);
+		return new ResponseEntity<ListResponse<ProgramBoardResultDTO>>(result, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "특정 회원의 프로그래밍 게시판 목록 반환")
 	@GetMapping("/{memberId}/list")
-	public ResponseEntity<ListResponse<ProgramBoard>> getMemberBoardList(@PathVariable String memberId){
-		final ListResponse<ProgramBoard> result = new ListResponse<>();
+	public ResponseEntity<ListResponse<ProgramBoardResultDTO>> getMemberBoardList(@PathVariable String memberId){
+		final ListResponse<ProgramBoardResultDTO> result = new ListResponse<>();
 		
 		try {
-			BoardResult<ProgramBoard> myBoardResult = fService.selectMemberBoardList(memberId);
+			BoardResult<ProgramBoardResultDTO> myBoardResult = fService.selectMemberBoardList(memberId);
 			if (myBoardResult.isAuthor()) {
 				result.result = SUCCESS;
 				result.status = HttpStatus.OK;
@@ -107,16 +108,16 @@ public class ProgramBoardController {
 			e.printStackTrace();
 		}
 		
-		return new ResponseEntity<ListResponse<ProgramBoard>>(result, HttpStatus.OK);
+		return new ResponseEntity<ListResponse<ProgramBoardResultDTO>>(result, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "특정 프로그래밍 게시판 상세 조회")
 	@GetMapping("/{boardno}")
-	public ResponseEntity<SingleResponse<ProgramBoard>> getBoardOne(@PathVariable int boardno){
-		final SingleResponse<ProgramBoard> result = new SingleResponse<>();
+	public ResponseEntity<SingleResponse<ProgramBoardResultDTO>> getBoardOne(@PathVariable int boardno){
+		final SingleResponse<ProgramBoardResultDTO> result = new SingleResponse<>();
 		
 		try {
-			ProgramBoard board = fService.selectBoardOne(boardno);
+			ProgramBoardResultDTO board = fService.selectBoardDetailOne(boardno);
 			if (board != null) {
 				result.result = SUCCESS;
 				result.status = HttpStatus.OK;
@@ -134,7 +135,7 @@ public class ProgramBoardController {
 			e.printStackTrace();
 		}
 		
-		return new ResponseEntity<SingleResponse<ProgramBoard>>(result, HttpStatus.OK);
+		return new ResponseEntity<SingleResponse<ProgramBoardResultDTO>>(result, HttpStatus.OK);
 	}
 	
 	@ApiOperation(value = "새로운 프로그래밍 게시판 게시글 등록")
