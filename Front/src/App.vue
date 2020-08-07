@@ -26,6 +26,9 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+.wrapper {
+  font-family: 'Noto Sans KR', sans-serif;
+}
 body {
   font-family: 'Noto Sans KR', sans-serif;
 }
