@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:7%">
     <div class="row">
-        <v-container class="col-lg-7">
+        <v-container class="col-lg-9">
                 <v-card-title>
                     <div class="textfield">
                         <h1 class="m-4 main-title"> 🧑‍🤝‍🧑 팀원 찾아요! </h1>

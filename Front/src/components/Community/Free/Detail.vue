@@ -15,7 +15,7 @@
                     </div>
                                     
                     <div class="text-right mr-5">
-
+                        
                         <small class="description">👀 조회수 {{ this.free.data.freeBoardHit }} /</small>
                         <small class="description"> SSAFY 3기 / </small>
                         <small class="description"> {{$moment(this.free.data.freeBoardDatetime).format('YYYY-MM-DD hh:mm:ss')}} </small>
@@ -30,19 +30,18 @@
                         <ul class="u_likeit_layer _faceLayer" role="menu">
                             <li class="u_likeit_list good" role="menuitem">
                                 <a class="u_likeit_list_button _button nclicks(abt_presslink) off" data-type="like" data-log="RTC.like|RTC.unlike" href="#" role="button" aria-selected="false" aria-pressed="false">
-                                    <span class="u_likeit_list_name _label"> Up 👍</span>
-                                    <span class="u_likeit_list_count _count">176</span>
+                                    <span class="u_likeit_list_name _label" @click="upButton"> Up 👍</span>
+                                    <span class="u_likeit_list_count _count">{{  this.free.data.freeBoardLike }}</span>
                                 </a>
                             </li>
                             <li class="u_likeit_list warm" role="menuitem">
                                 <a class="u_likeit_list_button _button off" data-type="warm" data-log="RTC.warm|RTC.unwarm" href="#" role="button" aria-selected="false" aria-pressed="false">
-                                    <span class="u_likeit_list_name _label">Down 👎</span>
-                                    <span class="u_likeit_list_count _count">11</span>
+                                    <span class="u_likeit_list_name _label" @click="downButton">Down 👎</span>
+                                    <span class="u_likeit_list_count _count">{{  this.free.data.freeBoardDislike }}</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
-
 
                     <!--댓글 쓰기 폼-->
                     <div>
@@ -108,23 +107,27 @@ export default {
           check: false,
           memberId: '',
           commentInput: '',
+          upCount: '',
+          freeBoardNo: 0,
+          freeBoardTitle: '',
+          freeBoardLikeCount: '',
+          freeBoardDatetime: '',
+          freeBoardContent: '',
+          freeBoardHit: 0,
         }
     },
     computed: {
         ...mapGetters(["free"]),
-        ...mapGetters(["free_comments"])
+        ...mapGetters(["free_comments"]),
+
     },
     created() {
-        var id = sessionStorage.getItem('memberId');
+        var id = sessionStorage.getItem('memberId')
         this.memberId = id
+        this.count = this.free.data.freeBoardLikeCount 
         this.$store.dispatch("getFree", `/free/board/${this.$route.params.no}`)
         this.$store.dispatch("getFreeComments", `/free/${this.$route.params.no}/comment`)
-        // if(this.free.freeBoard.memberEmail==sessionStorage.getItem('memberEmail')){
-        //     this.check = true
-        //     console.log(this.check)
-        // } else  {
-        //     this.check = false
-        // }     
+
     },
     methods: {
         commentShow() {
@@ -154,23 +157,45 @@ export default {
                 this.commentCreate();
             }
         },
-        likeButton(){
-            if (this.likeControll == true){
-                console.log(this.likeControll)
-                this.likeControll = false
-                this.likeTrue = '🤍'
-                this.free.freeBoard.freeBoardLikeCount--;
-            }
-            else {
-                this.likeControll = true
-                console.log(this.likeControll)
-                this.likeTrue = '❤️'
-                this.free.freeBoard.freeBoardLikeCount++;
-            }
-        },
         deleteHandler() {
             console.log('삭제')
             this.$store.dispatch("deleteFree", this.$route.params.no)
+        },
+        upButton() {
+            var boardLikeCheck = 1
+            var boardNo = this.$route.params.no
+            var memberId = 'hp'
+            
+            http.post('/free/like',{
+                boardLikeCheck,
+                boardNo,
+                memberId,
+            })
+            .then(({data})=> {
+                if(data.result != "success") {
+                    console.log(data.message)
+                }else{
+                    this.$store.commit("setFreeLike", data);
+                }
+            })
+        },
+        downButton() {
+            var boardLikeCheck = 0
+            var boardNo = this.$route.params.no
+            var memberId = this.memberId
+            
+            http.post('/free/like',{
+                boardLikeCheck,
+                boardNo,
+                memberId,
+            })
+            .then(({data})=> {
+                if(data.result != "success") {
+                    console.log(data.message)
+                }else{
+                    this.$store.commit("setFreeLikeDown", data);
+                }
+            })
         }
 
     }
