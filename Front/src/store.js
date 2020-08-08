@@ -42,6 +42,10 @@ export default new Vuex.Store({
         free_comments: [],
         //notices
         notices: [],
+
+        teams: [],
+        team: {},
+
     },
     getters: {
         // login
@@ -102,7 +106,14 @@ export default new Vuex.Store({
         },
         like_free(state) {
             return state.free;
-        }
+        },
+        teams(state) {
+            return state.teams;
+        },
+        team(state) {
+            return state.team;
+        },        
+
     },
     mutations: {
         // login
@@ -204,7 +215,15 @@ export default new Vuex.Store({
             state.free.data.freeBoardDislike = ++state.free.data.freeBoardDislike;
             console.log(state.free.data.freeBoardDislike)
             console.log(state.free)
-        }
+        },
+        setTeams(state, payload){
+            state.teams = payload;
+            
+        },
+        setTeam(state, payload){
+            console.log(payload)
+            state.team = payload;
+        },
         
     },
     actions: {
@@ -408,6 +427,17 @@ export default new Vuex.Store({
                     console.log(data.message)
                 }
             })
+        },
+        getTeams(context, payload) {
+            http.get(payload).then(({data}) => {
+                console.log(data)
+                context.commit("setTeams", data.list);
+            });
+        },
+        getTeam(context, payload) {
+            http.get(payload).then(({data}) => {
+                context.commit("setTeam", data.list);
+            });
         },
     }
     

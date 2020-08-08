@@ -10,23 +10,37 @@
               </div>
               <v-form class="ml-4 mr-4 mt-6">
                 <span class="label ml-3">제목</span>
-                <v-text-field v-model="title" class="ml-3" placeholder="공모전 인원 구합니다악"           
+                <v-text-field v-model="title" class="ml-3" placeholder="글 제목을 입력해주세요."           
                 ></v-text-field>
-                <span class="label ml-3">대회명</span>
+                <!-- <span class="label ml-3">대회명</span>
                 <v-text-field v-model="title" class="ml-3" placeholder="예) SSAFY 공모전 or 해커톤"           
                 ></v-text-field>
                 <span class="label ml-3">한줄 설명</span>
                 <v-text-field v-model="content" class="ml-3"  placeholder="예) SSAFY인을 위한 블로그 제작"       
-                ></v-text-field>
-                <span class="label ml-3">모집인원</span>
-                  <v-select class="col-lg-2" 
-                      :items="options"
-                      label=""
-                      chips
-                      persistent-hint
-                      v-model="count"
-                  ></v-select>
-                  <span class="label ml-3">기술스택</span>
+                ></v-text-field> -->
+                <div class="d-flex">
+                  <div class="col-3">
+                  <span class="label ml-3 d-inline">Front-end</span>
+                      <v-select class="col-lg-6" 
+                          :items="front"
+                          label=""
+                          chips
+                          persistent-hint
+                          v-model="frontCount"
+                      ></v-select>
+                  </div>
+                  <div class="col-3">
+                  <span class="label ml-3 d-inline">Back-end</span>
+                      <v-select class="col-lg-6" 
+                          :items="back"
+                          label=""
+                          chips
+                          persistent-hint
+                          v-model="backCount"
+                      ></v-select>          
+                  </div>          
+                </div>  
+                  <!-- <span class="label ml-3">기술스택</span>
                   <v-select class="col-lg-8"
                       :items="stack"
                       label=""
@@ -36,7 +50,7 @@
                       chips
                       persistent-hint
                       v-model="stacks"
-                  ></v-select>
+                  ></v-select> -->
               </v-form>
               <div class="textfield ml-5 row">
                 <span class="label ml-3">상세설명</span>
@@ -66,12 +80,13 @@ export default {
     data() {
       return {
         htmlForEditor: "",
-        options:[1,2,3,4,'4명 이상'],
+        front:[1,2,3,4,'4명 이상'],
+        back:[1,2,3,4,'4명 이상'],
         stack: ['Java','jsp','머신러닝','딥러닝', 'Python', 'Vue.js', 'React', 'Spring', 'Django'],
-        
+        frontCount: '',
+        backCount: '',
         title: '',
         content: '',
-        count: '',
         stacks: '',
         }
       } ,

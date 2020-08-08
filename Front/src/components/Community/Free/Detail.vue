@@ -192,6 +192,7 @@ export default {
             .then(({data})=> {
                 if(data.result != "success") {
                     console.log(data.message)
+                    alert(data.message)
                 }else{
                     this.$store.commit("setFreeLikeDown", data);
                 }
