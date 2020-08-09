@@ -1,5 +1,7 @@
 package com.ssafy.ssafience.controller;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import com.ssafy.ssafience.model.member.SignInRequest;
 import com.ssafy.ssafience.model.member.SignUpRequest;
 import com.ssafy.ssafience.service.member.MemberService;
 import com.ssafy.ssafience.service.valid.ValidService;
+import com.ssafy.ssafience.util.JwtUtil;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -49,6 +52,9 @@ public class AccountController {
 	
 	@Autowired
 	ValidService vService;
+	
+	@Autowired
+	JwtUtil jwtUtil;
 
 	@ApiOperation(value = "회원가입")
 	@PostMapping("/signup")
@@ -86,7 +92,7 @@ public class AccountController {
 
 	@ApiOperation(value = "로그인")
 	@PostMapping("/signin")
-	public ResponseEntity<SingleResponse<Member>> signin(@RequestBody SignInRequest request){
+	public ResponseEntity<SingleResponse<Member>> signin(@RequestBody SignInRequest request, HttpServletResponse response){
 		logger.debug("signin 호출");
 		final SingleResponse<Member> result = new SingleResponse<>();
 		
@@ -102,6 +108,14 @@ public class AccountController {
 				result.message = "입하지 않은 아이디이거나, 잘못된 비밀번호입니다. (비밀번호 틀림)";
 			} else {
 				Member member = validMember.getData();
+				////////////////////////////////////////////////////////
+				String accessToken = jwtUtil.createToken(member.getMemberId());
+				System.out.println(accessToken);
+				response.addHeader("Authorization", "Bearer "+accessToken);
+				System.out.println(accessToken);
+				jwtUtil.getTokenFromJwtString(accessToken);
+				////////////////////////////////////////////////////////
+				
 				if (member.isMemberAuthStatus()) {
 					result.result = SUCCESS;
 					result.status = HttpStatus.OK;

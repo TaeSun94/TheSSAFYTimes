@@ -37,7 +37,7 @@
 			(
 				member_id, article_title, article_content, article_type					
 			)
-		values (#{memberId}, #{articleTitle}, #{articleContent}, #{articelType})
+		values (#{memberId}, #{articleTitle}, #{articleContent}, #{articleType})
 	</insert>
 	
 	<update id="update">
