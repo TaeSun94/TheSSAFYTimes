@@ -53,6 +53,18 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 	
 	@Override
+	public List<CategoryResult> getBoardTrackList() throws Exception {
+		List<Category> list = repo.getBoardTrackList();
+		List<CategoryResult> regionList = new ArrayList<CategoryResult>();
+		
+		for (Category cate : list) {
+			regionList.add(new CategoryResult(cate.getCategoryNo(), cate.getCategoryName()));
+		}
+		
+		return regionList;
+	}
+	
+	@Override
 	public List<CategoryResult> getSkillAndLanguageList() throws Exception {
 		List<Category> list = repo.getSkillAndLanguageList();
 		List<CategoryResult> regionList = new ArrayList<CategoryResult>();
@@ -87,6 +99,5 @@ public class CategoryServiceImpl implements CategoryService{
 		
 		return regionList;
 	}
-
 
 }

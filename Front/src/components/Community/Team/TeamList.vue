@@ -1,18 +1,17 @@
 <template>
-<div class="wrapper" style="margin-top:5%">
+<div class="wrapper" style="margin-top:7%">
     <div class="row">
         <v-container class="col-lg-9">
-            <v-card>
                 <v-card-title>
                     <div class="textfield">
-                        <h1 class="m-4"> 🧑‍🤝‍🧑 팀원 찾아요! </h1>
+                        <h1 class="m-4 main-title"> 🧑‍🤝‍🧑 팀원 찾아요! </h1>
                     </div>
                     <v-spacer></v-spacer>
                 </v-card-title>
                 <div class="text-right mr-5">
                   <router-link class="write-link" :to="{path:'/community/teamWrite'}">팀원 구하기</router-link>
                 </div>
-             <v-container fluid class="text-center">
+             <v-container class="text-center">
                 <div class="item_card recruit_card" v-for="item in 5" :key="item.index">
                     <a href="/team/4666">
                         <div class="card_image">
@@ -69,7 +68,6 @@
                 </div>
 
             </v-container>
-            </v-card>
         </v-container>
     </div>
     <footer-bar></footer-bar>
@@ -105,7 +103,9 @@ export default {
 </script>
 
 <style scoped>
-
+.main-title{
+    font-size: 2rem;
+}
 .text-content{
     height: 250px;
     display: flex;
@@ -120,7 +120,11 @@ export default {
 .bottom_section{
     margin-top:20px;
 }
-
+.container{
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+}
 .item_card:hover {
   -webkit-transform: scale(1.05);
   transform: scale(1.05);
@@ -134,10 +138,10 @@ export default {
     display: inline-block;
     text-align: left;
     box-shadow: 0px 0px 30px #eee;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-transition: all 0.45s ease-in-out;
-  transition: all 0.45s ease-in-out;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all 0.45s ease-in-out;
+    transition: all 0.45s ease-in-out;
 
 }
 a {
@@ -200,7 +204,7 @@ a {
     word-break: keep-all;
 }
 .recruit_card .card_contents .title {
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     overflow: hidden;

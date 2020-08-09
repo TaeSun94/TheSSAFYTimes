@@ -6,9 +6,10 @@ import com.ssafy.ssafience.model.article.ArticleModifyRequest;
 import com.ssafy.ssafience.model.article.ArticleResult;
 import com.ssafy.ssafience.model.article.WriteRequest;
 import com.ssafy.ssafience.model.dto.Article;
+import com.ssafy.ssafience.model.dto.ArticleResultDTO;
 
 public interface ArticleService {
-	public List<Article> selectArticleList() throws Exception;
+	public List<ArticleResultDTO> selectArticleList() throws Exception;
 	public ArticleResult selectMemberArticleList(String memberId) throws Exception;
 	public Article selectArticleOne(int articleNo) throws Exception;
 	public int insert(WriteRequest request) throws Exception;

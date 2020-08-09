@@ -9,6 +9,7 @@ import com.ssafy.ssafience.model.article.ArticleModifyRequest;
 import com.ssafy.ssafience.model.article.ArticleResult;
 import com.ssafy.ssafience.model.article.WriteRequest;
 import com.ssafy.ssafience.model.dto.Article;
+import com.ssafy.ssafience.model.dto.ArticleResultDTO;
 import com.ssafy.ssafience.model.dto.Member;
 import com.ssafy.ssafience.repo.ArticleRepo;
 import com.ssafy.ssafience.repo.MemberRepo;
@@ -23,16 +24,16 @@ public class ArticleServiceImpl implements ArticleService{
 	private MemberRepo mRepo;
 	
 	@Override
-	public List<Article> selectArticleList() throws Exception {
+	public List<ArticleResultDTO> selectArticleList() throws Exception {
 		return repo.selectArticleList();
 	}
 
 	@Override
-	public ArticleResult selectMemberArticleList(String memberId) throws Exception {
-		ArticleResult result = new ArticleResult();
+	public ArticleResult<ArticleResultDTO> selectMemberArticleList(String memberId) throws Exception {
+		ArticleResult<ArticleResultDTO> result = new ArticleResult<>();
 		Member member = mRepo.selectMemberOne(memberId);
 		if (member != null) {
-			List<Article> list = repo.selectMemberArticleList(memberId);
+			List<ArticleResultDTO> list = repo.selectMemberArticleList(memberId);
 			result.setMember(true);
 			result.setList(list);
 		} else {

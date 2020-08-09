@@ -100,6 +100,9 @@ export default new Vuex.Store({
         notices(state) {
             return state.notices;
         },
+        like_free(state) {
+            return state.free;
+        }
     },
     mutations: {
         // login
@@ -160,6 +163,7 @@ export default new Vuex.Store({
             
         },
         setFree(state, payload){
+            console.log(payload)
             state.free = payload;
         },
         setArticleTypes(state,payload){
@@ -190,6 +194,18 @@ export default new Vuex.Store({
         setNotices(state, payload) {
             state.notices = payload;
         },
+
+        setFreeLike(state){
+            state.free.data.freeBoardLike = ++state.free.data.freeBoardLike;
+            console.log(state.free.data.freeBoardLike)
+            console.log(state.free)
+        },
+        setFreeLikeDown(state){
+            state.free.data.freeBoardDislike = ++state.free.data.freeBoardDislike;
+            console.log(state.free.data.freeBoardDislike)
+            console.log(state.free)
+        }
+        
     },
     actions: {
         //login
@@ -390,7 +406,21 @@ export default new Vuex.Store({
               }).then(({data})=>{
                   console.log(data);
               })
-        }
+        },
+        freeLike(context, { boardLikeCheck, boardNo, memberId}) {
+            http.post('/free/like',{
+                boardLikeCheck,
+                boardNo,
+                memberId,
+            })
+            .then(({data})=> {
+                if(data.result != "success") {
+                    console.log(data.message)
+                }else{
+                    console.log(data.message)
+                }
+            })
+        },
     }
     
 })
