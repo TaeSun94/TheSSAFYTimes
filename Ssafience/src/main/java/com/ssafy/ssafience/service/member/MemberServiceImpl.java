@@ -1,13 +1,18 @@
 package com.ssafy.ssafience.service.member;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Formatter;
 import java.util.List;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.ssafience.model.dto.Member;
+import com.ssafy.ssafience.model.dto.MemberModifyDetail;
 import com.ssafy.ssafience.model.dto.MemberResultDTO;
 import com.ssafy.ssafience.model.member.LoginResult;
 import com.ssafy.ssafience.model.member.MemberDetailResult;
@@ -36,8 +41,38 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public MemberDetailResult selectMemberOneDetail(String memberId) throws Exception {
-		MemberDetailResult result = null;
+	public MemberDetailResult<Integer> selectMemberOneForModify(String memberId) throws Exception {
+		MemberDetailResult<Integer> result = null;
+		MemberResultDTO member = repo.selectMemberDetail(memberId);
+
+		System.out.println(member);
+		if (member != null) {
+			result = new MemberDetailResult(member);
+			if (member.getMemberInterested()!=null) {
+				List<String> interestedList = Arrays.asList(member.getMemberInterested().split(","));				
+				List<Integer> ilist = new ArrayList<>();
+				for (String str : interestedList) {
+					ilist.add(Integer.parseInt(str));
+				}
+				result.insertIntList(ilist);
+			}
+			if (member.getMemberSkill()!=null) {
+				List<String> skillList = Arrays.asList(member.getMemberSkill().split(","));
+				List<Integer> slist = new ArrayList<>();				
+				for (String str : skillList) {
+					slist.add(Integer.parseInt(str));
+				}
+				result.insertSkillList(slist);
+			}
+			return result;
+		} else {
+			return result;
+		}
+	}
+		
+	@Override
+	public MemberDetailResult<String> selectMemberOneDetail(String memberId) throws Exception {
+		MemberDetailResult<String> result = null;
 		MemberResultDTO member = repo.selectMemberDetail(memberId);
 		System.out.println(member);
 		if (member != null) {
@@ -94,6 +129,11 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int update(ModifyRequest request) throws Exception {
+//		ObjectMapper mapper = new ObjectMapper();
+//		ModifyRequest request = mapper.convertValue(obj, ModifyRequest.class);
+//		
+		System.out.println("MemberService : "+request);
+		
 		Member member = repo.selectMemberOne(request.getMemberId());
 		if (member != null) {
 			ModifyRepoRequest repoRequest = new ModifyRepoRequest(request);
