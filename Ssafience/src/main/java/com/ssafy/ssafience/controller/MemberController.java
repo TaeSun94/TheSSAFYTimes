@@ -51,11 +51,11 @@ public class MemberController {
 
 	@ApiOperation(value = "특정 회원 정보 반환")
 	@GetMapping("/{memberid}")
-	public ResponseEntity<SingleResponse<MemberDetailResult>> getMemberList(@PathVariable String memberid) {
-		final SingleResponse<MemberDetailResult> result = new SingleResponse<>();
+	public ResponseEntity<SingleResponse<MemberDetailResult<String>>> getMemberList(@PathVariable String memberid) {
+		final SingleResponse<MemberDetailResult<String>> result = new SingleResponse<>();
 
 		try {
-			MemberDetailResult memberResult = mService.selectMemberOneDetail(memberid);
+			MemberDetailResult<String> memberResult = mService.selectMemberOneDetail(memberid);
 			if (memberResult != null) {
 				result.result = SUCCESS;
 				result.status = HttpStatus.OK;
@@ -74,7 +74,36 @@ public class MemberController {
 			e.printStackTrace();
 		}
 
-		return new ResponseEntity<SingleResponse<MemberDetailResult>>(result, HttpStatus.OK);
+		return new ResponseEntity<SingleResponse<MemberDetailResult<String>>>(result, HttpStatus.OK);
+	}
+
+
+	@ApiOperation(value = "특정 회원 정보 반환 (수정 시 사용)")
+	@GetMapping("/mod/{memberid}")
+	public ResponseEntity<SingleResponse<MemberDetailResult<Integer>>> getMemberListForModify(@PathVariable String memberid) {
+		final SingleResponse<MemberDetailResult<Integer>> result = new SingleResponse<>();
+
+		try {
+			MemberDetailResult<Integer> memberResult = mService.selectMemberOneForModify(memberid);
+			if (memberResult != null) {
+				result.result = SUCCESS;
+				result.status = HttpStatus.OK;
+				result.setData(memberResult);
+				result.message = "회원 목록 가져오는데 성공했습니다.";
+			} else {
+				result.result = NOTAVAILABLE;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "존재하지 않는 아이디 입니다. 확인하고 다시 시도해주세요.";
+			}
+
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message = "모든 회원 목록 가져오는 중 문제가 발생했습니다.";
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<SingleResponse<MemberDetailResult<Integer>>>(result, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "새로운 회원 등록")
@@ -108,7 +137,7 @@ public class MemberController {
 	public ResponseEntity<BasicResponse> updateMember(@RequestBody ModifyRequest request) {
 		final BasicResponse result = new BasicResponse();
 		
-		System.out.println(request);
+		System.out.println("request : "+request);
 
 		try {
 			int updateMember = mService.update(request);
