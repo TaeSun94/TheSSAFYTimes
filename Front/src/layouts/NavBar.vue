@@ -43,7 +43,7 @@
         </v-list-item>
         <v-list-item style="margin-top:3%" v-if="login===true"> 
             <v-list-item-content >
-                <v-btn rounded @click="to('/profile')">{{memberId}}</v-btn>
+                <v-btn rounded @click="to(`/profile/${memberId}`)">{{memberId}}</v-btn>
             </v-list-item-content>
         </v-list-item>
         <v-list-item v-if="login===true">
@@ -78,7 +78,7 @@
             </v-list-item-content>
             </v-list-item>
 
-            <v-list-item @click="to('/profile')">
+            <v-list-item @click="to(`/profile/${memberId}`)">
             <v-list-item-content>
                 <v-list-item-title>🧑  PROFILE</v-list-item-title>
             </v-list-item-content>
