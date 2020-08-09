@@ -1,7 +1,6 @@
 package com.ssafy.ssafience.service.member;
 
 import com.ssafy.ssafience.model.dto.Member;
-import com.ssafy.ssafience.model.dto.MemberModifyDetail;
 import com.ssafy.ssafience.model.member.LoginResult;
 import com.ssafy.ssafience.model.member.MemberDetailResult;
 import com.ssafy.ssafience.model.member.ModifyRequest;

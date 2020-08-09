@@ -2,17 +2,13 @@ package com.ssafy.ssafience.service.member;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Formatter;
 import java.util.List;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.ssafience.model.dto.Member;
-import com.ssafy.ssafience.model.dto.MemberModifyDetail;
 import com.ssafy.ssafience.model.dto.MemberResultDTO;
 import com.ssafy.ssafience.model.member.LoginResult;
 import com.ssafy.ssafience.model.member.MemberDetailResult;
@@ -47,7 +43,7 @@ public class MemberServiceImpl implements MemberService{
 
 		System.out.println(member);
 		if (member != null) {
-			result = new MemberDetailResult(member);
+			result = new MemberDetailResult<Integer>(member);
 			if (member.getMemberInterested()!=null) {
 				List<String> interestedList = Arrays.asList(member.getMemberInterested().split(","));				
 				List<Integer> ilist = new ArrayList<>();
@@ -76,7 +72,7 @@ public class MemberServiceImpl implements MemberService{
 		MemberResultDTO member = repo.selectMemberDetail(memberId);
 		System.out.println(member);
 		if (member != null) {
-			result = new MemberDetailResult(member);
+			result = new MemberDetailResult<String>(member);
 			if (member.getMemberInterested()!=null) {
 				List<String> interestedList = Arrays.asList(member.getMemberInterested().split(","));				
 				List<String> ilist = cRepo.getInterestedAndSkillList(interestedList);
