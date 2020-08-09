@@ -22,14 +22,12 @@ import TeamList from "@/components/Community/Team/TeamList";
 import TeamWrite from "@/components/Community/Team/TeamWrite";
 import TeamDetail from "@/components/Community/Team/TeamDetail";
 import DetailPage from "@/components/Editor/DetailPage.vue";
-// import ProfileCard from "@/components/Profile/ProfileCard";
 import AboutUs from "@/components/AboutUs.vue";
 import AboutUsIndex from "@/components/AboutUs/AboutUsIndex.vue";
 import FreeList from "@/components/Community/Free/List";
 import FreeWrite from "@/components/Community/Free/Write";
 import FreeDetail from "@/components/Community/Free/Detail";
 import ProgramUpdate from "@/components/Community/Programming/Update";
-
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -169,7 +167,7 @@ export default new VueRouter({
             // ]
         },
         {
-            path:'/profileEdit',
+            path:'/profileEdit/:memberid',
             name:'ProfileEdit',
             component: ProfileEdit,
         },
