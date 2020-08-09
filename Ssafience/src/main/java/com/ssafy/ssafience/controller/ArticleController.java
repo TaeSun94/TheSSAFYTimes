@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,15 +27,16 @@ import com.ssafy.ssafience.model.dto.Article;
 import com.ssafy.ssafience.model.dto.ArticleResultDTO;
 import com.ssafy.ssafience.service.article.ArticleService;
 
+import io.jsonwebtoken.Claims;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @ApiResponses(value = { @ApiResponse(code = 401, message = "Unauthorized", response = BasicResponse.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
-        @ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
-        @ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
+		@ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
+		@ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
+		@ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
 
 //@CrossOrigin(origins = { "http://localhost:3000" })
 @Api(tags = "Article : 뉴스피드")
@@ -48,13 +50,13 @@ public class ArticleController {
 	static final String SUCCESS = "success";
 	static final String FAIL = "fail";
 	static final String NOTAVAILABLE = "notavailable";
-	
+
 	@Autowired
 	private ArticleService aService;
-	
+
 	@ApiOperation(value = "모든 뉴스피드 목록 반환")
-	@GetMapping
-	public ResponseEntity<ListResponse<ArticleResultDTO>> getArticleList(){
+	@GetMapping("/list")
+	public ResponseEntity<ListResponse<ArticleResultDTO>> getArticleList() {
 		logger.debug("getArticleList 호출");
 		final ListResponse<ArticleResultDTO> result = new ListResponse<>();
 		try {
@@ -62,50 +64,63 @@ public class ArticleController {
 			result.result = SUCCESS;
 			result.status = HttpStatus.OK;
 			result.setList(list);
-			result.message="뉴스피드 목록 가져오는데 성공했습니다.";				
-			
+			result.message = "뉴스피드 목록 가져오는데 성공했습니다.";
+
 		} catch (Exception e) {
 			result.result = FAIL;
 			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-			result.message="모든 뉴스피드 목록 가져오는 중 문제가 발생했습니다.";
+			result.message = "모든 뉴스피드 목록 가져오는 중 문제가 발생했습니다.";
 		}
 		return new ResponseEntity<ListResponse<ArticleResultDTO>>(result, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "특정 회원의 뉴스피드 목록 반환")
-	@GetMapping("/{memberid}")
-	public ResponseEntity<ListResponse<Article>> getMemberArticleList(@PathVariable String memberid){
+	@GetMapping
+	public ResponseEntity<ListResponse<ArticleResultDTO>> getMemberArticleList(Authentication authentication) {
 		logger.debug("getMemberArticleList 호출");
-		final ListResponse<Article> result = new ListResponse<>();
-		
+		final ListResponse<ArticleResultDTO> result = new ListResponse<>();
+
 		try {
-			ArticleResult myArticleResult = aService.selectMemberArticleList(memberid);
-			if (myArticleResult.isMember()) {
-				result.result = SUCCESS;
-				result.status = HttpStatus.OK;
-				result.setList(myArticleResult.getList());
-				result.message="뉴스피드 목록 가져오는데 성공했습니다.";				
-			} else {
-				result.result = NOTAVAILABLE;
-				result.status = HttpStatus.NO_CONTENT;
-				result.message="목록 가져오는데 실패했습니다. 해당 뉴스피드의 작성자가 맞는지 확인하고 다시 시도해주세요";				
+			Claims claims = (Claims) authentication.getPrincipal();
+			String id = claims.get("data", String.class);
+			System.out.println("id : " + id);
+
+			try {
+				ArticleResult<ArticleResultDTO> myArticleResult = aService.selectMemberArticleList(id);
+				if (myArticleResult.isMember()) {
+					result.result = SUCCESS;
+					result.status = HttpStatus.OK;
+					result.setList(myArticleResult.getList());
+					result.message = "뉴스피드 목록 가져오는데 성공했습니다.";
+				} else {
+					result.result = NOTAVAILABLE;
+					result.status = HttpStatus.NO_CONTENT;
+					result.message = "목록 가져오는데 실패했습니다. 해당 뉴스피드의 작성자가 맞는지 확인하고 다시 시도해주세요";
+				}
+
+			} catch (Exception e) {
+				result.result = FAIL;
+				result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+				result.message = "뉴스피드 목록 가져오는 중 문제가 발생했습니다.";
 			}
-			
+
 		} catch (Exception e) {
+			result.message = "인증되지 않은 사용자 입니다. ";
+			result.status = HttpStatus.NON_AUTHORITATIVE_INFORMATION;
 			result.result = FAIL;
-			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-			result.message="뉴스피드 목록 가져오는 중 문제가 발생했습니다.";
+			System.out.println("EXCEPTION 발생!!!!!!!!!!");
+//			e.printStackTrace();
 		}
-		
-		return new ResponseEntity<ListResponse<Article>>(result, HttpStatus.OK);
+
+		return new ResponseEntity<ListResponse<ArticleResultDTO>>(result, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "새로운 뉴스피드 등록")
 	@PostMapping
-	public ResponseEntity<BasicResponse> insertArticle(@RequestBody WriteRequest request){
+	public ResponseEntity<BasicResponse> insertArticle(@RequestBody WriteRequest request) {
 		logger.debug("insertArticle 호출");
 		final BasicResponse result = new BasicResponse();
-		
+
 		try {
 			int insertArticle = aService.insert(request);
 			if (insertArticle == -1) {
@@ -127,16 +142,16 @@ public class ArticleController {
 			result.message = "등록 중 문제발생";
 			e.printStackTrace();
 		}
-		
+
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "뉴스피드 수정")
 	@PutMapping
-	public ResponseEntity<BasicResponse> updateArticle(@RequestBody ArticleModifyRequest request){
+	public ResponseEntity<BasicResponse> updateArticle(@RequestBody ArticleModifyRequest request) {
 		logger.debug("updateArticle 호출");
 		final BasicResponse result = new BasicResponse();
-		
+
 		try {
 			int updateArticle = aService.update(request);
 			if (updateArticle == -1) {
@@ -161,13 +176,13 @@ public class ArticleController {
 
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
-	
+
 	@ApiOperation(value = "뉴스피드 삭제")
 	@DeleteMapping("/{articleno}")
-	public ResponseEntity<BasicResponse> deleteArticle(@PathVariable int articleno){
+	public ResponseEntity<BasicResponse> deleteArticle(@PathVariable int articleno) {
 		logger.debug("deleteArticle 호출");
 		final BasicResponse result = new BasicResponse();
-		
+
 		try {
 			int deleteArticle = aService.delete(articleno);
 			if (deleteArticle == -1) {
@@ -189,25 +204,9 @@ public class ArticleController {
 			result.message = "삭제 중 문제발생";
 			e.printStackTrace();
 		}
-		
+
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
-		
+
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
