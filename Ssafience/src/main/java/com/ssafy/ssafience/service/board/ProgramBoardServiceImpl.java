@@ -11,6 +11,7 @@ import com.ssafy.ssafience.model.board.ProgramWriteRequest;
 import com.ssafy.ssafience.model.dto.Member;
 import com.ssafy.ssafience.model.dto.ProgramBoard;
 import com.ssafy.ssafience.model.dto.ProgramBoardResultDTO;
+import com.ssafy.ssafience.model.hit.HitRequest;
 import com.ssafy.ssafience.repo.FreeRepo;
 import com.ssafy.ssafience.repo.MemberRepo;
 import com.ssafy.ssafience.repo.ProgramRepo;
@@ -44,10 +45,12 @@ public class ProgramBoardServiceImpl implements ProgramBoardService{
 	}
 
 	@Override
-	public ProgramBoardResultDTO selectBoardDetailOne(int boardNo) throws Exception {
-		ProgramBoardResultDTO board = repo.selectBoardDetailOne(boardNo);
+	public ProgramBoardResultDTO selectBoardDetailOne(HitRequest request) throws Exception {
+		ProgramBoard board = repo.selectBoardOne(request.getBoardNo());
 		if (board != null) {
-			return board;
+			int hit = repo.hit(request);
+			System.out.println(hit);
+			return repo.selectBoardDetailOne(request.getBoardNo());
 		} else return null;
 	}
 

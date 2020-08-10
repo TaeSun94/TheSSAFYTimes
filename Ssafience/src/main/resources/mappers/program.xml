@@ -64,6 +64,14 @@
 		delete from program_board
 		where program_board_no = #{boardNo}
 	</delete>
+	
+		
+	<!-- 조회수  -->
+	<insert id="hit">
+		INSERT IGNORE INTO board_hit(board_name, board_no, board_hit_ip)
+		VALUES ('program_board', #{boardNo}, #{ipAddress});
+	</insert>
+	
 
 	<!-- 댓글 관련 -->
 	<select id="selectBoardCommentList" resultType="programComment">

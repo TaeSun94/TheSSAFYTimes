@@ -10,6 +10,7 @@ import com.ssafy.ssafience.model.board.FreeModifyRequest;
 import com.ssafy.ssafience.model.board.FreeWriteRequest;
 import com.ssafy.ssafience.model.dto.FreeBoard;
 import com.ssafy.ssafience.model.dto.Member;
+import com.ssafy.ssafience.model.hit.HitRequest;
 import com.ssafy.ssafience.repo.FreeRepo;
 import com.ssafy.ssafience.repo.MemberRepo;
 
@@ -42,10 +43,19 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override
-	public FreeBoard selectBoardOne(int boardNo) throws Exception {
+	public FreeBoard selectBoardOne(int boardNo) throws Exception {		
 		FreeBoard board = repo.selectBoardOne(boardNo);
 		if (board != null) {
 			return board;
+		} else return null;
+	}
+
+	@Override
+	public FreeBoard selectBoardDetailOne(HitRequest request) throws Exception {
+		FreeBoard board = repo.selectBoardOne(request.getBoardNo());
+		if (board != null) {
+			int hit = repo.hit(request);
+			return repo.selectBoardOne(request.getBoardNo());
 		} else return null;
 	}
 

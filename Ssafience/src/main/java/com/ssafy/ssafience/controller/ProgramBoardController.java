@@ -2,6 +2,8 @@ package com.ssafy.ssafience.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +35,11 @@ import com.ssafy.ssafience.model.dto.FreeBoard;
 import com.ssafy.ssafience.model.dto.Member;
 import com.ssafy.ssafience.model.dto.ProgramBoard;
 import com.ssafy.ssafience.model.dto.ProgramBoardResultDTO;
+import com.ssafy.ssafience.model.hit.HitRequest;
 import com.ssafy.ssafience.service.article.ArticleService;
 import com.ssafy.ssafience.service.board.FreeBoardService;
 import com.ssafy.ssafience.service.board.ProgramBoardService;
+import com.ssafy.ssafience.util.ClientUtils;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -113,11 +117,13 @@ public class ProgramBoardController {
 
 	@ApiOperation(value = "특정 프로그래밍 게시판 상세 조회")
 	@GetMapping("/{boardno}")
-	public ResponseEntity<SingleResponse<ProgramBoardResultDTO>> getBoardOne(@PathVariable int boardno){
+	public ResponseEntity<SingleResponse<ProgramBoardResultDTO>> getBoardOne(@PathVariable int boardno, HttpServletRequest req){
 		final SingleResponse<ProgramBoardResultDTO> result = new SingleResponse<>();
 		
 		try {
-			ProgramBoardResultDTO board = fService.selectBoardDetailOne(boardno);
+			HitRequest request = new HitRequest(boardno, ClientUtils.getRemoteIP(req));
+			System.out.println(request);
+			ProgramBoardResultDTO board = fService.selectBoardDetailOne(request);
 			if (board != null) {
 				result.result = SUCCESS;
 				result.status = HttpStatus.OK;
