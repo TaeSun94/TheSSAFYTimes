@@ -25,10 +25,10 @@ public class MemberResultDTO {
 	private String memberPhone;
 
 	private String memberRegion;
-	private String memberClass;
 	private String memberTrack;
 	private String memberUnit;
 
+	private int memberArticle;
 	private String memberIntro;
 	private String memberDesc;
 	private String memberAuth;

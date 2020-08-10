@@ -25,10 +25,10 @@ public class Member {
 	private String memberPhone;
 
 	private int memberRegion;
-	private int memberClass;
 	private int memberTrack;
 	private int memberUnit;
 
+	private int memberArticle;
 	private String memberIntro;
 	private String memberDesc;
 	private String memberAuth;
