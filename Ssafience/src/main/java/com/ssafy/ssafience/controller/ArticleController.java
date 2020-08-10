@@ -75,18 +75,18 @@ public class ArticleController {
 	}
 
 	@ApiOperation(value = "특정 회원의 뉴스피드 목록 반환")
-	@GetMapping
-	public ResponseEntity<ListResponse<ArticleResultDTO>> getMemberArticleList(Authentication authentication) {
+	@GetMapping("/{memberid}")
+	public ResponseEntity<ListResponse<ArticleResultDTO>> getMemberArticleList(@PathVariable String memberid) {
 		logger.debug("getMemberArticleList 호출");
 		final ListResponse<ArticleResultDTO> result = new ListResponse<>();
 
 		try {
-			Claims claims = (Claims) authentication.getPrincipal();
-			String id = claims.get("data", String.class);
-			System.out.println("id : " + id);
+//			Claims claims = (Claims) authentication.getPrincipal();
+//			String id = claims.get("data", String.class);
+//			System.out.println("id : " + id);
 
 			try {
-				ArticleResult<ArticleResultDTO> myArticleResult = aService.selectMemberArticleList(id);
+				ArticleResult<ArticleResultDTO> myArticleResult = aService.selectMemberArticleList(memberid);
 				if (myArticleResult.isMember()) {
 					result.result = SUCCESS;
 					result.status = HttpStatus.OK;
