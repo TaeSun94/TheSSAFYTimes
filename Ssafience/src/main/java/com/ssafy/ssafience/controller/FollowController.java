@@ -20,6 +20,7 @@ import com.ssafy.ssafience.model.BasicResponse;
 import com.ssafy.ssafience.model.ListResponse;
 import com.ssafy.ssafience.model.dto.FollowMember;
 import com.ssafy.ssafience.model.follow.FollowWriteRequest;
+import com.ssafy.ssafience.model.follow.UnFollowWriteRequest;
 import com.ssafy.ssafience.service.follow.FollowService;
 
 import io.swagger.annotations.Api;
@@ -36,7 +37,7 @@ import io.swagger.annotations.ApiResponses;
 @Api(tags = "Follow : 팔로우")
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/follow")
+@RequestMapping("/api")
 public class FollowController {
 
 	private static final Logger logger = LoggerFactory.getLogger(FollowController.class);
@@ -48,7 +49,7 @@ public class FollowController {
 	@Autowired
 	FollowService fService;
 	
-	@GetMapping("/{memberid}/er")
+	@GetMapping("/follow/{memberid}/er")
 	@ApiOperation(value = "memberId를 팔로워하는 사람들 목록(아이디, 이메일) 가져오기")
 	public ResponseEntity<ListResponse<FollowMember>> getFollowerList(@PathVariable String memberid){
 		final ListResponse<FollowMember> result = new ListResponse<>();
@@ -68,7 +69,7 @@ public class FollowController {
 		return new ResponseEntity<ListResponse<FollowMember>>(result, HttpStatus.OK);
 	}
 
-	@GetMapping("/{memberid}/ing")
+	@GetMapping("/follow/{memberid}/ing")
 	@ApiOperation(value = "memberId가 팔로잉하는 사람들 목록(아이디, 이메일) 가져오기")
 	public ResponseEntity<ListResponse<FollowMember>> getFollowingList(@PathVariable String memberid){
 		final ListResponse<FollowMember> result = new ListResponse<>();
@@ -89,7 +90,7 @@ public class FollowController {
 	}
 
 	@ApiOperation(value = "From이 To를 팔로우 한다.")
-	@PostMapping
+	@PostMapping("/follow")
 	public ResponseEntity<BasicResponse> follow(@RequestBody FollowWriteRequest request){
 		final BasicResponse result = new BasicResponse();
 		try {
@@ -119,18 +120,19 @@ public class FollowController {
 	}
 	
 	@ApiOperation(value = "From이 To를 언팔로우 한다.")
-	@DeleteMapping("/{followno}")
-	public ResponseEntity<BasicResponse> unfollow(@PathVariable int followno){
+	@PostMapping("/unfollow")
+	public ResponseEntity<BasicResponse> unfollow(@RequestBody UnFollowWriteRequest request){
 		final BasicResponse result = new BasicResponse();
 		try {
-			int followCheck = fService.unfollow(followno);
+			System.out.println("Controller :"+request);
+			int followCheck = fService.unfollow(request);
 			if (followCheck == 1) {
 				result.result = SUCCESS;
 				result.message = "언팔로우가 성공적으로 이뤄졌습니다.";
 				result.status = HttpStatus.OK;
 			} else {
 				result.result = FAIL;
-				result.message = "언팔로우에 실패했습니다.";
+				result.message = "언팔로우에 실패했습니다. 팔로우 관계 인지 확인하세요.";
 				result.status = HttpStatus.NO_CONTENT;
 			}
 			
