@@ -11,6 +11,7 @@ import com.ssafy.ssafience.model.comment.CommentWriteRequest;
 import com.ssafy.ssafience.model.dto.ProgramBoard;
 import com.ssafy.ssafience.model.dto.ProgramBoardResultDTO;
 import com.ssafy.ssafience.model.dto.ProgramComment;
+import com.ssafy.ssafience.model.hit.HitRequest;
 import com.ssafy.ssafience.model.like.LikeRequest;
 
 @Mapper
@@ -23,6 +24,8 @@ public interface ProgramRepo {
 	public int update(ProgramModifyRequest request);
 	public int delete(int boardNo);
 
+	public int hit(HitRequest request);
+
 	public List<ProgramComment> selectBoardCommentList(int boardNo);
 	public ProgramComment selectCommentOne(int commentNo);
 	public int insertComment(CommentWriteRequest request);
@@ -30,5 +33,4 @@ public interface ProgramRepo {
 	public int deleteComment(int commentNo);
 
 	public int insertLike(LikeRequest request);
-
 }
