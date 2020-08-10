@@ -11,34 +11,29 @@
                 <div class="text-right mr-5">
                   <router-link class="write-link" :to="{path:'/community/teamWrite'}">팀원 구하기</router-link>
                 </div>
-             <v-container class="text-center">
-                <div class="item_card recruit_card" v-for="team in this.teams " :key="team.index" @click="rowClicked(team)">
+             <div class="text-center">
+                <div class="item_card recruit_card col-lg-6" v-for="team in this.teams " :key="team.index" @click="rowClicked(team)">
                     <div class="card_image">
-                        <a style="background-color:#ffb347"></a>
+                        <a data-v-74c97ae7="" style="background-color: rgb(255, 179, 71);text-align: center;display: flex;justify-content: center;align-items: center;">
+                            <p  class="team_title" >{{ team.teamBoardTitle }}</p>
+                        </a>
                     </div>
                     <div class="card_contents">
-                        <div class="title">
-                            <a>{{ team.teamBoardTitle }}</a>
+                        <div>
+                            <a>분야 / {{ team.teamBoardCategory }}</a>
                         </div> 
                         <div class="sub_title  mb-3 text-right">
-                            <span class="by_writer">{{ team.memberId}}</span> 
+                            <span class="by_writer">작성자 🙋 <b>{{ team.memberId}}</b> </span> 
 
                         </div> 
-                        <div class="recruit_title">
+                        <div class="recruit_title text-center">
                             <v-chip
                             class="ma-2"
                             color="green"
                             text-color="white"
                             >
-                            {{ team.teamBoardStartDatetime }}
-                            <v-icon right></v-icon>
-                            </v-chip>
-                            <v-chip
-                            class="ma-2"
-                            color="green"
-                            text-color="white"
-                            >
-                            {{ team.teamBoardEndDatetime }}
+                            📅 {{$moment(team.teamBoardEndDatetime).format('YYYY-MM-DD') }}  
+                            
                             <v-icon right></v-icon>
                             </v-chip>
                         </div> 
@@ -56,8 +51,7 @@
                         </div> 
                     </div>
                 </div>
-
-            </v-container>
+            </div>
         </v-container>
     </div>
     <footer-bar></footer-bar>
@@ -96,12 +90,21 @@ export default {
 .main-title{
     font-size: 2rem;
 }
+.team_title{
+    font-weight: 900px;
+    font-size: 1.5rem;
+}
 .text-content{
     height: 250px;
     display: flex;
     align-items: center;
 }
-
+.col-3 {
+    padding:0px;
+}
+.col-lg-6 {
+    padding:0px;
+}
 .recruit_card {
     border-radius: 10px;
     border:0.3px solid grey;
@@ -122,7 +125,7 @@ export default {
     position: relative;
     width: 330px;
     vertical-align: top;
-    margin: 20px 15px;
+    margin: 40px;
     background-color: #ffffff;
     display: inline-block;
     text-align: left;
@@ -136,6 +139,7 @@ export default {
 a {
     color: #3c3c3c;
     text-decoration: none;
+    font-weight: 900;
 }
 
 .recruit_card .card_image > a {
@@ -193,7 +197,7 @@ a {
     word-break: keep-all;
 }
 .recruit_card .card_contents .title {
-    font-size: 15px;
+    font-size: 12px;
     font-weight: 700;
     cursor: pointer;
     overflow: hidden;
@@ -201,6 +205,9 @@ a {
     text-overflow: ellipsis;
 }
 .recruit_card .card_contents {
-    padding: 25px 30px;
+    padding: 40px 15px;
+}
+.v-chip__content{
+    padding: 10px;
 }
 </style>

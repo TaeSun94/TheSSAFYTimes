@@ -76,7 +76,6 @@
                                 <tbody >
                                     <tr>
                                         <p class="faq-content">{{ item.freeCommentContent }}<br></p>
-                                        <p class="faq-txt text-right">🧑 {{ item.memberId }}님</p>
                                     </tr>
                                 </tbody>
                                 </template>
@@ -115,7 +114,6 @@ export default {
             freeBoardDatetime: '',
             freeBoardContent: '',
             freeBoardHit: 0,
-
             //edit, delete관련
             canEdit: false,
             xx: '',
@@ -262,7 +260,9 @@ export default {
     white-space: nowrap;
     text-decoration: none;
 }
-
+.faq-content{
+    margin: 10px;
+}
 .textfield-input {
     display: block;
     width: 100%;

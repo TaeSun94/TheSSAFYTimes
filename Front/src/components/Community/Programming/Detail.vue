@@ -4,7 +4,7 @@
         <v-container class="elevation-5 col-lg-6 col-sm-10">
             <vue-scroll-progress-bar height="0.3rem" backgroundColor="orange"/>
             <div class="textfield">
-                <div class="ml-4"><h1>{{ programTitle }}</h1></div>
+                <div class="ml-4"><h1>{{programTitle}}</h1></div>
                 <hr>
             </div>
             <div class="text-right mr-5">

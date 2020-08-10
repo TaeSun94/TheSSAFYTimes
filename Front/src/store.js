@@ -46,6 +46,8 @@ export default new Vuex.Store({
         teams: [],
         team: {},
 
+        team_category: [],
+
     },
     getters: {
         // login
@@ -87,6 +89,7 @@ export default new Vuex.Store({
             return state.units;
         },
         projects(state){
+            
             return state.projects;
         },
         regions(state){
@@ -113,6 +116,9 @@ export default new Vuex.Store({
         team(state) {
             return state.team;
         },        
+        team_category(state) {
+            return state.team_category;
+        }
 
     },
     mutations: {
@@ -187,6 +193,7 @@ export default new Vuex.Store({
             state.units = payload;
         },
         setProjects(state,payload){
+            console.log(state)
             state.projects = payload;
         },
         setRegions(state,payload){
@@ -224,7 +231,9 @@ export default new Vuex.Store({
             console.log(payload)
             state.team = payload;
         },
-        
+        setTeamCategory(state,payload){
+            state.team_category = payload;
+        }
     },
     actions: {
         //login
@@ -356,7 +365,23 @@ export default new Vuex.Store({
                 }
             })
         },
+        teamCreate(context, { teamBoardTitle, teamBoardContent, teamBoardFrontRemainCount, teamBoardBackRemainCount, teamBoardCategory, memberId }) {
+            console.log(teamBoardCategory)
+            http.post('/team/board', {
+                
+                    "memberId": memberId,
+                    "teamBoardBackRemainCount": teamBoardBackRemainCount,
+                    "teamBoardCategory": teamBoardCategory,
+                    "teamBoardContent": teamBoardContent,
+                    "teamBoardEndDatetime": "03",
+                    "teamBoardFrontRemainCount": teamBoardFrontRemainCount,
+                    "teamBoardTitle": teamBoardTitle
+            })
+            .then(({data})=> {
+                console.log(data)
 
+            })
+        },
         //category 불러오기
         getArticleTypes(context){
             http.get(`/category/article`).then(({data})=>{
@@ -375,7 +400,7 @@ export default new Vuex.Store({
             })
         },
         getProjects(context){
-            http.get(`/category/project`).then(({data})=>{
+            http.get(`/category/team`).then(({data})=>{
                 context.commit('setProjects', data.list);
             })
         },
@@ -456,6 +481,7 @@ export default new Vuex.Store({
                 context.commit("setTeam", data.list);
             });
         },
+
     }
     
 })
