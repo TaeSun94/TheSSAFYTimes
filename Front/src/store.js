@@ -23,7 +23,7 @@ export default new Vuex.Store({
         
         //followings
         followings:[],
-
+        following:{},
         //categorys
         article_types:[],
         tracks:[],
@@ -276,7 +276,7 @@ export default new Vuex.Store({
         //profile
         modifyProfile(context){
             const path = this.state;
-            console.log(path.profile.memberInterested);
+            console.log(path.profile.memberInterestedList);
             http.put(`/member`,{
                 memberAddress: path.profile.memberAddress,
                 memberClass: path.profile.memberClass,
@@ -289,10 +289,11 @@ export default new Vuex.Store({
                 memberTrack: path.profile.memberTrack,
                 memberUnit: path.profile.memberUnit,
                 memberId: path.profile.memberId,
-                memberInterestedList: path.profile.memberInterested,
+                memberInterestedList: path.profile.memberInterestedList,
                 memberSkillList: path.profile.memberSkill
+                
             }).then(({data})=>{
-                // console.log(data);
+                console.log(data);
                 context.commit('updateProfile',data);
             });
         },
@@ -306,12 +307,12 @@ export default new Vuex.Store({
             const path = this.state;
             // console.log(path.article.articleContent);
             // console.log(path.article.articleTitle);
-            // console.log(path.article.articleType);
+            console.log(path.article.articleType);
             http.post('/article',{
                 articleContent: path.article.articleContent,
                 articleTitle: path.article.articleTitle,
                 articleType: path.article.articleType,
-                memberId: "admin"
+                memberId: path.profile.memberId,
             }).then(({data})=>{
                 console.log(data);
                 context.commit('insertArticle',data);
@@ -370,6 +371,7 @@ export default new Vuex.Store({
         },
         getUnits(context,payload){
             http.get(`/category/${payload}/unit`).then(({data})=>{
+                console.log(data);
                 context.commit('setUnits', data.list);
             })
         },
@@ -380,6 +382,7 @@ export default new Vuex.Store({
         },
         getRegions(context){
             http.get(`/category/region`).then(({data})=>{
+                console.log(data);
                 context.commit('setRegions', data.list);
             })
         },
@@ -413,6 +416,15 @@ export default new Vuex.Store({
             http.get(payload).then(({data}) => {
                 context.commit("setNotices", data.list);
             })
+        },
+        addFollowing(context,payload){
+            const path = this.state;
+            http.post('/follow',{
+                "memberIdFrom": payload,
+                "memberIdTo": path.profile.memberId
+              }).then(({data})=>{
+                  console.log(data);
+              })
         },
         freeLike(context, { boardLikeCheck, boardNo, memberId}) {
             http.post('/free/like',{

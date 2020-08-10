@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+@ToString
 @Getter
 @Setter
 public class ModifyRepoRequest extends ModifyRequest{
@@ -12,7 +13,7 @@ public class ModifyRepoRequest extends ModifyRequest{
 	private String memberSkill;
 
 	@Builder
-	public ModifyRepoRequest(ModifyRequest request, String memberInterested, String memberSkill) {
+	public ModifyRepoRequest(ModifyRequest request) {
 		this.setMemberId(request.getMemberId());
 		this.setMemberFirstName(request.getMemberFirstName());
 		this.setMemberLastName(request.getMemberLastName());
@@ -24,8 +25,14 @@ public class ModifyRepoRequest extends ModifyRequest{
 		this.setMemberUnit(request.getMemberUnit());
 		this.setMemberIntro(request.getMemberIntro());
 		this.setMemberDesc(request.getMemberDesc());
-		this.memberInterested = memberInterested;
-		this.memberSkill = memberSkill;
+	}
+	
+	public void insertInterested(String interested) {
+		this.memberInterested = interested;
+	}
+	
+	public void insertSkill(String skill) {
+		this.memberSkill = skill;
 	}
 	
 }

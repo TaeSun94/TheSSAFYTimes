@@ -7,13 +7,13 @@ import lombok.ToString;
 
 @ToString
 @Getter
-public class ProgramBoard {
+public class ProgramBoardResultDTO {
 
 	private int  programBoardNo;
 	private String memberId;
 	private String programBoardTitle;
 	private String programBoardContent;
-	private int programBoardTrack;
+	private String programBoardTrack;
 	private int programBoardHit;
 	private Date programBoardUpdateDatetime;
 	private Date programBoardDatetime;

@@ -1,5 +1,6 @@
 package com.ssafy.ssafience.service.member;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,12 +9,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.ssafience.model.dto.Member;
+import com.ssafy.ssafience.model.dto.MemberResultDTO;
 import com.ssafy.ssafience.model.member.LoginResult;
 import com.ssafy.ssafience.model.member.MemberDetailResult;
 import com.ssafy.ssafience.model.member.ModifyRepoRequest;
 import com.ssafy.ssafience.model.member.ModifyRequest;
 import com.ssafy.ssafience.model.member.SignInRequest;
 import com.ssafy.ssafience.model.member.SignUpRequest;
+import com.ssafy.ssafience.repo.CategoryRepo;
 import com.ssafy.ssafience.repo.MemberRepo;
 
 @Service
@@ -21,6 +24,9 @@ public class MemberServiceImpl implements MemberService{
 
 	@Autowired
 	private MemberRepo repo;
+	
+	@Autowired
+	private CategoryRepo cRepo;
 	
 	@Autowired
 	PasswordEncoder encoder;
@@ -31,25 +37,54 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public MemberDetailResult selectMemberOneDetail(String memberId) throws Exception {
-		MemberDetailResult result = null;
-		Member member = repo.selectMemberOne(memberId);
-		System.out.println(memberId+":"+member);
-		System.out.println(member != null);
+	public MemberDetailResult<Integer> selectMemberOneForModify(String memberId) throws Exception {
+		MemberDetailResult<Integer> result = null;
+		MemberResultDTO member = repo.selectMemberDetail(memberId);
+
+		System.out.println(member);
 		if (member != null) {
-			result = new MemberDetailResult(member);
+			result = new MemberDetailResult<Integer>(member);
 			if (member.getMemberInterested()!=null) {
 				List<String> interestedList = Arrays.asList(member.getMemberInterested().split(","));				
-				result.insertIntList(interestedList);
+				List<Integer> ilist = new ArrayList<>();
+				for (String str : interestedList) {
+					ilist.add(Integer.parseInt(str));
+				}
+				result.insertIntList(ilist);
 			}
 			if (member.getMemberSkill()!=null) {
 				List<String> skillList = Arrays.asList(member.getMemberSkill().split(","));
-				result.insertSkillList(skillList);
+				List<Integer> slist = new ArrayList<>();				
+				for (String str : skillList) {
+					slist.add(Integer.parseInt(str));
+				}
+				result.insertSkillList(slist);
 			}
-			System.out.println(memberId+":"+result);
 			return result;
 		} else {
-			System.out.println(memberId+":"+result);
+			return result;
+		}
+	}
+		
+	@Override
+	public MemberDetailResult<String> selectMemberOneDetail(String memberId) throws Exception {
+		MemberDetailResult<String> result = null;
+		MemberResultDTO member = repo.selectMemberDetail(memberId);
+		System.out.println(member);
+		if (member != null) {
+			result = new MemberDetailResult<String>(member);
+			if (member.getMemberInterested()!=null) {
+				List<String> interestedList = Arrays.asList(member.getMemberInterested().split(","));				
+				List<String> ilist = cRepo.getInterestedAndSkillList(interestedList);
+				result.insertIntList(ilist);
+			}
+			if (member.getMemberSkill()!=null) {
+				List<String> skillList = Arrays.asList(member.getMemberSkill().split(","));
+				List<String> slist = cRepo.getInterestedAndSkillList(skillList);				
+				result.insertSkillList(slist);
+			}
+			return result;
+		} else {
 			return result;
 		}
 	}
@@ -90,11 +125,30 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int update(ModifyRequest request) throws Exception {
+//		ObjectMapper mapper = new ObjectMapper();
+//		ModifyRequest request = mapper.convertValue(obj, ModifyRequest.class);
+//		
+		System.out.println("MemberService : "+request);
+		
 		Member member = repo.selectMemberOne(request.getMemberId());
 		if (member != null) {
-			String memberInterested = String.join(",", request.getInterestedList());
-			String memberSkill = String.join(",", request.getSkillList());
-			ModifyRepoRequest repoRequest = new ModifyRepoRequest(request, memberInterested, memberSkill);
+			ModifyRepoRequest repoRequest = new ModifyRepoRequest(request);
+
+			if (request.getInterestedList() != null) {
+				String memberInterested = "";	
+				for (Integer no : request.getInterestedList()) {
+					memberInterested+=no+",";
+				}
+				repoRequest.insertInterested(memberInterested.substring(0, memberInterested.length()-1));
+			}
+			if (request.getSkillList() != null) {
+				String memberSkill = "";
+				for (Integer no : request.getSkillList()) {
+					memberSkill+=no+",";
+				}
+				repoRequest.insertSkill(memberSkill.substring(0, memberSkill.length()-1));
+			}
+			System.out.println(repoRequest);
 			return repo.update(repoRequest);
 		} else return -1;	// 없는 회원
 	}

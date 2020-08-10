@@ -10,11 +10,11 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class ArticleResult {
+public class ArticleResult<T> {
 	private boolean isMember;
-	private List<Article> list;
+	private List<T> list;
 	
 	public ArticleResult() {
-		this.list = new ArrayList<Article>();
+		this.list = new ArrayList<T>();
 	}
 }

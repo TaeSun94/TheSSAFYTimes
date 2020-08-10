@@ -27,12 +27,12 @@ public class ModifyRequest {
 	private String memberIntro;
 	private String memberDesc;
 	
-	private List<String> interestedList;
-	private List<String> skillList;
+	private List<Integer> interestedList;
+	private List<Integer> skillList;
 	
 	public ModifyRequest() {
-		this.interestedList = new ArrayList<String>();
-		this.skillList = new ArrayList<String>();
+		this.interestedList = new ArrayList<Integer>();
+		this.skillList = new ArrayList<Integer>();
 	}
 
 }
