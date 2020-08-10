@@ -96,15 +96,19 @@
             return {
                 region:[],
                 memberId:'',
+                // memberInt:[],
             }
         },
         created(){
         //   this.$store.dispatch('getProfile',this.$route.params.memberId);
             this.$store.dispatch('getRegions');
             this.$store.dispatch('getSkillLanguages');
+            // http.get(`/category/skill-language`).then(({data})=>{
+            //     this.memberInt = data.list;
+            // })
             var id = this.$cookies.get("memberId");
             this.memberId = id;
-            this.$store.dispatch('getProfile',this.memberId);
+            this.$store.dispatch('getProfileMod',this.memberId);
         },
         computed:{
             ...mapGetters(['profile','regions','skillLanguages','units','tracks']),
@@ -112,6 +116,9 @@
         },
         methods:{
             ...mapActions(['modifyProfile']),
+            // modifyProfile(){
+            //     this.$store.dispatch('modifyProfile',this.memberInt)
+            // },
             getUnit(value){
                 console.log(value);
                 this.$store.dispatch('getUnits',value);

@@ -276,7 +276,6 @@ export default new Vuex.Store({
         //profile
         modifyProfile(context){
             const path = this.state;
-            console.log(path.profile.memberInterestedList);
             http.put(`/member`,{
                 memberAddress: path.profile.memberAddress,
                 memberClass: path.profile.memberClass,
@@ -289,8 +288,8 @@ export default new Vuex.Store({
                 memberTrack: path.profile.memberTrack,
                 memberUnit: path.profile.memberUnit,
                 memberId: path.profile.memberId,
-                memberInterestedList: path.profile.memberInterestedList,
-                memberSkillList: path.profile.memberSkill
+                interestedList: path.profile.memberInterestedList,
+                skillList: path.profile.memberSkillList
                 
             }).then(({data})=>{
                 console.log(data);
@@ -439,6 +438,12 @@ export default new Vuex.Store({
                     console.log(data.message)
                 }
             })
+        },
+        getProfileMod(context, payload){
+            http.get(`/member/mod/${payload}`).then(({data})=>{
+                // console.log(data);
+                context.commit('setProfile',data.data);
+            });
         },
         getTeams(context, payload) {
             http.get(payload).then(({data}) => {
