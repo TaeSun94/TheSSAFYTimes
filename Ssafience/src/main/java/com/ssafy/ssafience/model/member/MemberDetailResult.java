@@ -24,7 +24,7 @@ public class MemberDetailResult<T> extends MemberResultDTO{
 		super.setMemberLastName(m.getMemberLastName());
 		super.setMemberPhone(m.getMemberPhone());
 		super.setMemberRegion(m.getMemberRegion());
-		super.setMemberClass(m.getMemberClass());
+		super.setMemberArticle(m.getMemberArticle());
 		super.setMemberTrack(m.getMemberTrack());
 		super.setMemberUnit(m.getMemberUnit());
 		super.setMemberIntro(m.getMemberIntro());
