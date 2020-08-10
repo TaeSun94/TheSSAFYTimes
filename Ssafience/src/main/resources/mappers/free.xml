@@ -45,6 +45,12 @@
 		delete from free_board
 		where free_board_no = #{boardNo}
 	</delete>
+	
+	<!-- 조회수  -->
+	<insert id="hit">
+		INSERT IGNORE INTO board_hit(board_name, board_no, board_hit_ip)
+		VALUES ('free_board', #{boardNo}, #{ipAddress});
+	</insert>
 
 	<!-- 댓글 관련 -->
 	<select id="selectBoardCommentList" resultType="freeComment">
