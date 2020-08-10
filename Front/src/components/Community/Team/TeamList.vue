@@ -12,18 +12,16 @@
                   <router-link class="write-link" :to="{path:'/community/teamWrite'}">팀원 구하기</router-link>
                 </div>
              <v-container class="text-center">
-                <div class="item_card recruit_card" v-for="item in 5" :key="item.index">
-                    <a href="/team/4666">
-                        <div class="card_image">
-                            <a style="background-color:#ffb347"></a>
-                        </div>
-                    </a> 
+                <div class="item_card recruit_card" v-for="team in this.teams " :key="team.index" @click="rowClicked(team)">
+                    <div class="card_image">
+                        <a style="background-color:#ffb347"></a>
+                    </div>
                     <div class="card_contents">
                         <div class="title">
-                            <a>공모전 나가실 팀원 분 구해요</a>
+                            <a>{{ team.teamBoardTitle }}</a>
                         </div> 
-                        <div class="sub_title  mb-3">
-                            <span class="by_writer">SSAFY 3기 홍길동</span> 
+                        <div class="sub_title  mb-3 text-right">
+                            <span class="by_writer">{{ team.memberId}}</span> 
 
                         </div> 
                         <div class="recruit_title">
@@ -32,7 +30,7 @@
                             color="green"
                             text-color="white"
                             >
-                            Vue.js
+                            {{ team.teamBoardStartDatetime }}
                             <v-icon right></v-icon>
                             </v-chip>
                             <v-chip
@@ -40,29 +38,21 @@
                             color="green"
                             text-color="white"
                             >
-                            JAVA
-                            <v-icon right></v-icon>
-                            </v-chip>
-                                                        <v-chip
-                            class="ma-2"
-                            color="green"
-                            text-color="white"
-                            >
-                            Spring
+                            {{ team.teamBoardEndDatetime }}
                             <v-icon right></v-icon>
                             </v-chip>
                         </div> 
                         <div class="recruit_desc">
-                            <li>프론트엔드 2명</li>
-                            <li> 백엔드 2명 </li>
-                        </div> 
-                        <div class="mt-3 text-right">
-                            <v-btn icon>
-                                <v-icon>mdi-heart</v-icon>
-                            </v-btn>
-                            <v-btn icon>
-                                <v-icon>mdi-bookmark</v-icon>
-                            </v-btn>
+                            <li>프론트엔드 {{ team.teamBoardFrontRemainCount }}명</li>
+                            <li> 백엔드 {{ team.teamBoardBackRemainCount}}명 </li>
+                            <div class="text-right">
+                                <v-btn icon class="">
+                                    <v-icon>mdi-heart</v-icon>
+                                </v-btn>
+                                <v-btn icon class="">
+                                    <v-icon>mdi-bookmark</v-icon>
+                                </v-btn>
+                            </div>
                         </div> 
                     </div>
                 </div>
@@ -92,12 +82,12 @@ export default {
         ...mapGetters(["teams"])
     },
     methods: {
-        rowClicked(row) {
-            this.$router.push({path: `/community/teamdetail/${row.no}`});
-        }
+        rowClicked(team) {
+            this.$router.push({path: `/community/teamdetail/${team.teamBoardNo}`})
+        },
     },
     created() {
-        this.$store.dispatch("getTeams", '');
+        this.$store.dispatch("getTeams", '/team/board');
     }
 }
 </script>
@@ -113,7 +103,6 @@ export default {
 }
 
 .recruit_card {
-    height: 400px;
     border-radius: 10px;
     border:0.3px solid grey;
 }
