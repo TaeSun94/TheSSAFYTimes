@@ -139,8 +139,8 @@ CREATE TABLE `free_board_like` (
     FOREIGN KEY (member_id) REFERENCES member(member_id) ON UPDATE CASCADE ON DELETE SET NULL
 );
 ALTER TABLE free_board_like MODIFY COLUMN free_board_like_check BOOL;
-/*============================================================================*/
 
+/*============================================================================*/
 
 /*
 제작일: 2020.07.27
@@ -258,4 +258,47 @@ ON DUPLICATE KEY UPDATE free_board_like_check = 0;
 -- 좋아요 삭제
 DELETE FROM free_board_like WHERE free_board_no = 3;
 
+/*============================================================================*/
 
+/*
+제작일: 2020.08.10
+유형: Table
+설명: 조회수를 증가시키기 위한 테이블
+*/
+
+CREATE OR REPLACE TABLE board_hit (
+    board_hit_no INT PRIMARY KEY AUTO_INCREMENT ,
+    board_name VARCHAR(200) NOT NULL ,  -- 게시판 이름 ex) free_board, program_board
+    board_no INT NOT NULL ,     -- 게시글 번호
+    board_hit_ip VARCHAR(15) ,  -- 아이피 번호
+    board_hit_datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+    UNIQUE KEY (board_name, board_no, board_hit_ip)
+);
+
+/*
+제작일: 2020.08.10
+유형: Trigger
+설명: 게시판 별 자동 조회수 증가 트리거
+*/
+DELIMITER //
+CREATE OR REPLACE TRIGGER TRG_BOARD_HIT_INCREMENT
+AFTER INSERT ON board_hit
+FOR EACH ROW
+    BEGIN
+        IF NEW.board_name = 'free_board' THEN
+            UPDATE free_board
+                SET free_board_hit = free_board_hit + 1
+            WHERE free_board_no = NEW.board_no;
+        ELSEIF NEW.board_name = 'program_board' THEN
+            UPDATE program_board
+                SET program_board_hit = program_board_hit + 1
+            WHERE program_board_no = NEW.board_no;
+        -- ELSEIF  THEN     -- Board 추가가        END IF;
+        END IF;
+    END //
+DELIMITER ;
+
+SELECT * FROM free_board;
+/*사용 예*/
+INSERT INTO board_hit(board_name, board_no, board_hit_ip)
+VALUES ('free_board', 31, '213.119.232.109');
