@@ -3,7 +3,6 @@ package com.ssafy.ssafience.model.member;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,7 +19,6 @@ public class ModifyRequest {
 	private String memberAddress;
 
 	private int memberRegion;
-	private int memberClass;
 	private int memberTrack;
 	private int memberUnit;
 
