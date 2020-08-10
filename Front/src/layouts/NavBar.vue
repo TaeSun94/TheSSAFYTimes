@@ -84,11 +84,24 @@
             </v-list-item-content>
             </v-list-item>
 
+            <v-list-item @click="to('/studio')">
+            <v-list-item-content>
+                <v-list-item-title>📷  싸-피 사진관</v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>
+
             <v-list-item @click="to('/aboutus')">
             <v-list-item-content>
                 <v-list-item-title>🎈 AboutUs</v-list-item-title>
             </v-list-item-content>
             </v-list-item>
+
+            <v-list-item @click="to('/ssafytimes')">
+            <v-list-item-content>
+                <v-list-item-title>📷  The SSAFY Times</v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>
+
         </v-list>
         </v-navigation-drawer>
     </div>

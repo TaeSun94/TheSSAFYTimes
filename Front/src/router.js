@@ -28,6 +28,8 @@ import FreeList from "@/components/Community/Free/List";
 import FreeWrite from "@/components/Community/Free/Write";
 import FreeDetail from "@/components/Community/Free/Detail";
 import ProgramUpdate from "@/components/Community/Programming/Update";
+import Studio from "@/components/Studio/StudioMain";
+import Times from "@/components/Times/TimesMain";
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -188,6 +190,16 @@ export default new VueRouter({
                     component:AboutUsIndex
                 }
             ]
+        },
+        {
+            path:"/studio",
+            name:"Studio",
+            component: Studio
+        },
+        {
+            path:"/ssafytimes",
+            name:"Times",
+            component: Times,
         }
 
     ]
