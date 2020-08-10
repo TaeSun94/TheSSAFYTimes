@@ -8,6 +8,6 @@ public class WriteRequest {
 	private String memberId;
 	private String articleTitle;
 	private String articleContent;
-	private int articelType;
+	private int articleType;
 	
 }

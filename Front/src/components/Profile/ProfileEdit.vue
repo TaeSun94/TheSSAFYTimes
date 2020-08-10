@@ -5,6 +5,7 @@
         <v-container class="elevation-5 col-lg-6">
             <p id="edit_header">프로필 등록 및 수정</p>
             <v-form class="ml-4 mr-4 mt-6">
+                <v-file-input show-size counter multiple label="프로필 사진 등록"></v-file-input>
                 <v-text-field
                     label="Blog 소개 제목"
                     v-model="member.memberIntro"
@@ -26,6 +27,10 @@
                     ></v-text-field>
                 </div>
                 <v-text-field
+                    label="현재 거주지역"
+                    v-model="member.memberAddress"
+                ></v-text-field>
+                <v-text-field
                     label="핸드폰 번호(-)포함"
                     v-model="member.memberPhone"
                 ></v-text-field>
@@ -33,21 +38,23 @@
                 <div class="row">
                     <v-select class="col-lg-2"
                         v-model="member.memberRegion"
-                        :items="options"
+                        :items="regions"
                         label="지역"
                         chips
                         persistent-hint
+                        @change="getUnit(member.memberRegion)"
                     ></v-select>
                     <v-select class="col-lg-2"
                         v-model="member.memberUnit"
-                        :items="options"
+                        :items="units"
                         label="기수"
                         chips
                         persistent-hint
+                        @change="getTrack(member.memberUnit)"
                     ></v-select>
                     <v-select class="col-lg-2"
                         v-model="member.memberTrack"
-                        :items="options"
+                        :items="tracks"
                         label="트랙"
                         chips
                         persistent-hint
@@ -55,8 +62,8 @@
                 </div>
                 <!-- select로 설정 (multiple) -->
                 <v-select
-                    v-model="member.memberInterested"
-                    :items="options"
+                    v-model="member.memberInterestedList"
+                    :items="skillLanguages"
                     label="관심 기술 및 언어"
                     multiple
                     chips
@@ -64,8 +71,8 @@
                 ></v-select>
                 <br>
                 <v-select
-                    v-model="member.memberSkill"
-                    :items="options"
+                    v-model="member.memberSkillList"
+                    :items="skillLanguages"
                     label="사용 기술 및 언어"
                     multiple
                     chips
@@ -87,18 +94,39 @@
         name: 'ProfileEdit',
         data() {
             return {
-                options:[],
+                region:[],
+                memberId:'',
+                // memberInt:[],
             }
         },
         created(){
-          this.$store.dispatch('getProfile','tyzlddy');
+        //   this.$store.dispatch('getProfile',this.$route.params.memberId);
+            this.$store.dispatch('getRegions');
+            this.$store.dispatch('getSkillLanguages');
+            // http.get(`/category/skill-language`).then(({data})=>{
+            //     this.memberInt = data.list;
+            // })
+            var id = this.$cookies.get("memberId");
+            this.memberId = id;
+            this.$store.dispatch('getProfileMod',this.memberId);
         },
         computed:{
-            ...mapGetters(['profile']),
+            ...mapGetters(['profile','regions','skillLanguages','units','tracks']),
             ...mapState({member: state=>state.profile}),
         },
         methods:{
-            ...mapActions(['modifyProfile'])
+            ...mapActions(['modifyProfile']),
+            // modifyProfile(){
+            //     this.$store.dispatch('modifyProfile',this.memberInt)
+            // },
+            getUnit(value){
+                console.log(value);
+                this.$store.dispatch('getUnits',value);
+            },
+            getTrack(value){
+                console.log(value);
+                this.$store.dispatch('getTracks',value);
+            }
         },
     };
 </script>

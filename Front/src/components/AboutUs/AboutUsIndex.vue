@@ -101,6 +101,9 @@
                 </v-card>
             </template>
         </v-container>
+        <v-container class="col-lg-6">
+            <tui-image-editor ref="tuiImageEditor" :include-ui="useDefaultUI" :options="options"></tui-image-editor>
+        </v-container>
     </div>
     <footer-bar></footer-bar>
 </div>
@@ -108,15 +111,35 @@
 
 <script>
 import { VueScrollProgressBar } from '@guillaumebriday/vue-scroll-progress-bar'
+import {ImageEditor} from '@toast-ui/vue-image-editor';
+// To use the basic UI, the svg files for the icons is required.
+import 'tui-image-editor/dist/svg/icon-a.svg';
+import 'tui-image-editor/dist/svg/icon-b.svg';
+import 'tui-image-editor/dist/svg/icon-c.svg';
+import 'tui-image-editor/dist/svg/icon-d.svg';
 
+// Load Style Code
+import 'tui-image-editor/dist/tui-image-editor.css';
 export default {
     name:"AboutUsIndex",
     components: {
-      VueScrollProgressBar
+      VueScrollProgressBar,
+        'tui-image-editor': ImageEditor
     },
     data() {
         return {
             tab: null,
+            useDefaultUI: true, 
+            options: { // for tui-image-editor component's "options" prop
+                includeUI: {
+                    uiSize: {
+                        width: '1000px',
+                        height: '700px'
+                    },
+                },
+                cssMaxWidth: 700,
+                cssMaxHeight: 500
+            }
         }
     }
 }

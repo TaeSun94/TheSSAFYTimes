@@ -14,23 +14,24 @@
                         >  
                     </v-avatar>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-3 text-center">
                     <!-- 만약 세션이 나이고 쿼리를 통해 들어온거와 같다면 -->
-                    <!-- <div v-if=""> -->
-                    <div v-if="member.memberFirstName === null || member.memberFirstName === ''">
-                        <v-btn class="primary" @click="mvEditProfile">등록</v-btn>
+                    <div v-if="isMember">
+                        <div v-if="member.memberFirstName === null || member.memberFirstName === ''">
+                            <v-btn class="primary" @click="mvEditProfile">등록</v-btn>
+                        </div>
+                        <div v-else>
+                            <v-btn class="primary" @click="mvEditProfile">수정</v-btn>
+                        </div>
                     </div>
-                    <div v-else>
-                        <v-btn class="primary" @click="mvEditProfile">수정</v-btn>
-                    </div>
-                    <!-- </div> -->
 
                     <!-- 아니라면 -->
-                    <!-- <div v-else> -->
-                    <!-- <div>
-                        <v-btn class="primary" @click="mvEditProfile">친구추가</v-btn>
-                    </div> -->
-                    <!-- </div> -->
+                    <div v-else>
+                        <!-- 만약 친구라면 언팔 친구가 아니면 팔로우 -->
+                        <div>
+                            <v-btn class="primary" @click="addFollow">팔로우</v-btn>
+                        </div>
+                    </div>
                 </div>
             </v-card-actions>
             <div v-if="member.memberFirstName !== null && member.memberFirstName !==''">
@@ -43,11 +44,11 @@
                                     <span class="description">내가 쓴 기사 수(Articles)</span>
                                 </div>
                                 <div>
-                                    <!-- <span class="heading">{{ followers_count}}</span> -->
+                                    <span class="heading">{{ member.memberFollower}}</span>
                                     <span class="description">팔로워 수(Followers)</span>
                                 </div>
                                 <div>
-                                    <!-- <span class="heading">{{ followings_count }}</span> -->
+                                    <span class="heading">{{ member.memberFollow }}</span>
                                     <span class="description">팔로잉 수(Followings)</span>
                                 </div>
                             </div>
@@ -73,10 +74,10 @@
                         <v-slide-y-transition>
                             <v-card-text v-show="show">
                                 <p style="font-size:23px"><b>관심 기술 및 언어</b></p>
-                                    <div v-if="member.memberInterested !== null">
+                                    <div v-if="member.memberInterestedList !== null || member.memberInterestedList === ''">
                                         <tr>
-                                            <td v-for="(item, index) in member.memberInterested" :key="index +'_memberInterested'">
-                                                <i v-if="index !== member.memberInterested.length-1">{{item}},&nbsp;&nbsp; </i>
+                                            <td v-for="(item, index) in member.memberInterestedList" :key="index +'_memberInterested'">
+                                                <i v-if="index !== member.memberInterestedList.length-1">{{item}},&nbsp;&nbsp; </i>
                                                 <i v-else>{{item}}</i>
                                             </td>
                                         </tr>
@@ -86,10 +87,10 @@
                                     </div>
                                 <br>
                                 <p style="font-size:23px"><b>사용 가능 기술</b></p>
-                                    <div  v-if="member.memberSkill !== null || member.memberSkill === ''">
+                                    <div  v-if="member.memberSkillList !== null || member.memberSkillList === ''">
                                         <tr>
-                                            <td v-for="(item, index) in member.memberSkill" :key="index +'_memberSkill'">
-                                                <i v-if="index !== member.memberSkill.length-1">{{item}},&nbsp;&nbsp; </i>
+                                            <td v-for="(item, index) in member.memberSkillList" :key="index +'_memberSkill'">
+                                                <i v-if="index !== member.memberSkillList.length-1">{{item}},&nbsp;&nbsp; </i>
                                                 <i v-else>{{item}}</i>
                                             </td>
                                         </tr>
@@ -98,9 +99,6 @@
                                         <p>등록된 사용 기술 및 언어가 없습니다.</p>
                                     </div>
                                     <br>
-                                    <div class="text-center">
-                                <a href="#">{{member.memberLastName}}{{member.memberFirstName}}님의 Blog로 방문하기!</a>
-                                    </div>
                             </v-card-text>
                         </v-slide-y-transition>                                    
                     </div>
@@ -112,23 +110,23 @@
                         <div class="col">
                             <div class="card-profile-stats d-flex justify-content-center ml-md-5" style="font-size:13px">
                                 <div>
-                                    <v-span class="heading"> 11 </v-span>
-                                    <v-span class="description">내가 쓴 기사 수(Articles)</v-span>
+                                    <span class="heading"> 11 </span>
+                                    <span class="description">내가 쓴 기사 수(Articles)</span>
                                 </div>
                                 <div>
-                                    <v-span class="heading"> 22 </v-span>
-                                    <v-span class="description">팔로워 수(Followers)</v-span>
+                                    <span class="heading"> 22 </span>
+                                    <span class="description">팔로워 수(Followers)</span>
                                 </div>
                                 <div>
-                                    <v-span class="heading"> 33 </v-span>
-                                    <v-span class="description">팔로잉 수(Followings)</v-span>
+                                    <span class="heading"> 33 </span>
+                                    <span class="description">팔로잉 수(Followings)</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="text-center">
                         <h3>
-                            이름 성<v-span class="font-weight-light">, 나이</v-span>
+                            이름 성
                         </h3>
                         <div class="h5 font-weight-300">
                             <i class="ni location_pin mr-2"></i>현재 거주 지역
@@ -141,8 +139,6 @@
                         </div>
                         <hr class="my-4" />
                         <p>자신이 관심있어하는 기술과 잘하는 기술을 나열</p>
-                        <a href="#">Show more</a>
-                        <!-- 여기에 show more을 누르는 순간 해당 인원의 profile로 이동-->
                     </div>
                 </div>
             </div>
@@ -152,29 +148,40 @@
 </template>
 
 <script>
-    import ConnectHere from "./ConnectHere"
-    import { mapState,mapGetters } from "vuex"
+    import ConnectHere from "./ConnectHere";
+    import {mapGetters,mapActions} from 'vuex';
+    
     export default {
         name:"ProfileCard",
         data() {
             return {
                 selected: null,
-                show:false
+                show:false,
+                isMember: false,
+            }
+        },
+        created(){
+            this.memId = sessionStorage.getItem("memberId");
+            var id = this.$cookies.get("memberId");
+            if(id==this.$route.params.memberid){
+                this.isMember = true;
             }
         },
         components:{
-            ConnectHere,
-        },
-        created(){
-            this.$store.dispatch('getProfile','tyzlddy');
+            'connect-here':ConnectHere,
         },
         computed:{
-            ...mapState({member: state=>state.profile}),
-            ...mapGetters(['profile']),
+            ...mapGetters({member: 'profile'}),
         },
         methods:{
             mvEditProfile(){
-                this.$router.push('/profileEdit')
+                this.$router.push(`/profileEdit/${this.$store.state.profile.memberId}`)
+            },
+            ...mapActions(['addFollowing']),
+            addFollow(){
+                const id = this.$cookies.get("memberId");
+                this.$store.dispatch('addFollowing',id)
+                // ...mapActions(['addFollowing'],this.$store.state.profile.memberid)
             }
         }
     }

@@ -1,12 +1,9 @@
 package com.ssafy.ssafience.service.like;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.ssafience.model.dto.FreeBoard;
-import com.ssafy.ssafience.model.dto.FreeBoardLike;
 import com.ssafy.ssafience.model.like.LikeRequest;
 import com.ssafy.ssafience.model.like.LikeResult;
 import com.ssafy.ssafience.repo.FreeRepo;

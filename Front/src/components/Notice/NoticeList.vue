@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-7"> <!-- 기본틀 푸터까지 -->
+        <v-container class="elevation-5 col-lg-7 col-sm-10"> <!-- 기본틀 푸터까지 -->
             <vue-scroll-progress-bar height="0.3rem" backgroundColor="orange"/>
             <!-- <v-data-table
               :headers="headers"
@@ -61,7 +61,7 @@
                       <v-col cols="8" class="text--secondary">
                         <v-fade-transition leave-absolute>
                           <span v-if="open">
-                            {{item.noticeDatetime | moment("YYYY MM DD HH:MM")}}
+                            {{item.noticeDatetime}}
                           </span>
                         </v-fade-transition>
                       </v-col>
@@ -129,7 +129,7 @@ export default {
       },
       createHandler() {
         http.post("/notice", {
-          member_id: sessionStorage.getItem("memberId"),
+          member_id: this.$cookies.get("memberId"),
           noticeContent: this.content,
           noticeTitle: this.title
         }).then(({data})=> {
@@ -144,8 +144,8 @@ export default {
     },
     created() {
       this.$store.dispatch("getNotices", '/notice');
-      var id = sessionStorage.getItem('memberId');
-      if(id == null) {
+      var id = this.$cookies.get('memberId');
+      if(id != 'admin') {
         this.isAdmin = false;
         this.memberId = '';
       } else {

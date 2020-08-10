@@ -16,6 +16,7 @@ public class FreeBoard {
 	private int freeBoardHit;
 	private Date freeBoardUpdateDatetime;
 	private Date freeBoardDatetime;
-	private int freeBoardLikeCount;
+	private int freeBoardLike;
+	private int freeBoardDislike;
 
 }

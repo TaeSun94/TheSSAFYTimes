@@ -1,18 +1,18 @@
 <template>     
   <div class="wrapper" style="margin-top:5%">
     <div class="row">
-      <v-container class="col-lg-5 elevation-5"> 
+      <v-container class="col-lg-5 col-sm-6 elevation-5"> 
         <div class="form sm-m-0">
           <v-form ref="form" lazy-validation>
               <!--Id-->
-            <!-- <v-text-field 
+            <v-text-field 
             v-model="memberId"
             :rules="IdRules"
             :counter="10"
-            label="ID*"
+            label="닉네임*"
             required
             @blur="checkIdDup"
-            ></v-text-field> -->
+            ></v-text-field>
             <!--Email-->
             <v-text-field
             v-model="memberEmail"
@@ -48,12 +48,6 @@
             >
             </v-text-field>
             <footer class="login-foot mt-3">
-
-              <!-- <button
-                class="primary-button  is-fullwidth"
-                @click="submit">
-                가입하기
-              </button> -->
               <v-btn @click="submit"
               dark
               large
@@ -61,11 +55,6 @@
               width=100%>
                 가입하기
               </v-btn>
-              <!-- <button
-                class="primary-button  is-fullwidth"
-                @click="clear">
-                CLEAR
-              </button> -->
               <p class="login-option mt-5 text-center">이미 계정이 있으신가요?
               <router-link class="login-option-link" :to="{path:'/login'}">로그인</router-link>
               </p>                                    
@@ -85,7 +74,7 @@ import http from '@/http-common'
     data: () => ({
       memberId: '',
       IdRules: [
-        v => !!v || 'ID를 입력해주세요.',
+        v => !!v || '닉네임을 입력해주세요.',
         v => (v && v.length <= 10) || 'Name must be less than 10 characters'
       ],
       memberPw: '',
@@ -114,7 +103,7 @@ import http from '@/http-common'
       },
       submit () {
         if(this.idck==true && this.pwck==true && this.emailck==true){
-          http.post('/member/signup', {
+          http.post('/account/signup', {
             memberId: this.memberId,
             memberEmail: this.memberEmail,
             memberPw: this.memberPw,
@@ -133,11 +122,11 @@ import http from '@/http-common'
         this.$refs.form.reset()
       },
       checkIdDup() {
-        http.post('/valid/email', {
-          memberEmail : this.memberEmail
+        http.post('/valid/id', {
+          memberId : this.memberId
         })
         .then(({data})=> {
-          if(data.result == "fail") {
+          if(data.result == "notavailable") {
             this.idck=false;
             alert(data.message);
             return;
@@ -157,14 +146,14 @@ import http from '@/http-common'
         }
       },
       checkEmail() {
-        http.post('/valid/emailValid', {
+        http.post('/valid/email', {
           memberEmail : this.memberEmail
         })
         .then(({data})=> {
           if(data.result == "success") {
             this.emailck = true;
             alert(data.message);
-          } else if(data.result == "fail"){
+          } else if(data.result == "notavailable"){
             this.emailck = false;
             alert(data.message);
           }

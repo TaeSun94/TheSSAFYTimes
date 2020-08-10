@@ -1,9 +1,8 @@
 package com.ssafy.ssafience.model.member;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.ssafy.ssafience.model.dto.Member;
+import com.ssafy.ssafience.model.dto.MemberResultDTO;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,11 +11,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MemberDetailResult extends Member{
-	private List<String> memberInterestedList;
-	private List<String> memberSkillList;	
+public class MemberDetailResult<T> extends MemberResultDTO{
+	private List<T> memberInterestedList;
+	private List<T> memberSkillList;	
 	
-	public MemberDetailResult(Member m) {
+	public MemberDetailResult(MemberResultDTO m) {
 		super.setMemberNo(m.getMemberNo());
 		super.setMemberId(m.getMemberId());
 		super.setMemberPw(m.getMemberPw());
@@ -37,15 +36,15 @@ public class MemberDetailResult extends Member{
 		super.setMemberFollower(m.getMemberFollower());
 		super.setMemberDatetime(m.getMemberDatetime());
 		super.setMemberAuthDatetime(m.getMemberAuthDatetime());
-		this.memberInterestedList = new ArrayList<String>();
-		this.memberSkillList = new ArrayList<>();
+		super.setMemberInterested(m.getMemberInterested());
+		super.setMemberSkill(m.getMemberSkill());
 	}
 	
-	public void insertIntList(List<String> memberInterestedList) {
+	public void insertIntList(List<T> memberInterestedList) {
 		this.memberInterestedList = memberInterestedList;
 	}
 	
-	public void insertSkillList(List<String> memberSkillList) {
+	public void insertSkillList(List<T> memberSkillList) {
 		this.memberSkillList = memberSkillList;		
 	}
 }

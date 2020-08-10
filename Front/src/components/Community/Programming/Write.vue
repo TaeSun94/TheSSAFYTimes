@@ -1,10 +1,17 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-10">
+        <v-container class="elevation-5 col-lg-10 col-sm-10">
             <div class="textfield">
-                <input type="text" class="textfield-input" v-model="title" placeholder="제목을 입력하세요" value="">
-                <hr>
+                <v-row>
+                    <v-col>
+                        <input type="text" class="textfield-input" v-model="title" placeholder="제목을 입력하세요" value="">
+                        <hr>
+                    </v-col>
+                    <v-col cols="2">
+                        <v-select v-model="track" :items="category" solo label="카테고리"></v-select>
+                    </v-col>
+                </v-row>
             </div>
             <editor 
               :options="editorOptions"
@@ -36,8 +43,20 @@ export default {
             title: "",
             editorOptions: {
                 hideModeSwitch: true
-            }
+            },
+            member : {},
+            category: [],
+            track: '',
         };
+    },
+    created() {
+        var id = this.$cookies.get('memberId');
+        http.get("/member/"+id).then(({data})=> {
+            this.member = data.data;
+        });
+        http.get("/category/program-track").then(({data})=>{
+            this.category = data.list;
+        })
     },
     methods: {
         checkHandler() {
@@ -52,11 +71,11 @@ export default {
         },
         createHandler() {
             var content = this.$refs.toastuiEditor.invoke("getMarkdown");
-            http.post("/board/program", {
-                memberId: sessionStorage.getItem("memberId"),
+            http.post("/program/board", {
+                memberId: this.$cookies.get("memberId"),
                 programBoardTitle: this.title,
                 programBoardContent: content,
-                programBoardTrack: 0,
+                programBoardTrack: this.track,
             }).
             then(({data}) => {
                 if(data.result == "success"){

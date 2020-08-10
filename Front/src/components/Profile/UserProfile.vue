@@ -1,18 +1,18 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
     <div class="row">
-        <!-- <div v-if="member.memberIntro !== null && member.memberDesc !==null"> -->
-        <v-container  class="col-lg-10 mb-5">
+        <div class="col-lg-11" v-if="profile.memberIntro !== null && profile.memberDesc !==null">
+        <v-container id="intro">
             <h1>{{ profile.memberIntro }}</h1>
             <p>{{ profile.memberDesc }}</p>
         </v-container>
-        <!-- </div> -->
+        </div>
         <!-- <bussiness-card v-model="member"></bussiness-card> -->
     </div>
     <div class="row">
         <!-- 기사가 들어갈 공간 -->
         <v-container class="col-lg-6">
-            <div>
+            <div v-if="isMember">
                 <v-card-actions>
                     나만의 기사 작성하기!
                     <v-btn
@@ -27,7 +27,7 @@
                         <v-divider></v-divider>
                         <v-container class="elevation-5">
                             <v-form>
-                                <card class="desc">
+                                <div class="item_card">
                                     <div slot="header" class="bg-white border-0">
                                         <div class="row align-items-center">
                                             <div class="col-10">
@@ -55,9 +55,8 @@
                                                     <div class="col-md-4" id="se">
                                                         <v-select
                                                             v-model="article.articleType"
-                                                            :items="options"
+                                                            :items="articleTypes"
                                                             label="기사 분류"
-                                                            multiple
                                                             chips
                                                             persistent-hint
                                                             :rules="type_rules"
@@ -76,7 +75,7 @@
                                                 ></v-textarea>
                                             </div>
                                     </template>
-                                </card>
+                                </div>
                             </v-form>
                         </v-container>
                     </div>
@@ -85,11 +84,9 @@
             <br>
             <div>
                 <div v-if="articles.length">
-                    
-                    <div v-for="(item, index) in articles" :key="index + '_articles'">
+                    <div class="item_card" v-for="(item, index) in articles" :key="index + '_articles'">
                 <!-- 작성된 기사 부분 -->
                         <v-container class="elevation-5">
-                            <card class="desc">
                                 <div slot="header" class="bg-white border-0">
                                     <div class="row align-items-center">
                                         <div class="col-8 ml-3">
@@ -107,7 +104,6 @@
                                 <div class="text-right">
                                     <p style="font-size:12px">{{item.memberId}}, {{item.articleDatetime}}</p>
                                 </div>
-                            </card>
                         </v-container>
                         <br>
                     </div>
@@ -121,30 +117,36 @@
         </v-container>
         <!-- 프로필 및 친구 관계가 들어갈 공간 -->
         <div class="col-lg-4 mr-15">
-        <!-- <v-container class="elevation-5 col-lg-12"> -->
-            <profile-card></profile-card>
-        <!-- </v-container> -->
+            <profile-card v-model="profile.memberId"></profile-card>
         <br>
         <v-container class="elevation-5 col-lg-12">
-            <div class="col mb-4">
+            <div class="col">
                 <div class="col-lg-4" style="float:left;">
-                    <h4> Followers</h4>
-                </div>
-                <div class="" style="position:relative; float:right;">
-                    <add-following v-model="followings"></add-following>
+                    <h4> Followings</h4>
                 </div>
                 <hr class="my-4 mt-10" />
             </div>
             <div v-if="followings.length" id="following_table">
                 <!-- 친구 목록 table -->
                 <!-- Id, region, unit만 보이게 -->
-                <table class="text-center">
+                <v-data-table
+                    :headers="headers"
+                    :items="followings"
+                    :page.sync="page"
+                    :items-per-page="perPage"
+                    hide-default-footer
+                    :per-page="perPage"
+                    @click:row="rowClicked"
+                >
+                </v-data-table>
+                <!-- <table class="text-center">
                 <tr v-for="(following,index) in followings" :key="index+'_followings'">
+                    <business-card v-bind="following"></business-card>
                     <td>{{following.memberId}}</td>
-                    <td>{{following.memberRegion}}</td>
+                    <td>{{following.memberEmail}}</td>
                     <td>{{following.memberUnit}}</td>
                 </tr>
-                </table>
+                </table> -->
             </div>
             <div v-else class="text-center">
                 <p>등록된 Followr가 없습니다.</p>
@@ -156,44 +158,26 @@
 </div>
 </template>
 <script>
-    // import BussinessCard from './BusinessCard'
+    // import BusinessCard from './BusinessCard'
     import InfiniteLoading from 'vue-infinite-loading'
-    import AddFollowing from "./AddFollowing"
-    import ProfileCard from "./ProfileCard"
+    import ProfileCard from "@/components/Profile/ProfileCard"
     // import WriteArticle from "./Profile/WriteArticle"
     import {mapState, mapGetters, mapActions} from 'vuex';
     import http from "@/http-common.js";
     export default {
         name: 'UserProfile',
         components:{
-            AddFollowing,
-            ProfileCard,
+            'profile-card':ProfileCard,
             InfiniteLoading,
-            // BussinessCard
+            // BusinessCard
         },
         data() {
             return {
                 page: 1,
+                perPage:5,
+                articlepage:1,
                 list:[],
                 selected: null,
-                options: [
-                    { value: '사회', text: '사회' },
-                    { value: '과학', text: '과학' },
-                    { value: '기술', text: '기술'},
-                    { value: '기타', text: '기타'}
-                ],
-                followings:[
-                    {
-                        memberId:'ki0',
-                        memberRegion:'광주',
-                        memberUnit:'3',
-                    },
-                    {
-                        memberId:'성우',
-                        memberRegion:'서울',
-                        memberUnit:'3',
-                    },
-                ],
                 show: false,
                 article_show : false,
                 subject_rules:[
@@ -205,24 +189,40 @@
                 content_rules:[
                     value => !!value || '내용을 입력해 주세요.'
                 ],
+                isMember: false,
+                headers: [
+                { text: '아이디', value: 'memberId', },
+                { text: '이메일', value: 'memberEmail' },
+            ],
             }
         },
         created(){
-            console.log(this.$route.params.memberId);
-            this.$store.dispatch('getProfile',this.$route.params.memberId);
-            this.$store.dispatch('getMyArticles',this.$route.params.memberId);
+            // sessionStorage.setItem('memberId', "admin");
+            console.log(this.$route.params.memberid);
+            this.$store.dispatch('getProfile',this.$route.params.memberid);
+            this.$store.dispatch('getMyArticles',this.$route.params.memberid);
+            // this.$store.dispatch('getFollowings',"admin");
+            this.$store.dispatch('getArticleTypes');
+            this.$store.dispatch('getFollowings',this.$route.params.memberid);
+            var id = this.$cookies.get("memberId");
+            if(id==this.$route.params.memberid){
+                this.isMember = true;
+            }
         },
         computed:{
             ...mapState({article: state=> state.article},{member: state=>state.profile}),
             
-            ...mapGetters(['profile','articles','article'])
+            ...mapGetters(['profile','articles','article','articleTypes','followings'])
         },
         methods:{
             ...mapActions(['writeArticle']),
+            rowClicked(row){
+                location.href =`/profile/${row.memberId}`;
+            },
             // infiniteHandler($state){
             //     http.get(`/article/${this.$route.params.memberId}`,{
             //         params:{
-            //             page: this.page,
+            //             page: this.articlepage,
             //         },
             //     }).then(({data})=>{
             //     context.commit('setMyArticles',data);
@@ -233,13 +233,13 @@
                 http.get(`/article/${this.$route.params.memberId}`
                 // , {
                 //     params: {
-                //         page: this.page,
+                //         page: this.articlepage,
                 //     },
                 // }
                 ).then(({ data }) => {
-                    if (data.articleList.length) {
+                    if (data.list.length) {
                         // this.page += 1;
-                        this.$store.state.articles.push(data.articleList);
+                        this.$store.state.articles.push(data.list);
                         $state.loaded();
                     } else {
                         $state.complete();

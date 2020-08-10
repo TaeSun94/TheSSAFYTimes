@@ -1,30 +1,27 @@
 <template>
-<div class="wrapper" style="margin-top:5%">
+<div class="wrapper" style="margin-top:7%">
     <div class="row">
         <v-container class="col-lg-9">
-            <v-card>
                 <v-card-title>
                     <div class="textfield">
-                        <h1 class="m-4"> 🧑‍🤝‍🧑 팀원 찾아요! </h1>
+                        <h1 class="m-4 main-title"> 🧑‍🤝‍🧑 팀원 찾아요! </h1>
                     </div>
                     <v-spacer></v-spacer>
                 </v-card-title>
                 <div class="text-right mr-5">
                   <router-link class="write-link" :to="{path:'/community/teamWrite'}">팀원 구하기</router-link>
                 </div>
-             <v-container fluid class="text-center">
-                <div class="item_card recruit_card" v-for="item in 5" :key="item.index">
-                    <a href="/team/4666">
-                        <div class="card_image">
-                            <a style="background-color:#ffb347"></a>
-                        </div>
-                    </a> 
+             <v-container class="text-center">
+                <div class="item_card recruit_card" v-for="team in this.teams " :key="team.index" @click="rowClicked(team)">
+                    <div class="card_image">
+                        <a style="background-color:#ffb347"></a>
+                    </div>
                     <div class="card_contents">
                         <div class="title">
-                            <a>공모전 나가실 팀원 분 구해요</a>
+                            <a>{{ team.teamBoardTitle }}</a>
                         </div> 
-                        <div class="sub_title  mb-3">
-                            <span class="by_writer">SSAFY 3기 홍길동</span> 
+                        <div class="sub_title  mb-3 text-right">
+                            <span class="by_writer">{{ team.memberId}}</span> 
 
                         </div> 
                         <div class="recruit_title">
@@ -33,7 +30,7 @@
                             color="green"
                             text-color="white"
                             >
-                            Vue.js
+                            {{ team.teamBoardStartDatetime }}
                             <v-icon right></v-icon>
                             </v-chip>
                             <v-chip
@@ -41,35 +38,26 @@
                             color="green"
                             text-color="white"
                             >
-                            JAVA
-                            <v-icon right></v-icon>
-                            </v-chip>
-                                                        <v-chip
-                            class="ma-2"
-                            color="green"
-                            text-color="white"
-                            >
-                            Spring
+                            {{ team.teamBoardEndDatetime }}
                             <v-icon right></v-icon>
                             </v-chip>
                         </div> 
                         <div class="recruit_desc">
-                            <li>프론트엔드 2명</li>
-                            <li> 백엔드 2명 </li>
-                        </div> 
-                        <div class="mt-3 text-right">
-                            <v-btn icon>
-                                <v-icon>mdi-heart</v-icon>
-                            </v-btn>
-                            <v-btn icon>
-                                <v-icon>mdi-bookmark</v-icon>
-                            </v-btn>
+                            <li>프론트엔드 {{ team.teamBoardFrontRemainCount }}명</li>
+                            <li> 백엔드 {{ team.teamBoardBackRemainCount}}명 </li>
+                            <div class="text-right">
+                                <v-btn icon class="">
+                                    <v-icon>mdi-heart</v-icon>
+                                </v-btn>
+                                <v-btn icon class="">
+                                    <v-icon>mdi-bookmark</v-icon>
+                                </v-btn>
+                            </div>
                         </div> 
                     </div>
                 </div>
 
             </v-container>
-            </v-card>
         </v-container>
     </div>
     <footer-bar></footer-bar>
@@ -94,18 +82,20 @@ export default {
         ...mapGetters(["teams"])
     },
     methods: {
-        rowClicked(row) {
-            this.$router.push({path: `/community/teamdetail/${row.no}`});
-        }
+        rowClicked(team) {
+            this.$router.push({path: `/community/teamdetail/${team.teamBoardNo}`})
+        },
     },
     created() {
-        this.$store.dispatch("getTeams", '');
+        this.$store.dispatch("getTeams", '/team/board');
     }
 }
 </script>
 
 <style scoped>
-
+.main-title{
+    font-size: 2rem;
+}
 .text-content{
     height: 250px;
     display: flex;
@@ -113,14 +103,17 @@ export default {
 }
 
 .recruit_card {
-    height: 400px;
     border-radius: 10px;
     border:0.3px solid grey;
 }
 .bottom_section{
     margin-top:20px;
 }
-
+.container{
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+}
 .item_card:hover {
   -webkit-transform: scale(1.05);
   transform: scale(1.05);
@@ -134,10 +127,10 @@ export default {
     display: inline-block;
     text-align: left;
     box-shadow: 0px 0px 30px #eee;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-transition: all 0.45s ease-in-out;
-  transition: all 0.45s ease-in-out;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all 0.45s ease-in-out;
+    transition: all 0.45s ease-in-out;
 
 }
 a {
@@ -200,7 +193,7 @@ a {
     word-break: keep-all;
 }
 .recruit_card .card_contents .title {
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     overflow: hidden;

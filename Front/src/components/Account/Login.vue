@@ -1,15 +1,14 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-5"> <!-- 기본틀 푸터까지 -->
+        <v-container class="elevation-5 col-lg-5 col-sm-6"> <!-- 기본틀 푸터까지 -->
         <div class="form sm-m-0">
           <v-form ref="form" v-model="valid" lazy-validation>
-              <!--Id-->
+              <!--Email-->
             <v-text-field 
-            v-model="memberId"
-            :rules="IdRules"
-            :counter="10"
-            label="ID*"
+            v-model="memberEmail"
+            :rules="emailRules"
+            label="Email*"
             required
             ></v-text-field>
             <!--Pw-->
@@ -40,11 +39,13 @@
 </template>
 
 <script>
+import http from "@/http-common.js";
+
 export default {
     name: 'Login',
     data: () => ({
       valid: true,
-      memberId: '',
+      memberEmail: '',
       IdRules: [
         v => !!v || 'ID를 입력해주세요.',
         v => (v && v.length <= 10) || 'ID must be less than 10 characters'
@@ -54,14 +55,36 @@ export default {
         v => !!v || '비밀번호를 입력해주세요.',
         v => (v && v.length <= 20) || 'PW must be less than 20 characters'
       ],
+      emailRules: [
+        v => !!v || '이메일을 입력해주세요.',
+        v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || '이메일 형식이 틀립니다!'
+      ],
     }),
 
     methods: {
       submit () {
         if (this.$refs.form.validate()) {
-          var memberId = this.memberId;
+          var memberEmail = this.memberEmail;
           var memberPw = this.memberPw;
-          this.$store.dispatch("login", {memberId, memberPw});
+          http.post('/account/signin', { memberEmail, memberPw})
+          .then(({data})=> {
+            if(data.result == 'notavailable') {
+              alert(data.message);
+              location.reload();
+            } else if(data.result == 'notvalid') {
+              alert(data.message);
+              this.$cookies.remove("memberEmail");
+              this.$cookies.set("memberEmail", memberEmail, "1D");
+              this.$router.push("/EmailCheck");
+              location.reload();
+            } else if(data.result == 'success') {
+              alert(data.message);
+              this.$cookies.set("memberId", data.data.memberId, "1D");
+              this.$cookies.set("memberEmail", memberEmail, "1D");
+              this.$router.push("/");
+              location.reload();
+            }
+          })
         }
       },
     }
