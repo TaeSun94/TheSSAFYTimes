@@ -29,7 +29,7 @@
 	
 	<delete id="unFollow">
 		delete from follow
-		where follow_no = #{followNo}
+		where member_id_from = #{memberIdFrom} and member_id_to = #{memberIdTo}
 	</delete>
 
 </mapper>

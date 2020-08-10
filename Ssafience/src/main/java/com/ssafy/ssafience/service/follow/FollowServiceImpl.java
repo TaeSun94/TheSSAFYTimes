@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ssafy.ssafience.model.dto.Follow;
 import com.ssafy.ssafience.model.dto.FollowMember;
 import com.ssafy.ssafience.model.follow.FollowWriteRequest;
+import com.ssafy.ssafience.model.follow.UnFollowWriteRequest;
 import com.ssafy.ssafience.repo.FollowRepo;
 import com.ssafy.ssafience.repo.MemberRepo;
 
@@ -30,8 +31,11 @@ public class FollowServiceImpl implements FollowService{
 	}
 
 	@Override
-	public int unfollow(int followNo) throws Exception {
-		return repo.unFollow(followNo);
+	public int unfollow(UnFollowWriteRequest request) throws Exception {
+		System.out.println(request);
+		int delete = repo.unFollow(request);
+		System.out.println(delete);
+		return delete;
 	}
 
 	@Override
