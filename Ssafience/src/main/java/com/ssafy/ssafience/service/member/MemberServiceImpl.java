@@ -133,20 +133,25 @@ public class MemberServiceImpl implements MemberService{
 		Member member = repo.selectMemberOne(request.getMemberId());
 		if (member != null) {
 			ModifyRepoRequest repoRequest = new ModifyRepoRequest(request);
-
-			if (request.getInterestedList() != null) {
+			System.out.println("INTER : "+request.getInterestedList().size());
+			System.out.println("SKILL : "+request.getSkillList().size());
+			if (request.getInterestedList().size() > 0) {
 				String memberInterested = "";	
 				for (Integer no : request.getInterestedList()) {
 					memberInterested+=no+",";
 				}
 				repoRequest.insertInterested(memberInterested.substring(0, memberInterested.length()-1));
+			} else {
+				repoRequest.insertInterested(null);
 			}
-			if (request.getSkillList() != null) {
+			if (request.getSkillList().size() > 0) {
 				String memberSkill = "";
 				for (Integer no : request.getSkillList()) {
 					memberSkill+=no+",";
 				}
 				repoRequest.insertSkill(memberSkill.substring(0, memberSkill.length()-1));
+			} else {
+				repoRequest.insertSkill(null);
 			}
 			System.out.println(repoRequest);
 			return repo.update(repoRequest);
