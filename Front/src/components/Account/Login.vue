@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-5"> <!-- 기본틀 푸터까지 -->
+        <v-container class="elevation-5 col-lg-5 col-sm-6"> <!-- 기본틀 푸터까지 -->
         <div class="form sm-m-0">
           <v-form ref="form" v-model="valid" lazy-validation>
               <!--Email-->

@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:7%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-8">
+        <v-container class="elevation-5 col-lg-8 col-sm-10">
             <v-card>
                 <v-card-title>
                     프로그래밍

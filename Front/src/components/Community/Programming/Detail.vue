@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-6">
+        <v-container class="elevation-5 col-lg-6 col-sm-10">
             <vue-scroll-progress-bar height="0.3rem" backgroundColor="orange"/>
             <div class="textfield">
                 <div class="ml-4"><h1>{{programTitle}}</h1></div>
@@ -9,7 +9,7 @@
             </div>
             <div class="text-right mr-5">
                 <small class="description">👀 조회수 {{programHit}} / </small>
-                <small class="description"> SSAFY {{programTrack}} {{programWriter}} / </small>
+                <small class="description"> SSAFY {{member.memberTrack}} {{programWriter}} / </small>
                 <small class="description">{{programDatetime | moment('YYYY-MM-DD HH:MM')}}  </small>
             </div>
             <div></div>
@@ -93,7 +93,7 @@ export default {
             
             //edit, delete관련
             canEdit: false,
-            xx: '',
+            member: {},
         }
     },
     computed: {
@@ -156,9 +156,14 @@ export default {
             this.programTrack = board.programBoardTrack;
             this.programContent = board.programBoardContent;
             this.programHit = board.programBoardHit;
+        }).then(()=> {
+            http.get("/member/"+this.programWriter).then(({data})=> {
+                this.member = data.data;
+            })
         });
     },
     mounted() {
+        
     },
     updated() {
         var id = this.$cookies.get('memberId');

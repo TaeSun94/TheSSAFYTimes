@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-7"> <!-- 기본틀 푸터까지 -->
+        <v-container class="elevation-5 col-lg-7 col-sm-10"> <!-- 기본틀 푸터까지 -->
             <vue-scroll-progress-bar height="0.3rem" backgroundColor="orange"/>
             <!-- <v-data-table
               :headers="headers"
@@ -129,7 +129,7 @@ export default {
       },
       createHandler() {
         http.post("/notice", {
-          member_id: sessionStorage.getItem("memberId"),
+          member_id: this.$cookies.get("memberId"),
           noticeContent: this.content,
           noticeTitle: this.title
         }).then(({data})=> {
@@ -144,7 +144,7 @@ export default {
     },
     created() {
       this.$store.dispatch("getNotices", '/notice');
-      var id = sessionStorage.getItem('memberId');
+      var id = this.$cookies.get('memberId');
       if(id != 'admin') {
         this.isAdmin = false;
         this.memberId = '';
