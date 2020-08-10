@@ -37,7 +37,7 @@
 		set member_id = #{memberId}, member_first_name = #{memberFirstName}, 
 			member_last_name = #{memberLastName}, member_phone = #{memberPhone}, 
 			member_address = #{memberAddress}, member_region = #{memberRegion},
-			member_class = #{memberClass}, member_track = #{memberTrack},
+			member_track = #{memberTrack},
 			member_unit = #{memberUnit}, member_intro = #{memberIntro},
 			member_desc = #{memberDesc}, member_interested = #{memberInterested},
 			member_skill = #{memberSkill}			

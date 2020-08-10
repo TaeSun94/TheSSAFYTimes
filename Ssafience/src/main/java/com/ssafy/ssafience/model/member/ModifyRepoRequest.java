@@ -20,7 +20,6 @@ public class ModifyRepoRequest extends ModifyRequest{
 		this.setMemberPhone(request.getMemberPhone());
 		this.setMemberAddress(request.getMemberAddress());
 		this.setMemberRegion(request.getMemberRegion());
-		this.setMemberClass(request.getMemberClass());
 		this.setMemberTrack(request.getMemberTrack());
 		this.setMemberUnit(request.getMemberUnit());
 		this.setMemberIntro(request.getMemberIntro());
