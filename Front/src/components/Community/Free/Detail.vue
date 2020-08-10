@@ -164,7 +164,7 @@ export default {
         upButton() {
             var boardLikeCheck = 1
             var boardNo = this.$route.params.no
-            var memberId = 'hp'
+            var memberId = this.$cookies.get("memberId");
             
             http.post('/free/like',{
                 boardLikeCheck,
@@ -174,13 +174,14 @@ export default {
             .then(({data})=> {
                 if(data.result != "success") {
                     console.log(data.message)
+                    alert(data.message)
                 }else{
                     this.$store.commit("setFreeLike", data);
                 }
             })
         },
         downButton() {
-            var boardLikeCheck = 0
+            var boardLikeCheck = 1
             var boardNo = this.$route.params.no
             var memberId = this.memberId
             
