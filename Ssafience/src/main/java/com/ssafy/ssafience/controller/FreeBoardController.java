@@ -34,6 +34,7 @@ import com.ssafy.ssafience.model.dto.Member;
 import com.ssafy.ssafience.model.hit.HitRequest;
 import com.ssafy.ssafience.service.article.ArticleService;
 import com.ssafy.ssafience.service.board.FreeBoardService;
+import com.ssafy.ssafience.util.ClientIPUtils;
 import com.ssafy.ssafience.util.ClientUtils;
 
 import io.swagger.annotations.Api;
@@ -88,7 +89,7 @@ public class FreeBoardController {
 		final SingleResponse<FreeBoard> result = new SingleResponse<>();
 		
 		try {
-			HitRequest request = new HitRequest(boardno, ClientUtils.getRemoteIP(req));
+			HitRequest request = new HitRequest(boardno, ClientIPUtils.getLocalHostAddress());
 			FreeBoard board = fService.selectBoardDetailOne(request);
 			if (board != null) {
 				result.result = SUCCESS;
