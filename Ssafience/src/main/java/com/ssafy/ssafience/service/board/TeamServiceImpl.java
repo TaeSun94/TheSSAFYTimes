@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.ssafience.model.dto.Member;
 import com.ssafy.ssafience.model.dto.TeamApply;
+import com.ssafy.ssafience.model.dto.TeamApplyList;
 import com.ssafy.ssafience.model.dto.TeamBoard;
 import com.ssafy.ssafience.model.dto.TeamBoardResultDTO;
 import com.ssafy.ssafience.model.team.TeamApplyRequest;
@@ -94,6 +95,19 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public int accept(int applyNo) throws Exception {
 		return repo.accept(applyNo);
+	}
+
+	// 자신의 Status == 1인 프로젝트 목록
+	@Override
+	public List<TeamApplyList> selectMyAppliedTeam(String memberId) throws Exception{
+		return repo.selectMyAppliedTeam(memberId);
+	}
+
+	// 자신이 지원한 프로젝트의 EndDateTime이 오늘 날짜 이후 인 것만 
+	@Override
+	public List<TeamApplyList> selectMyApplyList(String memberId) throws Exception{
+		// TODO Auto-generated method stub
+		return repo.selectMyApplyList(memberId);
 	}
 
 }
