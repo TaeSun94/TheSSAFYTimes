@@ -78,12 +78,6 @@
             </v-list-item-content>
             </v-list-item>
 
-            <v-list-item @click="to(`/profile/${memberId}`)">
-            <v-list-item-content>
-                <v-list-item-title>🧑  PROFILE</v-list-item-title>
-            </v-list-item-content>
-            </v-list-item>
-
             <v-list-item @click="to('/studio')">
             <v-list-item-content>
                 <v-list-item-title>📷  싸-피 사진관</v-list-item-title>
