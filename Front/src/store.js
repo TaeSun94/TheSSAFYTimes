@@ -47,6 +47,7 @@ export default new Vuex.Store({
         team: {},
 
         team_category: [],
+        applys: [],
 
     },
     getters: {
@@ -118,6 +119,9 @@ export default new Vuex.Store({
         },        
         team_category(state) {
             return state.team_category;
+        },
+        applys(state) {
+            return state.applys;
         }
 
     },
@@ -228,11 +232,13 @@ export default new Vuex.Store({
             
         },
         setTeam(state, payload){
-            console.log(payload)
             state.team = payload;
         },
         setTeamCategory(state,payload){
             state.team_category = payload;
+        },
+        setApplys(state, payload) {
+            state.applys = payload;
         }
     },
     actions: {
@@ -484,7 +490,12 @@ export default new Vuex.Store({
         },
         getTeam(context, payload) {
             http.get(payload).then(({data}) => {
-                context.commit("setTeam", data.list);
+                context.commit("setTeam", data.data);
+            });
+        },
+        getApplys(context, payload) {
+            http.get(payload).then(({data}) => {
+                context.commit("setApplys", data.list);
             });
         },
         delFollowing(context, payload){
