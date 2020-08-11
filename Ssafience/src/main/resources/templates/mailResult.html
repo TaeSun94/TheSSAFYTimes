@@ -3,9 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="./style.css">
+<link th:href="@{/style.css}" rel="stylesheet" />
+<script>
+function close_window() {
+    // self.opener = self;
+    window.open('','_self').close();
+
+}
+</script>
 </head>
-<body>
-	<h1>이메일 인증 성공</h1>
-	<p th:text="${message}">"Wait"</p>
+<body background="white">
+	<p id="title">The SSAFY Times :)</p>
+    <p id="result" th:text="${message}">이메일 인증 결과 메시지 :)</p>
+    <button onclick="close_window()">닫기</button>
 </body>
 </html>

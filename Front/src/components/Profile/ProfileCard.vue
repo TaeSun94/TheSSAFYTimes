@@ -28,8 +28,15 @@
                     <!-- 아니라면 -->
                     <div v-else>
                         <!-- 만약 친구라면 언팔 친구가 아니면 팔로우 -->
-                        <div>
-                            <v-btn class="primary" @click="addFollow">팔로우</v-btn>
+                        <div v-if="followingPeople.includes(member.memberId) !== false">
+                            <div>
+                                <v-btn class="primary" @click="delFollow">언팔로우</v-btn>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div>
+                                <v-btn class="primary" @click="addFollow">팔로우</v-btn>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -150,7 +157,7 @@
 <script>
     import ConnectHere from "./ConnectHere";
     import {mapGetters,mapActions} from 'vuex';
-    
+    import http from "@/http-common.js";
     export default {
         name:"ProfileCard",
         data() {
@@ -158,14 +165,23 @@
                 selected: null,
                 show:false,
                 isMember: false,
+                followingPeople:[],
+                isFollowing:false,
             }
         },
         created(){
-            this.memId = sessionStorage.getItem("memberId");
             var id = this.$cookies.get("memberId");
             if(id==this.$route.params.memberid){
                 this.isMember = true;
             }
+            http.get(`/follow/${id}/ing`).then(({data})=>{
+                // this.followingPeople = data.list;
+                for(var i = 0; i < data.list.length; i++){
+                    this.followingPeople.push(data.list[i]["memberId"]);
+                }
+                console.log(this.followingPeople);
+            });
+            // this.$store.dispatch('getFollowings',id)
         },
         components:{
             'connect-here':ConnectHere,
@@ -177,11 +193,17 @@
             mvEditProfile(){
                 this.$router.push(`/profileEdit/${this.$store.state.profile.memberId}`)
             },
-            ...mapActions(['addFollowing']),
+            ...mapActions(['addFollowing','delFollowing']),
             addFollow(){
                 const id = this.$cookies.get("memberId");
-                this.$store.dispatch('addFollowing',id)
+                console.log(this.$store.state.profile.memberId);
+                this.$store.dispatch('addFollowing',id);
                 // ...mapActions(['addFollowing'],this.$store.state.profile.memberid)
+            },
+            delFollow(){
+                console.log(this.$store.state.profile.memberId);
+                const id = this.$cookies.get("memberId");
+                this.$store.dispatch('delFollowing',id);
             }
         }
     }
