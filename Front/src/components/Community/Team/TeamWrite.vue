@@ -48,7 +48,8 @@
                       ></v-select>          
                   </div>       
                 </div>  
-                  <v-date-picker v-model="picker" :landscape="landscape" :reactive="reactive" ></v-date-picker>   
+                <span class="label ml-3 d-inline">날짜</span><br>
+                <v-date-picker v-model="picker" :landscape="landscape" :reactive="reactive" class="ml-4 mt-4 mb-4"></v-date-picker>   
                   <!-- <span class="label ml-3">기술스택</span>
                   <v-select class="col-lg-8"
                       :items="stack"
@@ -152,8 +153,10 @@ export default {
         var teamBoardFrontRemainCount = this.teamBoardFrontRemainCount
         var teamBoardBackRemainCount = this.teamBoardBackRemainCount
         var teamBoardCategory = this.teamBoardCategory
+        var teamBoardEndDatetime = this.picker
         var memberId = this.$cookies.get("memberId")
-        this.$store.dispatch("teamCreate", { teamBoardTitle, teamBoardContent, teamBoardFrontRemainCount, teamBoardBackRemainCount, teamBoardCategory, memberId  });
+        console.log(teamBoardEndDatetime)
+        this.$store.dispatch("teamCreate", { teamBoardTitle, teamBoardContent, teamBoardFrontRemainCount, teamBoardBackRemainCount, teamBoardCategory, memberId, teamBoardEndDatetime  });
       }
     },
     

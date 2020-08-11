@@ -32,7 +32,7 @@
                             color="green"
                             text-color="white"
                             >
-                            📅 {{$moment(team.teamBoardEndDatetime).format('YYYY-MM-DD') }}  
+                            📅 {{ $moment(team.teamBoardEndDatetime).format('YYYY-MM-DD') }}  
                             
                             <v-icon right></v-icon>
                             </v-chip>
