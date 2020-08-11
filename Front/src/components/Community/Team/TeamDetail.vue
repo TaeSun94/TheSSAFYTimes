@@ -1,7 +1,7 @@
 <template>
-<div class="wrapper" style="margin-top:7%">
+<div class="wrapper" style="margin-top:8%">
     <div class="row">
-          <v-container class="elevation-3 col-lg-7">
+          <v-container class="elevation-5 col-lg-7">
                 <div id="app">
                     <div class="text-center main-title">
                         <h1 class="mb-2">공모전 인원 구함니다</h1>

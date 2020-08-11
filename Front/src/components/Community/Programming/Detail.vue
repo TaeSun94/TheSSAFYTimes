@@ -1,5 +1,5 @@
 <template>
-<div class="wrapper" style="margin-top:5%">
+<div class="wrapper" style="margin-top:8%">
     <div class="row">
         <v-container class="elevation-5 col-lg-6 col-sm-10">
             <vue-scroll-progress-bar height="0.3rem" backgroundColor="orange"/>
@@ -183,7 +183,8 @@ hr{
     width: 30%;
     border: 3px solid darkorange;
     margin-bottom: 20px;
-    margin-left: 20px;  
+    margin-left: 20px;
+
 }
 .likeContent {
     margin-left:20px;
@@ -214,8 +215,15 @@ hr{
     padding: 20px;
     padding-bottom: 50px;
     border-radius: 10px;
-    border: 0.3px solid #ccc;
     
+}
+
+.inner-comment, .inner-comment .container {
+    background-color: #ebebeb;
+}
+
+tbody tr {
+    background-color: #ebebeb;
 }
 .inner-comment{
     margin: 20px;

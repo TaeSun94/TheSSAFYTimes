@@ -176,6 +176,7 @@ export default new Vuex.Store({
         },
         // Free
         setFrees(state, payload){
+            
             state.frees = payload;
             
         },
@@ -478,6 +479,7 @@ export default new Vuex.Store({
         },
         getTeam(context, payload) {
             http.get(payload).then(({data}) => {
+                console.log(data)
                 context.commit("setTeam", data.list);
             });
         },

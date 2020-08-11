@@ -62,7 +62,7 @@
 
             <v-list-item @click="to('/community/programlist')">
             <v-list-item-content>
-                <v-list-item-title>🙋  프로그래밍</v-list-item-title>
+                <v-list-item-title>🖥️  프로그래밍</v-list-item-title>
             </v-list-item-content>
             </v-list-item>
 
@@ -74,7 +74,7 @@
 
             <v-list-item @click="to('/community/teamlist')">
             <v-list-item-content>
-                <v-list-item-title>🙋  팀구해요 !</v-list-item-title>
+                <v-list-item-title>👭  팀구해요 !</v-list-item-title>
             </v-list-item-content>
             </v-list-item>
 

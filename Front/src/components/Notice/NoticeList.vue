@@ -1,7 +1,7 @@
 <template>
-<div class="wrapper" style="margin-top:5%">
+<div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-7 col-sm-10"> <!-- 기본틀 푸터까지 -->
+        <v-container class="col-lg-7  elevation-5"> <!-- 기본틀 푸터까지 -->
             <vue-scroll-progress-bar height="0.3rem" backgroundColor="orange"/>
             <!-- <v-data-table
               :headers="headers"
@@ -18,7 +18,10 @@
             </v-data-table> -->
             <v-card>
               <v-card-title>
-                The SSAFY Time Notice
+                  <div class="textfield">
+                      <h1 class="m-5 mb-3"> 🧑‍🤝‍🧑 공지사항 </h1>
+                      <small class="ml-3"></small>
+                  </div>
                 <v-spacer></v-spacer>
                 <v-dialog v-if="isAdmin===true" v-model="dialog" persistent max-width="45%">
                   <template v-slot:activator="{ on, attrs }">
@@ -56,12 +59,13 @@
                   :key="item.noticeNo"
                 >
                   <v-expansion-panel-header v-slot="{ open }">
-                    <v-row no-gutters>
-                      <v-col cols="4">{{item.noticeTitle}}</v-col>
-                      <v-col cols="8" class="text--secondary">
+                    <v-row no-gutters class="noticeTitle">
+                      <v-col cols="9" class="noticeTitle" >{{ item.noticeTitle }}</v-col>
+                      <v-col cols="3" >
                         <v-fade-transition leave-absolute>
                           <span v-if="open">
-                            {{item.noticeDatetime}}
+                            {{$moment(item.noticeDatetime).format('YYYY-MM-DD hh:mm:ss')}}
+                            
                           </span>
                         </v-fade-transition>
                       </v-col>
@@ -157,4 +161,35 @@ export default {
 </script>
 
 <style>
+.v-expansion-panel-header:hover {
+  background-color: rgb(255, 179, 71);
+}
+.v-expansion-panel-content__wrap{
+  padding-top:16px
+}
+.textfield {
+    display: block;
+    font-size: 0.8em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    
+}
+.noticeTitle{
+  font-size: 1.1rem;
+  font-weight: 100;
+}
+.v-card__title{
+  margin-bottom: 0px;
+}
+
+.container{
+  background: #fff;
+  border-radius: 20px;
+}
+.v-sheet.v-card:not(.v-sheet--outlined) {
+    box-shadow: none
+}
 </style>
