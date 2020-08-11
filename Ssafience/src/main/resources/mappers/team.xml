@@ -67,14 +67,32 @@
 		where team_board_no = #{boardNo}
 	</delete>
 	
-	<!-- 지원 목록 -->
+	<!-- 지원 목록 (모집자) -->
 	<select id="selectApplyList" resultType="teamapply">
 		select *
 		from team_apply
 		where team_board_no = #{boardNo}
 	</select>
 
-
+	<!-- 지원 목록 (지원자) -->
+	<select id="selectMyAppliedTeam" resultType="teamapplylist">
+		select tb.team_board_no as boardNo, tb.team_board_title as boardTitle, c.category_name as boardType, t.team_apply_status as applyStatus, tb.team_board_end_datetime as endDate
+		from team_apply t join team_board tb
+		on t.team_board_no = tb.team_board_no 
+		join category c
+		on c.category_no = tb.team_board_category 
+		where t.member_id = #{memberId} and t.team_apply_status = 1
+	</select>
+	
+	<select id="selectMyApplyList" resultType="teamapplylist">
+		select tb.team_board_no as boardNo, tb.team_board_title as boardTitle, c.category_name as boardType, t.team_apply_status as applyStatus, tb.team_board_end_datetime as endDate
+		from team_apply t join team_board tb
+		on t.team_board_no = tb.team_board_no 
+		join category c
+		on c.category_no = tb.team_board_category 
+		where t.member_id = #{memberId} and tb.team_board_end_datetime >= CURDATE() 
+	</select>
+	
 	<!-- 지원 -->
 	<insert id="apply">
 		insert ignore into team_apply
@@ -93,7 +111,6 @@
 		set team_apply_status = 1
 		where team_apply_no = #{applyNo}
 	</update>
-	
 	
 
 </mapper>
