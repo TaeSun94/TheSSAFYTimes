@@ -3,6 +3,7 @@
     <div class="row">
         <!-- Edit Profile 들어갈 공간 -->
         <v-container class="elevation-5 col-lg-6">
+            <v-card>
             <p id="edit_header">프로필 등록 및 수정</p>
             <v-form class="ml-4 mr-4 mt-6">
                 <v-file-input show-size counter multiple label="프로필 사진 등록"></v-file-input>
@@ -82,6 +83,7 @@
             <div class="text-center" id="btn_profile">
                 <v-btn @click="modifyProfile">프로필 등록 및 수정</v-btn>
             </div>
+            </v-card>
         </v-container>
     </div>
     <footer-bar></footer-bar>
