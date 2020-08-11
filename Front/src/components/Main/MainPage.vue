@@ -4,7 +4,7 @@
       <v-container class="col-lg-9 col-sm-10">
           <v-row class="fill-height" align="center" justify="center">
             <h1 class="mr-10" style="margin-top: 4%; margin-bottom:5%">Monthly</h1>
-            <div class="book" style="margin: 6% 20% 0% 20%" >
+            <div @click="to('ssafytimes')" class="book" style="margin: 6% 20% 0% 20%">
               <div class="cover"></div>
               <h2>The SSAFY <span>Times 8월호</span></h2>
               <span class="writer">Designed By <i>SSAFience</i></span>
@@ -74,8 +74,11 @@ export default {
     },
   methods: {
     to(link) {
+      if(link==='ssafytimes'){
+        alert("The SSAFY Times 최근 호를 불러옵니다.")
+      }
       this.$router.push({path: link});
-    }
+    },
   }
 }
 

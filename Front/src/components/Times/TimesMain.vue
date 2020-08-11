@@ -1,14 +1,14 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
-    <div class="row" style="margin:3% 0 0 20%">
-        <div class="container" >
+    <div class="row">
+        <div class="container" style="margin: 3% 0 0 18%;">
             <input type="checkbox" id="c1">
             <input type="checkbox" id="c2">
             <input type="checkbox" id="c3">
             <div id="cover">
                 <img src="@/assets/잡지1.jpg">
             </div>
-            <div class="page-container">
+            <div class="page-container" >
                 <div class="page" id="p1">
                     <div class="back">
                         <img src="@/assets/잡지3.jpg">
@@ -31,7 +31,7 @@
                 </div>
                 <div class="page" id="p3">
                     <div class="back">
-                        <h2>End</h2>
+                        <img src="@/assets/잡지1.jpg">
                         <label class="back-btn" for="c3">Back</label>
                     </div>
                     <div class="front">
@@ -76,13 +76,13 @@ img {
 
 #cover {
     width: 600px;
-    height: 800px;
-    background-color: #191966;
+    height: 848.4px;
+    background-color: white;
 }
 
 .page-container {
     width: 600px;
-    height: 800px;
+    height: 848.4px;
     position:relative;
     perspective: 1500px;
 }
@@ -96,7 +96,7 @@ img {
     transform-origin: left;
     transform-style: preserve-3d;
     transform: rotateY(0deg);
-    transition: .5s;
+    transition: .6s;
     color: black;
 }
 
@@ -109,7 +109,7 @@ img {
 }
 
 .front {
-    background-color: #191966;
+    background-color: white;
     box-sizing: border-box;
     padding: 0 0px;
 }
@@ -136,17 +136,17 @@ img {
 
 #p1 {
     z-index: 3;
-    background-color: #191966;
+    background-color: white;
 }
 
 #p2 {
     z-index: 2;
-    background-color: #191966;
+    background-color: white;
 }
 
 #p3 {
     z-index: 1;
-    background-color: #191966;
+    background-color: white;
 
 }
 #c1:checked ~ .page-container #p1 {

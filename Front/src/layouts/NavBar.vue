@@ -96,12 +96,6 @@
             </v-list-item-content>
             </v-list-item>
 
-            <v-list-item @click="to('/ssafytimes')">
-            <v-list-item-content>
-                <v-list-item-title>📷  The SSAFY Times</v-list-item-title>
-            </v-list-item-content>
-            </v-list-item>
-
         </v-list>
         </v-navigation-drawer>
     </div>
