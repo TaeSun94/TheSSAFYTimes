@@ -447,8 +447,14 @@ export default new Vuex.Store({
                 "memberIdFrom": payload,
                 "memberIdTo": path.profile.memberId
               }).then(({data})=>{
-                  console.log(data);
-              })
+                if(data.result==="success"){
+                    location.href=`/profile/${path.profile.memberId}`;
+                }
+                else{
+                    alert("팔로우시 문제 발생");
+                    location.href=`/profile/${path.profile.memberId}`;
+                }
+            })
         },
         freeLike(context, { boardLikeCheck, boardNo, memberId}) {
             http.post('/free/like',{
@@ -481,7 +487,25 @@ export default new Vuex.Store({
                 context.commit("setTeam", data.list);
             });
         },
-
+        delFollowing(context, payload){
+            const path = this.state;
+            const from_id = payload;
+            const id = path.profile.memberId;
+            http.post(`/unfollow`,{
+                "memberIdFrom": payload,
+                "memberIdTo": id
+              }).then(({data})=>{
+                console.log(from_id);
+                console.log(data);
+                if(data.result==="success"){
+                    location.href=`/profile/${path.profile.memberId}`;
+                }
+                else{
+                    alert("언팔로우시 문제 발생");
+                    location.href=`/profile/${path.profile.memberId}`;
+                }
+            })
+        }
     }
     
 })
