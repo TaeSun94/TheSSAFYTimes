@@ -366,7 +366,7 @@ export default new Vuex.Store({
                 }
             })
         },
-        teamCreate(context, { teamBoardTitle, teamBoardContent, teamBoardFrontRemainCount, teamBoardBackRemainCount, teamBoardCategory, memberId }) {
+        teamCreate(context, { teamBoardTitle, teamBoardContent, teamBoardFrontRemainCount, teamBoardBackRemainCount, teamBoardCategory, memberId, teamBoardEndDatetime }) {
             console.log(teamBoardCategory)
             http.post('/team/board', {
                 
@@ -374,7 +374,7 @@ export default new Vuex.Store({
                     "teamBoardBackRemainCount": teamBoardBackRemainCount,
                     "teamBoardCategory": teamBoardCategory,
                     "teamBoardContent": teamBoardContent,
-                    "teamBoardEndDatetime": "03",
+                    "teamBoardEndDatetime": teamBoardEndDatetime,
                     "teamBoardFrontRemainCount": teamBoardFrontRemainCount,
                     "teamBoardTitle": teamBoardTitle
             })

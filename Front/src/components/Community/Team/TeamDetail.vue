@@ -92,8 +92,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
     name:"TeamDetail",
+    computed: {
+        ...mapGetters(["team"])
+    },
+    created() {
+        this.$store.dispatch("getTeam", `/community/teamdetail/${this.$route.params.no}`)
+    },
+
 }
 </script>
 

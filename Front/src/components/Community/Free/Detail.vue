@@ -125,7 +125,7 @@ export default {
 
     },
     created() {
-        var id = sessionStorage.getItem('memberId')
+        var id = this.$cookies.get("memberId")
         this.memberId = id
         this.count = this.free.data.freeBoardLikeCount 
         this.$store.dispatch("getFree", `/free/board/${this.$route.params.no}`)
