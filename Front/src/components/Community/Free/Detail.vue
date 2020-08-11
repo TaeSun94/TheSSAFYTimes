@@ -42,7 +42,8 @@
                             </li>
                         </ul>
                     </div>
-
+                    <v-btn depressed dark @click="deleteHandler" v-show="canEdit === true" class="mr-5" style="float: right;">삭제하기!</v-btn>
+                    <v-btn depressed dark @click="toUpdate()" v-show="canEdit === true" class="mr-1" style="float: right;">수정하기!</v-btn>
                     <!--댓글 쓰기 폼-->
                     <div>
                         <div class="text-right comment" @click="commentShow">
@@ -75,7 +76,6 @@
                                 <tbody >
                                     <tr>
                                         <p class="faq-content">{{ item.freeCommentContent }}<br></p>
-                                        <p class="faq-txt text-right">🧑 {{ item.memberId }}님</p>
                                     </tr>
                                 </tbody>
                                 </template>
@@ -101,19 +101,22 @@ export default {
     data() {
         return {
 
-          content: false,
-          commentContent: true,
-          likeControll: true,
-          check: false,
-          memberId: '',
-          commentInput: '',
-          upCount: '',
-          freeBoardNo: 0,
-          freeBoardTitle: '',
-          freeBoardLikeCount: '',
-          freeBoardDatetime: '',
-          freeBoardContent: '',
-          freeBoardHit: 0,
+            content: false,
+            commentContent: true,
+            likeControll: true,
+            check: false,
+            memberId: '',
+            commentInput: '',
+            upCount: '',
+            freeBoardNo: 0,
+            freeBoardTitle: '',
+            freeBoardLikeCount: '',
+            freeBoardDatetime: '',
+            freeBoardContent: '',
+            freeBoardHit: 0,
+            //edit, delete관련
+            canEdit: false,
+            xx: '',
         }
     },
     computed: {
@@ -135,11 +138,12 @@ export default {
         },
         commentCreate() {
             http.post("/free/comment", {
-                memberId : sessionStorage.getItem("memberId"),
-                freeCommentContent: this.commentInput,
-                freeBoardNo :  parseInt(`${this.$route.params.no}`)
+                memberId : this.$cookies.get('memberId'),
+                commentContent: this.commentInput,
+                boardNo :  parseInt(`${this.$route.params.no}`)
             }).
             then(({data}) =>{
+                console.log(data)
                 if(data.result == "success") {
                     alert(data.message);
                     location.reload();
@@ -164,7 +168,7 @@ export default {
         upButton() {
             var boardLikeCheck = 1
             var boardNo = this.$route.params.no
-            var memberId = 'hp'
+            var memberId = this.$cookies.get("memberId");
             
             http.post('/free/like',{
                 boardLikeCheck,
@@ -174,15 +178,16 @@ export default {
             .then(({data})=> {
                 if(data.result != "success") {
                     console.log(data.message)
+                    alert(data.message)
                 }else{
                     this.$store.commit("setFreeLike", data);
                 }
             })
         },
         downButton() {
-            var boardLikeCheck = 0
+            var boardLikeCheck = 1
             var boardNo = this.$route.params.no
-            var memberId = this.memberId
+            var memberId = this.$cookies.get('memberId');
             
             http.post('/free/like',{
                 boardLikeCheck,
@@ -192,11 +197,19 @@ export default {
             .then(({data})=> {
                 if(data.result != "success") {
                     console.log(data.message)
+                    alert(data.message)
                 }else{
                     this.$store.commit("setFreeLikeDown", data);
                 }
             })
-        }
+        },
+        updated() {
+            var id = this.$cookies.get('memberId');
+            var author = this.programWriter;
+            if(id != author) { this.canEdit = false }
+            else {this.canEdit = true }
+    }
+
 
     }
 
@@ -247,7 +260,9 @@ export default {
     white-space: nowrap;
     text-decoration: none;
 }
-
+.faq-content{
+    margin: 10px;
+}
 .textfield-input {
     display: block;
     width: 100%;

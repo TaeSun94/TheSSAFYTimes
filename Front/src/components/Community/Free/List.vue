@@ -59,7 +59,6 @@ export default {
                 },
                 { text: '조회수', value: 'freeBoardHit' },
                 { text: '글제목', value: 'freeBoardTitle' },
-                { text: '글쓴이', value: 'memberId' },
                 { text: '글쓴날짜', value: 'freeBoardDatetime' },
                 { text: '좋아요', value: 'freeBoardLikeCount' },
             ],

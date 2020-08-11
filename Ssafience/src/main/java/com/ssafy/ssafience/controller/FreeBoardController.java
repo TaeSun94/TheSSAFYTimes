@@ -2,6 +2,8 @@ package com.ssafy.ssafience.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +31,11 @@ import com.ssafy.ssafience.model.board.FreeWriteRequest;
 import com.ssafy.ssafience.model.dto.Article;
 import com.ssafy.ssafience.model.dto.FreeBoard;
 import com.ssafy.ssafience.model.dto.Member;
+import com.ssafy.ssafience.model.hit.HitRequest;
 import com.ssafy.ssafience.service.article.ArticleService;
 import com.ssafy.ssafience.service.board.FreeBoardService;
+import com.ssafy.ssafience.util.ClientIPUtils;
+import com.ssafy.ssafience.util.ClientUtils;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -80,11 +85,12 @@ public class FreeBoardController {
 	
 	@ApiOperation(value = "특정 자유게시판 상세 조회")
 	@GetMapping("/{boardno}")
-	public ResponseEntity<SingleResponse<FreeBoard>> getBoardOne(@PathVariable int boardno){
+	public ResponseEntity<SingleResponse<FreeBoard>> getBoardOne(@PathVariable int boardno, HttpServletRequest req){
 		final SingleResponse<FreeBoard> result = new SingleResponse<>();
 		
 		try {
-			FreeBoard board = fService.selectBoardOne(boardno);
+			HitRequest request = new HitRequest(boardno, ClientIPUtils.getLocalHostAddress());
+			FreeBoard board = fService.selectBoardDetailOne(request);
 			if (board != null) {
 				result.result = SUCCESS;
 				result.status = HttpStatus.OK;
