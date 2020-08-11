@@ -1,3 +1,9 @@
+
+/*
+제작일: 2020.08.05
+유형: Table
+설명: 팀매칭을 위한 테이블
+ */
 CREATE TABLE team_board (
     team_board_no INT PRIMARY KEY AUTO_INCREMENT ,
     member_id VARCHAR(20) , -- 제안자
@@ -13,6 +19,11 @@ CREATE TABLE team_board (
     FOREIGN KEY (member_id) REFERENCES member(member_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+/*
+제작일: 2020.08.05
+유형: Table
+설명: 팀 지원 상태 테이블
+ */
 CREATE TABLE team_apply (
     team_apply_no INT PRIMARY KEY AUTO_INCREMENT ,
     team_board_no INT NOT NULL ,
@@ -27,4 +38,33 @@ CREATE TABLE team_apply (
 );
 
 
+/*
+제작일: 2020.08.11
+유형: Trigger
+설명: 팀매칭 성공 시 필요 지원자 수를 빼는 트리거
+ */
+DELIMITER //
+CREATE OR REPLACE TRIGGER TRG_TEAM_REQUIRE_DECREASE
+AFTER INSERT ON team_apply
+FOR EACH ROW
+BEGIN
+    IF NEW.team_apply_position = 'F' THEN
+        UPDATE team_board
+            SET team_board_front_remain_count = team_board_front_remain_count - 1
+        WHERE team_board_no = NEW.team_board_no;
+    ELSEIF NEW.team_apply_position = 'B' THEN
+        UPDATE team_board
+            SET team_board_back_remain_count = team_board_back_remain_count - 1
+        WHERE team_board_no = NEW.team_board_no;
+    END IF ;
+END //
+DELIMITER ;
+
 SELECT * FROM team_apply;
+SELECT * FROM team_board;
+
+
+SELECT tb.team_board_no, tb.team_board_title, ta.team_apply_position, ta.team_apply_status
+FROM team_board tb
+    INNER JOIN team_apply ta ON tb.team_board_no = ta.team_board_no
+WHERE ta.member_id = ?;
