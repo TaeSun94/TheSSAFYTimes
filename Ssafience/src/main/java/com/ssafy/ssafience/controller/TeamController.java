@@ -21,6 +21,7 @@ import com.ssafy.ssafience.model.BasicResponse;
 import com.ssafy.ssafience.model.ListResponse;
 import com.ssafy.ssafience.model.SingleResponse;
 import com.ssafy.ssafience.model.dto.TeamApply;
+import com.ssafy.ssafience.model.dto.TeamApplyList;
 import com.ssafy.ssafience.model.dto.TeamBoardResultDTO;
 import com.ssafy.ssafience.model.team.TeamApplyAcceptRequest;
 import com.ssafy.ssafience.model.team.TeamApplyRequest;
@@ -280,4 +281,54 @@ public class TeamController {
 
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
+	
+	// 자신이 지원한 프로젝트 목록 (기한이 유효한 것만)
+	@ApiOperation(value = "지원한 프로젝트 중 기한이 유효한 프로젝트 목록")
+	@GetMapping("/apply/{memberid}/date")
+	public ResponseEntity<ListResponse<TeamApplyList>> getMyApplyList(String memberid){
+		final ListResponse<TeamApplyList> result = new ListResponse<>();
+		try {
+			List<TeamApplyList> list = tService.selectMyApplyList(memberid);
+			System.out.println(list.size());
+			if (list != null) {
+				result.result = SUCCESS;
+				result.status = HttpStatus.OK;
+				result.setList(list);
+				result.message = "유효한 프로젝트의 목록 조회가 성공적으로 이루어졌습니다. ";				
+			}
+
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message = "지원한 프로젝트 중 기한이 유효한 프로젝트 목록 가져오는 중 문제가 발생했습니다.";
+			e.printStackTrace();
+		}
+		return new ResponseEntity<ListResponse<TeamApplyList>>(result, HttpStatus.OK);
+
+	}
+	
+	// 자신이 지원한 프로젝트 목록 (영입완료된 것만)
+	@ApiOperation(value = "지원한 프로젝트 중 선택받은 프로젝트 목록")
+	@GetMapping("/apply/{memberid}/status")
+	public ResponseEntity<ListResponse<TeamApplyList>> getMyAppliedTeam(String memberid){
+		final ListResponse<TeamApplyList> result = new ListResponse<>();
+		try {
+			List<TeamApplyList> list = tService.selectMyAppliedTeam(memberid);
+			System.out.println(list.size());
+			if (list != null) {
+				result.result = SUCCESS;
+				result.status = HttpStatus.OK;
+				result.setList(list);
+				result.message = "선택받은 프로젝트의 목록 조회가 성공적으로 이루어졌습니다. ";				
+			}
+
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message = "지원한 프로젝트 중 선택받은 프로젝트 목록 가져오는 중 문제가 발생했습니다.";
+			e.printStackTrace();
+		}
+		return new ResponseEntity<ListResponse<TeamApplyList>>(result, HttpStatus.OK);
+	}
+
 }
