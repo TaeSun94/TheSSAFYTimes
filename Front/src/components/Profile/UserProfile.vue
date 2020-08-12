@@ -118,50 +118,69 @@
         <!-- 프로필 및 친구 관계가 들어갈 공간 -->
         <div class="col-lg-4 mr-15">
             <profile-card v-model="profile.memberId"></profile-card>
-        <br>
-        <v-container class="elevation-5 col-lg-12">
-            <div class="col">
-                <div class="col-lg-4" style="float:left;">
-                    <h4> Followings</h4>
+            <br>
+            <v-container class="elevation-5 col-lg-12">
+                <v-card-title>
+                    <div class="textfield">
+                        <h3 class="m-4">Followings</h3>
+                    </div>
+                </v-card-title>
+                <v-card>
+                <div v-if="followings.length" id="following_table">
+                    <!-- 친구 목록 table -->
+                    <!-- Id, region, unit만 보이게 -->
+                    <v-data-table
+                        :headers="followingHeaders"
+                        :items="followings"
+                        :page.sync="fpage"
+                        :items-per-page="fperPage"
+                        hide-default-footer
+                        :per-page="fperPage"
+                        @click:row="followingClicked"
+                    >
+                    </v-data-table>
+                    <!-- <table class="text-center">
+                    <tr v-for="(following,index) in followings" :key="index+'_followings'">
+                        <business-card v-bind="following"></business-card>
+                        <td>{{following.memberId}}</td>
+                        <td>{{following.memberEmail}}</td>
+                        <td>{{following.memberUnit}}</td>
+                    </tr>
+                    </table> -->
                 </div>
-                <hr class="my-4 mt-10" />
-            </div>
-            <div v-if="followings.length" id="following_table">
-                <!-- 친구 목록 table -->
-                <!-- Id, region, unit만 보이게 -->
-                <v-data-table
-                    :headers="headers"
-                    :items="followings"
-                    :page.sync="page"
-                    :items-per-page="perPage"
-                    hide-default-footer
-                    :per-page="perPage"
-                    @click:row="rowClicked"
-                >
-                </v-data-table>
-                <!-- <table class="text-center">
-                <tr v-for="(following,index) in followings" :key="index+'_followings'">
-                    <business-card v-bind="following"></business-card>
-                    <td>{{following.memberId}}</td>
-                    <td>{{following.memberEmail}}</td>
-                    <td>{{following.memberUnit}}</td>
-                </tr>
-                </table> -->
-            </div>
-            <div v-else class="text-center">
-                <p>등록된 Followr가 없습니다.</p>
-            </div>
-        </v-container>
+                <div v-else class="text-center">
+                    <p>등록된 Followr가 없습니다.</p>
+                </div>
+                </v-card>
+            </v-container>
+            <br>
+            <v-container class="elevation-5">
+                <v-card-title>
+                    <div class="textfield">
+                        <h3 class="m-4">프로젝트 현황</h3>
+                    </div>
+                </v-card-title>
+                <v-card>
+                    <v-data-table
+                        :headers="projectHeaders"
+                        :items="followings"
+                        :page.sync="ppage"
+                        :items-per-page="pperPage"
+                        hide-default-footer
+                        :per-page="pperPage"
+                        @click:row="projectClicked"
+                    >
+                    </v-data-table>
+                </v-card>
+            </v-container>
         </div>
-        </div>
+    </div>
     <footer-bar></footer-bar>
 </div>
 </template>
 <script>
-    // import BusinessCard from './BusinessCard'
     import InfiniteLoading from 'vue-infinite-loading'
     import ProfileCard from "@/components/Profile/ProfileCard"
-    // import WriteArticle from "./Profile/WriteArticle"
     import {mapState, mapGetters, mapActions} from 'vuex';
     import http from "@/http-common.js";
     export default {
@@ -169,14 +188,14 @@
         components:{
             'profile-card':ProfileCard,
             InfiniteLoading,
-            // BusinessCard
         },
         data() {
             return {
-                page: 1,
-                perPage:5,
+                fpage: 1,
+                fperPage:5,
+                ppage:1,
+                pperPage:5,
                 articlepage:1,
-                list:[],
                 selected: null,
                 show: false,
                 article_show : false,
@@ -190,18 +209,21 @@
                     value => !!value || '내용을 입력해 주세요.'
                 ],
                 isMember: false,
-                headers: [
-                { text: '아이디', value: 'memberId', },
-                { text: '이메일', value: 'memberEmail' },
-            ],
+                followingHeaders: [
+                    { text: '아이디', value: 'memberId', },
+                    { text: '이메일', value: 'memberEmail' },
+                ],
+                projectHeaders:[
+                    {text:'프로젝트 번호', value:''},
+                    {text: '분류', value: ''},
+                    {text: '프로젝트 이름', value: ''},
+                    {text: '현재 상태', value: ''},
+                ]
             }
         },
         created(){
-            // sessionStorage.setItem('memberId', "admin");
-            console.log(this.$route.params.memberid);
             this.$store.dispatch('getProfile',this.$route.params.memberid);
             this.$store.dispatch('getMyArticles',this.$route.params.memberid);
-            // this.$store.dispatch('getFollowings',"admin");
             this.$store.dispatch('getArticleTypes');
             this.$store.dispatch('getFollowings',this.$route.params.memberid);
             var id = this.$cookies.get("memberId");
@@ -216,8 +238,11 @@
         },
         methods:{
             ...mapActions(['writeArticle']),
-            rowClicked(row){
+            followingClicked(row){
                 location.href =`/profile/${row.memberId}`;
+            },
+            projectClicked(row){
+                location.href =`/teamdetail/${row.projectNo}`;
             },
             // infiniteHandler($state){
             //     http.get(`/article/${this.$route.params.memberId}`,{
