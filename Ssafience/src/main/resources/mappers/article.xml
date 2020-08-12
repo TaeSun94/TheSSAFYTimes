@@ -22,6 +22,7 @@
 		FROM article a LEFT OUTER JOIN category c 
 		ON a.article_type = c.category_no		
 		order by article_no desc
+		limit #{pageno},#{per}
 	</select>
 	
 	<select id="selectMemberArticleList" resultType="articleresultdto">
@@ -30,6 +31,7 @@
 		ON a.article_type = c.category_no		
 		where member_id = #{memberId}
 		order by article_no desc
+		limit #{pageno},#{per}
 	</select>
 	
 	<insert id="insert">
