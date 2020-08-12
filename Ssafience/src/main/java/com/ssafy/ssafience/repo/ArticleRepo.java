@@ -11,8 +11,8 @@ import com.ssafy.ssafience.model.dto.ArticleResultDTO;
 
 @Mapper
 public interface ArticleRepo {
-	public List<ArticleResultDTO> selectArticleList();
-	public List<ArticleResultDTO> selectMemberArticleList(String memberId);
+	public List<ArticleResultDTO> selectArticleList(int pageno, int per);
+	public List<ArticleResultDTO> selectMemberArticleList(String memberId, int pageno, int per);
 	public List<ArticleResultDTO> selectArticleDetailOne();
 	public Article selectArticleOne(int articleNo);
 	public int insert(WriteRequest request);
