@@ -1,5 +1,5 @@
 <template>
-<div class="wrapper" style="margin-top:7%">
+<div class="wrapper" style="margin-top:8%">
     <div class="row">
         <v-container class="elevation-3 col-lg-7">
             <div id="app">

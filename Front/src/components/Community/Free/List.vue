@@ -1,14 +1,16 @@
 <template>
-<div class="wrapper" style="margin-top:5%">
+<div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-7">
+        <v-container class="col-lg-7 elevation-3">
                 <v-card-title>
                     <div class="textfield">
-                        <h1 class="m-4"> 🧑‍🤝‍🧑 자유게시판 </h1>
+                        <h1 class="m-5 mb-3"> 🧑‍🤝‍🧑 자유게시판 </h1>
+                        <small class="ml-3">익명으로 이뤄진 자유게시판 입니다. 서로 의견을 나눠보세요 </small>
                     </div>
                     <v-spacer></v-spacer>
-                    <v-btn v-if="login===false"  large tile depressed :to="{ path: '/community/freewrite'}" class="writeBtn" >글쓰기!</v-btn>
-                    <v-btn v-if="login===true" tile large depressed dark  :to="{ path: '/community/freewrite'}" class="writeBtn" >글쓰기!</v-btn>
+                    <v-btn v-if="login===false" class="writeBtn" disabled large tile depressed :to="{  path: '/community/freewrite'}">글쓰기!</v-btn>
+                    <v-btn v-if="login===true" class="writeBtn" tile large depressed dark :to="{  path: '/community/freewrite'}">글쓰기!</v-btn>
+   
                 </v-card-title>
                 <v-card-title>
                     <v-spacer></v-spacer>
@@ -28,8 +30,8 @@
                     @click:row="handleClick"
                     class="table"
                 >
-
                 </v-data-table>
+
                 <div class="text-center pt-2">
                     <v-pagination v-model="page" :length="pageCount"></v-pagination>
                 </div>
@@ -59,8 +61,9 @@ export default {
                 },
                 { text: '조회수', value: 'freeBoardHit' },
                 { text: '글제목', value: 'freeBoardTitle' },
-                { text: '글쓴날짜', value: 'freeBoardDatetime' },
-                { text: '좋아요', value: 'freeBoardLikeCount' },
+                { text: '글쓴날짜', value: 'freeBoardDatetime', dataType: "Date"  },
+                { text: 'Up 👍', value: 'freeBoardLike'},
+                { text: 'Down 👎', value: 'freeBoardDislike' },
             ],
             login: false,
         }
@@ -85,7 +88,7 @@ export default {
     },
     created() {
        this.$store.dispatch("getFrees", '/free/board');
-        var id = sessionStorage.getItem('memberId');
+        var id = this.$cookies.get('memberId');
         if(id==null){
             this.login = false;
             this.memberId = '';
@@ -99,7 +102,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .container{
   background: #fff;
   border-radius: 20px;
@@ -113,6 +116,9 @@ export default {
     margin-inline-end: 0px;
     font-weight: bold;
     
+}
+.v-data-table-header tr th span{
+    font-size: 0.9rem;
 }
 .writeBtn{
     border-radius: 10px;

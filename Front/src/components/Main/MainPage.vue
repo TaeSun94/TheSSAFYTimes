@@ -177,4 +177,8 @@ export default {
   background: url(https://cdn.pixabay.com/photo/2015/05/01/14/46/new-york-748595_960_720.jpg);
   background-size: cover;
 }
+
+.container{
+  background-color: #ebebeb;
+}
 </style>

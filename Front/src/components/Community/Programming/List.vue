@@ -1,13 +1,16 @@
 <template>
-<div class="wrapper" style="margin-top:7%">
+<div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-8 col-sm-10">
+        <v-container class="col-lg-7  elevation-5">
             <v-card>
                 <v-card-title>
-                    프로그래밍
+                    <div class="textfield">
+                        <h1 class="m-5 mb-3"> 🧑‍🤝‍🧑 프로그래밍 </h1>
+                        <small class="ml-3">프로그래밍에 대한 질문과 답변을 나누는 공간입니다.</small>
+                    </div>
                     <v-spacer></v-spacer>
-                    <v-btn v-if="login===false" disabled large tile depressed :to="{ path: '/community/programwrite'}">글쓰기!</v-btn>
-                    <v-btn v-if="login===true" tile large depressed dark :to="{ path: '/community/programwrite'}">글쓰기!</v-btn>
+                    <v-btn v-if="login===false" class="writeBtn" disabled large tile depressed :to="{ path: '/community/programwrite'}">글쓰기!</v-btn>
+                    <v-btn v-if="login===true" class="writeBtn" tile large depressed dark :to="{ path: '/community/programwrite'}">글쓰기!</v-btn>
                 </v-card-title>
                 <v-card-title>
                     <v-spacer></v-spacer>
@@ -26,6 +29,7 @@
                     :per-page="perPage"
                     @click:row="rowClicked"
                 >
+
                 </v-data-table>
                 <div class="text-center pt-2">
                     <v-pagination v-model="page" :length="pageCount"></v-pagination>
@@ -88,5 +92,9 @@ export default {
 </script>
 
 <style>
+.writeBtn{
+    border-radius: 10px;
+    font-size: 0.8em;
+}
 
 </style>

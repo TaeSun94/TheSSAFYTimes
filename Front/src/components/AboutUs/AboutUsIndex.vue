@@ -1,5 +1,5 @@
 <template>
-<div class="wrapper" style="margin-top:5%">
+<div class="wrapper" style="margin-top:8%">
     <div class="row">
         <v-container class="elevation-5 col-lg-9">
             <vue-scroll-progress-bar height="0.5rem" backgroundColor="orange" style="margin-left:13.9%"/>
@@ -123,7 +123,9 @@ export default {
 
 <style scoped>
 
-
+.container {
+    padding: 15px;
+}
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
 h1 {
   font-family: 'Noto Sans KR', sans-serif;
