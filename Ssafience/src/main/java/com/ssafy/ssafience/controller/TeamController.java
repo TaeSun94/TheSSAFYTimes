@@ -285,7 +285,7 @@ public class TeamController {
 	// 자신이 지원한 프로젝트 목록 (기한이 유효한 것만)
 	@ApiOperation(value = "지원한 프로젝트 중 기한이 유효한 프로젝트 목록")
 	@GetMapping("/apply/{memberid}/date")
-	public ResponseEntity<ListResponse<TeamApplyList>> getMyApplyList(String memberid){
+	public ResponseEntity<ListResponse<TeamApplyList>> getMyApplyList(@PathVariable String memberid){
 		final ListResponse<TeamApplyList> result = new ListResponse<>();
 		try {
 			List<TeamApplyList> list = tService.selectMyApplyList(memberid);
@@ -310,7 +310,7 @@ public class TeamController {
 	// 자신이 지원한 프로젝트 목록 (영입완료된 것만)
 	@ApiOperation(value = "지원한 프로젝트 중 선택받은 프로젝트 목록")
 	@GetMapping("/apply/{memberid}/status")
-	public ResponseEntity<ListResponse<TeamApplyList>> getMyAppliedTeam(String memberid){
+	public ResponseEntity<ListResponse<TeamApplyList>> getMyAppliedTeam(@PathVariable String memberid){
 		final ListResponse<TeamApplyList> result = new ListResponse<>();
 		try {
 			List<TeamApplyList> list = tService.selectMyAppliedTeam(memberid);
