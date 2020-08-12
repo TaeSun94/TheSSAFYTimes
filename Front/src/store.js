@@ -180,6 +180,7 @@ export default new Vuex.Store({
         },
         // Free
         setFrees(state, payload){
+            
             state.frees = payload;
             
         },

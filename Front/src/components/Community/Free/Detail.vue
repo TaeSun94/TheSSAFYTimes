@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper" style="margin-top:5%">
+    <div class="wrapper" style="margin-top:8%">
         <!-- <div>
             <SearchBar />
         </div> -->
@@ -76,6 +76,7 @@
                                 <tbody >
                                     <tr>
                                         <p class="faq-content">{{ item.freeCommentContent }}<br></p>
+                                        <p class="faq-txt text-right">😷 **** 님</p>
                                     </tr>
                                 </tbody>
                                 </template>
@@ -315,8 +316,15 @@ hr{
     padding: 20px;
     padding-bottom: 50px;
     border-radius: 10px;
-    border: 0.3px solid #ccc;
     
+}
+
+.inner-comment, .inner-comment .container {
+    background-color: #ebebeb;
+}
+
+tbody tr {
+    background-color: #ebebeb;
 }
 .inner-comment{
     margin: 20px;
