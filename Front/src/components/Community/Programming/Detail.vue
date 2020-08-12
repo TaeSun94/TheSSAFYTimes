@@ -16,9 +16,21 @@
             <Viewer v-if="programContent !== ''" :initialValue="programContent" class="inner" />
             <v-btn depressed dark v-show="canEdit === true" @click="deleteHandler" class="mr-5" style="float: right;">삭제하기!</v-btn>
             <v-btn depressed dark v-show="canEdit === true" @click="toUpdate()" class="mr-1" style="float: right;">수정하기!</v-btn>
-            <div class="likeContent">
-                <h3 class="like ml-5">❤️ 이 글 좋아요 </h3>
-                <h3 class="like">10</h3>
+            <div class="u_likeit">
+                <ul class="u_likeit_layer _faceLayer" role="menu">
+                    <li class="u_likeit_list good" role="menuitem">
+                        <a class="u_likeit_list_button _button nclicks(abt_presslink) off" data-type="like" data-log="RTC.like|RTC.unlike" href="#" role="button" aria-selected="false" aria-pressed="false" @click="upButton">
+                            <span class="u_likeit_list_name _label"> Up 👍</span>
+                            <span class="u_likeit_list_count _count">{{like}}</span>
+                        </a>
+                    </li>
+                    <li class="u_likeit_list warm" role="menuitem">
+                        <a class="u_likeit_list_button _button off" data-type="warm" data-log="RTC.warm|RTC.unwarm" href="#" role="button" aria-selected="false" aria-pressed="false" @click="downButton">
+                            <span class="u_likeit_list_name _label">Down 👎</span>
+                            <span class="u_likeit_list_count _count">{{dislike}}</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
             <div>
                 <div class="text-right comment" @click="commentShow">
@@ -85,7 +97,8 @@ export default {
             programTrack: '',
             programContent: "",
             programHit: 0,
-
+            dislike: 0,
+            like: 0,
             content: false,
             //comment 
             commentContent: true,
@@ -141,6 +154,51 @@ export default {
         },
         toUpdate() {
             this.$router.push(`/community/programupdate/${this.$route.params.no}`);
+        },
+        upButton() {
+            if(this.$cookies.get('memberId') == null) {
+                alert("로그인이 필요합니다.")
+                return;
+            }
+            var boardLikeCheck = 1;
+            var boardNo = this.$route.params.no;
+            var memberId = this.$cookies.get("memberId");
+
+            http.post('/program/like', {
+                boardLikeCheck,
+                boardNo,
+                memberId
+            })
+            .then(({data})=> {
+                if(data.result != "success"){
+                    alert(data.message)
+                } else {
+                    alert(data.message);
+                    location.reload();
+                }
+            })
+        },
+        downButton() {
+            if(this.$cookies.get('memberId') == null) {
+                alert("로그인이 필요합니다.")
+                return;
+            }
+            var boardLikeCheck = 0;
+            var boardNo = this.$route.params.no;
+            var memberId = this.$cookies.get('memberId');
+
+            http.post('/program/like', {
+                boardLikeCheck,
+                boardNo,
+                memberId,
+            })
+            .then(({data})=> {
+                if(data.result != "success") {
+                    alert(data.message);
+                } else {
+                    location.reload();
+                }
+            })
         }
 
     },
@@ -156,6 +214,8 @@ export default {
             this.programTrack = board.programBoardTrack;
             this.programContent = board.programBoardContent;
             this.programHit = board.programBoardHit;
+            this.like = board.programBoardLike;
+            this.dislike = board.programBoardDislike;
         }).then(()=> {
             http.get("/member/"+this.programWriter).then(({data})=> {
                 this.member = data.data;
@@ -185,15 +245,6 @@ hr{
     margin-bottom: 20px;
     margin-left: 20px;
 
-}
-.likeContent {
-    margin-left:20px;
-    margin-top:30px;
-    margin-bottom:30px;
-}
-.like {
-    
-    display: inline;
 }
 .comment {
     cursor: pointer;
@@ -247,5 +298,47 @@ tbody tr {
     margin-right:20px;
     border-radius: 10px;
 }
-
+.u_likeit{
+    display: flex;
+    justify-content: center;
+    border-top:0.3px solid  #ccc;
+    border-bottom: 0.3px solid #ccc;
+    width: 80%;
+    text-align: center;
+    margin: auto;
+    margin-top:100px;
+    margin-bottom: 100px;
+}
+.u_likeit_list_name {
+    margin: 0 -5px 6px;
+    font-size: 12px;
+    color: #999;
+    line-height: 14px;
+}
+.u_likeit_list_count {
+    font-size: 15px;
+    color: #000;
+    line-height: 14px;
+    font-weight: normal;
+}
+.u_likeit_list_count {
+    display: block;
+    text-align: center;
+    padding: 10px;
+}
+.u_likeit_list_name {
+    display: block;
+    font-size: 1.2rem;
+}
+.u_likeit > .u_likeit_layer .u_likeit_list {
+    display: table-cell;
+    padding: 50px;
+}
+.u_likeit > .u_likeit_layer .u_likeit_list_button {
+    width: auto;
+}
+.u_likeit a, .u_likeit a:hover, .u_likeit a:visited {
+    white-space: nowrap;
+    text-decoration: none;
+}
 </style>
