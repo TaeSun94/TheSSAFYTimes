@@ -23,17 +23,19 @@ public class ArticleServiceImpl implements ArticleService{
 	@Autowired
 	private MemberRepo mRepo;
 	
+	private int per = 5;	// 페이지 내의 기사 수
+	
 	@Override
-	public List<ArticleResultDTO> selectArticleList() throws Exception {
-		return repo.selectArticleList();
+	public List<ArticleResultDTO> selectArticleList(int pageno) throws Exception {
+		return repo.selectArticleList(this.per*(pageno-1), this.per);
 	}
 
 	@Override
-	public ArticleResult<ArticleResultDTO> selectMemberArticleList(String memberId) throws Exception {
+	public ArticleResult<ArticleResultDTO> selectMemberArticleList(String memberId, int pageno) throws Exception {
 		ArticleResult<ArticleResultDTO> result = new ArticleResult<>();
 		Member member = mRepo.selectMemberOne(memberId);
 		if (member != null) {
-			List<ArticleResultDTO> list = repo.selectMemberArticleList(memberId);
+			List<ArticleResultDTO> list = repo.selectMemberArticleList(memberId, this.per*(pageno-1), this.per);
 			result.setMember(true);
 			result.setList(list);
 		} else {

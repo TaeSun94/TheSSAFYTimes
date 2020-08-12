@@ -9,8 +9,8 @@ import com.ssafy.ssafience.model.dto.Article;
 import com.ssafy.ssafience.model.dto.ArticleResultDTO;
 
 public interface ArticleService {
-	public List<ArticleResultDTO> selectArticleList() throws Exception;
-	public ArticleResult<ArticleResultDTO> selectMemberArticleList(String memberId) throws Exception;
+	public List<ArticleResultDTO> selectArticleList(int pageno) throws Exception;
+	public ArticleResult<ArticleResultDTO> selectMemberArticleList(String memberId, int pageno) throws Exception;
 	public Article selectArticleOne(int articleNo) throws Exception;
 	public int insert(WriteRequest request) throws Exception;
 	public int update(ArticleModifyRequest request) throws Exception;
