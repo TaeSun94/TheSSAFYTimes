@@ -55,12 +55,12 @@ public class ArticleController {
 	private ArticleService aService;
 
 	@ApiOperation(value = "모든 뉴스피드 목록 반환")
-	@GetMapping("/list")
-	public ResponseEntity<ListResponse<ArticleResultDTO>> getArticleList() {
+	@GetMapping("/list/{pageno}")
+	public ResponseEntity<ListResponse<ArticleResultDTO>> getArticleList(@PathVariable int pageno) {
 		logger.debug("getArticleList 호출");
 		final ListResponse<ArticleResultDTO> result = new ListResponse<>();
 		try {
-			List<ArticleResultDTO> list = aService.selectArticleList();
+			List<ArticleResultDTO> list = aService.selectArticleList(pageno);
 			result.result = SUCCESS;
 			result.status = HttpStatus.OK;
 			result.setList(list);
@@ -75,8 +75,8 @@ public class ArticleController {
 	}
 
 	@ApiOperation(value = "특정 회원의 뉴스피드 목록 반환")
-	@GetMapping("/{memberid}")
-	public ResponseEntity<ListResponse<ArticleResultDTO>> getMemberArticleList(@PathVariable String memberid) {
+	@GetMapping("/{memberid}/{pageno}")
+	public ResponseEntity<ListResponse<ArticleResultDTO>> getMemberArticleList(@PathVariable String memberid, @PathVariable int pageno) {
 		logger.debug("getMemberArticleList 호출");
 		final ListResponse<ArticleResultDTO> result = new ListResponse<>();
 
@@ -86,7 +86,7 @@ public class ArticleController {
 //			System.out.println("id : " + id);
 
 			try {
-				ArticleResult<ArticleResultDTO> myArticleResult = aService.selectMemberArticleList(memberid);
+				ArticleResult<ArticleResultDTO> myArticleResult = aService.selectMemberArticleList(memberid, pageno);
 				if (myArticleResult.isMember()) {
 					result.result = SUCCESS;
 					result.status = HttpStatus.OK;
