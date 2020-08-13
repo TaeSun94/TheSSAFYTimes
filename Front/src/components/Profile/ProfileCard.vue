@@ -47,7 +47,7 @@
                         <div class="col">
                             <div class="card-profile-stats d-flex justify-content-center ml-5" style="font-size:13px">
                                 <div>
-                                    <!-- <span class="heading">{{ articles_count }}</span> -->
+                                    <span class="heading">{{ member.memberArticle }}</span>
                                     <span class="description">내가 쓴 기사 수(Articles)</span>
                                 </div>
                                 <div>

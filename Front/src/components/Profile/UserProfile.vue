@@ -157,13 +157,36 @@
             <v-container class="elevation-5">
                 <v-card-title>
                     <div class="textfield">
-                        <h3 class="m-4">프로젝트 현황</h3>
+                        <h3 class="m-4">지원 확정 프로젝트 현황</h3>
+                    </div>
+                </v-card-title>
+                <v-card>
+                    <div v-if="my_confirm_projects.length">
+                        <v-data-table
+                        :headers="projectHeaders"
+                        :items="my_confirm_projects"
+                        :page.sync="ppage"
+                        :items-per-page="pperPage"
+                        hide-default-footer
+                        :per-page="pperPage"
+                        @click:row="projectClicked"
+                        >
+                        </v-data-table>
+                    </div>
+                    <div v-else class="text-center">
+                        <p>확정된 프로젝트가 없습니다.</p>
+                    </div>
+                </v-card>
+                <br>
+                <v-card-title>
+                    <div class="textfield">
+                        <h3 class="m-4">지원 중인 프로젝트 현황</h3>
                     </div>
                 </v-card-title>
                 <v-card>
                     <v-data-table
                         :headers="projectHeaders"
-                        :items="followings"
+                        :items="my_apply_projects"
                         :page.sync="ppage"
                         :items-per-page="pperPage"
                         hide-default-footer
@@ -191,6 +214,7 @@
         },
         data() {
             return {
+                page: 1,
                 fpage: 1,
                 fperPage:5,
                 ppage:1,
@@ -214,27 +238,36 @@
                     { text: '이메일', value: 'memberEmail' },
                 ],
                 projectHeaders:[
-                    {text:'프로젝트 번호', value:''},
-                    {text: '분류', value: ''},
-                    {text: '프로젝트 이름', value: ''},
-                    {text: '현재 상태', value: ''},
-                ]
+                    {text:'프로젝트 번호', value:'boardNo'},
+                    {text: '분류', value: 'boardType'},
+                    {text: '프로젝트 이름', value: 'boardTitle'},
+                    {text: '현재 상태', value: 'applyStatus'},
+                ],
+                profileArticle:[],
+                memid:'',
             }
         },
         created(){
+            this.memid = this.$route.params.memberid;
             this.$store.dispatch('getProfile',this.$route.params.memberid);
-            this.$store.dispatch('getMyArticles',this.$route.params.memberid);
             this.$store.dispatch('getArticleTypes');
             this.$store.dispatch('getFollowings',this.$route.params.memberid);
             var id = this.$cookies.get("memberId");
             if(id==this.$route.params.memberid){
                 this.isMember = true;
             }
+            this.$store.dispatch('getMyApplyProject',this.$route.params.memberid);
+            this.$store.dispatch('getMyConfirmProject',this.$route.params.memberid);
+            http.get(`/article/${this.memid}/${this.articlepage}`).then(({ data }) => {
+                this.articlepage += 1;
+                this.$store.state.articles = data.list;
+            });
+            console.log("기사드아아",this.$store.state.articles);
         },
         computed:{
             ...mapState({article: state=> state.article},{member: state=>state.profile}),
             
-            ...mapGetters(['profile','articles','article','articleTypes','followings'])
+            ...mapGetters(['profile','articles','article','articleTypes','followings','my_apply_projects','my_confirm_projects'])
         },
         methods:{
             ...mapActions(['writeArticle']),
@@ -242,33 +275,21 @@
                 location.href =`/profile/${row.memberId}`;
             },
             projectClicked(row){
-                location.href =`/teamdetail/${row.projectNo}`;
+                location.href =`/community/teamdetail/${row.boardNo}`;
             },
-            // infiniteHandler($state){
-            //     http.get(`/article/${this.$route.params.memberId}`,{
-            //         params:{
-            //             page: this.articlepage,
-            //         },
-            //     }).then(({data})=>{
-            //     context.commit('setMyArticles',data);
-            //     console.log(data);
-            // });
-            // },
             infiniteHandler($state) {
-                http.get(`/article/${this.$route.params.memberId}`
-                // , {
-                //     params: {
-                //         page: this.articlepage,
-                //     },
-                // }
-                ).then(({ data }) => {
-                    if (data.list.length) {
-                        // this.page += 1;
-                        this.$store.state.articles.push(data.list);
-                        $state.loaded();
-                    } else {
-                        $state.complete();
-                    }
+                http.get(`/article/${this.memid}/${this.articlepage}`).then(({ data }) => {
+                    setTimeout(()=>{
+                        console.log(data);
+                        if (data.list.length) {
+                            this.articlepage += 1;
+                            for(var i = 0; i < data.list.length; i++)
+                                this.$store.state.articles.push(data.list[i]);
+                            $state.loaded();
+                        } else {
+                            $state.complete();
+                        }
+                    },1000)
                 });
             },
         }
