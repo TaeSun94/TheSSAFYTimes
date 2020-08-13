@@ -46,7 +46,7 @@ export default {
     },
     methods: {
         emailValid() {
-            http.post('/valid/sendEmail', {
+            http.post('/mail/validEmail', {
                 memberEmail: this.memberEmail
             })
             .then(({data})=> {

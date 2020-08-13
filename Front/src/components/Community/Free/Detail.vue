@@ -18,7 +18,7 @@
                         
                         <small class="description">👀 조회수 {{ this.free.data.freeBoardHit }} /</small>
                         <small class="description"> SSAFY 3기 / </small>
-                        <small class="description"> {{$moment(this.free.data.freeBoardDatetime).format('YYYY-MM-DD hh:mm:ss')}} </small>
+                        <small class="description"> {{$moment(this.free.data.freeBoardDatetime).format('YYYY-MM-DD hh:mm:ss a')}} </small>
 
                     </div>
                     <div v-html="this.free.data.freeBoardContent" class="inner">
