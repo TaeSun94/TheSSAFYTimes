@@ -155,8 +155,9 @@ export default {
         var teamBoardCategory = this.teamBoardCategory
         var teamBoardEndDatetime = this.picker
         var memberId = this.$cookies.get("memberId")
-        console.log(teamBoardEndDatetime)
         this.$store.dispatch("teamCreate", { teamBoardTitle, teamBoardContent, teamBoardFrontRemainCount, teamBoardBackRemainCount, teamBoardCategory, memberId, teamBoardEndDatetime  });
+        this.$router.push("/community/teamlist");
+        
       }
     },
     

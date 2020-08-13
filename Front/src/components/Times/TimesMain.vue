@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
-    <div class="row">
-        <div class="container" style="margin-left:auto; margin-right:auto;">
+    <div class="row" style="">
+        <div class="container">
             <input type="checkbox" id="c1">
             <input type="checkbox" id="c2">
             <input type="checkbox" id="c3">
@@ -72,12 +72,14 @@ img {
 
 .container {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ebebeb;
 }
 
 #cover {
     width: 600px;
     height: 848.4px;
-    background-color: white;
 }
 
 .page-container {
