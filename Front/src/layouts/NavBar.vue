@@ -78,6 +78,12 @@
             </v-list-item-content>
             </v-list-item>
 
+            <v-list-item @click="to('/news')">
+            <v-list-item-content>
+                <v-list-item-title>📰  뉴스 피드</v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>
+
             <v-list-item @click="to('/studio')">
             <v-list-item-content>
                 <v-list-item-title>📷  싸-피 사진관</v-list-item-title>
@@ -120,6 +126,7 @@ export default {
         }
     },
     created() {
+        console.log("네비 아앙");
         var id = this.$cookies.get("memberId");
         if(id==null){
             this.login = false;
