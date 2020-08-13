@@ -3,9 +3,9 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" max-width="290">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon color="pink" v-bind="attrs"
+        <v-btn icon v-bind="attrs"
           v-on="on">
-              <span id="phone">☎</span>
+              <span id="phone">☎ 연락처</span>
         </v-btn>
           
       </template>
