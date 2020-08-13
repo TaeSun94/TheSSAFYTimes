@@ -6,7 +6,15 @@
             <v-card>
             <p id="edit_header">프로필 등록 및 수정</p>
             <v-form class="ml-4 mr-4 mt-6">
-                <v-file-input show-size counter multiple label="프로필 사진 등록"></v-file-input>
+                <v-file-input @change="onChangeImages" show-size counter label="프로필 사진 등록"></v-file-input>
+                <div v-if="preview"><img v-bind:src="preview"></div>
+
+                <!-- <input ref="imageInput" type="file" hidden @change="onChangeImages">
+                <v-btn type="button" @click="onClickImageUpload">이미지 업로드</v-btn>
+                <v-img
+                    v-if="imageUrl" :src="imageUrl"
+                ></v-img> -->
+
                 <v-text-field
                     label="Blog 소개 제목"
                     v-model="member.memberIntro"
@@ -98,16 +106,13 @@
             return {
                 region:[],
                 memberId:'',
-                // memberInt:[],
+                preview: '',
+                imageUrl: null,
             }
         },
         created(){
-        //   this.$store.dispatch('getProfile',this.$route.params.memberId);
             this.$store.dispatch('getRegions');
             this.$store.dispatch('getSkillLanguages');
-            // http.get(`/category/skill-language`).then(({data})=>{
-            //     this.memberInt = data.list;
-            // })
             var id = this.$cookies.get("memberId");
             this.memberId = id;
             this.$store.dispatch('getProfileMod',this.memberId);
@@ -116,11 +121,28 @@
             ...mapGetters(['profile','regions','skillLanguages','units','tracks']),
             ...mapState({member: state=>state.profile}),
         },
+        // mounted(){
+        //     if(this.profile.region !== "" || this.profile.region !== null ){
+        //         this.$store.dispatch(`/category/${this.profile.region}/unit`).then(({data})=>{
+        //             if(data.result === 'success'){
+        //                 this.$store.dispatch('setUnits',data.list);
+        //                 this.$store.dispatch(`/category/${this.profile.unit}/track`).then(({data})=>{
+                            
+        //                 })
+        //             }
+        //         })
+
+        //     }
+        // },
         methods:{
+            handlerChange(event){
+                var file = event.target.files[0];
+                console.log(file[0]);
+                if (file && file.type.match(/^image\/(png|jpeg)$/)) {
+                    this.preview = window.URL.createObjectURL(file)
+                }
+            },
             ...mapActions(['modifyProfile']),
-            // modifyProfile(){
-            //     this.$store.dispatch('modifyProfile',this.memberInt)
-            // },
             getUnit(value){
                 console.log(value);
                 this.$store.dispatch('getUnits',value);
@@ -128,6 +150,12 @@
             getTrack(value){
                 console.log(value);
                 this.$store.dispatch('getTracks',value);
+            },
+            onChangeImages(e) {
+                console.log(e)
+                // const file = e.target.files[0];
+                // this.imageUrl = URL.createObjectURL(file);
+                this.preview = window.URL.createObjectURL(e);
             }
         },
     };

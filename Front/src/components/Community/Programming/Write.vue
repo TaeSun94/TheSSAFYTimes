@@ -65,6 +65,8 @@ export default {
                 alert("글 제목을 입력하세요.");
             } else if(content =="") {
                 alert("글 내용을 입력하세요.");
+            }  else if(this.track =="") {
+                alert("카테고리를 선택하세요");
             } else  {
                 this.createHandler();
             }

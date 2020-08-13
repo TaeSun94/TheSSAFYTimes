@@ -49,6 +49,9 @@ export default new Vuex.Store({
         team_category: [],
         applys: [],
 
+        //프로젝트 현황(profile 들어간 아이디 기준)
+        my_apply_projects:[],
+        my_confirm_projects:[],
     },
     getters: {
         // login
@@ -122,8 +125,13 @@ export default new Vuex.Store({
         },
         applys(state) {
             return state.applys;
-        }
-
+        },
+        my_apply_projects(state){
+            return state.my_apply_projects;
+        },
+        my_confirm_projects(state){
+            return state.my_confirm_projects;
+        },
     },
     mutations: {
         // login
@@ -150,7 +158,6 @@ export default new Vuex.Store({
         updateProfile(state, payload){
             console.log(payload);
             if(payload.result === "success"){
-                alert("프로필 등록 및 수정 완료");
                 // alert(payload.message);
             }
             else{
@@ -164,7 +171,6 @@ export default new Vuex.Store({
         insertArticle(state, payload){
             console.log(payload);
             if(payload.result ==='success'){
-                alert("기사 등록 완료!");
                 location.href=`/profile/${state.profile.memberId}`;
                 state.profile ={};
             }
@@ -240,7 +246,13 @@ export default new Vuex.Store({
         },
         setApplys(state, payload) {
             state.applys = payload;
-        }
+        },
+        setMyApplyProject(state, payload){
+            state.my_apply_projects = payload;
+        },
+        setMyConfirmProject(state, payload){
+            state.my_confirm_projects = payload;
+        },
     },
     actions: {
         //login
@@ -517,7 +529,19 @@ export default new Vuex.Store({
                     location.href=`/profile/${path.profile.memberId}`;
                 }
             })
-        }
+        },
+        getMyApplyProject(context, payload){
+            console.log(payload);
+            http.get(`/team/board/apply/${payload}/date`).then(({data})=>{
+                context.commit('setMyApplyProject',data.list);
+            });
+        },
+        getMyConfirmProject(context, payload){
+            console.log(payload);
+            http.get(`/team/board/apply/${payload}/status`).then(({data})=>{
+                context.commit('setMyConfirmProject',data.list);
+            });
+        },
     }
     
 })

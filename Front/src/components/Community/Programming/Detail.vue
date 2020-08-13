@@ -10,7 +10,7 @@
             <div class="text-right mr-5">
                 <small class="description">👀 조회수 {{programHit}} / </small>
                 <small class="description"> SSAFY {{member.memberTrack}} {{programWriter}} / </small>
-                <small class="description">{{programDatetime | moment('YYYY-MM-DD HH:MM')}}  </small>
+                <small class="description">{{programDatetime | moment('YYYY-MM-DD HH:MM a')}}  </small>
             </div>
             <div></div>
             <Viewer v-if="programContent !== ''" :initialValue="programContent" class="inner" />
