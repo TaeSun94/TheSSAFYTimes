@@ -21,7 +21,7 @@
                             <v-btn class="primary" @click="mvEditProfile">등록</v-btn>
                         </div>
                         <div v-else>
-                            <v-btn class="primary" @click="mvEditProfile">수정</v-btn>
+                            <v-btn icon @click="mvEditProfile"><span style="font-size: 20px;">수정</span></v-btn>
                         </div>
                     </div>
 

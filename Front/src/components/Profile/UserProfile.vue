@@ -102,7 +102,7 @@
                                     <p>{{item.articleContent}}</p>
                                 </div>
                                 <div class="text-right">
-                                    <p style="font-size:12px">{{item.memberId}}, {{item.articleDatetime}}</p>
+                                    <p style="font-size:12px">{{item.memberId}}, {{$moment(item.articleDatetime).format('YYYY-MM-DD hh:mm:ss a')}}</p>
                                 </div>
                         </v-container>
                         <br>
@@ -184,16 +184,21 @@
                     </div>
                 </v-card-title>
                 <v-card>
-                    <v-data-table
-                        :headers="projectHeaders"
-                        :items="my_apply_projects"
-                        :page.sync="ppage"
-                        :items-per-page="pperPage"
-                        hide-default-footer
-                        :per-page="pperPage"
-                        @click:row="projectClicked"
-                    >
-                    </v-data-table>
+                    <div v-if="my_apply_projects.length">
+                        <v-data-table
+                            :headers="projectHeaders"
+                            :items="my_apply_projects"
+                            :page.sync="ppage"
+                            :items-per-page="pperPage"
+                            hide-default-footer
+                            :per-page="pperPage"
+                            @click:row="projectClicked"
+                        >
+                        </v-data-table>
+                    </div>
+                    <div v-else class="text-center">
+                        <p>지원중인 프로젝트가 없습니다.</p>
+                    </div>
                 </v-card>
             </v-container>
         </div>
