@@ -61,7 +61,7 @@ export default {
                 },
                 { text: '조회수', value: 'freeBoardHit' },
                 { text: '글제목', value: 'freeBoardTitle' },
-                { text: '글쓴날짜', value: 'freeBoardDatetime', dataType: "Date"  },
+                // { text: '글쓴날짜', value: "freeBoardDatetime", dataType: "Date"  },
                 { text: 'Up 👍', value: 'freeBoardLike'},
                 { text: 'Down 👎', value: 'freeBoardDislike' },
             ],
@@ -79,7 +79,6 @@ export default {
         }
     },
     methods: {
-
         handleClick(value) {
             this.$router.push({path: `/community/freedetail/${value.freeBoardNo}`});
         },

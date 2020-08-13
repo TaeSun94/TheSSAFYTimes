@@ -52,11 +52,13 @@ export default {
             perPage: 25,
             search: "",
             headers: [
-                { text: 'No', value: 'programBoardNo', },
                 { text: '제목', value: 'programBoardTitle' },
                 { text: '글쓴이', value: 'memberId' },
                 { text: '조회수', value: 'programBoardHit' },
-                { text: '과정', value: 'programBoardTrack' }
+                { text: '과정', value: 'programBoardTrack' },
+                { text: 'Up 👍', value: 'programBoardLike' },
+                { text: 'Down 👎', value: 'programBoardDislike' },
+                
             ],
             login: false,
         }
