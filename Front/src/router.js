@@ -30,6 +30,7 @@ import FreeDetail from "@/components/Community/Free/Detail";
 import ProgramUpdate from "@/components/Community/Programming/Update";
 import Studio from "@/components/Studio/StudioMain";
 import Times from "@/components/Times/TimesMain";
+import News from "@/components/News/News";
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -200,6 +201,11 @@ export default new VueRouter({
             path:"/ssafytimes",
             name:"Times",
             component: Times,
+        },
+        {
+            path:"/news",
+            name:"News",
+            component: News,
         }
 
     ]
