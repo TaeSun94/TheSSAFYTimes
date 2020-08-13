@@ -10,7 +10,6 @@
         </div>
         <div class="topnav-centered">
             <router-link :to="{ path: '/'}"><img width="480" src="@/assets/times.png"/></router-link>
-        
         </div>
         
 
@@ -43,7 +42,7 @@
         </v-list-item>
         <v-list-item style="margin-top:3%" v-if="login===true"> 
             <v-list-item-content >
-                <v-btn rounded @click="to(`/profile/${memberId}`)">{{memberId}}</v-btn>
+                <v-btn rounded @click="memClick">{{memberId}}</v-btn>
             </v-list-item-content>
         </v-list-item>
         <v-list-item v-if="login===true">
@@ -123,6 +122,9 @@ export default {
             alert("로그아웃 되었습니다.");
             location.reload();
             this.$router.push('/');
+        },
+        memClick(){
+            location.href=`/profile/${this.memberId}`;
         }
     },
     created() {
