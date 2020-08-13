@@ -102,7 +102,7 @@
                                     <p>{{item.articleContent}}</p>
                                 </div>
                                 <div class="text-right">
-                                    <p style="font-size:12px">{{item.memberId}}, {{item.articleDatetime}}</p>
+                                    <p style="font-size:12px">{{item.memberId}}, {{$moment(item.articleDatetime).format('YYYY-MM-DD hh:mm:ss a')}}</p>
                                 </div>
                         </v-container>
                         <br>
