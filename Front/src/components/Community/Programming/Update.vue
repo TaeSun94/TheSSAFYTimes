@@ -3,8 +3,15 @@
     <div class="row">
         <v-container class="elevation-5 col-lg-10">
             <div class="textfield">
-                <input type="text" class="textfield-input" v-model="programTitle" placeholder="제목을 입력하세요" value="">
-                <hr>
+                <v-row>
+                    <v-col>
+                        <input type="text" class="textfield-input" v-model="programTitle" placeholder="제목을 입력하세요" value="">
+                        <hr>
+                    </v-col>
+                    <v-col cols="2">
+                        <v-select v-model="programTrack" :items="category" solo label="카테고리"></v-select>
+                    </v-col>
+                </v-row>
             </div>
             <editor
                v-if="programContent !== ''"
@@ -46,6 +53,8 @@ export default {
             programTrack: '',
             programContent: '',
             programHit: 0,
+            category: [],
+
         };
     },
     computed: {
@@ -58,6 +67,8 @@ export default {
                 alert("글 제목을 입력하세요.");
             } else if(content =="") {
                 alert("글 내용을 입력하세요.");
+            } else if(this.programTrack =="A" || this.programTrack =="B" || this.programTrack == "C" || this.programTrack == "P" || this.programTrack == "기타" || this.programTrack == "") {
+                alert("카테고리를 선택하세요");
             } else  {
                 this.updateHandler();
             }
@@ -93,6 +104,9 @@ export default {
             this.programContent = board.programBoardContent;
             this.programHit = board.programBoardHit;
         });
+        http.get("/category/program-track").then(({data})=> {
+            this.category = data.list;
+        })
     },
     updated() {
         // this.title = this.program.programBoardTitle;
