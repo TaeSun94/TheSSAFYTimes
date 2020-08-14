@@ -40,8 +40,8 @@
                             <progress :value="value" max='100'></progress>
                         </div>    
                     </div>          
-                    <div class="text-right mr-4"><v-btn rounded v-if="(team.memberId != this.$cookies.get('memberId')) && (team.teamBoardFrontRemainCount!=0 || team.teamBoardBackRemainCount !=0)">관심등록</v-btn></div>
-                    <!-- <div class="text-right mr-4"><v-btn disabled rounded v-if="(team.memberId == this.$cookies.get('memberId')) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">관심등록</v-btn></div> -->
+                    <div class="text-right mr-4"><v-btn rounded v-if="(team.memberId != this.$cookies.get('memberId')) && (this.$cookies.get('memberId') != null) && (team.teamBoardFrontRemainCount!=0 || team.teamBoardBackRemainCount !=0)">관심등록</v-btn></div>
+                    <div class="text-right mr-4"><v-btn disabled rounded v-if="(team.memberId == this.$cookies.get('memberId')) || (this.$cookies.get('memberId') == null) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">관심등록</v-btn></div>
                     <div class="likeContent mt-5 row justify-content-end">
                         <v-container v-if="(team.memberId != this.$cookies.get('memberId'))">
                             <v-textarea
@@ -54,10 +54,10 @@
                                 v-model="teamApplyContent"
                             ></v-textarea>
                         </v-container>
-                        <div class="text-right mr-4"><v-btn rounded v-if="(team.memberId != this.$cookies.get('memberId')) && (team.teamBoardFrontRemainCount!=0 || team.teamBoardBackRemainCount !=0)" @click="apply('F')">Front할래요!</v-btn></div>    
-                        <div class="text-right mr-4"><v-btn rounded v-if="(team.memberId != this.$cookies.get('memberId')) && (team.teamBoardFrontRemainCount!=0 || team.teamBoardBackRemainCount !=0)" @click="apply('B')">Back할래요!</v-btn></div>          
-                        <!-- <div class="text-right mr-4"><v-btn disabled rounded v-if="(team.memberId == this.$cookies.get('memberId')) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">Front할래요!</v-btn></div>  
-                        <div class="text-right mr-4"><v-btn disabled rounded v-if="(team.memberId == this.$cookies.get('memberId')) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">Back할래요!</v-btn></div>           -->
+                        <div class="text-right mr-4"><v-btn rounded v-if="(team.memberId != this.$cookies.get('memberId')) && (this.$cookies.get('memberId') != null)  && (team.teamBoardFrontRemainCount!=0 || team.teamBoardBackRemainCount !=0)" @click="apply('F')">Front할래요!</v-btn></div>    
+                        <div class="text-right mr-4"><v-btn rounded v-if="(team.memberId != this.$cookies.get('memberId')) && (this.$cookies.get('memberId') != null) && (team.teamBoardFrontRemainCount!=0 || team.teamBoardBackRemainCount !=0)" @click="apply('B')">Back할래요!</v-btn></div>          
+                        <div class="text-right mr-4"><v-btn disabled rounded v-if="(team.memberId == this.$cookies.get('memberId')) || (this.$cookies.get('memberId') == null) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">Front할래요!</v-btn></div>  
+                        <div class="text-right mr-4"><v-btn disabled rounded v-if="(team.memberId == this.$cookies.get('memberId')) || (this.$cookies.get('memberId') == null) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">Back할래요!</v-btn></div>          
                     </div>
                     <hr style="width:95%" class="mt-5">
 
