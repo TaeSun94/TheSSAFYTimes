@@ -28,6 +28,7 @@
                     hide-default-footer
                     :per-page="perPage"
                     @click:row="rowClicked"
+                    class="table"
                 >
 
                 </v-data-table>
@@ -98,5 +99,7 @@ export default {
     border-radius: 10px;
     font-size: 0.8em;
 }
-
+.table{
+    cursor: pointer;
+}
 </style>
