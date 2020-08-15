@@ -49,6 +49,7 @@
             </v-text-field>
             <footer class="login-foot mt-3">
               <v-btn @click="submit"
+              @keyup.enter="submit"
               dark
               large
               tile

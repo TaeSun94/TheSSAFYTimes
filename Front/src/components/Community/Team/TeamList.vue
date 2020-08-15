@@ -134,6 +134,7 @@ export default {
     box-sizing: border-box;
     -webkit-transition: all 0.45s ease-in-out;
     transition: all 0.45s ease-in-out;
+    cursor: pointer;
 
 }
 a {

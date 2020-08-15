@@ -19,6 +19,7 @@
             label="비밀번호*"
             type="password"
             required
+             @keyup.enter="submit"
             ></v-text-field>
             <br>
             <footer class="login-foot">
