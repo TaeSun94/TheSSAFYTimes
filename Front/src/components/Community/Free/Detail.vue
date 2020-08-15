@@ -206,6 +206,11 @@ export default {
         },
 
         downButton() {
+
+            if(this.$cookies.get('memberId') == null) {
+                alert("로그인이 필요합니다.")
+                return;
+            }
             var boardLikeCheck = 1
             var boardNo = this.$route.params.no
             var memberId = this.$cookies.get('memberId');
@@ -222,6 +227,9 @@ export default {
                     this.$store.commit("setFreeLikeDown", data);
                 }
             })
+        },
+        toUpdate() {
+            this.$router.push(`/community/freeupdate/${this.$route.params.no}`);
         },
     },
     updated() {

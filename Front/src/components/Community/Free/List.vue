@@ -15,7 +15,7 @@
                 <v-card-title>
                     <v-spacer></v-spacer>
                     <v-text-field 
-                        append-icon="mdi-magnify" 
+                        v-model="search" append-icon="mdi-magnify" 
                         label="검색" single-line hide-details
                     ></v-text-field>
                 </v-card-title>
