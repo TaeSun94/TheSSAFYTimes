@@ -187,44 +187,47 @@ export default {
             });
         },
         upButton() {
-            var boardLikeCheck = 1
-            var boardNo = this.$route.params.no
-            var memberId = this.$cookies.get("memberId");
-            
-            http.post('/free/like',{
-                boardLikeCheck,
-                boardNo,
-                memberId,
-            })
-            .then(({data})=> {
-                if(data.result != "success") {
-                    alert(data.message)
-                }else{
-                    this.$store.commit("setFreeLike", data);
-                }
-            })
-        },
-
-        downButton() {
-
             if(this.$cookies.get('memberId') == null) {
                 alert("로그인이 필요합니다.")
                 return;
             }
-            var boardLikeCheck = 1
-            var boardNo = this.$route.params.no
+            var boardLikeCheck = 1;
+            var boardNo = this.$route.params.no;
+            var memberId = this.$cookies.get("memberId");
+
+            http.post('/free/like', {
+                boardLikeCheck,
+                boardNo,
+                memberId
+            })
+            .then(({data})=> {
+                if(data.result != "success"){
+                    alert(data.message)
+                } else {
+                    alert(data.message);
+                    location.reload();
+                }
+            })
+        },
+        downButton() {
+            if(this.$cookies.get('memberId') == null) {
+                alert("로그인이 필요합니다.")
+                return;
+            }
+            var boardLikeCheck = 0;
+            var boardNo = this.$route.params.no;
             var memberId = this.$cookies.get('memberId');
-            
-            http.post('/free/like',{
+
+            http.post('/free/like', {
                 boardLikeCheck,
                 boardNo,
                 memberId,
             })
             .then(({data})=> {
                 if(data.result != "success") {
-                    alert(data.message)
-                }else{
-                    this.$store.commit("setFreeLikeDown", data);
+                    alert(data.message);
+                } else {
+                    location.reload();
                 }
             })
         },
