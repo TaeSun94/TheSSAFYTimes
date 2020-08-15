@@ -22,6 +22,7 @@
     "vue-cookies": "^1.7.3",
     "vue-infinite-loading": "^2.4.5",
     "vue-moment": "^4.1.0",
+    "vue-quill": "^1.5.1",
     "vue-router": "^3.3.4",
     "vue-scroll-progress": "^1.1.2",
     "vue2-editor": "^2.10.2",

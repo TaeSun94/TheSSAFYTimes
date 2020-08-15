@@ -31,6 +31,8 @@ import ProgramUpdate from "@/components/Community/Programming/Update";
 import Studio from "@/components/Studio/StudioMain";
 import Times from "@/components/Times/TimesMain";
 import News from "@/components/News/News";
+import FreeUpdate from "@/components/Community/Free/Update";
+
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -141,7 +143,11 @@ export default new VueRouter({
                     name:"FreeDetail",
                     component: FreeDetail,
                 },
-
+                {
+                    path:"FreeUpdate/:no",
+                    name:"FreeUpdate",
+                    component: FreeUpdate,
+                },
 
             ]
         },

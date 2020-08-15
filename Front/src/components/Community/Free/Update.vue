@@ -9,10 +9,9 @@
                 <hr>
               </div>
               <vue-editor id="editor" useCustomImageHandler @imageAdded="handleImageAdded" v-model="freeBoardContent"> </vue-editor>
-              <!-- <quill v-model="content"></quill> -->
             </div>
             <div class="text-right mt-3">
-              <v-btn @click="checkHandler"> 등록할래요 👌</v-btn>
+              <v-btn @click="checkHandler"> 수정할래요 👌</v-btn>
             </div>
         </v-container>
 
@@ -26,18 +25,52 @@
 
 import { VueEditor } from "vue2-editor";
 import axios from "axios";
+import http from "@/http-common.js"
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'FreeWrite',
   components: {
     VueEditor
   },
+  computed: {
+      ...mapGetters(["free"]),
+  },
   data() {
     return {
-      freeBoardTitle: "",
-      freeBoardContent: "",
+        memberId: '',
+        commentInput: '',
+        upCount: '',
+        freeBoardNo: 0,
+        freeBoardWriter: '',
+        freeBoardTitle: '',
+        freeBoardLike: '',
+        freeBoardDatetime: '',
+        freeBoardContent: '',
+        freeBoardHit: 0,
+        freeBoardDislike : '',
     };
   },
   
+
+  created() {
+        
+        http.get(`/free/board/${this.$route.params.no}`).then(({data})=> {
+            var board = data.data;
+            this.freeBoardNo = board.freeBoardNo;
+            this.freeBoardTitle = board.freeBoardTitle;
+            this.freeBoardLike = board.freeBoardLike;
+            this.freeBoardHit = board.freeBoardHit;
+            this.freeBoardDislike = board.freeBoardDislike;
+            this.freeBoardDatetime = board.freeBoardDatetime;
+            this.freeBoardContent = board.freeBoardContent;
+            this.freeBoardWriter = board.memberId;
+        }).then(()=> {
+                http.get("/member/"+this.freeBoardWriter).then(({data})=> {
+                this.member = data.data;
+            })
+        });
+    },
 
   methods: {
     handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
@@ -72,12 +105,28 @@ export default {
         alert("글 내용을 입력하세요");
       } else {
         // 만약, 내용이 다 입력되어 있다면 createHandler 호출
-        var freeBoardTitle = this.freeBoardTitle
-        var freeBoardContent = this.freeBoardContent
-        var memberId = this.$cookies.get("memberId")
-        this.$store.dispatch("freeCreate", { freeBoardTitle, freeBoardContent, memberId });
+        this.updateHandler()
       }
     },
+
+    updateHandler() {
+        http.put("/free/board", {
+            memberId: this.freeBoardWriter,
+            freeBoardTitle: this.freeBoardTitle,
+            freeBoardContent: this.freeBoardContent,
+            freeBoardNo: this.freeBoardNo,
+
+        }).then(({data})=>{
+            if(data.result =="success") {
+                alert(data.message)
+                this.$router.push(`/community/freedetail/${this.$route.params.no}`)
+
+            } else {
+                alert(data.message)
+                return
+            }
+        })
+    }
   }
 };
 </script>
