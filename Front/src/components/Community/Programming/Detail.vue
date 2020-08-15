@@ -228,6 +228,7 @@ export default {
     updated() {
         var id = this.$cookies.get('memberId');
         var author = this.programWriter;
+        console.log(id,author)
         if(id != author) { this.canEdit = false }
         else {this.canEdit = true }
     }

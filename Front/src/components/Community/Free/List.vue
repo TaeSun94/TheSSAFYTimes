@@ -20,6 +20,7 @@
                     ></v-text-field>
                 </v-card-title>
                 <v-data-table
+                
                     :headers="headers"
                     :items="frees"
                     :search="search"
@@ -106,6 +107,9 @@ export default {
   background: #fff;
   border-radius: 20px;
 }
+.table{
+    cursor: pointer;
+}
 .textfield {
     display: block;
     font-size: 0.8em;
@@ -122,6 +126,9 @@ export default {
 .writeBtn{
     border-radius: 10px;
     font-size: 0.8em;
+}
+.v-table tr:hover{
+    cursor: pointer;
 }
 .v-input__icon{
     cursor: pointer;
