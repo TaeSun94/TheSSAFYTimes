@@ -303,7 +303,9 @@ export default new Vuex.Store({
         },
         //profile
         modifyProfile(context){
+            const fd = new FormData();
             const path = this.state;
+            fd.append('file', path.profile.img)
             http.put(`/member`,{
                 memberAddress: path.profile.memberAddress,
                 memberClass: path.profile.memberClass,
@@ -321,7 +323,17 @@ export default new Vuex.Store({
                 
             }).then(({data})=>{
                 console.log(data);
-                context.commit('updateProfile',data);
+                if(data.result==='success'){
+                    context.commit('updateProfile',data);
+                    http.post('/upload/uploadFile',fd,{
+                        headers:{
+                            'Accept':'application/json',
+                            'Content-Type':"multipart/form-data"
+                        }
+                    }).then(({data})=>{
+                        console.log(data);
+                    })
+                }
             });
         },
         getProfile(context, payload){
