@@ -9,12 +9,6 @@
                 <v-file-input @change="onChangeImages" show-size counter label="프로필 사진 등록"></v-file-input>
                 <div v-if="preview"><img v-bind:src="preview"></div>
 
-                <!-- <input ref="imageInput" type="file" hidden @change="onChangeImages">
-                <v-btn type="button" @click="onClickImageUpload">이미지 업로드</v-btn>
-                <v-img
-                    v-if="imageUrl" :src="imageUrl"
-                ></v-img> -->
-
                 <v-text-field
                     label="Blog 소개 제목"
                     v-model="member.memberIntro"
@@ -69,7 +63,6 @@
                         persistent-hint
                     ></v-select>
                 </div>
-                <!-- select로 설정 (multiple) -->
                 <v-select
                     v-model="member.memberInterestedList"
                     :items="skillLanguages"
@@ -121,27 +114,7 @@
             ...mapGetters(['profile','regions','skillLanguages','units','tracks']),
             ...mapState({member: state=>state.profile}),
         },
-        // mounted(){
-        //     if(this.profile.region !== "" || this.profile.region !== null ){
-        //         this.$store.dispatch(`/category/${this.profile.region}/unit`).then(({data})=>{
-        //             if(data.result === 'success'){
-        //                 this.$store.dispatch('setUnits',data.list);
-        //                 this.$store.dispatch(`/category/${this.profile.unit}/track`).then(({data})=>{
-                            
-        //                 })
-        //             }
-        //         })
-
-        //     }
-        // },
         methods:{
-            handlerChange(event){
-                var file = event.target.files[0];
-                console.log(file[0]);
-                if (file && file.type.match(/^image\/(png|jpeg)$/)) {
-                    this.preview = window.URL.createObjectURL(file)
-                }
-            },
             ...mapActions(['modifyProfile']),
             getUnit(value){
                 console.log(value);
@@ -153,9 +126,8 @@
             },
             onChangeImages(e) {
                 console.log(e)
-                // const file = e.target.files[0];
-                // this.imageUrl = URL.createObjectURL(file);
                 this.preview = window.URL.createObjectURL(e);
+                this.member.img = e;
             }
         },
     };
