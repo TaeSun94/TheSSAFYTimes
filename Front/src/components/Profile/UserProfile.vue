@@ -1,5 +1,6 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
+    <v-btn @click="getIp">아이피가져오기</v-btn>
     <div class="row">
         <div class="col-lg-11" v-if="profile.memberIntro !== null && profile.memberDesc !==null">
         <v-container id="intro">
@@ -211,6 +212,7 @@
     import ProfileCard from "@/components/Profile/ProfileCard"
     import {mapState, mapGetters, mapActions} from 'vuex';
     import http from "@/http-common.js";
+    import axios from "axios";
     export default {
         name: 'UserProfile',
         components:{
@@ -297,6 +299,11 @@
                     },1000)
                 });
             },
+            getIp(){
+                axios.get('https://www.cloudflare.com/cdn-cgi/trace').then(({data})=>{
+                    console.log(data);
+                })
+            }
         }
     };
 </script>

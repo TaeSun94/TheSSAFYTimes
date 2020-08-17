@@ -9,42 +9,42 @@
             <v-container class="elevation-5 col-lg-7">
                 <div id="app">
                     <div class="textfield">
-                        <div v-html="this.free.data.freeBoardTitle" class="ml-4 textfield-input"></div>
+                        <div v-html="freeBoardTitle" class="ml-4 textfield-input"></div>
                         <hr>
-                        
+                    
                     </div>
                                     
                     <div class="text-right mr-5">
                         
-                        <small class="description">👀 조회수 {{ this.free.data.freeBoardHit }} /</small>
+                        <small class="description">👀 조회수 {{ freeBoardHit }} /</small>
                         <small class="description"> SSAFY 3기 / </small>
-                        <small class="description"> {{$moment(this.free.data.freeBoardDatetime).format('YYYY-MM-DD hh:mm:ss a')}} </small>
+                        <small class="description"> {{$moment(freeBoardDatetime).format('YYYY-MM-DD hh:mm:ss a')}} </small>
 
                     </div>
-                    <div v-html="this.free.data.freeBoardContent" class="inner">
+                   
+                    <div v-html="freeBoardContent" class="inner">
                     </div>
-                    <div class="delete text-right mr-5">
-                        <v-btn rounded @click="deleteHandler" v-if="check"> 삭제 </v-btn>     
-                    </div>
+                    <v-btn depressed dark v-show="canEdit === true" @click="deleteHandler" class="mr-5" style="float: right;">삭제하기!</v-btn>
+                    <v-btn depressed dark v-show="canEdit === true" @click="toUpdate()" class="mr-1" style="float: right;">수정하기!</v-btn>
+                
                     <div class="u_likeit">
                         <ul class="u_likeit_layer _faceLayer" role="menu">
                             <li class="u_likeit_list good" role="menuitem">
                                 <a class="u_likeit_list_button _button nclicks(abt_presslink) off" data-type="like" data-log="RTC.like|RTC.unlike" href="#" role="button" aria-selected="false" aria-pressed="false">
                                     <span class="u_likeit_list_name _label" @click="upButton"> Up 👍</span>
-                                    <span class="u_likeit_list_count _count">{{  this.free.data.freeBoardLike }}</span>
+                                    <span class="u_likeit_list_count _count">{{  freeBoardLike }}</span>
                                 </a>
                             </li>
                             <li class="u_likeit_list warm" role="menuitem">
                                 <a class="u_likeit_list_button _button off" data-type="warm" data-log="RTC.warm|RTC.unwarm" href="#" role="button" aria-selected="false" aria-pressed="false">
                                     <span class="u_likeit_list_name _label" @click="downButton">Down 👎</span>
-                                    <span class="u_likeit_list_count _count">{{  this.free.data.freeBoardDislike }}</span>
+                                    <span class="u_likeit_list_count _count">{{  freeBoardDislike }}</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
-                    <v-btn depressed dark @click="deleteHandler" v-show="canEdit === true" class="mr-5" style="float: right;">삭제하기!</v-btn>
-                    <v-btn depressed dark @click="toUpdate()" v-show="canEdit === true" class="mr-1" style="float: right;">수정하기!</v-btn>
-                    <!--댓글 쓰기 폼-->
+                    
+                  <!--댓글 쓰기 폼-->
                     <div>
                         <div class="text-right comment" @click="commentShow">
                             댓글 달기
@@ -101,7 +101,6 @@ export default {
     name: 'FreeDetail',
     data() {
         return {
-
             content: false,
             commentContent: true,
             likeControll: true,
@@ -110,14 +109,17 @@ export default {
             commentInput: '',
             upCount: '',
             freeBoardNo: 0,
+            freeBoardWriter: '',
             freeBoardTitle: '',
-            freeBoardLikeCount: '',
+            freeBoardLike: '',
             freeBoardDatetime: '',
             freeBoardContent: '',
             freeBoardHit: 0,
+            freeBoardDislike : '',
+
             //edit, delete관련
             canEdit: false,
-            xx: '',
+            member: {},
         }
     },
     computed: {
@@ -126,12 +128,24 @@ export default {
 
     },
     created() {
-        var id = this.$cookies.get("memberId")
-        this.memberId = id
+        
         this.count = this.free.data.freeBoardLikeCount 
-        this.$store.dispatch("getFree", `/free/board/${this.$route.params.no}`)
         this.$store.dispatch("getFreeComments", `/free/${this.$route.params.no}/comment`)
-
+        http.get(`/free/board/${this.$route.params.no}`).then(({data})=> {
+            var board = data.data;
+            this.freeBoardNo = board.freeBoardNo;
+            this.freeBoardTitle = board.freeBoardTitle;
+            this.freeBoardLike = board.freeBoardLike;
+            this.freeBoardHit = board.freeBoardHit;
+            this.freeBoardDislike = board.freeBoardDislike;
+            this.freeBoardDatetime = board.freeBoardDatetime;
+            this.freeBoardContent = board.freeBoardContent;
+            this.freeBoardWriter = board.memberId;
+        }).then(()=> {
+                http.get("/member/"+this.freeBoardWriter).then(({data})=> {
+                this.member = data.data;
+            })
+        });
     },
     methods: {
         commentShow() {
@@ -144,7 +158,6 @@ export default {
                 boardNo :  parseInt(`${this.$route.params.no}`)
             }).
             then(({data}) =>{
-                console.log(data)
                 if(data.result == "success") {
                     alert(data.message);
                     location.reload();
@@ -163,55 +176,70 @@ export default {
             }
         },
         deleteHandler() {
-            console.log('삭제')
-            this.$store.dispatch("deleteFree", this.$route.params.no)
+            http.delete(`/free/board/${this.$route.params.no}`).then(({data}) => {
+                if(data.result == "success"){
+                    alert(data.message);
+                    this.$router.push("/community/freelist");
+                } else {
+                    alert(data.message);
+                    return;
+                }
+            });
         },
         upButton() {
-            var boardLikeCheck = 1
-            var boardNo = this.$route.params.no
+            if(this.$cookies.get('memberId') == null) {
+                alert("로그인이 필요합니다.")
+                return;
+            }
+            var boardLikeCheck = 1;
+            var boardNo = this.$route.params.no;
             var memberId = this.$cookies.get("memberId");
-            
-            http.post('/free/like',{
+
+            http.post('/free/like', {
                 boardLikeCheck,
                 boardNo,
-                memberId,
+                memberId
             })
             .then(({data})=> {
-                if(data.result != "success") {
-                    console.log(data.message)
+                if(data.result != "success"){
                     alert(data.message)
-                }else{
-                    this.$store.commit("setFreeLike", data);
+                } else {
+                    alert(data.message);
+                    location.reload();
                 }
             })
         },
         downButton() {
-            var boardLikeCheck = 1
-            var boardNo = this.$route.params.no
+            if(this.$cookies.get('memberId') == null) {
+                alert("로그인이 필요합니다.")
+                return;
+            }
+            var boardLikeCheck = 0;
+            var boardNo = this.$route.params.no;
             var memberId = this.$cookies.get('memberId');
-            
-            http.post('/free/like',{
+
+            http.post('/free/like', {
                 boardLikeCheck,
                 boardNo,
                 memberId,
             })
             .then(({data})=> {
                 if(data.result != "success") {
-                    console.log(data.message)
-                    alert(data.message)
-                }else{
-                    this.$store.commit("setFreeLikeDown", data);
+                    alert(data.message);
+                } else {
+                    location.reload();
                 }
             })
         },
-        updated() {
-            var id = this.$cookies.get('memberId');
-            var author = this.programWriter;
-            if(id != author) { this.canEdit = false }
-            else {this.canEdit = true }
-    }
-
-
+        toUpdate() {
+            this.$router.push(`/community/freeupdate/${this.$route.params.no}`);
+        },
+    },
+    updated() {
+        var id = this.$cookies.get('memberId');
+        var author = this.freeBoardWriter;
+        if(id != author) { this.canEdit = false }
+        else {this.canEdit = true }
     }
 
 }
