@@ -200,3 +200,20 @@ DELIMITER ;
 
 
 /*============================================================================*/
+
+/*
+제작일: 2020.08.11
+유형: Table
+설명: 인증 관련 테이블(임시)
+ */
+CREATE OR REPLACE TABLE auth (
+    id VARCHAR(20),
+    password VARCHAR(20),
+    authority VARCHAR(100),
+    enabled BOOL,
+    name VARCHAR(50)
+);
+
+show tables;
+
+SELECT * FROM auth;
