@@ -42,6 +42,7 @@
                     <v-select class="col-lg-2"
                         v-model="member.memberRegion"
                         :items="regions"
+                        :rules="region_rules"
                         label="지역"
                         chips
                         persistent-hint
@@ -50,6 +51,7 @@
                     <v-select class="col-lg-2"
                         v-model="member.memberUnit"
                         :items="units"
+                        :rules="unit_rules"
                         label="기수"
                         chips
                         persistent-hint
@@ -58,6 +60,7 @@
                     <v-select class="col-lg-2"
                         v-model="member.memberTrack"
                         :items="tracks"
+                        :rules="track_rules"
                         label="트랙"
                         chips
                         persistent-hint
@@ -101,6 +104,15 @@
                 memberId:'',
                 preview: '',
                 imageUrl: null,
+                region_rules:[
+                    value => !!value || '지역을 선택해 주세요.'
+                ],
+                unit_rules:[
+                    value => !!value || '기수를 선택해 주세요.'
+                ],
+                track_rules:[
+                    value => !!value || '트랙을 선택해 주세요.'
+                ],
             }
         },
         created(){
