@@ -45,6 +45,7 @@ public class FreeLikeController {
 	@ApiOperation(value = "좋아요(1) / 싫어요(0)")
 	@PostMapping("/like")
 	public ResponseEntity<BasicResponse> likeFreeBoard(@RequestBody LikeRequest request){
+		logger.debug("likeFreeBoard 호출");
 		final BasicResponse result = new BasicResponse();
 		
 		try {
