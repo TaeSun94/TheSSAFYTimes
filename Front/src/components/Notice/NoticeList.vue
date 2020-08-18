@@ -1,21 +1,8 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="col-lg-7  elevation-5"> <!-- 기본틀 푸터까지 -->
+        <v-container class="col-lg-7  elevation-5">
             <vue-scroll-progress-bar height="0.3rem" backgroundColor="orange"/>
-            <!-- <v-data-table
-              :headers="headers"
-              :items="desserts"
-              :page.sync="page"
-              :items-per-page="perPage"
-              hide-default-footer
-              align="center"
-              justify="center"
-              :per-page="5"
-              @click:row="rowClicked"
-              popout
-            >
-            </v-data-table> -->
             <v-card>
               <v-card-title>
                   <div class="textfield">
@@ -99,8 +86,6 @@ export default {
     },
     data () {
       return {
-        // page:1,
-        // perPage:1,
         isAdmin : false,
         dialog: false,
         title: '',
@@ -109,17 +94,8 @@ export default {
     },
     computed: {
       ...mapGetters(["notices"]),
-      // pageLength() {
-      //   return this.notices.length;
-      // },
-      // pageCount() {
-      //   return Math.ceil(this.pageLength / 1);
-      // }
     },
     methods: {
-      // rowClicked(row) {
-      //   this.$router.push({path: `/notice/detail/${row.no}`});
-      // }
       deleteHandler(no) {
         http.delete(`/notice/${no}`, {
           headers: {
@@ -137,7 +113,6 @@ export default {
       },
       createHandler() {
         http.post("/notice", {
-          // member_id: this.$cookies.get("memberId"),
           memberId: "",
           noticeContent: this.content,
           noticeTitle: this.title

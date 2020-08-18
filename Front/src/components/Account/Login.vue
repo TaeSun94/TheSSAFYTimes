@@ -34,7 +34,6 @@
         </div>
         </v-container>
     </div>
-    <footer-bar></footer-bar>
 </div>
 </template>
 
