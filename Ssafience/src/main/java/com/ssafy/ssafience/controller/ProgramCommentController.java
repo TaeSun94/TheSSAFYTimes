@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.ssafience.model.BasicResponse;
 import com.ssafy.ssafience.model.ListResponse;
 import com.ssafy.ssafience.model.SingleResponse;
-import com.ssafy.ssafience.model.board.ProgramModifyRequest;
 import com.ssafy.ssafience.model.comment.CommentModifyRequest;
 import com.ssafy.ssafience.model.comment.CommentResult;
 import com.ssafy.ssafience.model.comment.CommentWriteRequest;
@@ -54,6 +53,7 @@ public class ProgramCommentController {
 	@ApiOperation(value = "특정 프로그래밍 게시판 댓글 목록 반환")
 	@GetMapping("/{boardNo}/comment")
 	public ResponseEntity<ListResponse<ProgramComment>> getBoardList(@PathVariable int boardNo){
+		logger.debug("getBoardList 호출");
 		final ListResponse<ProgramComment> result = new ListResponse<>();
 		try {
 			CommentResult<ProgramComment> myCommentResult = cService.selectBoardCommentList(boardNo);
@@ -80,6 +80,7 @@ public class ProgramCommentController {
 	@GetMapping({ "/{boardNo}/comment/{commentNo}" })
 	public ResponseEntity<SingleResponse<ProgramComment>> getMemberBoardList(
 			@PathVariable int boardNo, @PathVariable int commentNo){
+		logger.debug("getMemberBoardList 호출");
 		final SingleResponse<ProgramComment> result = new SingleResponse<>();
 		try {
 			CommentResult<ProgramComment> myCommentResult = cService.selectCommentOne(boardNo, commentNo);
@@ -112,6 +113,7 @@ public class ProgramCommentController {
 	@ApiOperation(value = "새로운 프로그래밍 게시판 댓글 등록")
 	@PostMapping("/comment")
 	public ResponseEntity<BasicResponse> insertBoard(@RequestBody CommentWriteRequest request){
+		logger.debug("insertBoard 호출");
 		final BasicResponse result = new BasicResponse();
 		
 		try {
@@ -142,6 +144,7 @@ public class ProgramCommentController {
 	@ApiOperation(value = "특정 프로그래밍 게시판 게시글 댓글 수정")
 	@PutMapping("/comment")
 	public ResponseEntity<BasicResponse> updateBoard(@RequestBody CommentModifyRequest request){
+		logger.debug("updateBoard 호출");
 		final BasicResponse result = new BasicResponse();
 		
 		try {
@@ -172,6 +175,7 @@ public class ProgramCommentController {
 	@ApiOperation(value = "프로그래밍 게시판 게시글 삭제")
 	@DeleteMapping({ "/comment/{commentNo}" })
 	public ResponseEntity<BasicResponse> deleteBoard(@PathVariable int commentNo){
+		logger.debug("deleteBoard 호출");
 		final BasicResponse result = new BasicResponse();
 		
 		try {
@@ -201,19 +205,3 @@ public class ProgramCommentController {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
