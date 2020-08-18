@@ -32,18 +32,22 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public int update(NoticeModifyRequest request) throws Exception {
+	public int update(NoticeModifyRequest request, String writer) throws Exception {
 		Notice notice = repo.getNoticeOne(request.getNoticeNo());
 		if (notice != null) {
-			return repo.update(request);
+			if (notice.getMemberId().equals(writer)) {
+				return repo.update(request);							
+			} else return -2;
 		} else return -1;
 	}
 
 	@Override
-	public int delete(int noticeNo) throws Exception {
+	public int delete(int noticeNo, String writer) throws Exception {
 		Notice notice = repo.getNoticeOne(noticeNo);
 		if (notice != null) {
-			return repo.delete(noticeNo);
+			if (notice.getMemberId().equals(writer)) {
+				return repo.delete(noticeNo);				
+			} else return -2;
 		} else return -1;
 	}
 
