@@ -74,13 +74,14 @@ export default {
             } else if(data.result == 'notvalid') {
               alert(data.message);
               this.$cookies.remove("memberEmail");
-              this.$cookies.set("memberEmail", memberEmail, "1D");
+              this.$cookies.set("memberEmail", memberEmail, "30MIN");
               this.$router.push("/EmailCheck");
               location.reload();
             } else if(data.result == 'success') {
               alert(data.message);
-              this.$cookies.set("memberId", data.data.memberId, "1D");
-              this.$cookies.set("memberEmail", memberEmail, "1D");
+              this.$cookies.set("memberId", data.data.memberId, "30MIN");
+              this.$cookies.set("memberEmail", memberEmail, "30MIN");
+              this.$cookies.set("token", data.authorization, "30MIN");
               this.$router.push("/");
               location.reload();
             }

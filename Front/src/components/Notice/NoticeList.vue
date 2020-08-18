@@ -121,7 +121,11 @@ export default {
       //   this.$router.push({path: `/notice/detail/${row.no}`});
       // }
       deleteHandler(no) {
-        http.delete(`/notice/${no}`).then(({data})=> {
+        http.delete(`/notice/${no}`, {
+          headers: {
+            "Authorization" : this.$cookies.get("token")
+          }
+        }).then(({data})=> {
           if(data.result=="success") {
             alert(data.message);
             location.reload();
@@ -133,9 +137,15 @@ export default {
       },
       createHandler() {
         http.post("/notice", {
-          member_id: this.$cookies.get("memberId"),
+          // member_id: this.$cookies.get("memberId"),
+          memberId: "",
           noticeContent: this.content,
           noticeTitle: this.title
+        },
+        {
+          headers: {
+            "Authorization" : this.$cookies.get("token")
+          }
         }).then(({data})=> {
           if(data.result == "success") {
             location.reload();
