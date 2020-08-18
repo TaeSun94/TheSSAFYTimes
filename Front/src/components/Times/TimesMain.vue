@@ -5,38 +5,49 @@
             <input type="checkbox" id="c1">
             <input type="checkbox" id="c2">
             <input type="checkbox" id="c3">
+            <input type="checkbox" id="c4">
             <div id="cover">
-                <img src="@/assets/잡지1.jpg">
+                <img src="@/assets/slide1.jpg">
             </div>
             <div class="page-container" >
                 <div class="page" id="p1">
                     <div class="back">
-                        <img src="@/assets/잡지3.jpg">
+                        <img src="@/assets/slide3.jpg">
                         <label class="back-btn" for="c1">Back</label>
                     </div>
                     <div class="front">
-                        <img src="@/assets/잡지2.jpg">
+                        <img src="@/assets/slide2.jpg">
                         <label class="next-btn" for="c1">Next</label>
                     </div>
                 </div>
                 <div class="page" id="p2">
                     <div class="back">
-                        <img src="@/assets/잡지4.jpg">
+                        <img src="@/assets/slide5.jpg">
                         <label class="back-btn" for="c2">Back</label>
                     </div>
                     <div class="front">
-                        <img src="@/assets/잡지1.jpg">
+                        <img src="@/assets/slide4.jpg">
                         <label class="next-btn" for="c2">Next</label>
                     </div>
                 </div>
                 <div class="page" id="p3">
                     <div class="back">
-                        <img src="@/assets/잡지1.jpg">
+                        <img src="@/assets/slide7.jpg">
                         <label class="back-btn" for="c3">Back</label>
                     </div>
                     <div class="front">
-                        <img src="@/assets/잡지2.jpg">
+                        <img src="@/assets/slide6.jpg">
                         <label class="next-btn" for="c3">Next</label>
+                    </div>
+                </div>
+                <div class="page" id="p4">
+                    <div class="back">
+                        <img src="@/assets/slide9.jpg">
+                        <label class="back-btn" for="c4">Back</label>
+                    </div>
+                    <div class="front">
+                        <img src="@/assets/slide8.jpg">
+                        <label class="next-btn" for="c4">Next</label>
                     </div>
                 </div>
             </div>
@@ -79,7 +90,7 @@ img {
 
 #cover {
     width: 600px;
-    height: 848.4px;
+    height: 848.2px;
 }
 
 .page-container {
@@ -137,20 +148,25 @@ img {
 }
 
 #p1 {
-    z-index: 3;
+    z-index: 4;
     background-color: white;
 }
 
 #p2 {
-    z-index: 2;
+    z-index: 3;
     background-color: white;
 }
 
 #p3 {
+    z-index: 2;
+    background-color: white;
+}
+
+#p4 {
     z-index: 1;
     background-color: white;
-
 }
+
 #c1:checked ~ .page-container #p1 {
     transform: rotateY(-180deg);
     z-index: 1;
@@ -163,6 +179,8 @@ img {
     transform: rotateY(-180deg);
     z-index: 3;
 }
-#p3 {
+#c4:checked ~ .page-container #p4 {
+    transform: rotateY(-180deg);
+    z-index: 4;
 }
 </style>

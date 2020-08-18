@@ -32,16 +32,10 @@ export default {
 body {
   font-family: 'Noto Sans KR', sans-serif;
 }
-/* .v-main__wrap{
-  margin-top: 20px;
-} */
 h2 {
     font-weight: 800;
     font-size: 2.7em;
     border-bottom: 2px solid;
     display: inline;
-    
 }
-
-
 </style>
