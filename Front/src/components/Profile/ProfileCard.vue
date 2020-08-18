@@ -208,9 +208,10 @@
                 this.$store.dispatch('delFollowing',id);
             },
             getImg(id){
+                var pathUrl = "/home/ubuntu/ssafytimes/s03p13c208/Ssafience/src/main/resources/static/images/";
                 //"@/assets/마스크.jpg"
                 console.log(id);
-                return require(`@/assets/${id}.jpg`);
+                return require(pathUrl+id+".jpg");
                 // return require("@/assets/"+id+".jpg");
             }
         }
