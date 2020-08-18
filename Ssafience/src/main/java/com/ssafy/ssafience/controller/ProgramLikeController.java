@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.ssafience.model.BasicResponse;
 import com.ssafy.ssafience.model.like.LikeRequest;
 import com.ssafy.ssafience.model.like.LikeResult;
-import com.ssafy.ssafience.service.like.FreeLikeService;
 import com.ssafy.ssafience.service.like.ProgramLikeService;
 
 import io.swagger.annotations.Api;
@@ -46,6 +45,7 @@ public class ProgramLikeController {
 	@ApiOperation(value = "좋아요(1) / 싫어요(0)")
 	@PostMapping("/like")
 	public ResponseEntity<BasicResponse> likeFreeBoard(@RequestBody LikeRequest request){
+		logger.debug("likeFreeBoard 호출");
 		final BasicResponse result = new BasicResponse();
 		
 		try {

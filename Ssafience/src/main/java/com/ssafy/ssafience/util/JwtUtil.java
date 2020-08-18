@@ -1,6 +1,5 @@
 package com.ssafy.ssafience.util;
 
-import java.util.Base64.Encoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,18 +15,14 @@ import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 
 public class JwtUtil {
-//	Encoder encoder = Base64.getEncoder();
-//	private Key key;
 	private SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-	private String base64Key ;
+	private String base64Key;
 	
 	public JwtUtil(String secret) {
-//		this.key = Keys.hmacShaKeyFor(secret.getBytes());
 		this.base64Key  = Encoders.BASE64.encode(key.getEncoded())	;
 	}
 	
 	public String createToken(String memberId) {
-		System.out.println(memberId);
 		Map<String, Object> headers = new HashMap<String, Object>();
 		headers.put("typ", "JWT");
 		headers.put("alg", "HS256");
@@ -42,15 +37,12 @@ public class JwtUtil {
 				.setHeader(headers)
 				.setClaims(payloads)
 				.signWith(key)
-//				.signWith(SignatureAlgorithm.HS256 ,base64Key)
 				.compact();
 		
-		System.out.println(token);
 		return token;
 	}
 	
 	public boolean isValidToken(String token) throws Exception{
-		System.out.println("TOKEN");
 		try {
 			Claims claim = getClaims(token);
 			return true;
@@ -72,10 +64,8 @@ public class JwtUtil {
 				.parseClaimsJws(jwtTokenString)
 				.getBody();
 		Date expiration = claims.get("exp", Date.class);
-		System.out.println(expiration);
 		
 		String data = claims.get("data", String.class);
-		System.out.println(data);
 	}
 	
 	public Claims getClaims(String token) throws Exception{

@@ -12,7 +12,6 @@ import com.ssafy.ssafience.model.dto.Member;
 import com.ssafy.ssafience.model.dto.ProgramBoard;
 import com.ssafy.ssafience.model.dto.ProgramBoardResultDTO;
 import com.ssafy.ssafience.model.hit.HitRequest;
-import com.ssafy.ssafience.repo.FreeRepo;
 import com.ssafy.ssafience.repo.MemberRepo;
 import com.ssafy.ssafience.repo.ProgramRepo;
 

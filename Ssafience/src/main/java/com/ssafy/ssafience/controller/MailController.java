@@ -12,12 +12,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ssafy.ssafience.model.BasicResponse;
-import com.ssafy.ssafience.model.SingleResponse;
-import com.ssafy.ssafience.model.dto.Member;
 import com.ssafy.ssafience.model.mail.AuthResult;
 import com.ssafy.ssafience.model.mail.SendMailRequest;
 import com.ssafy.ssafience.model.mail.SendMailResult;
@@ -51,7 +48,8 @@ public class MailController {
 	@ApiOperation(value = "이메일 인증을 위한 메일 전송")
 	@RequestMapping(value = "/validEmail", method = RequestMethod.POST)
 	public ResponseEntity<BasicResponse> sendEmail(@RequestBody SendMailRequest request) {
-		BasicResponse result = new BasicResponse();
+		logger.debug("sendEmail 호출");
+		final BasicResponse result = new BasicResponse();
 		try {
 			SendMailResult myMailResult = mService.sendValidKey(request);
 			if (!myMailResult.isMember()) {
@@ -82,6 +80,7 @@ public class MailController {
 	@ApiOperation(value = "이메일 인증 확인")
 	@RequestMapping(value = "/emailKeyValid", method = RequestMethod.GET)
 	public ModelAndView verifyEmailKey(HttpServletRequest request) {
+		logger.debug("verifyEmailKey 호출");
 		ModelAndView mv = new ModelAndView();
 		String memberEmail = (String)request.getParameter("memberEmail");
 		String memberAuth = (String)request.getParameter("memberAuth");
@@ -99,7 +98,6 @@ public class MailController {
 		} catch (Exception e) {
 			message = "이메일 인증 진행 중 문제가 발생했습니다. \n 잠시후 다시 시도해주세요.";
 		}
-		System.out.println(message);
 		mv.addObject("message", message);
 		mv.setViewName("mailResult");
 		return mv;

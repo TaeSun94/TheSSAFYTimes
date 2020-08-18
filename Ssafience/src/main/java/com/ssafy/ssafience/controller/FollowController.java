@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,6 +51,7 @@ public class FollowController {
 	@GetMapping("/follow/{memberid}/er")
 	@ApiOperation(value = "memberId를 팔로워하는 사람들 목록(아이디, 이메일) 가져오기")
 	public ResponseEntity<ListResponse<FollowMember>> getFollowerList(@PathVariable String memberid){
+		logger.debug("getFollowerList 호출");
 		final ListResponse<FollowMember> result = new ListResponse<>();
 		try {
 			List<FollowMember> followList = fService.getFollowerList(memberid);
@@ -72,6 +72,7 @@ public class FollowController {
 	@GetMapping("/follow/{memberid}/ing")
 	@ApiOperation(value = "memberId가 팔로잉하는 사람들 목록(아이디, 이메일) 가져오기")
 	public ResponseEntity<ListResponse<FollowMember>> getFollowingList(@PathVariable String memberid){
+		logger.debug("getFollowingList 호출");
 		final ListResponse<FollowMember> result = new ListResponse<>();
 		try {
 			List<FollowMember> followList = fService.getFollowingList(memberid);
@@ -92,6 +93,7 @@ public class FollowController {
 	@ApiOperation(value = "From이 To를 팔로우 한다.")
 	@PostMapping("/follow")
 	public ResponseEntity<BasicResponse> follow(@RequestBody FollowWriteRequest request){
+		logger.debug("follow 호출");
 		final BasicResponse result = new BasicResponse();
 		try {
 			int followCheck = fService.follow(request);
@@ -122,6 +124,7 @@ public class FollowController {
 	@ApiOperation(value = "From이 To를 언팔로우 한다.")
 	@PostMapping("/unfollow")
 	public ResponseEntity<BasicResponse> unfollow(@RequestBody UnFollowWriteRequest request){
+		logger.debug("unfollow 호출");
 		final BasicResponse result = new BasicResponse();
 		try {
 			System.out.println("Controller :"+request);

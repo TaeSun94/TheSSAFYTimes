@@ -18,14 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.ssafience.model.BasicResponse;
 import com.ssafy.ssafience.model.ListResponse;
 import com.ssafy.ssafience.model.SingleResponse;
-import com.ssafy.ssafience.model.board.ProgramModifyRequest;
 import com.ssafy.ssafience.model.comment.CommentModifyRequest;
 import com.ssafy.ssafience.model.comment.CommentResult;
 import com.ssafy.ssafience.model.comment.CommentWriteRequest;
 import com.ssafy.ssafience.model.dto.FreeComment;
-import com.ssafy.ssafience.model.dto.ProgramComment;
 import com.ssafy.ssafience.service.comment.FreeCommentService;
-import com.ssafy.ssafience.service.comment.ProgramCommentService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -56,6 +53,7 @@ public class FreeCommentController {
 	@ApiOperation(value = "특정 자유 게시판 댓글 목록 반환")
 	@GetMapping("/{boardno}/comment")
 	public ResponseEntity<ListResponse<FreeComment>> getBoardList(@PathVariable int boardno){
+		logger.debug("getBoardList 호출");
 		final ListResponse<FreeComment> result = new ListResponse<>();
 		try {
 			CommentResult<FreeComment> myCommentResult = cService.selectBoardCommentList(boardno);
@@ -82,6 +80,7 @@ public class FreeCommentController {
 	@GetMapping({ "/{boardno}/comment/{commentno}" })
 	public ResponseEntity<SingleResponse<FreeComment>> getMemberBoardList(
 			@PathVariable int boardno, @PathVariable int commentno){
+		logger.debug("getMemberBoardList 호출");
 		final SingleResponse<FreeComment> result = new SingleResponse<>();
 		try {
 			CommentResult<FreeComment> myCommentResult = cService.selectCommentOne(boardno, commentno);
@@ -114,6 +113,7 @@ public class FreeCommentController {
 	@ApiOperation(value = "새로운 자유 게시판 댓글 등록")
 	@PostMapping("/comment")
 	public ResponseEntity<BasicResponse> insertBoard(@RequestBody CommentWriteRequest request){
+		logger.debug("insertBoard 호출");
 		final BasicResponse result = new BasicResponse();
 		
 		try {
@@ -144,6 +144,7 @@ public class FreeCommentController {
 	@ApiOperation(value = "특정 자유 게시판 게시글 댓글 수정")
 	@PutMapping("/comment")
 	public ResponseEntity<BasicResponse> updateBoard(@RequestBody CommentModifyRequest request){
+		logger.debug("updateBoard 호출");
 		final BasicResponse result = new BasicResponse();
 		
 		try {
@@ -174,6 +175,7 @@ public class FreeCommentController {
 	@ApiOperation(value = "자유 게시판 게시글 삭제")
 	@DeleteMapping({ "/comment/{commentno}" })
 	public ResponseEntity<BasicResponse> deleteBoard(@PathVariable int commentno){
+		logger.debug("deleteBoard 호출");
 		final BasicResponse result = new BasicResponse();
 		
 		try {

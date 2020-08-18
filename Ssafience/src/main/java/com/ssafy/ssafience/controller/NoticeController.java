@@ -21,15 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.ssafience.model.BasicResponse;
 import com.ssafy.ssafience.model.ListResponse;
 import com.ssafy.ssafience.model.SingleResponse;
-import com.ssafy.ssafience.model.article.ArticleModifyRequest;
-import com.ssafy.ssafience.model.article.ArticleResult;
-import com.ssafy.ssafience.model.article.WriteRequest;
-import com.ssafy.ssafience.model.dto.Article;
-import com.ssafy.ssafience.model.dto.Member;
 import com.ssafy.ssafience.model.dto.Notice;
 import com.ssafy.ssafience.model.notice.NoticeModifyRequest;
 import com.ssafy.ssafience.model.notice.NoticeWriteRequest;
-import com.ssafy.ssafience.service.article.ArticleService;
 import com.ssafy.ssafience.service.notice.NoticeService;
 
 import io.jsonwebtoken.Claims;
@@ -62,6 +56,7 @@ public class NoticeController {
 	@ApiOperation(value = "모든 공지사항 목록 반환")
 	@GetMapping
 	public ResponseEntity<ListResponse<Notice>> getArticleList() {
+		logger.debug("getArticleList 호출");
 		final ListResponse<Notice> result = new ListResponse<>();
 		try {
 			List<Notice> list = nService.getNoticeList();
@@ -81,6 +76,7 @@ public class NoticeController {
 	@ApiOperation(value = "특정 공지사항 반환")
 	@GetMapping("/{noticeNo}")
 	public ResponseEntity<SingleResponse<Notice>> getMemberArticleList(@PathVariable int noticeNo) {
+		logger.debug("getMemberArticleList 호출");
 		final SingleResponse<Notice> result = new SingleResponse<>();
 
 		try {
@@ -108,6 +104,7 @@ public class NoticeController {
 	@ApiOperation(value = "새로운 공지사항 등록")
 	@PostMapping
 	public ResponseEntity<BasicResponse> signup(Authentication auth, @RequestBody NoticeWriteRequest request) {
+		logger.debug("signup 호출");
 		final BasicResponse result = new BasicResponse();
 
 		try {
@@ -135,7 +132,6 @@ public class NoticeController {
 			result.result = FAIL;
 			result.message = "인증되지 않은 사용자 입니다. ";
 			result.status = HttpStatus.UNAUTHORIZED;
-//			e.printStackTrace();
 		}
 
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
@@ -144,6 +140,7 @@ public class NoticeController {
 	@ApiOperation(value = "공지사항 수정")
 	@PutMapping
 	public ResponseEntity<BasicResponse> updateMember(Authentication auth, @RequestBody NoticeModifyRequest request) {
+		logger.debug("updateMember");
 		final BasicResponse result = new BasicResponse();
 		try {
 			Claims claim = (Claims) auth.getPrincipal();
@@ -178,7 +175,6 @@ public class NoticeController {
 			result.result = FAIL;
 			result.message = "인증되지 않은 사용자 입니다. ";
 			result.status = HttpStatus.UNAUTHORIZED;
-//			e.printStackTrace();
 		}
 
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
@@ -187,6 +183,7 @@ public class NoticeController {
 	@ApiOperation(value = "공지사항 삭제")
 	@DeleteMapping("/{noticeNo}")
 	public ResponseEntity<BasicResponse> deleteMember(Authentication auth, @PathVariable int noticeNo) {
+		logger.debug("deleteMember");
 		final BasicResponse result = new BasicResponse();
 		try {
 			Claims claim = (Claims) auth.getPrincipal();
@@ -221,7 +218,6 @@ public class NoticeController {
 			result.result = FAIL;
 			result.message = "인증되지 않은 사용자 입니다. ";
 			result.status = HttpStatus.UNAUTHORIZED;
-//			e.printStackTrace();
 		}
 
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);

@@ -47,6 +47,7 @@ public class CategoryController {
 	@ApiOperation(value = "지역 카테고리 목록 조회")
 	@GetMapping("/region")
 	public ResponseEntity<ListResponse<CategoryResult>> getRegionList(){
+		logger.debug("getRegionList 호출");
 		final ListResponse<CategoryResult> result = new ListResponse<>();
 		
 		try {
@@ -68,6 +69,7 @@ public class CategoryController {
 	@ApiOperation(value = "지역별 기수 카테고리 목록 조회")
 	@GetMapping("/{categoryno}/unit")
 	public ResponseEntity<ListResponse<CategoryResult>> getUnitList(@PathVariable int categoryno){
+		logger.debug("getUnitList 호출");
 		final ListResponse<CategoryResult> result = new ListResponse<>();
 		
 		try {
@@ -90,6 +92,7 @@ public class CategoryController {
 	@ApiOperation(value = "지역별 기수별 트랙 카테고리 목록 조회")
 	@GetMapping("/{categoryno}/track")
 	public ResponseEntity<ListResponse<CategoryResult>> getTrackList(@PathVariable int categoryno){
+		logger.debug("getTrackList 호출");
 		final ListResponse<CategoryResult> result = new ListResponse<>();
 		
 		try {
@@ -111,6 +114,7 @@ public class CategoryController {
 	@ApiOperation(value = "프로그래밍 게시판 트랙 카테고리 목록 조회")
 	@GetMapping("/program-track")
 	public ResponseEntity<ListResponse<CategoryResult>> getBoardTrackList(){
+		logger.debug("getBoardTrackList 호출");
 		final ListResponse<CategoryResult> result = new ListResponse<>();
 		
 		try {
@@ -133,6 +137,7 @@ public class CategoryController {
 	@ApiOperation(value = "관심 기술 및 언어, 사용 기술 및 언어 카테고리 목록 조회")
 	@GetMapping("/skill-language")
 	public ResponseEntity<ListResponse<CategoryResult>> getSkillAndLanguageList(){
+		logger.debug("getSkillAndLanguageList 호출");
 		final ListResponse<CategoryResult> result = new ListResponse<>();
 		
 		try {
@@ -154,6 +159,7 @@ public class CategoryController {
 	@ApiOperation(value = "팀 매칭 관련 프로젝트 종류 카테고리 목록 조회")
 	@GetMapping("/team")
 	public ResponseEntity<ListResponse<CategoryResult>> getProjectList(){
+		logger.debug("getProjectList 호출");
 		final ListResponse<CategoryResult> result = new ListResponse<>();
 		
 		try {
@@ -175,6 +181,7 @@ public class CategoryController {
 	@ApiOperation(value = "기사 분류 카테고리 목록 조회")
 	@GetMapping("/article")
 	public ResponseEntity<ListResponse<CategoryResult>> getArticleList(){
+		logger.debug("getArticleList 호출");
 		final ListResponse<CategoryResult> result = new ListResponse<>();
 		
 		try {

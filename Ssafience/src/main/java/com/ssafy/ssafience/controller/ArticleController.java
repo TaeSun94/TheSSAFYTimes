@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,11 +22,9 @@ import com.ssafy.ssafience.model.ListResponse;
 import com.ssafy.ssafience.model.article.ArticleModifyRequest;
 import com.ssafy.ssafience.model.article.ArticleResult;
 import com.ssafy.ssafience.model.article.WriteRequest;
-import com.ssafy.ssafience.model.dto.Article;
 import com.ssafy.ssafience.model.dto.ArticleResultDTO;
 import com.ssafy.ssafience.service.article.ArticleService;
 
-import io.jsonwebtoken.Claims;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -76,40 +73,28 @@ public class ArticleController {
 
 	@ApiOperation(value = "특정 회원의 뉴스피드 목록 반환")
 	@GetMapping("/{memberid}/{pageno}")
-	public ResponseEntity<ListResponse<ArticleResultDTO>> getMemberArticleList(@PathVariable String memberid, @PathVariable int pageno) {
+	public ResponseEntity<ListResponse<ArticleResultDTO>> getMemberArticleList(@PathVariable String memberid,
+			@PathVariable int pageno) {
 		logger.debug("getMemberArticleList 호출");
 		final ListResponse<ArticleResultDTO> result = new ListResponse<>();
 
 		try {
-//			Claims claims = (Claims) authentication.getPrincipal();
-//			String id = claims.get("data", String.class);
-//			System.out.println("id : " + id);
-
-			try {
-				ArticleResult<ArticleResultDTO> myArticleResult = aService.selectMemberArticleList(memberid, pageno);
-				if (myArticleResult.isMember()) {
-					result.result = SUCCESS;
-					result.status = HttpStatus.OK;
-					result.setList(myArticleResult.getList());
-					result.message = "뉴스피드 목록 가져오는데 성공했습니다.";
-				} else {
-					result.result = NOTAVAILABLE;
-					result.status = HttpStatus.NO_CONTENT;
-					result.message = "목록 가져오는데 실패했습니다. 해당 뉴스피드의 작성자가 맞는지 확인하고 다시 시도해주세요";
-				}
-
-			} catch (Exception e) {
-				result.result = FAIL;
-				result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-				result.message = "뉴스피드 목록 가져오는 중 문제가 발생했습니다.";
+			ArticleResult<ArticleResultDTO> myArticleResult = aService.selectMemberArticleList(memberid, pageno);
+			if (myArticleResult.isMember()) {
+				result.result = SUCCESS;
+				result.status = HttpStatus.OK;
+				result.setList(myArticleResult.getList());
+				result.message = "뉴스피드 목록 가져오는데 성공했습니다.";
+			} else {
+				result.result = NOTAVAILABLE;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "목록 가져오는데 실패했습니다. 해당 뉴스피드의 작성자가 맞는지 확인하고 다시 시도해주세요";
 			}
 
 		} catch (Exception e) {
-			result.message = "인증되지 않은 사용자 입니다. ";
-			result.status = HttpStatus.NON_AUTHORITATIVE_INFORMATION;
 			result.result = FAIL;
-			System.out.println("EXCEPTION 발생!!!!!!!!!!");
-//			e.printStackTrace();
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message = "뉴스피드 목록 가져오는 중 문제가 발생했습니다.";
 		}
 
 		return new ResponseEntity<ListResponse<ArticleResultDTO>>(result, HttpStatus.OK);
