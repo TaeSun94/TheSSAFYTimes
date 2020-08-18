@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.crypto.SecretKey;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Encoders;
@@ -31,7 +33,7 @@ public class JwtUtil {
 		headers.put("alg", "HS256");
 		
 		Map<String, Object> payloads = new HashMap<String, Object>();
-		Long expiredTime = (long) (1000 * 601);
+		Long expiredTime = (long) (1000 * 60 * 30);
 		Date now = new Date();
 		now.setTime(now.getTime() + expiredTime);
 		payloads.put("exp", now);
@@ -45,6 +47,23 @@ public class JwtUtil {
 		
 		System.out.println(token);
 		return token;
+	}
+	
+	public boolean isValidToken(String token) throws Exception{
+		System.out.println("TOKEN");
+		try {
+			Claims claim = getClaims(token);
+			return true;
+		} catch (ExpiredJwtException e) {
+			e.printStackTrace();
+			return false;
+		} catch (JwtException e) {
+			e.printStackTrace();
+			return false;
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public void getTokenFromJwtString(String jwtTokenString) throws InterruptedException{
