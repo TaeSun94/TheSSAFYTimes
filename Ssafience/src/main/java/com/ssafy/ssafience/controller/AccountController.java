@@ -108,13 +108,9 @@ public class AccountController {
 				result.message = "입하지 않은 아이디이거나, 잘못된 비밀번호입니다. (비밀번호 틀림)";
 			} else {
 				Member member = validMember.getData();
-				////////////////////////////////////////////////////////
 				String accessToken = jwtUtil.createToken(member.getMemberId());
-				System.out.println(accessToken);
-				response.addHeader("Authorization", "Bearer "+accessToken);
-				System.out.println(accessToken);
+				result.setAuthorization("Bearer "+accessToken);
 				jwtUtil.getTokenFromJwtString(accessToken);
-				////////////////////////////////////////////////////////
 				
 				if (member.isMemberAuthStatus()) {
 					result.result = SUCCESS;

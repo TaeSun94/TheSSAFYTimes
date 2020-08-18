@@ -1,0 +1,626 @@
+[2m2020-08-13 15:08:23.919[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.e.DevToolsPropertyDefaultsPostProcessor[0;39m [2m:[0;39m Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2m2020-08-13 15:08:23.925[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.e.DevToolsPropertyDefaultsPostProcessor[0;39m [2m:[0;39m For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2m2020-08-13 15:08:26.247[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$26208869] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 15:08:26.318[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 15:08:26.929[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 15:08:27.083[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 3158 ms
+[2m2020-08-13 15:08:28.279[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 32fefa6e-498d-49f3-866d-04afcc481a7d
+
+[2m2020-08-13 15:08:28.404[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3e10a2b6, org.springframework.security.web.context.SecurityContextPersistenceFilter@1bd62ebe, org.springframework.security.web.header.HeaderWriterFilter@1cf96f3f, org.springframework.security.web.authentication.logout.LogoutFilter@31e794f9, com.ssafy.ssafience.security.JwtAuthenticationFilter@18d4c0b4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5ed0f896, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6febc257, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5b9afd9c, org.springframework.security.web.session.SessionManagementFilter@64761e, org.springframework.security.web.access.ExceptionTranslationFilter@17d2a311]
+[2m2020-08-13 15:08:28.548[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:08:28.605[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 15:08:29.005[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 15:08:56.662[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[nio-8888-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Initializing Servlet 'dispatcherServlet'
+[2m2020-08-13 15:08:56.677[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[nio-8888-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Completed initialization in 15 ms
+[2m2020-08-13 15:09:33.627[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[     Thread-193][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:09:35.039[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$26208869] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 15:09:35.042[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 15:09:35.256[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 15:09:35.324[0;39m [32m INFO[0;39m [35m22572[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.e.DevToolsPropertyDefaultsPostProcessor[0;39m [2m:[0;39m Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2m2020-08-13 15:09:35.328[0;39m [32m INFO[0;39m [35m22572[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.e.DevToolsPropertyDefaultsPostProcessor[0;39m [2m:[0;39m For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2m2020-08-13 15:09:35.329[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 1409 ms
+[2m2020-08-13 15:09:35.919[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 783b208d-c560-44ff-b282-8ee1c1cfb74e
+
+[2m2020-08-13 15:09:35.931[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6a246d23, org.springframework.security.web.context.SecurityContextPersistenceFilter@50649add, org.springframework.security.web.header.HeaderWriterFilter@21fc74b5, org.springframework.security.web.authentication.logout.LogoutFilter@1a46c95b, com.ssafy.ssafience.security.JwtAuthenticationFilter@4685294, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7e0d95, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@42e598f3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6a27c789, org.springframework.security.web.session.SessionManagementFilter@17a76dc6, org.springframework.security.web.access.ExceptionTranslationFilter@66b6df83]
+[2m2020-08-13 15:09:35.995[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:09:36.008[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 15:09:36.223[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 15:09:36.559[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 15:09:37.671[0;39m [32m INFO[0;39m [35m22572[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$d225d452] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 15:09:37.731[0;39m [32m INFO[0;39m [35m22572[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 15:09:38.189[0;39m [32m INFO[0;39m [35m22572[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 15:09:38.351[0;39m [32m INFO[0;39m [35m22572[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 3022 ms
+[2m2020-08-13 15:09:39.796[0;39m [32m INFO[0;39m [35m22572[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: c4db1b32-e7fc-4c61-ab92-2a715736ab91
+
+[2m2020-08-13 15:09:39.916[0;39m [32m INFO[0;39m [35m22572[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@724d29f4, org.springframework.security.web.context.SecurityContextPersistenceFilter@4bc82034, org.springframework.security.web.header.HeaderWriterFilter@d8beab4, org.springframework.security.web.authentication.logout.LogoutFilter@717858c2, com.ssafy.ssafience.security.JwtAuthenticationFilter@bb966ae, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@333d8c48, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1127323e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2ea811db, org.springframework.security.web.session.SessionManagementFilter@3ffd3a65, org.springframework.security.web.access.ExceptionTranslationFilter@de7c7ac]
+[2m2020-08-13 15:09:40.092[0;39m [32m INFO[0;39m [35m22572[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:09:40.152[0;39m [33m WARN[0;39m [35m22572[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m Unable to start LiveReload server
+[2m2020-08-13 15:09:40.522[0;39m [33m WARN[0;39m [35m22572[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mConfigServletWebServerApplicationContext[0;39m [2m:[0;39m Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8888 is already in use
+[2m2020-08-13 15:09:40.526[0;39m [32m INFO[0;39m [35m22572[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:09:40.550[0;39m [32m INFO[0;39m [35m22572[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mConditionEvaluationReportLoggingListener[0;39m [2m:[0;39m 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+[2m2020-08-13 15:09:40.561[0;39m [31mERROR[0;39m [35m22572[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.LoggingFailureAnalysisReporter  [0;39m [2m:[0;39m 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8888 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8888 or configure this application to listen on another port.
+
+[2m2020-08-13 15:09:45.588[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[on(2)-127.0.0.1][0;39m [36minMXBeanRegistrar$SpringApplicationAdmin[0;39m [2m:[0;39m Application shutdown requested.
+[2m2020-08-13 15:09:46.239[0;39m [32m INFO[0;39m [35m15212[0;39m [2m---[0;39m [2m[on(2)-127.0.0.1][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:09:51.771[0;39m [32m INFO[0;39m [35m7412[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.e.DevToolsPropertyDefaultsPostProcessor[0;39m [2m:[0;39m Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2m2020-08-13 15:09:51.774[0;39m [32m INFO[0;39m [35m7412[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.e.DevToolsPropertyDefaultsPostProcessor[0;39m [2m:[0;39m For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2m2020-08-13 15:09:53.434[0;39m [32m INFO[0;39m [35m7412[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$737d4404] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 15:09:53.470[0;39m [32m INFO[0;39m [35m7412[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 15:09:53.786[0;39m [32m INFO[0;39m [35m7412[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 15:09:53.907[0;39m [32m INFO[0;39m [35m7412[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 2133 ms
+[2m2020-08-13 15:09:54.986[0;39m [32m INFO[0;39m [35m7412[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 96195b23-1ee3-43f5-ac65-bed10d726912
+
+[2m2020-08-13 15:09:55.074[0;39m [32m INFO[0;39m [35m7412[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4ee2f99b, org.springframework.security.web.context.SecurityContextPersistenceFilter@da601be, org.springframework.security.web.header.HeaderWriterFilter@782911cb, org.springframework.security.web.authentication.logout.LogoutFilter@54f94ec7, com.ssafy.ssafience.security.JwtAuthenticationFilter@1d84f5a4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@27abec52, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@343dda60, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5f415d84, org.springframework.security.web.session.SessionManagementFilter@5a1bde, org.springframework.security.web.access.ExceptionTranslationFilter@5d26a8d0]
+[2m2020-08-13 15:09:55.201[0;39m [32m INFO[0;39m [35m7412[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:09:55.251[0;39m [32m INFO[0;39m [35m7412[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 15:09:55.587[0;39m [32m INFO[0;39m [35m7412[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 15:09:59.477[0;39m [32m INFO[0;39m [35m7412[0;39m [2m---[0;39m [2m[nio-8888-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Initializing Servlet 'dispatcherServlet'
+[2m2020-08-13 15:09:59.488[0;39m [32m INFO[0;39m [35m7412[0;39m [2m---[0;39m [2m[nio-8888-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Completed initialization in 10 ms
+[2m2020-08-13 15:14:06.127[0;39m [32m INFO[0;39m [35m7412[0;39m [2m---[0;39m [2m[on(2)-127.0.0.1][0;39m [36minMXBeanRegistrar$SpringApplicationAdmin[0;39m [2m:[0;39m Application shutdown requested.
+[2m2020-08-13 15:14:06.712[0;39m [32m INFO[0;39m [35m7412[0;39m [2m---[0;39m [2m[on(2)-127.0.0.1][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:52:58.453[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.e.DevToolsPropertyDefaultsPostProcessor[0;39m [2m:[0;39m Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2m2020-08-13 15:52:58.455[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.e.DevToolsPropertyDefaultsPostProcessor[0;39m [2m:[0;39m For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2m2020-08-13 15:52:59.659[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$81372313] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 15:52:59.686[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 15:52:59.923[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 15:53:00.014[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 1558 ms
+[2m2020-08-13 15:53:00.805[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: de95b1ef-928f-4395-91c1-b1758f28cd76
+
+[2m2020-08-13 15:53:00.866[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3ffc527c, org.springframework.security.web.context.SecurityContextPersistenceFilter@666488ff, org.springframework.security.web.header.HeaderWriterFilter@2147406, org.springframework.security.web.authentication.logout.LogoutFilter@61ae36d2, com.ssafy.ssafience.security.JwtAuthenticationFilter@5e903760, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@64f51916, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1476af0f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6abb3f78, org.springframework.security.web.session.SessionManagementFilter@354adeef, org.springframework.security.web.access.ExceptionTranslationFilter@36c3e1ea]
+[2m2020-08-13 15:53:00.957[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:53:00.990[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 15:53:01.208[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 15:53:06.941[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[nio-8888-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Initializing Servlet 'dispatcherServlet'
+[2m2020-08-13 15:53:06.951[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[nio-8888-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Completed initialization in 9 ms
+[2m2020-08-13 15:53:53.259[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[     Thread-193][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:53:53.923[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$81372313] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 15:53:53.935[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 15:53:54.027[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 15:53:54.043[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 631 ms
+[2m2020-08-13 15:53:54.299[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 0093ec61-54ed-46b3-8444-745574066a08
+
+[2m2020-08-13 15:53:54.305[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1f726552, org.springframework.security.web.context.SecurityContextPersistenceFilter@65000035, org.springframework.security.web.header.HeaderWriterFilter@23170d2c, org.springframework.security.web.authentication.logout.LogoutFilter@7dcca699, com.ssafy.ssafience.security.JwtAuthenticationFilter@4e9a1f04, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1adf0062, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1ba0078, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@168acac2, org.springframework.security.web.session.SessionManagementFilter@37f5cfc9, org.springframework.security.web.access.ExceptionTranslationFilter@6882e44b]
+[2m2020-08-13 15:53:54.335[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:53:54.341[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 15:53:54.442[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 15:53:54.605[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 15:56:58.265[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[     Thread-197][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:56:58.907[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$81372313] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 15:56:58.908[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 15:56:59.008[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 15:56:59.026[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 617 ms
+[2m2020-08-13 15:56:59.283[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 345bdf06-e5e1-4d46-8930-c8fbf95b2401
+
+[2m2020-08-13 15:56:59.289[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4c9fc148, org.springframework.security.web.context.SecurityContextPersistenceFilter@48f9f533, org.springframework.security.web.header.HeaderWriterFilter@1cfef61a, org.springframework.security.web.authentication.logout.LogoutFilter@56ea2b0f, com.ssafy.ssafience.security.JwtAuthenticationFilter@166da3db, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@23572715, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@48f25b43, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2f8ac35c, org.springframework.security.web.session.SessionManagementFilter@21570023, org.springframework.security.web.access.ExceptionTranslationFilter@4e74b637]
+[2m2020-08-13 15:56:59.319[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:56:59.325[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 15:56:59.430[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 15:56:59.603[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 15:57:01.476[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[     Thread-390][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:57:02.079[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$81372313] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 15:57:02.080[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 15:57:02.169[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 15:57:02.185[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 551 ms
+[2m2020-08-13 15:57:02.425[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 29b79ad5-5c0e-4348-8a16-c20645002845
+
+[2m2020-08-13 15:57:02.430[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6efdeae2, org.springframework.security.web.context.SecurityContextPersistenceFilter@8946cb6, org.springframework.security.web.header.HeaderWriterFilter@60a6cf4b, org.springframework.security.web.authentication.logout.LogoutFilter@5b11bb0f, com.ssafy.ssafience.security.JwtAuthenticationFilter@5f5b9b4e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1ac5f39c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4c4fab18, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@737f60b1, org.springframework.security.web.session.SessionManagementFilter@636bfa6f, org.springframework.security.web.access.ExceptionTranslationFilter@716c65f5]
+[2m2020-08-13 15:57:02.458[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:57:02.464[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 15:57:02.561[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 15:57:02.698[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 15:57:12.240[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[     Thread-583][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:57:12.834[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$81372313] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 15:57:12.835[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 15:57:12.928[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 15:57:12.945[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 566 ms
+[2m2020-08-13 15:57:13.179[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 385ae6d2-4e38-4376-89aa-e30b8a89b089
+
+[2m2020-08-13 15:57:13.185[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@12b71b7b, org.springframework.security.web.context.SecurityContextPersistenceFilter@36e8b247, org.springframework.security.web.header.HeaderWriterFilter@4778bd5, org.springframework.security.web.authentication.logout.LogoutFilter@1581f691, com.ssafy.ssafience.security.JwtAuthenticationFilter@25fbc7e2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@c417e04, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3450657a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3016db2, org.springframework.security.web.session.SessionManagementFilter@4212030e, org.springframework.security.web.access.ExceptionTranslationFilter@7519e147]
+[2m2020-08-13 15:57:13.213[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:57:13.219[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 15:57:13.318[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 15:57:13.453[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 15:57:19.682[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[     Thread-776][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:57:20.268[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$81372313] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 15:57:20.269[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 15:57:20.363[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 15:57:20.379[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 578 ms
+[2m2020-08-13 15:57:20.647[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 2aeed039-5f5b-4896-9504-3c83ea23e3a9
+
+[2m2020-08-13 15:57:20.655[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@51ccdfcf, org.springframework.security.web.context.SecurityContextPersistenceFilter@3284120d, org.springframework.security.web.header.HeaderWriterFilter@3d881d76, org.springframework.security.web.authentication.logout.LogoutFilter@523b3e33, com.ssafy.ssafience.security.JwtAuthenticationFilter@59960fd0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4e89afb4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@331768be, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@73c33bf1, org.springframework.security.web.session.SessionManagementFilter@4426eff0, org.springframework.security.web.access.ExceptionTranslationFilter@7ae0d223]
+[2m2020-08-13 15:57:20.692[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 15:57:20.698[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 15:57:20.798[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 15:57:20.945[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 15:59:52.330[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[nio-8888-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Initializing Servlet 'dispatcherServlet'
+[2m2020-08-13 15:59:52.359[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[nio-8888-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Completed initialization in 25 ms
+[2m2020-08-13 16:00:43.433[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[     Thread-969][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:00:44.090[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$81372313] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:00:44.091[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:00:44.179[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:00:44.194[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 550 ms
+[2m2020-08-13 16:00:44.414[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: fb33592b-13ff-4608-ad59-149f4c68605a
+
+[2m2020-08-13 16:00:44.420[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2be2c59c, org.springframework.security.web.context.SecurityContextPersistenceFilter@59988f3d, org.springframework.security.web.header.HeaderWriterFilter@63d47da6, org.springframework.security.web.authentication.logout.LogoutFilter@2e099937, com.ssafy.ssafience.security.JwtAuthenticationFilter@25dbecaf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7105fdd, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@47693bd4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3efdd406, org.springframework.security.web.session.SessionManagementFilter@287b8278, org.springframework.security.web.access.ExceptionTranslationFilter@3dbc7d5e]
+[2m2020-08-13 16:00:44.449[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:00:44.455[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 16:00:44.562[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 16:00:44.689[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 16:01:11.493[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[    Thread-1162][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:01:12.102[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$81372313] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:01:12.103[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:01:12.193[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:01:12.208[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 569 ms
+[2m2020-08-13 16:01:12.431[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 2919b2eb-c120-4676-873a-314fc20a0bfc
+
+[2m2020-08-13 16:01:12.437[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@32b22a5f, org.springframework.security.web.context.SecurityContextPersistenceFilter@2b5245dc, org.springframework.security.web.header.HeaderWriterFilter@131d361b, org.springframework.security.web.authentication.logout.LogoutFilter@23e50d10, com.ssafy.ssafience.security.JwtAuthenticationFilter@639e392f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@736c4546, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@9bb08de, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7f1b13ce, org.springframework.security.web.session.SessionManagementFilter@75bcc692, org.springframework.security.web.access.ExceptionTranslationFilter@fbafb93]
+[2m2020-08-13 16:01:12.465[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:01:12.471[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 16:01:12.568[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 16:01:12.706[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 16:01:21.222[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[    Thread-1355][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:01:21.864[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$81372313] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:01:21.865[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:01:21.951[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:01:21.965[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 547 ms
+[2m2020-08-13 16:01:22.107[0;39m [33m WARN[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mConfigServletWebServerApplicationContext[0;39m [2m:[0;39m Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'globalException': Lookup method resolution failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.ssafy.ssafience.exception.GlobalException] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@162a01e]
+[2m2020-08-13 16:01:22.112[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mConditionEvaluationReportLoggingListener[0;39m [2m:[0;39m 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+[2m2020-08-13 16:01:22.122[0;39m [31mERROR[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.boot.SpringApplication              [0;39m [2m:[0;39m Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'globalException': Lookup method resolution failed; nested exception is java.lang.IllegalStateException: Failed to introspect Class [com.ssafy.ssafience.exception.GlobalException] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@162a01e]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:289)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineConstructorsFromBeanPostProcessors(AbstractAutowireCapableBeanFactory.java:1286)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1201)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:893)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:879)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:551)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
+	at com.ssafy.ssafience.SsafienceApplication.main(SsafienceApplication.java:10)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.ssafy.ssafience.exception.GlobalException] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@162a01e]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:481)
+	at org.springframework.util.ReflectionUtils.doWithLocalMethods(ReflectionUtils.java:321)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.determineCandidateConstructors(AutowiredAnnotationBeanPostProcessor.java:267)
+	... 24 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: JwtException
+	at java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.lang.Class.privateGetDeclaredMethods(Class.java:2701)
+	at java.lang.Class.getDeclaredMethods(Class.java:1975)
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:463)
+	... 26 common frames omitted
+Caused by: java.lang.ClassNotFoundException: JwtException
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:382)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:348)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:144)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	... 30 common frames omitted
+
+[2m2020-08-13 16:01:48.188[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$81372313] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:01:48.189[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:01:48.294[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:01:48.312[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 591 ms
+[2m2020-08-13 16:01:48.541[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 8996f501-bda3-4940-aba3-3a88bbd30a3b
+
+[2m2020-08-13 16:01:48.547[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@363e5090, org.springframework.security.web.context.SecurityContextPersistenceFilter@42d2b2d5, org.springframework.security.web.header.HeaderWriterFilter@36efbe04, org.springframework.security.web.authentication.logout.LogoutFilter@9bfb42b, com.ssafy.ssafience.security.JwtAuthenticationFilter@663025a3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@38a0e3d7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@73f46559, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5facf53d, org.springframework.security.web.session.SessionManagementFilter@78cab7e9, org.springframework.security.web.access.ExceptionTranslationFilter@5ac40999]
+[2m2020-08-13 16:01:48.575[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:01:48.581[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 16:01:48.679[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 16:01:48.807[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 16:01:50.781[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[    Thread-1548][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:01:51.400[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$81372313] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:01:51.401[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:01:51.486[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:01:51.501[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 532 ms
+[2m2020-08-13 16:01:51.710[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 042eebac-12c2-41e4-9429-55b59d6d8e75
+
+[2m2020-08-13 16:01:51.715[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@389c52d3, org.springframework.security.web.context.SecurityContextPersistenceFilter@11969287, org.springframework.security.web.header.HeaderWriterFilter@6aafff11, org.springframework.security.web.authentication.logout.LogoutFilter@81e4d88, com.ssafy.ssafience.security.JwtAuthenticationFilter@cc3c137, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@18d50cf4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@d173f88, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6e18195d, org.springframework.security.web.session.SessionManagementFilter@688910f8, org.springframework.security.web.access.ExceptionTranslationFilter@7ebefe87]
+[2m2020-08-13 16:01:51.742[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:01:51.748[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 16:01:51.845[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 16:01:51.979[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 16:01:54.913[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[    Thread-1932][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:01:55.496[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$81372313] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:01:55.497[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:01:55.584[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:01:55.599[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 546 ms
+[2m2020-08-13 16:01:55.808[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 94c498f2-69bf-4c15-9862-f08a7a4aeb66
+
+[2m2020-08-13 16:01:55.813[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3cff390a, org.springframework.security.web.context.SecurityContextPersistenceFilter@33f2534f, org.springframework.security.web.header.HeaderWriterFilter@557059f5, org.springframework.security.web.authentication.logout.LogoutFilter@215d397a, com.ssafy.ssafience.security.JwtAuthenticationFilter@346893df, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3864ab70, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6f0cf278, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@178fcb44, org.springframework.security.web.session.SessionManagementFilter@6da04ae7, org.springframework.security.web.access.ExceptionTranslationFilter@c80f3a2]
+[2m2020-08-13 16:01:55.841[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:01:55.846[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 16:01:55.943[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 16:01:56.068[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 16:02:00.194[0;39m [32m INFO[0;39m [35m22892[0;39m [2m---[0;39m [2m[    Thread-2125][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:02:05.132[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.e.DevToolsPropertyDefaultsPostProcessor[0;39m [2m:[0;39m Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2m2020-08-13 16:02:05.134[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.e.DevToolsPropertyDefaultsPostProcessor[0;39m [2m:[0;39m For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2m2020-08-13 16:02:06.280[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$4a935d81] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:02:06.307[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:02:06.538[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:02:06.623[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 1489 ms
+[2m2020-08-13 16:02:07.402[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 2b87380a-b14b-411e-9cb3-366a7b3913d0
+
+[2m2020-08-13 16:02:07.462[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1c329350, org.springframework.security.web.context.SecurityContextPersistenceFilter@20c029e2, org.springframework.security.web.header.HeaderWriterFilter@43fb4d0c, org.springframework.security.web.authentication.logout.LogoutFilter@6d9ab659, com.ssafy.ssafience.security.JwtAuthenticationFilter@1dac40a8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@58147e95, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@53f0b37d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@26baed7c, org.springframework.security.web.session.SessionManagementFilter@2629ceb1, org.springframework.security.web.access.ExceptionTranslationFilter@79f44972]
+[2m2020-08-13 16:02:07.549[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:02:07.585[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 16:02:07.799[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 16:02:12.291[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[nio-8888-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Initializing Servlet 'dispatcherServlet'
+[2m2020-08-13 16:02:12.296[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[nio-8888-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Completed initialization in 5 ms
+[2m2020-08-13 16:20:38.997[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[     Thread-193][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:20:39.662[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$4a935d81] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:20:39.663[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:20:39.754[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:20:39.770[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 624 ms
+[2m2020-08-13 16:20:40.038[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 8f4be67f-5895-4a1a-9484-3e4d03344903
+
+[2m2020-08-13 16:20:40.044[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@750da0c6, org.springframework.security.web.context.SecurityContextPersistenceFilter@7cf47410, org.springframework.security.web.header.HeaderWriterFilter@b302941, org.springframework.security.web.authentication.logout.LogoutFilter@96336a6, com.ssafy.ssafience.security.JwtAuthenticationFilter@1debc24, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1efc5dd9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@148c1566, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@13c0d4e4, org.springframework.security.web.session.SessionManagementFilter@260c9555, org.springframework.security.web.access.ExceptionTranslationFilter@124e149b]
+[2m2020-08-13 16:20:40.073[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:20:40.079[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 16:20:40.177[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 16:20:40.336[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 16:44:20.502[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[     Thread-197][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:44:21.575[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$4a935d81] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:44:21.577[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:44:21.677[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:44:21.702[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 1043 ms
+[2m2020-08-13 16:44:21.999[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: edd01285-9dff-4355-aa7a-43fcabef9314
+
+[2m2020-08-13 16:44:22.005[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@709a57f0, org.springframework.security.web.context.SecurityContextPersistenceFilter@77e00bf4, org.springframework.security.web.header.HeaderWriterFilter@187a1267, org.springframework.security.web.authentication.logout.LogoutFilter@6c3369a1, com.ssafy.ssafience.security.JwtAuthenticationFilter@2aea9a8e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@24c70e51, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6c66c984, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6aa576a4, org.springframework.security.web.session.SessionManagementFilter@13ac88d9, org.springframework.security.web.access.ExceptionTranslationFilter@19095fb6]
+[2m2020-08-13 16:44:22.037[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:44:22.044[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 16:44:22.146[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 16:44:22.312[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 16:44:25.343[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[     Thread-390][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:44:26.586[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$4a935d81] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:44:26.587[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:44:26.757[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:44:26.790[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 1161 ms
+[2m2020-08-13 16:44:27.248[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: a63cb904-247b-48d0-8f99-877decf2115f
+
+[2m2020-08-13 16:44:27.258[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@75d9ddd1, org.springframework.security.web.context.SecurityContextPersistenceFilter@7eaef392, org.springframework.security.web.header.HeaderWriterFilter@6a15a85e, org.springframework.security.web.authentication.logout.LogoutFilter@4d24bc27, com.ssafy.ssafience.security.JwtAuthenticationFilter@a41473d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4a6e456f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@d7e5324, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@314f3efd, org.springframework.security.web.session.SessionManagementFilter@5d128741, org.springframework.security.web.access.ExceptionTranslationFilter@4b5ff575]
+[2m2020-08-13 16:44:27.315[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:44:27.327[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 16:44:27.521[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 16:44:27.786[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 16:44:37.266[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[     Thread-583][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:44:38.052[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$4a935d81] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:44:38.054[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:44:38.207[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:44:38.235[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 827 ms
+[2m2020-08-13 16:44:38.660[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 5657b01c-2964-496b-8ed9-6530723a0b74
+
+[2m2020-08-13 16:44:38.670[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@110b9cb3, org.springframework.security.web.context.SecurityContextPersistenceFilter@61cc5150, org.springframework.security.web.header.HeaderWriterFilter@5f2e356f, org.springframework.security.web.authentication.logout.LogoutFilter@3ad5602e, com.ssafy.ssafience.security.JwtAuthenticationFilter@4a7e2051, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@31c346c9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1fe888d3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@74d4359b, org.springframework.security.web.session.SessionManagementFilter@12f68506, org.springframework.security.web.access.ExceptionTranslationFilter@137864e4]
+[2m2020-08-13 16:44:38.720[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:44:38.731[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 16:44:38.907[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 16:44:39.155[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 16:45:20.134[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[     Thread-776][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:45:20.783[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$4a935d81] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:45:20.784[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:45:20.878[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:45:20.894[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 640 ms
+[2m2020-08-13 16:45:21.157[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: c805a73e-8d3f-45b7-83f2-23f58d207dd8
+
+[2m2020-08-13 16:45:21.166[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@536766bc, org.springframework.security.web.context.SecurityContextPersistenceFilter@833bc9, org.springframework.security.web.header.HeaderWriterFilter@35e949c3, org.springframework.security.web.authentication.logout.LogoutFilter@74a1f1c6, com.ssafy.ssafience.security.JwtAuthenticationFilter@4cdcf34b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@29a1d806, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@56793ba0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@f6c5b52, org.springframework.security.web.session.SessionManagementFilter@3bc00ceb, org.springframework.security.web.access.ExceptionTranslationFilter@7f0ac027]
+[2m2020-08-13 16:45:21.199[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:45:21.206[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 16:45:21.316[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 16:45:21.455[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 16:45:25.592[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[     Thread-969][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:45:26.838[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$4a935d81] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:45:26.839[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:45:27.013[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:45:27.043[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 1188 ms
+[2m2020-08-13 16:45:27.460[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 75864103-65ea-4ccf-936d-661125c711c7
+
+[2m2020-08-13 16:45:27.472[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@37e65246, org.springframework.security.web.context.SecurityContextPersistenceFilter@bc8bdd3, org.springframework.security.web.header.HeaderWriterFilter@372a47c8, org.springframework.security.web.authentication.logout.LogoutFilter@7dd9f15f, com.ssafy.ssafience.security.JwtAuthenticationFilter@1065ad8c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3efe916b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5b0f957b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2cce3443, org.springframework.security.web.session.SessionManagementFilter@637164e9, org.springframework.security.web.access.ExceptionTranslationFilter@3330d66f]
+[2m2020-08-13 16:45:27.527[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:45:27.539[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 16:45:27.736[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 16:45:28.001[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 16:45:33.660[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[nio-8888-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Initializing Servlet 'dispatcherServlet'
+[2m2020-08-13 16:45:33.683[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[nio-8888-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Completed initialization in 20 ms
+[2m2020-08-13 16:45:33.696[0;39m [31mERROR[0;39m [35m9608[0;39m [2m---[0;39m [2m[nio-8888-exec-1][0;39m [36mo.a.c.c.C.[.[.[.[dispatcherServlet]     [0;39m [2m:[0;39m Servlet.service() for servlet [dispatcherServlet] in context with path [/ssafience] threw exception
+
+org.springframework.security.access.AccessDeniedException: 인증되지 않은 사용자 입니다.
+	at com.ssafy.ssafience.security.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:373)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1590)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+
+[2m2020-08-13 16:46:19.638[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[    Thread-1162][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:46:20.360[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$4a935d81] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:46:20.362[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:46:20.485[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:46:20.503[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 654 ms
+[2m2020-08-13 16:46:20.743[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 6596d09f-87e1-451b-a885-fb50c58032b2
+
+[2m2020-08-13 16:46:20.749[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1f430188, org.springframework.security.web.context.SecurityContextPersistenceFilter@194ec487, org.springframework.security.web.header.HeaderWriterFilter@31639d0d, org.springframework.security.web.authentication.logout.LogoutFilter@738e2581, com.ssafy.ssafience.security.JwtAuthenticationFilter@6d5974e2, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@18be83e3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3598ee0c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2c1009da, org.springframework.security.web.session.SessionManagementFilter@77abc226, org.springframework.security.web.access.ExceptionTranslationFilter@56daf578]
+[2m2020-08-13 16:46:20.782[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:46:20.789[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 16:46:20.894[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 16:46:21.006[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[on(2)-127.0.0.1][0;39m [36minMXBeanRegistrar$SpringApplicationAdmin[0;39m [2m:[0;39m Application shutdown requested.
+[2m2020-08-13 16:46:21.056[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 16:46:21.531[0;39m [32m INFO[0;39m [35m9608[0;39m [2m---[0;39m [2m[on(2)-127.0.0.1][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:46:27.665[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.e.DevToolsPropertyDefaultsPostProcessor[0;39m [2m:[0;39m Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+[2m2020-08-13 16:46:27.672[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.e.DevToolsPropertyDefaultsPostProcessor[0;39m [2m:[0;39m For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+[2m2020-08-13 16:46:30.277[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$e541f2b7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:46:30.337[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:46:30.850[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:46:31.018[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 3346 ms
+[2m2020-08-13 16:46:32.542[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: a4ed939b-6450-4284-b108-4943ff4497c4
+
+[2m2020-08-13 16:46:32.667[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@666488ff, org.springframework.security.web.context.SecurityContextPersistenceFilter@45d339b1, org.springframework.security.web.header.HeaderWriterFilter@7c7c191f, org.springframework.security.web.authentication.logout.LogoutFilter@36c3e1ea, com.ssafy.ssafience.security.JwtAuthenticationFilter@7ab12aa, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@780da90a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1e87a36c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@64f51916, org.springframework.security.web.session.SessionManagementFilter@27e1f6f, org.springframework.security.web.access.ExceptionTranslationFilter@5bea9a7f]
+[2m2020-08-13 16:46:32.846[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:46:32.912[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 16:46:33.317[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 16:46:53.092[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[nio-8888-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Initializing Servlet 'dispatcherServlet'
+[2m2020-08-13 16:46:53.105[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[nio-8888-exec-1][0;39m [36mo.s.web.servlet.DispatcherServlet       [0;39m [2m:[0;39m Completed initialization in 13 ms
+[2m2020-08-13 16:46:53.142[0;39m [31mERROR[0;39m [35m8952[0;39m [2m---[0;39m [2m[nio-8888-exec-1][0;39m [36mo.a.c.c.C.[.[.[.[dispatcherServlet]     [0;39m [2m:[0;39m Servlet.service() for servlet [dispatcherServlet] in context with path [/ssafience] threw exception
+
+org.springframework.security.access.AccessDeniedException: 인증되지 않은 사용자 입니다.
+	at com.ssafy.ssafience.security.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:55)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:92)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:77)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:541)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:373)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1590)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+
+[2m2020-08-13 16:48:58.605[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[     Thread-193][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:48:59.318[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$e541f2b7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:48:59.320[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:48:59.425[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:48:59.443[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 658 ms
+[2m2020-08-13 16:48:59.786[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 4ff4cbd0-d423-4861-96f5-ab2f9709ca22
+
+[2m2020-08-13 16:48:59.790[0;39m [33m WARN[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mConfigServletWebServerApplicationContext[0;39m [2m:[0;39m Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'springSecurityFilterChain' defined in class path resource [org/springframework/security/config/annotation/web/configuration/WebSecurityConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [javax.servlet.Filter]: Factory method 'springSecurityFilterChain' threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	Syntax error on token "=", MemberValue expected after this token
+
+[2m2020-08-13 16:48:59.798[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mConditionEvaluationReportLoggingListener[0;39m [2m:[0;39m 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+[2m2020-08-13 16:48:59.808[0;39m [31mERROR[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.boot.SpringApplication              [0;39m [2m:[0;39m Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'springSecurityFilterChain' defined in class path resource [org/springframework/security/config/annotation/web/configuration/WebSecurityConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [javax.servlet.Filter]: Factory method 'springSecurityFilterChain' threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	Syntax error on token "=", MemberValue expected after this token
+
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:655)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:483)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:893)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:879)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:551)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
+	at com.ssafy.ssafience.SsafienceApplication.main(SsafienceApplication.java:10)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [javax.servlet.Filter]: Factory method 'springSecurityFilterChain' threw exception; nested exception is java.lang.Error: Unresolved compilation problem: 
+	Syntax error on token "=", MemberValue expected after this token
+
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:650)
+	... 27 common frames omitted
+Caused by: java.lang.Error: Unresolved compilation problem: 
+	Syntax error on token "=", MemberValue expected after this token
+
+	at com.ssafy.ssafience.security.JwtAuthenticationFilter.<init>(JwtAuthenticationFilter.java:24)
+	at com.ssafy.ssafience.config.SecurityConfig.configure(SecurityConfig.java:27)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter.getHttp(WebSecurityConfigurerAdapter.java:231)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter.init(WebSecurityConfigurerAdapter.java:322)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter.init(WebSecurityConfigurerAdapter.java:94)
+	at com.ssafy.ssafience.config.SecurityConfig$$EnhancerBySpringCGLIB$$96c779a5.init(<generated>)
+	at org.springframework.security.config.annotation.AbstractConfiguredSecurityBuilder.init(AbstractConfiguredSecurityBuilder.java:370)
+	at org.springframework.security.config.annotation.AbstractConfiguredSecurityBuilder.doBuild(AbstractConfiguredSecurityBuilder.java:324)
+	at org.springframework.security.config.annotation.AbstractSecurityBuilder.build(AbstractSecurityBuilder.java:41)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration.springSecurityFilterChain(WebSecurityConfiguration.java:104)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154)
+	... 28 common frames omitted
+
+[2m2020-08-13 16:50:58.138[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mtrationDelegate$BeanPostProcessorChecker[0;39m [2m:[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$e541f2b7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2m2020-08-13 16:50:58.141[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.w.s.a.s.AnnotationActionEndpointMapping[0;39m [2m:[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+[2m2020-08-13 16:50:58.244[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat initialized with port(s): 8888 (http)
+[2m2020-08-13 16:50:58.262[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mw.s.c.ServletWebServerApplicationContext[0;39m [2m:[0;39m Root WebApplicationContext: initialization completed in 664 ms
+[2m2020-08-13 16:50:58.516[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.s.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: f9a90e58-b2e7-47d9-99fe-42e2f20e9019
+
+[2m2020-08-13 16:50:58.521[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.web.DefaultSecurityFilterChain    [0;39m [2m:[0;39m Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@576c5f08, org.springframework.security.web.context.SecurityContextPersistenceFilter@5e442441, org.springframework.security.web.header.HeaderWriterFilter@5dc310e2, org.springframework.security.web.authentication.logout.LogoutFilter@743fcf4a, com.ssafy.ssafience.security.JwtAuthenticationFilter@3b78d28b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2ec1b62b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6b40f711, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4435d3b, org.springframework.security.web.session.SessionManagementFilter@634078d2, org.springframework.security.web.access.ExceptionTranslationFilter@68131cce]
+[2m2020-08-13 16:50:58.552[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Initializing ExecutorService 'applicationTaskExecutor'
+[2m2020-08-13 16:50:58.558[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.a.OptionalLiveReloadServer      [0;39m [2m:[0;39m LiveReload server is running on port 35729
+[2m2020-08-13 16:50:58.660[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.w.embedded.tomcat.TomcatWebServer [0;39m [2m:[0;39m Tomcat started on port(s): 8888 (http) with context path '/ssafience'
+[2m2020-08-13 16:50:58.826[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36m.ConditionEvaluationDeltaLoggingListener[0;39m [2m:[0;39m Condition evaluation unchanged
+[2m2020-08-13 16:56:09.858[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[on(2)-127.0.0.1][0;39m [36minMXBeanRegistrar$SpringApplicationAdmin[0;39m [2m:[0;39m Application shutdown requested.
+[2m2020-08-13 16:56:10.323[0;39m [32m INFO[0;39m [35m8952[0;39m [2m---[0;39m [2m[on(2)-127.0.0.1][0;39m [36mo.s.s.concurrent.ThreadPoolTaskExecutor [0;39m [2m:[0;39m Shutting down ExecutorService 'applicationTaskExecutor'

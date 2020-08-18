@@ -7,4 +7,5 @@ import lombok.Setter;
 @Setter
 public class SingleResponse<T> extends BasicResponse {
 	private T data;
+	private String Authorization;
 }
