@@ -19,11 +19,10 @@ public class GlobalException {
 	@ExceptionHandler(value = AccessDeniedException.class)
 	public ResponseEntity<BasicResponse> handleException(AccessDeniedException e){
 		final BasicResponse result = new BasicResponse();
-		System.out.println("-------------------------------------");
 		result.message = e.getMessage();
 		result.result = FAIL;
 		result.status = HttpStatus.UNAUTHORIZED;
-//		e.printStackTrace(); 
+		e.printStackTrace(); 
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 	}
 }
