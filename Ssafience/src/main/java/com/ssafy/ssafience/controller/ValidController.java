@@ -46,6 +46,7 @@ public class ValidController {
 	@ApiOperation(value = "이메일 중복 확인")
 	@PostMapping("email")
 	public ResponseEntity<BasicResponse> checkEmail(@RequestBody EmailCheckRequest request){
+		logger.debug("checkEmail 호출");
 		final BasicResponse result = new BasicResponse();
 		
 		try {
@@ -73,6 +74,7 @@ public class ValidController {
 	@ApiOperation(value = "아이디(닉네임) 중복 확인")
 	@PostMapping("id")
 	public ResponseEntity<BasicResponse> checkId (@RequestBody IdCheckRequest request){
+		logger.debug("checkId 호출");
 		final BasicResponse result = new BasicResponse();
 		
 		try {
