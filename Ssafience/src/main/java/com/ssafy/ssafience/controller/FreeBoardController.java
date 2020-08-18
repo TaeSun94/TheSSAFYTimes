@@ -89,7 +89,7 @@ public class FreeBoardController {
 		final SingleResponse<FreeBoard> result = new SingleResponse<>();
 		
 		try {
-			HitRequest request = new HitRequest(boardno, ClientIPUtils.getLocalHostAddress());
+			HitRequest request = new HitRequest(boardno, ClientUtils.getRemoteIP(req));
 			FreeBoard board = fService.selectBoardDetailOne(request);
 			if (board != null) {
 				result.result = SUCCESS;
