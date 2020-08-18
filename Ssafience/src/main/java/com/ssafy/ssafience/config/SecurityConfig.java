@@ -30,11 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.csrf().disable()
 		.formLogin().disable()
 		.headers().frameOptions().disable()
-//		.and()
-//		.addFilter(filter)
-//		.sessionManagement()
-//		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		;
+		.and()
+		.addFilter(filter)
+		.sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 	
 	@Bean
