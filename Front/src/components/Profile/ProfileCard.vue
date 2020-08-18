@@ -9,7 +9,7 @@
                 <div class="col-lg-6 text-center" style="position:relative;">
                     <v-avatar :size="150">
                         <img
-                            src="@/assets/logo.png"
+                            :src="getImg(member.memberId)"
                             alt="John"
                         >  
                     </v-avatar>
@@ -167,6 +167,7 @@
                 isMember: false,
                 followingPeople:[],
                 isFollowing:false,
+                imgUrl: '',
             }
         },
         created(){
@@ -181,6 +182,7 @@
                 }
                 console.log(this.followingPeople);
             });
+            this.imgUrl = "@/assets/"+id+".jpg";
             // this.$store.dispatch('getFollowings',id)
         },
         components:{
@@ -204,6 +206,12 @@
                 console.log(this.$store.state.profile.memberId);
                 const id = this.$cookies.get("memberId");
                 this.$store.dispatch('delFollowing',id);
+            },
+            getImg(id){
+                //"@/assets/마스크.jpg"
+                console.log(id);
+                return require(`@/assets/${id}.jpg`);
+                // return require("@/assets/"+id+".jpg");
             }
         }
     }
