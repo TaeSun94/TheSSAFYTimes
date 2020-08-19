@@ -35,10 +35,8 @@
                                             <div class="col-10">
                                                 <h3 class="ml-5 mt-1">기사 작성</h3>
                                             </div>
-                                            <div class="col-2 pl-10" id="reg-button">
-                                                <v-btn fab dark small color="primary" @click="writeArticle">
-                                                    <v-icon dark primary style="font-size:20px;">+</v-icon>
-                                                </v-btn>
+                                            <div >
+                                                <v-btn tile large depressed dark @click="writeArticle" >기사쓰기!</v-btn>
                                             </div>
                                         </div>
                                     </div>
@@ -125,88 +123,92 @@
         <div class="col-lg-4 mr-15" style="padding-top: 7%">
             <profile-card v-model="profile.memberId"></profile-card>
             <br>
-            <v-container class="elevation-5 col-lg-12">
-                <v-card-title>
-                    <div class="textfield">
-                        <h3 class="m-4">Followings</h3>
-                    </div>
-                </v-card-title>
-                <v-card>
-                <div v-if="followings.length" id="following_table">
-                    <!-- 친구 목록 table -->
-                    <!-- Id, region, unit만 보이게 -->
-                    <v-data-table
-                        :headers="followingHeaders"
-                        :items="followings"
-                        :page.sync="fpage"
-                        :items-per-page="fperPage"
-                        hide-default-footer
-                        :per-page="fperPage"
-                        @click:row="followingClicked"
-                    >
-                    </v-data-table>
-                    <!-- <table class="text-center">
-                    <tr v-for="(following,index) in followings" :key="index+'_followings'">
-                        <business-card v-bind="following"></business-card>
-                        <td>{{following.memberId}}</td>
-                        <td>{{following.memberEmail}}</td>
-                        <td>{{following.memberUnit}}</td>
-                    </tr>
-                    </table> -->
-                </div>
-                <div v-else class="text-center">
-                    <p>등록된 Followr가 없습니다.</p>
-                </div>
-                </v-card>
-            </v-container>
-            <br>
-            <v-container class="elevation-5">
-                <v-card-title>
-                    <div class="textfield">
-                        <h3 class="m-4">지원 확정 프로젝트 현황</h3>
-                    </div>
-                </v-card-title>
-                <v-card>
-                    <div v-if="my_confirm_projects.length">
+            <div class="row">
+                <v-container class="elevation-5 col-lg-12">
+                    <v-card-title>
+                        <div class="textfield">
+                            <h3 class="m-4">Followings</h3>
+                        </div>
+                    </v-card-title>
+                    <v-card>
+                    <div v-if="followings.length" id="following_table">
+                        <!-- 친구 목록 table -->
+                        <!-- Id, region, unit만 보이게 -->
                         <v-data-table
-                        :headers="projectHeaders"
-                        :items="my_confirm_projects"
-                        :page.sync="ppage"
-                        :items-per-page="pperPage"
-                        hide-default-footer
-                        :per-page="pperPage"
-                        @click:row="projectClicked"
+                            :headers="followingHeaders"
+                            :items="followings"
+                            :page.sync="fpage"
+                            :items-per-page="fperPage"
+                            hide-default-footer
+                            :per-page="fperPage"
+                            @click:row="followingClicked"
                         >
                         </v-data-table>
+                        <!-- <table class="text-center">
+                        <tr v-for="(following,index) in followings" :key="index+'_followings'">
+                            <business-card v-bind="following"></business-card>
+                            <td>{{following.memberId}}</td>
+                            <td>{{following.memberEmail}}</td>
+                            <td>{{following.memberUnit}}</td>
+                        </tr>
+                        </table> -->
                     </div>
                     <div v-else class="text-center">
-                        <p>확정된 프로젝트가 없습니다.</p>
+                        <p>등록된 Followr가 없습니다.</p>
                     </div>
-                </v-card>
-                <br>
-                <v-card-title>
-                    <div class="textfield">
-                        <h3 class="m-4">지원 중인 프로젝트 현황</h3>
-                    </div>
-                </v-card-title>
-                <v-card>
-                    <div v-if="my_apply_projects.length">
-                        <v-data-table
+                    </v-card>
+                </v-container>
+            </div>
+            <br>
+            <div class="row">
+                <v-container class="elevation-5">
+                    <v-card-title>
+                        <div class="textfield">
+                            <h3 class="m-4">지원 확정 프로젝트 현황</h3>
+                        </div>
+                    </v-card-title>
+                    <v-card>
+                        <div v-if="my_confirm_projects.length">
+                            <v-data-table
                             :headers="projectHeaders"
-                            :items="my_apply_projects"
+                            :items="my_confirm_projects"
                             :page.sync="ppage"
                             :items-per-page="pperPage"
                             hide-default-footer
                             :per-page="pperPage"
                             @click:row="projectClicked"
-                        >
-                        </v-data-table>
-                    </div>
-                    <div v-else class="text-center">
-                        <p>지원중인 프로젝트가 없습니다.</p>
-                    </div>
-                </v-card>
-            </v-container>
+                            >
+                            </v-data-table>
+                        </div>
+                        <div v-else class="text-center">
+                            <p>확정된 프로젝트가 없습니다.</p>
+                        </div>
+                    </v-card>
+                    <br>
+                    <v-card-title>
+                        <div class="textfield">
+                            <h3 class="m-4">지원 중인 프로젝트 현황</h3>
+                        </div>
+                    </v-card-title>
+                    <v-card>
+                        <div v-if="my_apply_projects.length">
+                            <v-data-table
+                                :headers="projectHeaders"
+                                :items="my_apply_projects"
+                                :page.sync="ppage"
+                                :items-per-page="pperPage"
+                                hide-default-footer
+                                :per-page="pperPage"
+                                @click:row="projectClicked"
+                            >
+                            </v-data-table>
+                        </div>
+                        <div v-else class="text-center">
+                            <p>지원중인 프로젝트가 없습니다.</p>
+                        </div>
+                    </v-card>
+                </v-container>
+            </div>
         </div>
     </div>
     </v-container>
