@@ -129,11 +129,11 @@ import http from '@/http-common'
         .then(({data})=> {
           if(data.result == "notavailable") {
             this.idck=false;
-            alert(data.message);
+            this.$alert(data.message);
             return;
           } else if(data.result == "success") {
             this.idck=true;
-            alert(data.message);
+            this.$alert(data.message);
             return;
           }
         })
@@ -153,10 +153,10 @@ import http from '@/http-common'
         .then(({data})=> {
           if(data.result == "success") {
             this.emailck = true;
-            alert(data.message);
+            this.$alert(data.message);
           } else if(data.result == "notavailable"){
             this.emailck = false;
-            alert(data.message);
+            this.$alert(data.message);
           }
         })
       }

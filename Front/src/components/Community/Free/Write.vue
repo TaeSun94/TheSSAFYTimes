@@ -67,9 +67,9 @@ export default {
       // 사용자 입력값 체크하기
       // 입력된 데이터가 없을 경우 각 항목에 맞는 메세지를 출력
       if (this.freeBoardTitle == "") {
-        alert("글 제목을 입력하세요");
+        this.$alert("글 제목을 입력하세요");
       } else if (this.freeBoardContent == "") {
-        alert("글 내용을 입력하세요");
+        this.$alert("글 내용을 입력하세요");
       } else {
         // 만약, 내용이 다 입력되어 있다면 createHandler 호출
         var freeBoardTitle = this.freeBoardTitle

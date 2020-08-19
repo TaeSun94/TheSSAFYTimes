@@ -14,6 +14,9 @@ import Vue2Editor from "vue2-editor";
 import vueMoment from 'vue-moment';
 import VueCookies from 'vue-cookies'
 import VueQuill from 'vue-quill'
+import VueSimpleAlert from "vue-simple-alert";
+ 
+Vue.use(VueSimpleAlert);
 
 VueMarkdownEditor.use(vuepressTheme);
 Vue.use(vueMoment)

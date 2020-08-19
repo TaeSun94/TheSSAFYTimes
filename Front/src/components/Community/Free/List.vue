@@ -88,8 +88,7 @@ export default {
 
     },
     created() {
-        this.$store.dispatch("getFreeComments")
-       this.$store.dispatch("getFrees", '/free/board');
+        this.$store.dispatch("getFrees", '/free/board');
         var id = this.$cookies.get('memberId');
         if(id==null){
             this.login = false;

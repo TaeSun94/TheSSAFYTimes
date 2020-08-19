@@ -12,12 +12,16 @@
                 </div>
 
                 <div>
-                    <v-btn depressed tile dark v-show="canEdit === true" @click="deleteHandler" class="mr-5" style="float: right;">삭제하기!</v-btn>   
+                    <!-- <v-btn depressed tile dark v-show="canEdit === true" @click="deleteHandler" class="mr-5" style="float: right;">삭제하기!</v-btn>    -->
                 </div>
                 <div class="tei">
                     <div class="title">
                         <p> 모집분야 / {{team.teamBoardCategory}}</p>
                     </div>
+                    <div class="date text-right mr-4">
+                        <p> 마감일 📅 {{$moment(team.teamBoardDatetime).format('YYYY-MM-DD')}}</p>
+                         
+                    </div>                    
                     <hr style="width:95%" >
                     <div v-html="team.teamBoardContent" class="content_inner">
                     </div>
@@ -137,7 +141,7 @@ export default {
             this.dialog = false
             http.put("/team/board/apply", {teamApplyNo:no}).then(({data})=> {
                 if(data.result != "success") {
-                    alert(data.message);
+                    this.$alert(data.message);
                 } else {
                     location.reload();
                 }
@@ -151,10 +155,10 @@ export default {
                 teamBoardNo: this.$route.params.no,
             }).then(({data})=> {
                 if(data.result == "success") {
-                    alert(data.message);
+                    this.$alert(data.message);
                     location.reload();
                 } else {
-                    alert(data.message);
+                    this.$alert(data.message);
                     return;
                 }
             })
