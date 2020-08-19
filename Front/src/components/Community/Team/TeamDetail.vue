@@ -7,7 +7,7 @@
                     <h1 class="mb-2">{{team.teamBoardTitle}}</h1>
                 </div>
                 <div class="text-right mr-5">
-                    <small class="description"> SSAFY 3기 / {{team.memberId}} </small>
+                    <small @click="to(team.memberId)" class="description" id="follow"> SSAFY 3기 / {{team.memberId}} </small>
                     <small class="description"> </small>
                 </div>
                 <div class="tei">
@@ -67,8 +67,8 @@
                                 <tbody>
                                     <tr>
                                         <p class="faq-content">{{ item.teamApplyContent }}<br></p>
-                                        <p class="faq-txt text-right" v-if="item.teamApplyPosition=='F'">🟡FRONT🟡 🧑 {{ item.memberId }}님</p>
-                                        <p class="faq-txt text-right" v-if="item.teamApplyPosition=='B'">🟣BACK🟣 🧑 {{ item.memberId }}님</p>
+                                        <p class="faq-txt text-right" v-if="item.teamApplyPosition=='F'" id="follow" @click="to(item.memberId)">🟡FRONT🟡 🧑 {{ item.memberId }}님</p>
+                                        <p class="faq-txt text-right" v-if="item.teamApplyPosition=='B'" id="follow" @click="to(item.memberId)">🟣BACK🟣 🧑 {{ item.memberId }}님</p>
                                         <v-dialog v-model="dialog" persistent max-width="290">
                                             <template v-slot:activator="{ on, attrs }">
                                                 <v-btn style="float:right;" tile color="dark" dark  v-if="item.teamApplyPosition=='F' && item.teamApplyStatus==0" v-bind="attrs" v-on="on">FRONT 영입하기 !</v-btn>
@@ -150,7 +150,11 @@ export default {
                     return;
                 }
             })
-        }
+        },
+        to(id){
+            var url = "/profile/"+id;
+            this.$router.push({path: url});
+        },
     }
 
 }
@@ -254,5 +258,8 @@ hr{
     
     justify-content: center;
     margin: 20px;
+}
+#follow:hover {
+   color: orange;
 }
 </style>
