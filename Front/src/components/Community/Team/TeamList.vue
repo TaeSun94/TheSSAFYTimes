@@ -4,12 +4,14 @@
         <v-container class="col-lg-9  elevation-5">
                 <v-card-title>
                     <div class="textfield">
+                        
                         <h1 class="m-4 main-title"> 🧑‍🤝‍🧑 팀원 찾아요! </h1>
                     </div>
                     <v-spacer></v-spacer>
                 </v-card-title>
                 <div class="text-right mr-5">
-                  <router-link class="write-link" :to="{path:'/community/teamWrite'}">팀원 구하기</router-link>
+                    <!-- <v-btn v-if="login===true" dark large tile :to="{path:'/community/teamWrite'}">팀원 구하기</v-btn> -->
+                    <v-btn dark large tile v-if="login===true" :to="{path:'/community/teamWrite'}">팀원 구하기</v-btn>
                 </div>
              <div class="text-center">
                 <div class="item_card recruit_card col-lg-6" v-for="team in this.teams " :key="team.index" @click="rowClicked(team)">
@@ -69,7 +71,7 @@ export default {
             perPage: 25,
             pageLength: 0,
             pageCount: this.pageLength/this.perPage,
-
+            login: false,
         }
     },
     computed: {
@@ -82,6 +84,14 @@ export default {
     },
     created() {
         this.$store.dispatch("getTeams", '/team/board');
+        var id = this.$cookies.get('memberId');
+        if(id==null){
+            this.login = false;
+            this.memberId = '';
+        } else  {
+            this.login = true;
+            this.memberId = id;
+        }       
     }
 }
 </script>
@@ -106,7 +116,7 @@ export default {
     padding:0px;
 }
 .recruit_card {
-    border-radius: 10px;
+    
     border:0.3px solid grey;
 }
 .bottom_section{
@@ -114,7 +124,6 @@ export default {
 }
 .container{
   background: #fff;
-  border-radius: 20px;
   padding: 20px;
 }
 .item_card:hover {
@@ -149,8 +158,6 @@ a {
     display: inline-block;
     background-position: center center;
     transition-duration: 0.2s;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
 }
 .recruit_card .card_image .card_hover {
     opacity: 0;
@@ -185,7 +192,7 @@ a {
     top: 6px;
     cursor: pointer;
 }
-a {
+.text-center a {
     color: #3c3c3c!important;
     text-decoration: none!important;
 }
@@ -204,6 +211,9 @@ a {
     overflow: hidden;
     margin-bottom: 20px;
     text-overflow: ellipsis;
+}
+.v-btn__content{
+    color: white!important;
 }
 .recruit_card .card_contents {
     padding: 40px 15px;

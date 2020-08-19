@@ -12,10 +12,10 @@
                 </div>
                 <div class="tei">
                     <div class="title">
-                        <p> {{team.teamBoardCategory}}</p>
+                        <p> 모집분야 / {{team.teamBoardCategory}}</p>
                     </div>
                     <hr style="width:95%" >
-                    <div v-html="team.teamBoardTitle" class="content_inner">
+                    <div v-html="team.teamBoardContent" class="content_inner">
                     </div>
                     <hr style="width:95%" class="">
                     <div class="inner row">
@@ -59,7 +59,6 @@
                         <div class="text-right mr-4"><v-btn disabled rounded v-if="(team.memberId == this.$cookies.get('memberId')) || (this.$cookies.get('memberId') == null) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">Front할래요!</v-btn></div>  
                         <div class="text-right mr-4"><v-btn disabled rounded v-if="(team.memberId == this.$cookies.get('memberId')) || (this.$cookies.get('memberId') == null) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">Back할래요!</v-btn></div>          
                     </div>
-                    <hr style="width:95%" class="mt-5">
 
                     <div v-if="team.memberId===this.$cookies.get('memberId')">
                         <div class="comment-content" v-for="item in applys" :key="item.teamApplyNo">
@@ -164,7 +163,7 @@ export default {
 }
 .tei{
     border: 1px solid ;
-    border-radius: 20px;
+    
     padding: 20px;
     margin-top:30px
 }
@@ -197,7 +196,6 @@ img {
 }
 hr{
     width: 30%;
-    border: 3px solid darkorange;
     margin-bottom: 20px;
     margin-left: 20px;  
 }

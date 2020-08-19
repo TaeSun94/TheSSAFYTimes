@@ -187,7 +187,6 @@ export default {
 
 .container{
   background: #fff;
-  border-radius: 20px;
 }
 .v-sheet.v-card:not(.v-sheet--outlined) {
     box-shadow: none
