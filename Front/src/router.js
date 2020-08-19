@@ -199,7 +199,7 @@ export default new VueRouter({
                 },
                 {
                     path:"aboutus2",
-                    name:"AboutUs",
+                    name:"AboutUs2",
                     component:AboutUs2
                 }
             ]

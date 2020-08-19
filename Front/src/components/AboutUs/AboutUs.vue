@@ -1,8 +1,8 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="elevation-8 col-lg-9" style="">     
-            <h3> We are</h3>        
+        <v-container class="elevation-8 col-lg-9 col-sm-10" style="">     
+            <h3 class="ml-6"> We are</h3>        
             <v-img
                 src="@/assets/ssaf.png"
                 width="80%"
