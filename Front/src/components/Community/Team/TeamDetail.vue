@@ -7,13 +7,13 @@
                     <h1 class="mb-2">{{team.teamBoardTitle}}</h1>
                 </div>
                 <div class="text-right mr-5">
-                    <small @click="to(team.memberId)" class="description" id="follow"> SSAFY 3기 / {{team.memberId}} </small>
+                    <small @click="to(team.memberId)" class="description" id="follow"> SSAFY / {{team.memberId}} </small>
                     <small class="description"> </small>
                 </div>
                 <div class="text-right mt-3 mr-3">
-                    <v-btn depressed tile dark @click="deleteHandler">삭제하기!</v-btn>
-                    <v-btn depressed tile dark @click="toUpdate()">수정하기!</v-btn>
-                    <!-- <v-btn depressed tile dark v-show="canEdit === true" @click="deleteHandler" class="mr-5" style="float: right;">삭제하기!</v-btn>    -->
+                    <!-- <v-btn depressed tile dark v-show="canEdit" @click="deleteHandler">삭제하기!</v-btn> -->
+                    <v-btn depressed tile dark v-show="canEdit" @click="toUpdate()">수정하기!</v-btn>
+                   
                 </div>
                 <div class="tei">
                     <div class="title text-right">
@@ -134,12 +134,15 @@ export default {
             return ((this.team.teamBoardTotalCount-(this.team.teamBoardBackRemainCount + this.team.teamBoardFrontRemainCount))/this.team.teamBoardTotalCount)*100;
         }
     },
+    updated() {
+        var id = this.$cookies.get('memberId');
+        var author = this.team.memberId;
+        if(id==author){this.canEdit = true}
+    },
     created() {
         this.$store.dispatch("getTeam", `/team/board/${this.$route.params.no}`);
         this.$store.dispatch("getApplys", `/team/board/apply/${this.$route.params.no}/list`);
-        if(this.$cookies.get('memberId'== this.team.memberId)){
-            this.canEdit = true
-        }
+        
     },
     methods: {
         recruit(no) {
@@ -171,7 +174,6 @@ export default {
                 }
             })
         },
-<<<<<<< HEAD
         deleteHandler() {
             http.delete(`/team/board/${this.$route.params.no}`).then(({data}) => {
                 if(data.result == "success"){
@@ -183,16 +185,14 @@ export default {
                 }
             });
         },
-    },
 
-=======
+
         to(id){
             var url = "/profile/"+id;
             this.$router.push({path: url});
         },
+    
     }
->>>>>>> 7520dacdedd7b4f13a0d7818339ba61c58d998cf
-
 }
 </script>
 
