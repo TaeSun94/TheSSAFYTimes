@@ -12,10 +12,10 @@
                 </div>
                 <div class="tei">
                     <div class="title">
-                        <p> {{team.teamBoardCategory}}</p>
+                        <p> 모집분야 / {{team.teamBoardCategory}}</p>
                     </div>
                     <hr style="width:95%" >
-                    <div v-html="team.teamBoardTitle" class="content_inner">
+                    <div v-html="team.teamBoardContent" class="content_inner">
                     </div>
                     <hr style="width:95%" class="">
                     <div class="inner row">
@@ -40,8 +40,8 @@
                             <progress :value="value" max='100'></progress>
                         </div>    
                     </div>          
-                    <div class="text-right mr-4"><v-btn rounded v-if="(team.memberId != this.$cookies.get('memberId')) && (this.$cookies.get('memberId') != null) && (team.teamBoardFrontRemainCount!=0 || team.teamBoardBackRemainCount !=0)">관심등록</v-btn></div>
-                    <div class="text-right mr-4"><v-btn disabled rounded v-if="(team.memberId == this.$cookies.get('memberId')) || (this.$cookies.get('memberId') == null) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">관심등록</v-btn></div>
+                    <div class="text-right mr-4"><v-btn tile  v-if="(team.memberId != this.$cookies.get('memberId')) && (this.$cookies.get('memberId') != null) && (team.teamBoardFrontRemainCount!=0 || team.teamBoardBackRemainCount !=0)">관심등록</v-btn></div>
+                    <div class="text-right mr-4"><v-btn tile disabled v-if="(team.memberId == this.$cookies.get('memberId')) || (this.$cookies.get('memberId') == null) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">관심등록</v-btn></div>
                     <div class="likeContent mt-5 row justify-content-end">
                         <v-container v-if="(team.memberId != this.$cookies.get('memberId'))">
                             <v-textarea
@@ -54,12 +54,11 @@
                                 v-model="teamApplyContent"
                             ></v-textarea>
                         </v-container>
-                        <div class="text-right mr-4"><v-btn rounded v-if="(team.memberId != this.$cookies.get('memberId')) && (this.$cookies.get('memberId') != null)  && (team.teamBoardFrontRemainCount!=0 || team.teamBoardBackRemainCount !=0)" @click="apply('F')">Front할래요!</v-btn></div>    
-                        <div class="text-right mr-4"><v-btn rounded v-if="(team.memberId != this.$cookies.get('memberId')) && (this.$cookies.get('memberId') != null) && (team.teamBoardFrontRemainCount!=0 || team.teamBoardBackRemainCount !=0)" @click="apply('B')">Back할래요!</v-btn></div>          
-                        <div class="text-right mr-4"><v-btn disabled rounded v-if="(team.memberId == this.$cookies.get('memberId')) || (this.$cookies.get('memberId') == null) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">Front할래요!</v-btn></div>  
-                        <div class="text-right mr-4"><v-btn disabled rounded v-if="(team.memberId == this.$cookies.get('memberId')) || (this.$cookies.get('memberId') == null) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">Back할래요!</v-btn></div>          
+                        <div class="text-right mr-4"><v-btn  dark large tile  v-if="(team.memberId != this.$cookies.get('memberId')) && (this.$cookies.get('memberId') != null)  && (team.teamBoardFrontRemainCount!=0 || team.teamBoardBackRemainCount !=0)" @click="apply('F')">Front할래요!</v-btn></div>    
+                        <div class="text-right mr-4"><v-btn  dark large tile  v-if="(team.memberId != this.$cookies.get('memberId')) && (this.$cookies.get('memberId') != null) && (team.teamBoardFrontRemainCount!=0 || team.teamBoardBackRemainCount !=0)" @click="apply('B')">Back할래요!</v-btn></div>          
+                        <div class="text-right mr-4"><v-btn  dark large tile disabled  v-if="(team.memberId == this.$cookies.get('memberId')) || (this.$cookies.get('memberId') == null) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">Front할래요!</v-btn></div>  
+                        <div class="text-right mr-4"><v-btn  dark large tile disabled  v-if="(team.memberId == this.$cookies.get('memberId')) || (this.$cookies.get('memberId') == null) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">Back할래요!</v-btn></div>          
                     </div>
-                    <hr style="width:95%" class="mt-5">
 
                     <div v-if="team.memberId===this.$cookies.get('memberId')">
                         <div class="comment-content" v-for="item in applys" :key="item.teamApplyNo">
@@ -72,18 +71,18 @@
                                         <p class="faq-txt text-right" v-if="item.teamApplyPosition=='B'">🟣BACK🟣 🧑 {{ item.memberId }}님</p>
                                         <v-dialog v-model="dialog" persistent max-width="290">
                                             <template v-slot:activator="{ on, attrs }">
-                                                <v-btn style="float:right;" color="dark" dark  v-if="item.teamApplyPosition=='F' && item.teamApplyStatus==0" v-bind="attrs" v-on="on">FRONT 영입하기 !</v-btn>
-                                                <v-btn style="float:right;" disabled color="dark" v-if="item.teamApplyPosition=='F' && item.teamApplyStatus==1">FRONT 영입하기 !</v-btn>
-                                                <v-btn style="float:right;" color="dark" dark  v-if="item.teamApplyPosition=='B' && item.teamApplyStatus==0" v-bind="attrs" v-on="on">BACK 영입하기 !</v-btn>
-                                                <v-btn style="float:right;" disabled color="dark" v-if="item.teamApplyPosition=='B' && item.teamApplyStatus==1">BACK 영입하기 !</v-btn>
+                                                <v-btn style="float:right;" tile color="dark" dark  v-if="item.teamApplyPosition=='F' && item.teamApplyStatus==0" v-bind="attrs" v-on="on">FRONT 영입하기 !</v-btn>
+                                                <v-btn style="float:right;" tile disabled color="dark" v-if="item.teamApplyPosition=='F' && item.teamApplyStatus==1">FRONT 영입하기 !</v-btn>
+                                                <v-btn style="float:right;" tile color="dark" dark  v-if="item.teamApplyPosition=='B' && item.teamApplyStatus==0" v-bind="attrs" v-on="on">BACK 영입하기 !</v-btn>
+                                                <v-btn style="float:right;" tile disabled color="dark" v-if="item.teamApplyPosition=='B' && item.teamApplyStatus==1">BACK 영입하기 !</v-btn>
                                             </template>
                                             <v-card>
                                                 <v-card-title class="headline">Use Google's location service?</v-card-title>
                                                 <v-card-text>정말로 영입하시겠습니까?</v-card-text>
                                                 <v-card-actions>
                                                 <v-spacer></v-spacer>
-                                                <v-btn color="info" @click="dialog = false">닫기!</v-btn>
-                                                <v-btn color="success" @click="recruit(item.teamApplyNo)" >영입!</v-btn>
+                                                <v-btn color="info" tile @click="dialog = false">닫기!</v-btn>
+                                                <v-btn color="success" tile @click="recruit(item.teamApplyNo)" >영입!</v-btn>
                                                 </v-card-actions>
                                             </v-card>
                                         </v-dialog>
@@ -164,7 +163,7 @@ export default {
 }
 .tei{
     border: 1px solid ;
-    border-radius: 20px;
+    
     padding: 20px;
     margin-top:30px
 }
@@ -197,7 +196,6 @@ img {
 }
 hr{
     width: 30%;
-    border: 3px solid darkorange;
     margin-bottom: 20px;
     margin-left: 20px;  
 }

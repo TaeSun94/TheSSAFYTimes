@@ -12,6 +12,7 @@
             required
             ></v-text-field>
             <!--Pw-->
+
             <div>
               <v-text-field 
               v-model="memberPw"

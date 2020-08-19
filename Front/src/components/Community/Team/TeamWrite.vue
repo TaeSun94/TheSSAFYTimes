@@ -12,12 +12,6 @@
                 <span class="label ml-3">제목</span>
                 <v-text-field v-model="teamBoardTitle" class="ml-3 mr-3" placeholder="글 제목을 입력해주세요."           
                 ></v-text-field>
-                <!-- <span class="label ml-3">대회명</span>
-                <v-text-field v-model="title" class="ml-3" placeholder="예) SSAFY 공모전 or 해커톤"           
-                ></v-text-field>
-                <span class="label ml-3">한줄 설명</span>
-                <v-text-field v-model="content" class="ml-3"  placeholder="예) SSAFY인을 위한 블로그 제작"       
-                ></v-text-field> -->
                 <span class="label ml-3">모집 분야</span>
                 <v-select
                     v-model="teamBoardCategory"
@@ -50,17 +44,6 @@
                 </div>  
                 <span class="label ml-3 d-inline">날짜</span><br>
                 <v-date-picker v-model="picker" :landscape="landscape" :reactive="reactive" class="ml-4 mt-4 mb-4"></v-date-picker>   
-                  <!-- <span class="label ml-3">기술스택</span>
-                  <v-select class="col-lg-8"
-                      :items="stack"
-                      label=""
-                      :multiple=true
-                      color="#FCE4EC"
-                      :deletable-chips=true
-                      chips
-                      persistent-hint
-                      v-model="stacks"
-                  ></v-select> -->
               </v-form>
               <div class="textfield ml-5 row">
                 <span class="label ml-3">상세설명</span>

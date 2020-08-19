@@ -8,8 +8,8 @@
                         <small class="ml-3">익명으로 이뤄진 자유게시판 입니다. 서로 의견을 나눠보세요 </small>
                     </div>
                     <v-spacer></v-spacer>
-                    <v-btn v-if="login===false" class="writeBtn" disabled large tile depressed :to="{  path: '/community/freewrite'}">글쓰기!</v-btn>
-                    <v-btn v-if="login===true" class="writeBtn" tile large depressed dark :to="{  path: '/community/freewrite'}">글쓰기!</v-btn>
+                    <v-btn v-if="login===false" disabled large tile depressed :to="{  path: '/community/freewrite'}">글쓰기!</v-btn>
+                    <v-btn v-if="login===true"  tile large depressed dark :to="{  path: '/community/freewrite'}">글쓰기!</v-btn>
    
                 </v-card-title>
                 <v-card-title>
