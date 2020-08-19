@@ -117,12 +117,18 @@ import http from '@/http-common'
               alert(data.message);
             }
           });
+        } else {
+          alert("입력값을 확인해주세요 !");
         }
       },
       clear () {
         this.$refs.form.reset()
       },
       checkIdDup() {
+        if(this.memberId=='') {
+          alert("닉네임을 입력하세요.");
+          return;
+        }
         http.post('/valid/id', {
           memberId : this.memberId
         })
@@ -139,6 +145,10 @@ import http from '@/http-common'
         })
       },
       checkPw() {
+        if(this.memberPw == '' || this.memberPw2 == ''){
+          alert("비밀번호를 입력해주세요.");
+          return;
+        }
         if(this.memberPw != this.memberPw2){
           this.pwck = false;
           alert("비밀번호가 일치하지 않습니다.");
@@ -147,6 +157,10 @@ import http from '@/http-common'
         }
       },
       checkEmail() {
+        if(this.memberEmail==''){
+          alert("이메일을 입력하세요.");
+          return;
+        }
         http.post('/valid/email', {
           memberEmail : this.memberEmail
         })
