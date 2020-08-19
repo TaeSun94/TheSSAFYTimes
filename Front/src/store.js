@@ -435,6 +435,20 @@ export default new Vuex.Store({
                     "teamBoardTitle": teamBoardTitle
             })
         },
+
+        teamUpdate(context, { boardTitle, boardContent, boardFrontRemainCount, boardBackRemainCount, boardCategory, boardEndDatetime, boardNo, memberId }) {
+            
+            http.post('/team/board', {
+                "boardTitle":  boardTitle,
+                "boardContent" : boardContent,
+                "boardFrontRemainCount" : boardFrontRemainCount,
+                "boardBackRemainCount": boardBackRemainCount,
+                "boardCategory":boardCategory,
+                "boardEndDatetime" : boardEndDatetime,
+                "boardNo" : boardNo,
+                "memberId" : memberId
+            })
+        },
         //category 불러오기
         getArticleTypes(context){
             http.get(`/category/article`).then(({data})=>{
