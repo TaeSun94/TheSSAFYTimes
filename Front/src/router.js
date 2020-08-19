@@ -24,6 +24,7 @@ import TeamDetail from "@/components/Community/Team/TeamDetail";
 import DetailPage from "@/components/Editor/DetailPage.vue";
 import AboutUs from "@/components/AboutUs.vue";
 import AboutUsIndex from "@/components/AboutUs/AboutUsIndex.vue";
+import AboutUs2 from "@/components/AboutUs/AboutUs.vue";
 import FreeList from "@/components/Community/Free/List";
 import FreeWrite from "@/components/Community/Free/Write";
 import FreeDetail from "@/components/Community/Free/Detail";
@@ -189,12 +190,17 @@ export default new VueRouter({
             path:"/aboutus",
             name:"AboutUs",
             component: AboutUs,
-            redirect: "/aboutus/aboutusindex",
+            redirect: "/aboutus/aboutus2",
             children: [
                 {
                     path:"aboutusindex",
                     name:"AboutUsIndex",
                     component:AboutUsIndex
+                },
+                {
+                    path:"aboutus2",
+                    name:"AboutUs",
+                    component:AboutUs2
                 }
             ]
         },

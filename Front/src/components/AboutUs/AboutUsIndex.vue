@@ -2,7 +2,6 @@
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
         <v-container class="elevation-5 col-lg-9">
-            <vue-scroll-progress-bar height="0.5rem" backgroundColor="orange" style="margin-left:13.9%"/>
             <template class="basil template">
                 <v-card color="basil" class="card">
                     <v-card-title class="text-center justify-center py-6">
