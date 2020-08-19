@@ -63,6 +63,9 @@
                     <hr style="width:95%" class="mt-5">
                     
                     <!--댓글 목록-->
+                    <div class="ml-5 mb-5">
+                        댓글이 총 <b>{{ free_comments.length }}</b> 건 있습니다.
+                    </div>
                     <div v-show="commentContent">
                         <div class="comment-content" v-for="item in free_comments" :key="item.freeCommentNo">
                             <v-simple-table>
@@ -110,10 +113,11 @@ export default {
             freeBoardContent: '',
             freeBoardHit: 0,
             freeBoardDislike : '',
-
             //edit, delete관련
             canEdit: false,
             member: {},
+            commentCount: '',
+            commentCountShow: false
         }
     },
     computed: {
@@ -122,7 +126,7 @@ export default {
 
     },
     created() {
-        
+        this.commentCount = this.free_comments.length
         this.count = this.free.data.freeBoardLikeCount 
         this.$store.dispatch("getFreeComments", `/free/${this.$route.params.no}/comment`)
         http.get(`/free/board/${this.$route.params.no}`).then(({data})=> {
@@ -140,6 +144,7 @@ export default {
                 this.member = data.data;
             })
         });
+
     },
     methods: {
         commentShow() {
@@ -234,6 +239,10 @@ export default {
         var author = this.freeBoardWriter;
         if(id != author) { this.canEdit = false }
         else {this.canEdit = true }
+
+        if(this.commentCount>0) {
+            this.commentCountShow = true
+        } 
     }
 
 }
