@@ -2,36 +2,36 @@
 <div class="wrapper">
     <div class="row">
         <v-container class="elevation-5 col-lg-12">
-            <v-card-actions class="ml-3">
+            <v-card-actions>
                 <div class="col-lg-3">
                     <connect-here v-model="member"></connect-here>
                 </div>
-                <!-- <div v-if="member.memberImgUrl" class="col-lg-6 text-center" style="position:relative;">
+                <div v-if="member.memberImgurl !== null && member.memberImgurl !== ''" class="col-lg-6 text-center" style="position:relative;">
                     <v-avatar :size="150">
                         <img
-                            :src="getImg(member.memberId)"
+                            :src="getImg(member.memberImgurl)"
                             alt="John"
                         >  
                     </v-avatar>
                 </div>
-                <div v-else class="col-lg-6 text-center" style="position:relative;"> -->
-                    <div class="col-lg-6 text-center" style="position:relative;">
+                <div v-else class="col-lg-6 text-center" style="position:relative;">
+                    <!-- <div class="col-lg-6 text-center" style="position:relative;"> -->
                     <v-avatar :size="150">
                         <img
                             src="@/assets/마스크.jpg"
-                            alt="John"
+                            alt="비어있음"
                         >  
                     </v-avatar>
-                    </div>
-                <!-- </div> -->
+                    <!-- </div> -->
+                </div>
                 <div class="col-lg-3 text-center">
                     <!-- 만약 세션이 나이고 쿼리를 통해 들어온거와 같다면 -->
                     <div v-if="isMember">
                         <div v-if="member.memberFirstName === null || member.memberFirstName === ''">
-                            <v-btn class="primary" @click="mvEditProfile">등록</v-btn>
+                            <v-btn tile large depressed dark @click="mvEditProfile" >등록</v-btn>
                         </div>
                         <div v-else>
-                            <v-btn icon @click="mvEditProfile"><span style="font-size: 20px;">수정</span></v-btn>
+                            <v-btn tile large depressed dark @click="mvEditProfile" >수정</v-btn>
                         </div>
                     </div>
 
@@ -40,12 +40,12 @@
                         <!-- 만약 친구라면 언팔 친구가 아니면 팔로우 -->
                         <div v-if="followingPeople.includes(member.memberId) !== false">
                             <div>
-                                <v-btn class="primary" @click="delFollow">언팔로우</v-btn>
+                                <v-btn tile large depressed dark @click="delFollow" >언팔로우</v-btn>
                             </div>
                         </div>
                         <div v-else>
                             <div>
-                                <v-btn class="primary" @click="addFollow">팔로우</v-btn>
+                                <v-btn tile large depressed dark @click="addFollow" >팔로우</v-btn>
                             </div>
                         </div>
                     </div>
@@ -177,6 +177,7 @@
                 isMember: false,
                 followingPeople:[],
                 isFollowing:false,
+                xx: '',
             }
         },
         created(){
@@ -190,6 +191,7 @@
                 }
                 console.log(this.followingPeople);
             });
+            // this.xx = require("/home/ubuntu/ssafytimes/s03p13c208/Ssafience/src/main/resources/static/images/"+id+".jpg");
         },
         components:{
             'connect-here':ConnectHere,
@@ -213,9 +215,12 @@
                 const id = this.$cookies.get("memberId");
                 this.$store.dispatch('delFollowing',id);
             },
-            // getImg(id){
-            //     return require("/home/ubuntu/ssafytimes/s03p13c208/Ssafience/src/main/resources/static/images/"+id+".jpg");
-            // }
+            getImg(id){
+                console.log(id);
+                return id;
+                // http://adasdsa/images/a.jpg
+                // return require("/home/ubuntu/ssafytimes/s03p13c208/Ssafience/src/main/resources/static/images/"+id+".jpg");
+            }
         }
     }
 </script>
