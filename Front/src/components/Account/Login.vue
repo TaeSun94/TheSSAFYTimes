@@ -9,6 +9,7 @@
             v-model="memberEmail"
             :rules="emailRules"
             label="Email*"
+            :color="tfColor"
             required
             ></v-text-field>
             <!--Pw-->
@@ -20,6 +21,7 @@
               label="비밀번호*"
               :type="pw"
               required
+              :color="tfColor"
               >
                 <template v-slot:append-outer>
                   <input id="l" type="checkbox" v-model="checkBox" @click="showPw">
@@ -65,7 +67,8 @@ export default {
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || '이메일 형식이 틀립니다!'
       ],
       checkBox : false,
-      pw : "password"
+      pw : "password",
+      tfColor : "#c00000",
     }),
 
     methods: {
