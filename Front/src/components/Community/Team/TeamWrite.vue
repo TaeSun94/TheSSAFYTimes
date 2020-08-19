@@ -42,8 +42,15 @@
                       ></v-select>          
                   </div>       
                 </div>  
-                <span class="label ml-3 d-inline">날짜</span><br>
-                <v-date-picker v-model="picker" :landscape="landscape" :reactive="reactive" class="ml-4 mt-4 mb-4"></v-date-picker>   
+                <span class="label ml-3 d-inline">마감일</span><br>
+                <v-date-picker 
+                v-model="picker" 
+                :landscape="landscape" 
+                :reactive="reactive" 
+                locale="ko-KR"
+                class="ml-4 mt-4 mb-4"
+                >
+                </v-date-picker>   
               </v-form>
               <div class="textfield ml-5 row">
                 <span class="label ml-3">상세설명</span>
@@ -118,7 +125,7 @@ export default {
         });
     },
     checkHandler() {
-        console.log(this.teamBoardTitle,this.picker, this.teamBoardContent, this.teamBoardFrontRemainCount, this.teamBoardBackRemainCount, this.teamBoardCategory)
+        //console.log(this.teamBoardTitle,this.picker, this.teamBoardContent, this.teamBoardFrontRemainCount, this.teamBoardBackRemainCount, this.teamBoardCategory)
       if (this.teamBoardTitle == "") {
         alert("제목을 입력하세요");
       } else if (this.teamBoardContent == "") {

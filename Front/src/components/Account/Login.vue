@@ -29,7 +29,7 @@
             </div>
             <br>
             <footer class="login-foot">
-                <v-btn @click="submit" dark large tile width=100%>로그인</v-btn>
+                <v-btn @click="submit" @keyup.enter="submit" dark large tile width=100%>로그인</v-btn>
                 <div class="login-divider" role="separator"></div>
 
                 <p class="login-option mt-5 text-center">SSAFY TIMES 처음이신가요?
@@ -77,20 +77,20 @@ export default {
           http.post('/account/signin', { memberEmail, memberPw})
           .then(({data})=> {
             if(data.result == 'notavailable') {
-              alert(data.message);
+              this.$alert(data.message);
               location.reload();
             } else if(data.result == 'notvalid') {
-              alert(data.message);
+              this.$alert(data.message);
               this.$cookies.remove("memberEmail");
               this.$cookies.set("memberEmail", memberEmail, "30MIN");
               this.$router.push("/EmailCheck");
               location.reload();
             } else if(data.result == 'success') {
-              alert(data.message);
+              this.$alert(data.message);
               this.$cookies.set("memberId", data.data.memberId, "30MIN");
               this.$cookies.set("memberEmail", memberEmail, "30MIN");
-              this.$cookies.set("token", data.authorization, "30MIN");
-              this.$router.push("/");
+              this.$cookies.set("token", data.authorization, "30MIN");  
+              this.$router.push("/");            
               location.reload();
             }
           })
