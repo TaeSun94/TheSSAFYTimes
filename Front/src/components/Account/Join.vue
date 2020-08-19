@@ -21,7 +21,7 @@
             required
             >
               <template v-slot:append-outer>
-                <v-btn @click="checkEmail">
+                <v-btn @click="checkEmail" tile>
                   체크
                 </v-btn>
               </template>

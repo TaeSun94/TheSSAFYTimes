@@ -19,7 +19,7 @@
               previewStyle="vertical"
               ref="toastuiEditor"/>
             <div class="text-right mt-3">
-                <v-btn @click="checkHandler"> 등록할래요 👌</v-btn>
+                <v-btn @click="checkHandler" tile> 등록할래요 👌</v-btn>
             </div>
         </v-container>
     </div>
