@@ -15,7 +15,7 @@
                     <v-btn v-if="login===false" disabled large tile depressed :to="{path:'/community/teamWrite'}">팀원 구하기</v-btn>
                 </div>
              <div class="text-center">
-                <div class="item_card recruit_card col-lg-6" v-for="team in this.teams " :key="team.index" @click="rowClicked(team)">
+                <div class="item_card recruit_card col-lg-4" v-for="team in this.teams " :key="team.index" @click="rowClicked(team)">
                     <div class="card_image">
                         <a data-v-74c97ae7=""  class="team_title" style="text-align: center;display: flex;justify-content: center;align-items: center;">
                             {{ team.teamBoardTitle }}
@@ -100,7 +100,7 @@ export default {
 }
 .team_title{
     font-weight: 900px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     padding: 20px;
 }
 .text-content{
@@ -131,9 +131,10 @@ export default {
 }
 .item_card {
     position: relative;
-    width: 400px;
+    width: 320px;
     vertical-align: top;
-    margin: 40px;
+    margin: 20px;
+    margin-top:40px;
     background-color: #ffffff;
     display: inline-block;
     text-align: left;
