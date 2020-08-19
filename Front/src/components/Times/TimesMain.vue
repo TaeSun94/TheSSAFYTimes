@@ -89,7 +89,7 @@ img {
 }
 
 #cover {
-    width: 600px;
+    width: 599px;
     height: 848.2px;
 }
 
