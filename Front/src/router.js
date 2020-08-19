@@ -24,6 +24,7 @@ import TeamDetail from "@/components/Community/Team/TeamDetail";
 import DetailPage from "@/components/Editor/DetailPage.vue";
 import AboutUs from "@/components/AboutUs.vue";
 import AboutUsIndex from "@/components/AboutUs/AboutUsIndex.vue";
+import AboutUs2 from "@/components/AboutUs/AboutUs.vue";
 import FreeList from "@/components/Community/Free/List";
 import FreeWrite from "@/components/Community/Free/Write";
 import FreeDetail from "@/components/Community/Free/Detail";
@@ -32,7 +33,7 @@ import Studio from "@/components/Studio/StudioMain";
 import Times from "@/components/Times/TimesMain";
 import News from "@/components/News/News";
 import FreeUpdate from "@/components/Community/Free/Update";
-
+import TeamUpdate from "@/components/Community/Team/TeamUpdate";
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -129,6 +130,11 @@ export default new VueRouter({
                     component: TeamDetail
                 },
                 {
+                    path:"teamupdate/:no",
+                    name:"TeamUpdate",
+                    component: TeamUpdate
+                },                
+                {
                     path:"freelist",
                     name:"FreeList",
                     component: FreeList,
@@ -189,12 +195,17 @@ export default new VueRouter({
             path:"/aboutus",
             name:"AboutUs",
             component: AboutUs,
-            redirect: "/aboutus/aboutusindex",
+            redirect: "/aboutus/aboutus2",
             children: [
                 {
                     path:"aboutusindex",
                     name:"AboutUsIndex",
                     component:AboutUsIndex
+                },
+                {
+                    path:"aboutus2",
+                    name:"AboutUs2",
+                    component:AboutUs2
                 }
             ]
         },

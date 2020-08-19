@@ -7,13 +7,26 @@
                     <h1 class="mb-2">{{team.teamBoardTitle}}</h1>
                 </div>
                 <div class="text-right mr-5">
-                    <small class="description"> SSAFY 3기 / {{team.memberId}} </small>
+                    <small @click="to(team.memberId)" class="description" id="follow"> SSAFY / {{team.memberId}} </small>
                     <small class="description"> </small>
                 </div>
+                <div class="text-right mt-3 mr-3">
+                    <!-- <v-btn depressed tile dark v-show="canEdit" @click="deleteHandler">삭제하기!</v-btn> -->
+                    <v-btn depressed tile dark v-show="canEdit" @click="toUpdate()">수정하기!</v-btn>
+                   
+                </div>
                 <div class="tei">
-                    <div class="title">
-                        <p> 모집분야 / {{team.teamBoardCategory}}</p>
+                    <div class="title text-right">
+                        <v-chip 
+                        label 
+                        style="font-size:1.1rem;" 
+                        color="green"
+                        outlined> Category  {{ team.teamBoardCategory }} </v-chip>
                     </div>
+                    <div class="date text-right mr-4">
+                        <p> 마감일 📅 {{$moment(team.teamBoardEndDatetime).format('YYYY-MM-DD')}}</p>
+                         
+                    </div>                    
                     <hr style="width:95%" >
                     <div v-html="team.teamBoardContent" class="content_inner">
                     </div>
@@ -41,7 +54,7 @@
                         </div>    
                     </div>          
                     <div class="text-right mr-4"><v-btn tile  v-if="(team.memberId != this.$cookies.get('memberId')) && (this.$cookies.get('memberId') != null) && (team.teamBoardFrontRemainCount!=0 || team.teamBoardBackRemainCount !=0)">관심등록</v-btn></div>
-                    <div class="text-right mr-4"><v-btn tile disabled v-if="(team.memberId == this.$cookies.get('memberId')) || (this.$cookies.get('memberId') == null) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">관심등록</v-btn></div>
+                   
                     <div class="likeContent mt-5 row justify-content-end">
                         <v-container v-if="(team.memberId != this.$cookies.get('memberId'))">
                             <v-textarea
@@ -67,8 +80,8 @@
                                 <tbody>
                                     <tr>
                                         <p class="faq-content">{{ item.teamApplyContent }}<br></p>
-                                        <p class="faq-txt text-right" v-if="item.teamApplyPosition=='F'">🟡FRONT🟡 🧑 {{ item.memberId }}님</p>
-                                        <p class="faq-txt text-right" v-if="item.teamApplyPosition=='B'">🟣BACK🟣 🧑 {{ item.memberId }}님</p>
+                                        <p class="faq-txt text-right" v-if="item.teamApplyPosition=='F'" id="follow" @click="to(item.memberId)">🟡FRONT🟡 🧑 {{ item.memberId }}님</p>
+                                        <p class="faq-txt text-right" v-if="item.teamApplyPosition=='B'" id="follow" @click="to(item.memberId)">🟣BACK🟣 🧑 {{ item.memberId }}님</p>
                                         <v-dialog v-model="dialog" persistent max-width="290">
                                             <template v-slot:activator="{ on, attrs }">
                                                 <v-btn style="float:right;" tile color="dark" dark  v-if="item.teamApplyPosition=='F' && item.teamApplyStatus==0" v-bind="attrs" v-on="on">FRONT 영입하기 !</v-btn>
@@ -111,6 +124,7 @@ export default {
             dialog: false,
             apply_dialog: false,
             teamApplyContent: '',
+            canEdit: false,
         }
     },
     computed: {
@@ -120,20 +134,29 @@ export default {
             return ((this.team.teamBoardTotalCount-(this.team.teamBoardBackRemainCount + this.team.teamBoardFrontRemainCount))/this.team.teamBoardTotalCount)*100;
         }
     },
+    updated() {
+        var id = this.$cookies.get('memberId');
+        var author = this.team.memberId;
+        if(id==author){this.canEdit = true}
+    },
     created() {
         this.$store.dispatch("getTeam", `/team/board/${this.$route.params.no}`);
         this.$store.dispatch("getApplys", `/team/board/apply/${this.$route.params.no}/list`);
+        
     },
     methods: {
         recruit(no) {
             this.dialog = false
             http.put("/team/board/apply", {teamApplyNo:no}).then(({data})=> {
                 if(data.result != "success") {
-                    alert(data.message);
+                    this.$alert(data.message);
                 } else {
                     location.reload();
                 }
             })
+        },
+        toUpdate() {
+            this.$router.push(`/community/teamupdate/${this.$route.params.no}`);
         },
         apply(position) {
             http.post("/team/board/apply", {
@@ -143,16 +166,33 @@ export default {
                 teamBoardNo: this.$route.params.no,
             }).then(({data})=> {
                 if(data.result == "success") {
-                    alert(data.message);
+                    this.$alert(data.message);
                     location.reload();
+                } else {
+                    this.$alert(data.message);
+                    return;
+                }
+            })
+        },
+        deleteHandler() {
+            http.delete(`/team/board/${this.$route.params.no}`).then(({data}) => {
+                if(data.result == "success"){
+                    alert(data.message);
+                    this.$router.push("/community/teamlist");
                 } else {
                     alert(data.message);
                     return;
                 }
-            })
-        }
-    }
+            });
+        },
 
+
+        to(id){
+            var url = "/profile/"+id;
+            this.$router.push({path: url});
+        },
+    
+    }
 }
 </script>
 
@@ -228,9 +268,13 @@ hr{
 .team_name{
     font-size: 1.4rem;
 }
-.title, .content, .content_inner{
+.content, .content_inner{
     color:black;
     margin:30px;
+}
+.title {
+    margin-bottom: 20px;
+    margin-right: 15px
 }
 .team_content{
     text-align: left;
@@ -254,5 +298,8 @@ hr{
     
     justify-content: center;
     margin: 20px;
+}
+#follow:hover {
+   color: orange;
 }
 </style>

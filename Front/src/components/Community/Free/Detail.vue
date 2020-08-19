@@ -1,23 +1,17 @@
 <template>
     <div class="wrapper" style="margin-top:8%">
-        <!-- <div>
-            <SearchBar />
-        </div> -->
-
         <div class="row">
-            
             <v-container class="elevation-5 col-lg-7">
                 <div id="app">
                     <div class="textfield">
                         <div v-html="freeBoardTitle" class="ml-4 textfield-input"></div>
                         <hr>
-                    
                     </div>
                                     
                     <div class="text-right mr-5">
                         
                         <small class="description">👀 조회수 {{ freeBoardHit }} /</small>
-                        <small class="description"> SSAFY 3기 / </small>
+                        <small class="description"> SSAFY / </small>
                         <small class="description"> {{$moment(freeBoardDatetime).format('YYYY-MM-DD hh:mm:ss a')}} </small>
 
                     </div>
@@ -69,6 +63,9 @@
                     <hr style="width:95%" class="mt-5">
                     
                     <!--댓글 목록-->
+                    <div class="ml-5 mb-5">
+                        댓글이 총 <b>{{ free_comments.length }}</b> 건 있습니다.
+                    </div>
                     <div v-show="commentContent">
                         <div class="comment-content" v-for="item in free_comments" :key="item.freeCommentNo">
                             <v-simple-table>
@@ -116,10 +113,11 @@ export default {
             freeBoardContent: '',
             freeBoardHit: 0,
             freeBoardDislike : '',
-
             //edit, delete관련
             canEdit: false,
             member: {},
+            commentCount: '',
+            commentCountShow: false
         }
     },
     computed: {
@@ -128,7 +126,7 @@ export default {
 
     },
     created() {
-        
+        this.commentCount = this.free_comments.length
         this.count = this.free.data.freeBoardLikeCount 
         this.$store.dispatch("getFreeComments", `/free/${this.$route.params.no}/comment`)
         http.get(`/free/board/${this.$route.params.no}`).then(({data})=> {
@@ -146,6 +144,7 @@ export default {
                 this.member = data.data;
             })
         });
+
     },
     methods: {
         commentShow() {
@@ -240,6 +239,10 @@ export default {
         var author = this.freeBoardWriter;
         if(id != author) { this.canEdit = false }
         else {this.canEdit = true }
+
+        if(this.commentCount>0) {
+            this.commentCountShow = true
+        } 
     }
 
 }

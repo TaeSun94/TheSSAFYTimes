@@ -164,7 +164,7 @@ export default new Vuex.Store({
                 alert("프로필 등록 및 수정중 에러발생");
             }
 
-            location.href=`/profile/${state.profile.memberId}`;
+            location.hlocaref=`/profile/${state.profile.memberId}`;
             state.profile ={};
         },
         //기사 관련
@@ -204,7 +204,6 @@ export default new Vuex.Store({
             state.units = payload;
         },
         setProjects(state,payload){
-            console.log(state)
             state.projects = payload;
         },
         setRegions(state,payload){
@@ -424,7 +423,7 @@ export default new Vuex.Store({
             })
         },
         teamCreate(context, { teamBoardTitle, teamBoardContent, teamBoardFrontRemainCount, teamBoardBackRemainCount, teamBoardCategory, memberId, teamBoardEndDatetime }) {
-            console.log(teamBoardCategory)
+            
             http.post('/team/board', {
                 
                     "memberId": memberId,
@@ -435,9 +434,19 @@ export default new Vuex.Store({
                     "teamBoardFrontRemainCount": teamBoardFrontRemainCount,
                     "teamBoardTitle": teamBoardTitle
             })
-            .then(({data})=> {
-                console.log(data)
+        },
 
+        teamUpdate(context, { boardTitle, boardContent, boardFrontRemainCount, boardBackRemainCount, boardCategory, boardEndDatetime, boardNo, memberId }) {
+            
+            http.post('/team/board', {
+                "boardTitle":  boardTitle,
+                "boardContent" : boardContent,
+                "boardFrontRemainCount" : boardFrontRemainCount,
+                "boardBackRemainCount": boardBackRemainCount,
+                "boardCategory":boardCategory,
+                "boardEndDatetime" : boardEndDatetime,
+                "boardNo" : boardNo,
+                "memberId" : memberId
             })
         },
         //category 불러오기
@@ -536,7 +545,6 @@ export default new Vuex.Store({
         },
         getTeams(context, payload) {
             http.get(payload).then(({data}) => {
-                console.log(data)
                 context.commit("setTeams", data.list);
             });
         },

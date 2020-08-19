@@ -15,14 +15,12 @@
                     </v-avatar>
                 </div>
                 <div v-else class="col-lg-6 text-center" style="position:relative;">
-                    <!-- <div class="col-lg-6 text-center" style="position:relative;"> -->
                     <v-avatar :size="150">
                         <img
                             src="@/assets/마스크.jpg"
                             alt="비어있음"
                         >  
                     </v-avatar>
-                    <!-- </div> -->
                 </div>
                 <div class="col-lg-3 text-center">
                     <!-- 만약 세션이 나이고 쿼리를 통해 들어온거와 같다면 -->

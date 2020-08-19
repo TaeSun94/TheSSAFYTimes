@@ -26,12 +26,12 @@
         </v-list-item>
         <v-list-item v-if="login===false" style="margin-top:3%">
             <v-list-item-content>
-                <v-btn rounded @click="to('/login')">로그인</v-btn>
+                <v-btn @click="to('/login')">로그인</v-btn>
             </v-list-item-content>
         </v-list-item>
         <v-list-item v-if="login===false">
             <v-list-item-content>
-                <v-btn rounded @click="to('/join')">회원가입</v-btn>
+                <v-btn @click="to('/join')">회원가입</v-btn>
             </v-list-item-content>
         </v-list-item>
             
@@ -42,12 +42,12 @@
         </v-list-item>
         <v-list-item style="margin-top:3%" v-if="login===true"> 
             <v-list-item-content >
-                <v-btn rounded @click="memClick">{{memberId}}</v-btn>
+                <v-btn @click="memClick">{{memberId}}</v-btn>
             </v-list-item-content>
         </v-list-item>
         <v-list-item v-if="login===true">
             <v-list-item-content>
-                <v-btn rounded @click="invalidate()">로그아웃</v-btn>
+                <v-btn @click="invalidate()">로그아웃</v-btn>
             </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
@@ -118,9 +118,7 @@ export default {
         invalidate() {
             this.$cookies.remove("memberId");
             this.$cookies.remove("memberEmail");
-            this.$router.push({path:'/'});
-            alert("로그아웃 되었습니다.");
-            location.reload();
+            this.$alert("로그아웃 되었습니다.");
             this.$router.push('/');
         },
         memClick(){
