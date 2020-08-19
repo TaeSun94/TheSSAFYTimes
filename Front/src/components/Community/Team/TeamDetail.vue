@@ -10,6 +10,10 @@
                     <small class="description"> SSAFY 3기 / {{team.memberId}} </small>
                     <small class="description"> </small>
                 </div>
+
+                <div>
+                    <v-btn depressed tile dark v-show="canEdit === true" @click="deleteHandler" class="mr-5" style="float: right;">삭제하기!</v-btn>   
+                </div>
                 <div class="tei">
                     <div class="title">
                         <p> 모집분야 / {{team.teamBoardCategory}}</p>
@@ -111,6 +115,7 @@ export default {
             dialog: false,
             apply_dialog: false,
             teamApplyContent: '',
+            canEdit: false,
         }
     },
     computed: {
@@ -123,6 +128,9 @@ export default {
     created() {
         this.$store.dispatch("getTeam", `/team/board/${this.$route.params.no}`);
         this.$store.dispatch("getApplys", `/team/board/apply/${this.$route.params.no}/list`);
+        if(this.$cookies.get('memberId'== this.team.memberId)){
+            this.canEdit = true
+        }
     },
     methods: {
         recruit(no) {
@@ -151,7 +159,8 @@ export default {
                 }
             })
         }
-    }
+    },
+
 
 }
 </script>

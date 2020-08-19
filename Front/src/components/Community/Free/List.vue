@@ -10,7 +10,7 @@
                     <v-spacer></v-spacer>
                     <v-btn v-if="login===false" disabled large tile depressed :to="{  path: '/community/freewrite'}">글쓰기!</v-btn>
                     <v-btn v-if="login===true"  tile large depressed dark :to="{  path: '/community/freewrite'}">글쓰기!</v-btn>
-   
+               
                 </v-card-title>
                 <v-card-title>
                     <v-spacer></v-spacer>
@@ -71,6 +71,7 @@ export default {
     },
     computed: {
         ...mapGetters(["frees"]),
+        ...mapGetters(["free_comments"]),
         pageLength() {
             return this.frees.length;
         },
@@ -87,6 +88,7 @@ export default {
 
     },
     created() {
+        this.$store.dispatch("getFreeComments")
        this.$store.dispatch("getFrees", '/free/board');
         var id = this.$cookies.get('memberId');
         if(id==null){

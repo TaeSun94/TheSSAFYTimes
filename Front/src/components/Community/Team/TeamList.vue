@@ -69,6 +69,7 @@ export default {
         },
     },
     created() {
+        
         this.$store.dispatch("getTeams", '/team/board');
         var id = this.$cookies.get('memberId');
         if(id==null){
