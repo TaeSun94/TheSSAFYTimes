@@ -1,16 +1,16 @@
 <template>
 <div class="wrapper" style="margin-top:6%;">
     <div class="row">
-      <v-container class="col-lg-9 col-sm-10">
+      <v-container class="col-lg-9 col-sm-10 mainpage">
           <v-row class="fill-height" align="center" justify="center">
-            <h1 class="mr-10" style="margin-top: 4%; margin-bottom:5%">Monthly</h1>
-            <div @click="to('ssafytimes')" class="book" style="margin: 6% 20% 0% 20%">
+            <h1 class="mr-10" style="margin-top: 4%; margin-bottom:5%"></h1>
+            <div @click="to('ssafytimes')" class="book" style="margin: 6% 20% 0%;cursor: pointer;">
               <div class="cover"></div>
               <h2>The SSAFY <span>Times 8월호</span></h2>
               <span class="writer">Designed By <i>SSAFience</i></span>
             </div>
             <template v-for="(item, i) in items" >
-              <v-col :key="i" cols="12" md="4" style="margin-top: 15%">
+              <v-col :key="i" cols="12" md="4" style="margin-top: 15% ">
                 <v-hover v-slot:default="{hover}">
                   <v-card :elevation="hover ? 12 : 2"
                     :class="{'on-hover': hover}"
@@ -85,6 +85,9 @@ export default {
 </script>
 
 <style scoped>
+.cover {
+  
+}
 .v-card {
   transition: opacity .4s ease-in-out;
 }
@@ -97,6 +100,7 @@ export default {
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 .book {
+  cursor: pointer;
   position: relative;
   top: 0;
   width: 400px;

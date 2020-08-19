@@ -128,7 +128,6 @@ export default {
         }
     },
     created() {
-        console.log("네비 아앙");
         var id = this.$cookies.get("memberId");
         if(id==null){
             this.login = false;

@@ -1,5 +1,5 @@
 <template>
-<div class="wrapper" style="margin-top:5%">
+<div class="wrapper" style="margin-top:8%">
     <div class="row">
         <v-container class="elevation-5 col-lg-5 col-sm-6"> <!-- 기본틀 푸터까지 -->
         <div class="form sm-m-0">
@@ -13,6 +13,7 @@
             required
             ></v-text-field>
             <!--Pw-->
+
             <div>
               <v-text-field 
               v-model="memberPw"

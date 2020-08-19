@@ -21,7 +21,7 @@
             required
             >
               <template v-slot:append-outer>
-                <v-btn @click="checkEmail">
+                <v-btn @click="checkEmail" tile>
                   체크
                 </v-btn>
               </template>
@@ -49,6 +49,7 @@
             </v-text-field>
             <footer class="login-foot mt-3">
               <v-btn @click="submit"
+              @keyup.enter="submit"
               dark
               large
               tile
