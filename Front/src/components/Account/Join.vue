@@ -1,5 +1,5 @@
 <template>     
-  <div class="wrapper" style="margin-top:5%">
+  <div class="wrapper" style="margin-top:8%">
     <div class="row">
       <v-container class="col-lg-5 col-sm-6 elevation-5"> 
         <div class="form sm-m-0">

@@ -43,7 +43,13 @@
                   </div>       
                 </div>  
                 <span class="label ml-3 d-inline">날짜</span><br>
-                <v-date-picker v-model="picker" :landscape="landscape" :reactive="reactive" class="ml-4 mt-4 mb-4"></v-date-picker>   
+                <v-date-picker 
+                v-model="picker" 
+                :landscape="landscape"  
+                :show-current="showCurrent" 
+                :reactive="reactive" 
+                class="ml-4 mt-4 mb-4">
+                </v-date-picker>   
               </v-form>
               <div class="textfield ml-5 row">
                 <span class="label ml-3">상세설명</span>
