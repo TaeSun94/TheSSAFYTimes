@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-9">
+        <v-container class="elevation-5 col-lg-7 col-sm-10">
             <template class="basil template">
                 <v-card color="basil" class="card">
                     <v-card-title class="text-center justify-center py-6">
