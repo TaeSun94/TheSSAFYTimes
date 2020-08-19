@@ -59,7 +59,7 @@ public class TeamController {
 	@ApiOperation(value = "모든 팀 매칭 게시판 목록 반환")
 	@GetMapping
 	public ResponseEntity<ListResponse<TeamBoardResultDTO>> getBoardList() {
-
+		logger.debug("getBoardList 호출");
 		final ListResponse<TeamBoardResultDTO> result = new ListResponse<>();
 		try {
 			List<TeamBoardResultDTO> list = tService.selectBoardList();
@@ -80,6 +80,7 @@ public class TeamController {
 	@ApiOperation(value = "특정 팀 매칭 게시판 상세 조회")
 	@GetMapping("/{boardno}")
 	public ResponseEntity<SingleResponse<TeamBoardResultDTO>> getBoardOne(@PathVariable int boardno) {
+		logger.debug("getBoardOne 호출");
 		final SingleResponse<TeamBoardResultDTO> result = new SingleResponse<>();
 
 		try {
@@ -107,6 +108,7 @@ public class TeamController {
 	@ApiOperation(value = "새로운 팀 매칭 게시판 게시글 등록")
 	@PostMapping
 	public ResponseEntity<BasicResponse> insertBoard(@RequestBody TeamWriteRequest request) {
+		logger.debug("getBoardOne 호출");
 		final BasicResponse result = new BasicResponse();
 
 		try {
@@ -137,6 +139,7 @@ public class TeamController {
 	@ApiOperation(value = "팀 매칭 게시판 게시글 수정")
 	@PutMapping
 	public ResponseEntity<BasicResponse> updateBoard(@RequestBody TeamModifyRequest request) {
+		logger.debug("updateBoard 호출");
 		final BasicResponse result = new BasicResponse();
 
 		try {
@@ -167,6 +170,7 @@ public class TeamController {
 	@ApiOperation(value = "팀 매칭 게시판 게시글 삭제")
 	@DeleteMapping("/{boardno}")
 	public ResponseEntity<BasicResponse> deleteBoard(@PathVariable int boardno) {
+		logger.debug("deleteBoard 호출");
 		final BasicResponse result = new BasicResponse();
 
 		try {
@@ -199,6 +203,7 @@ public class TeamController {
 	@ApiOperation(value = "특정 팀 매칭 게시판 지원 목록")
 	@GetMapping("/apply/{boardno}/list")
 	public ResponseEntity<ListResponse<TeamApply>> getApplyList(@PathVariable int boardno) {
+		logger.debug("getBoardOne 호출");
 		final ListResponse<TeamApply> result = new ListResponse<>();
 		try {
 			List<TeamApply> list = tService.selectApplyList(boardno);
@@ -225,6 +230,7 @@ public class TeamController {
 	@ApiOperation(value = "특정 팀 매칭 게시판에 지원하기")
 	@PostMapping("/apply")
 	public ResponseEntity<BasicResponse> apply(@RequestBody TeamApplyRequest request) {
+		logger.debug("apply 호출");
 		final BasicResponse result = new BasicResponse();
 
 		try {
@@ -259,6 +265,7 @@ public class TeamController {
 	@ApiOperation(value = "지원자 영입")
 	@PutMapping("/apply")
 	public ResponseEntity<BasicResponse> accept(@RequestBody TeamApplyAcceptRequest request) {
+		logger.debug("accept 호출");
 		final BasicResponse result = new BasicResponse();
 
 		try {
@@ -286,6 +293,7 @@ public class TeamController {
 	@ApiOperation(value = "지원한 프로젝트 중 기한이 유효한 프로젝트 목록")
 	@GetMapping("/apply/{memberid}/date")
 	public ResponseEntity<ListResponse<TeamApplyList>> getMyApplyList(@PathVariable String memberid){
+		logger.debug("getMyApplyList 호출");
 		final ListResponse<TeamApplyList> result = new ListResponse<>();
 		try {
 			List<TeamApplyList> list = tService.selectMyApplyList(memberid);
@@ -311,6 +319,7 @@ public class TeamController {
 	@ApiOperation(value = "지원한 프로젝트 중 선택받은 프로젝트 목록")
 	@GetMapping("/apply/{memberid}/status")
 	public ResponseEntity<ListResponse<TeamApplyList>> getMyAppliedTeam(@PathVariable String memberid){
+		logger.debug("getMyAppliedTeam 호출");
 		final ListResponse<TeamApplyList> result = new ListResponse<>();
 		try {
 			List<TeamApplyList> list = tService.selectMyAppliedTeam(memberid);

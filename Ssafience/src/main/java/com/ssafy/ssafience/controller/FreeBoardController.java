@@ -22,19 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.ssafience.model.BasicResponse;
 import com.ssafy.ssafience.model.ListResponse;
 import com.ssafy.ssafience.model.SingleResponse;
-import com.ssafy.ssafience.model.article.ArticleModifyRequest;
-import com.ssafy.ssafience.model.article.ArticleResult;
-import com.ssafy.ssafience.model.article.WriteRequest;
 import com.ssafy.ssafience.model.board.BoardResult;
 import com.ssafy.ssafience.model.board.FreeModifyRequest;
 import com.ssafy.ssafience.model.board.FreeWriteRequest;
-import com.ssafy.ssafience.model.dto.Article;
 import com.ssafy.ssafience.model.dto.FreeBoard;
-import com.ssafy.ssafience.model.dto.Member;
 import com.ssafy.ssafience.model.hit.HitRequest;
-import com.ssafy.ssafience.service.article.ArticleService;
 import com.ssafy.ssafience.service.board.FreeBoardService;
-import com.ssafy.ssafience.util.ClientIPUtils;
 import com.ssafy.ssafience.util.ClientUtils;
 
 import io.swagger.annotations.Api;
@@ -66,6 +59,7 @@ public class FreeBoardController {
 	@ApiOperation(value = "모든 자유게시판 목록 반환")
 	@GetMapping
 	public ResponseEntity<ListResponse<FreeBoard>> getBoardList(){
+		logger.debug("getBoardList 호출");
 		final ListResponse<FreeBoard> result = new ListResponse<>();
 		try {
 			List<FreeBoard> list = fService.selectBoardList();
@@ -86,10 +80,11 @@ public class FreeBoardController {
 	@ApiOperation(value = "특정 자유게시판 상세 조회")
 	@GetMapping("/{boardno}")
 	public ResponseEntity<SingleResponse<FreeBoard>> getBoardOne(@PathVariable int boardno, HttpServletRequest req){
+		logger.debug("getBoardOne 호출");
 		final SingleResponse<FreeBoard> result = new SingleResponse<>();
 		
 		try {
-			HitRequest request = new HitRequest(boardno, ClientIPUtils.getLocalHostAddress());
+			HitRequest request = new HitRequest(boardno, ClientUtils.getRemoteIP(req));
 			FreeBoard board = fService.selectBoardDetailOne(request);
 			if (board != null) {
 				result.result = SUCCESS;
@@ -114,6 +109,7 @@ public class FreeBoardController {
 	@ApiOperation(value = "특정 회원의 자유게시판 목록 반환")
 	@GetMapping("/{memberid}/list")
 	public ResponseEntity<ListResponse<FreeBoard>> getMemberBoardList(@PathVariable String memberid){
+		logger.debug("getMemberBoardList 호출");
 		final ListResponse<FreeBoard> result = new ListResponse<>();
 		
 		try {
@@ -142,6 +138,7 @@ public class FreeBoardController {
 	@ApiOperation(value = "새로운 자유게시판 게시글 등록")
 	@PostMapping
 	public ResponseEntity<BasicResponse> insertBoard(@RequestBody FreeWriteRequest request){
+		logger.debug("insertBoard 호출");
 		final BasicResponse result = new BasicResponse();
 		
 		try {
@@ -172,6 +169,7 @@ public class FreeBoardController {
 	@ApiOperation(value = "자유게시판 게시글 수정")
 	@PutMapping
 	public ResponseEntity<BasicResponse> updateBoard(@RequestBody FreeModifyRequest request){
+		logger.debug("updateBoard 호출");
 		final BasicResponse result = new BasicResponse();
 		
 		try {
@@ -202,6 +200,7 @@ public class FreeBoardController {
 	@ApiOperation(value = "자유게시판 게시글 삭제")
 	@DeleteMapping("/{boardno}")
 	public ResponseEntity<BasicResponse> deleteBoard(@PathVariable int boardno){
+		logger.debug("deleteBoard 호출");
 		final BasicResponse result = new BasicResponse();
 		
 		try {
@@ -231,19 +230,3 @@ public class FreeBoardController {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

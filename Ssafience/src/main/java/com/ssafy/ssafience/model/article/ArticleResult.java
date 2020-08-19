@@ -3,8 +3,6 @@ package com.ssafy.ssafience.model.article;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ssafy.ssafience.model.dto.Article;
-
 import lombok.Getter;
 import lombok.Setter;
 

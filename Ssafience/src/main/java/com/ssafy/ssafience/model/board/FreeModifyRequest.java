@@ -2,7 +2,6 @@ package com.ssafy.ssafience.model.board;
 
 import java.sql.Date;
 
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter

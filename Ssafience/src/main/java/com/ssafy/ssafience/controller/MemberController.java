@@ -52,7 +52,8 @@ public class MemberController {
 	@ApiOperation(value = "특정 회원 정보 반환")
 	@GetMapping("/{memberid}")
 	public ResponseEntity<SingleResponse<MemberDetailResult<String>>> getMemberList(@PathVariable String memberid) {
-		final SingleResponse<MemberDetailResult<String>> result = new SingleResponse<>();
+		logger.debug("getMemberList 호출");
+	final SingleResponse<MemberDetailResult<String>> result = new SingleResponse<>();
 
 		try {
 			MemberDetailResult<String> memberResult = mService.selectMemberOneDetail(memberid);
@@ -81,6 +82,7 @@ public class MemberController {
 	@ApiOperation(value = "특정 회원 정보 반환 (수정 시 사용)")
 	@GetMapping("/mod/{memberid}")
 	public ResponseEntity<SingleResponse<MemberDetailResult<Integer>>> getMemberListForModify(@PathVariable String memberid) {
+		logger.debug("getMemberListForModify 호출");
 		final SingleResponse<MemberDetailResult<Integer>> result = new SingleResponse<>();
 
 		try {
@@ -109,6 +111,7 @@ public class MemberController {
 	@ApiOperation(value = "새로운 회원 등록")
 	@PostMapping
 	public ResponseEntity<SingleResponse<Member>> signup(@RequestBody SignUpRequest request) {
+		logger.debug("signup 호출");
 		final SingleResponse<Member> result = new SingleResponse<>();
 
 		try {
@@ -135,9 +138,9 @@ public class MemberController {
 	@ApiOperation(value = "회원 정보 수정")
 	@PutMapping
 	public ResponseEntity<BasicResponse> updateMember(@RequestBody ModifyRequest request) {
+		logger.debug("updateMember 호출");
 		final BasicResponse result = new BasicResponse();
 		
-		System.out.println("request : "+request);
 
 		try {
 			int updateMember = mService.update(request);
@@ -167,6 +170,7 @@ public class MemberController {
 	@ApiOperation(value = "회원 삭제")
 	@DeleteMapping("/{memberId}")
 	public ResponseEntity<BasicResponse> deleteMember(@PathVariable String memberId) {
+		logger.debug("deleteMember 호출");
 		final BasicResponse result = new BasicResponse();
 
 		try {

@@ -22,25 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.ssafience.model.BasicResponse;
 import com.ssafy.ssafience.model.ListResponse;
 import com.ssafy.ssafience.model.SingleResponse;
-import com.ssafy.ssafience.model.article.ArticleModifyRequest;
-import com.ssafy.ssafience.model.article.ArticleResult;
-import com.ssafy.ssafience.model.article.WriteRequest;
 import com.ssafy.ssafience.model.board.BoardResult;
-import com.ssafy.ssafience.model.board.FreeModifyRequest;
-import com.ssafy.ssafience.model.board.FreeWriteRequest;
 import com.ssafy.ssafience.model.board.ProgramModifyRequest;
 import com.ssafy.ssafience.model.board.ProgramWriteRequest;
-import com.ssafy.ssafience.model.dto.Article;
-import com.ssafy.ssafience.model.dto.FreeBoard;
-import com.ssafy.ssafience.model.dto.Member;
-import com.ssafy.ssafience.model.dto.ProgramBoard;
 import com.ssafy.ssafience.model.dto.ProgramBoardResultDTO;
 import com.ssafy.ssafience.model.hit.HitRequest;
-import com.ssafy.ssafience.service.article.ArticleService;
-import com.ssafy.ssafience.service.board.FreeBoardService;
 import com.ssafy.ssafience.service.board.ProgramBoardService;
 import com.ssafy.ssafience.util.ClientIPUtils;
-import com.ssafy.ssafience.util.ClientUtils;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -71,6 +59,7 @@ public class ProgramBoardController {
 	@ApiOperation(value = "모든 프로그래밍 게시판 목록 반환")
 	@GetMapping
 	public ResponseEntity<ListResponse<ProgramBoardResultDTO>> getBoardList(){
+		logger.debug("getBoardList 호출");
 		final ListResponse<ProgramBoardResultDTO> result = new ListResponse<>();
 		try {
 			List<ProgramBoardResultDTO> list = fService.selectBoardList();
@@ -91,6 +80,7 @@ public class ProgramBoardController {
 	@ApiOperation(value = "특정 회원의 프로그래밍 게시판 목록 반환")
 	@GetMapping("/{memberId}/list")
 	public ResponseEntity<ListResponse<ProgramBoardResultDTO>> getMemberBoardList(@PathVariable String memberId){
+		logger.debug("getMemberBoardList 호출");
 		final ListResponse<ProgramBoardResultDTO> result = new ListResponse<>();
 		
 		try {
@@ -119,6 +109,7 @@ public class ProgramBoardController {
 	@ApiOperation(value = "특정 프로그래밍 게시판 상세 조회")
 	@GetMapping("/{boardno}")
 	public ResponseEntity<SingleResponse<ProgramBoardResultDTO>> getBoardOne(@PathVariable int boardno, HttpServletRequest req){
+		logger.debug("getBoardOne 호출");
 		final SingleResponse<ProgramBoardResultDTO> result = new SingleResponse<>();
 		
 		try {
@@ -148,6 +139,7 @@ public class ProgramBoardController {
 	@ApiOperation(value = "새로운 프로그래밍 게시판 게시글 등록")
 	@PostMapping
 	public ResponseEntity<BasicResponse> insertBoard(@RequestBody ProgramWriteRequest request){
+		logger.debug("insertBoard 호출");
 		final BasicResponse result = new BasicResponse();
 		
 		try {
@@ -178,6 +170,7 @@ public class ProgramBoardController {
 	@ApiOperation(value = "프로그래밍 게시판 게시글 수정")
 	@PutMapping
 	public ResponseEntity<BasicResponse> updateBoard(@RequestBody ProgramModifyRequest request){
+		logger.debug("updateBoard 호출");
 		final BasicResponse result = new BasicResponse();
 		
 		try {
@@ -208,6 +201,7 @@ public class ProgramBoardController {
 	@ApiOperation(value = "프로그래밍 게시판 게시글 삭제")
 	@DeleteMapping("/{boardNo}")
 	public ResponseEntity<BasicResponse> deleteBoard(@PathVariable int boardNo){
+		logger.debug("deleteBoard 호출");
 		final BasicResponse result = new BasicResponse();
 		
 		try {
@@ -237,19 +231,3 @@ public class ProgramBoardController {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

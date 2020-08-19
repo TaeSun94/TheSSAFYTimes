@@ -20,8 +20,8 @@
         >
         <br>
         <v-list-item v-if="login===false">
-            <v-list-item-avatar style="margin-right:auto; margin-left:auto" size=70>
-                <v-img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQDLFnxu6sy4oQgCw4yuNZeNq1p604iMXTq-Q&usqp=CAU"></v-img>
+            <v-list-item-avatar style="margin-right:auto; margin-left:auto" size=100>
+                <v-img src="@/assets/TheSSAFYTimes_small.png"></v-img>
             </v-list-item-avatar>
         </v-list-item>
         <v-list-item v-if="login===false" style="margin-top:3%">

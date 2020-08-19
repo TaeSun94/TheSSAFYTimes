@@ -1,18 +1,19 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
-    <v-btn @click="getIp">아이피가져오기</v-btn>
-    <div class="row">
-        <div class="col-lg-11" v-if="profile.memberIntro !== null && profile.memberDesc !==null">
-        <v-container id="intro">
-            <h1>{{ profile.memberIntro }}</h1>
-            <p>{{ profile.memberDesc }}</p>
-        </v-container>
+    <v-container class="col-lg-10">
+        <div class="row">
+            <div class="col-lg-12" v-if="profile.memberIntro !== null && profile.memberDesc !==null">
+            <div style="padding-left: 5%">
+                <h1>{{ profile.memberIntro }}</h1>
+                <p>{{ profile.memberDesc }}</p>
+            </div>
+            </div>
+            <!-- <bussiness-card v-model="member"></bussiness-card> -->
         </div>
-        <!-- <bussiness-card v-model="member"></bussiness-card> -->
-    </div>
     <div class="row">
         <!-- 기사가 들어갈 공간 -->
-        <v-container class="col-lg-6">
+        <!-- <v-container class="col-lg-6"> -->
+        <div class="col" style="padding-left: 5%">
             <div v-if="isMember">
                 <v-card-actions>
                     나만의 기사 작성하기!
@@ -111,13 +112,17 @@
                     <!-- infinite loading -->
                     <infinite-loading @infinite="infiniteHandler"></infinite-loading>
                 </div>
-                <div v-else class="text-center">
-                    <h3>등록된 기사가 없습니다.</h3>
+                <div v-else class="text-center" style="padding-top:8%">
+                    <img src="@/assets/옴팡이.jpg"/>
+                    <!-- <v-container class="elevation-5"> -->
+                    <h1>등록된 기사가 없습니당...ㅠ</h1>
+                    <!-- </v-container> -->
                 </div>
             </div>
-        </v-container>
+        </div>
+        <!-- </v-container> -->
         <!-- 프로필 및 친구 관계가 들어갈 공간 -->
-        <div class="col-lg-4 mr-15">
+        <div class="col-lg-4 mr-15" style="padding-top: 7%">
             <profile-card v-model="profile.memberId"></profile-card>
             <br>
             <v-container class="elevation-5 col-lg-12">
@@ -204,6 +209,7 @@
             </v-container>
         </div>
     </div>
+    </v-container>
     <footer-bar></footer-bar>
 </div>
 </template>
@@ -212,7 +218,6 @@
     import ProfileCard from "@/components/Profile/ProfileCard"
     import {mapState, mapGetters, mapActions} from 'vuex';
     import http from "@/http-common.js";
-    import axios from "axios";
     export default {
         name: 'UserProfile',
         components:{
@@ -299,11 +304,6 @@
                     },1000)
                 });
             },
-            getIp(){
-                axios.get('https://www.cloudflare.com/cdn-cgi/trace').then(({data})=>{
-                    console.log(data);
-                })
-            }
         }
     };
 </script>

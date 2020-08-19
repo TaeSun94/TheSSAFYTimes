@@ -9,7 +9,6 @@ import com.ssafy.ssafience.model.board.FreeWriteRequest;
 import com.ssafy.ssafience.model.comment.CommentModifyRequest;
 import com.ssafy.ssafience.model.comment.CommentWriteRequest;
 import com.ssafy.ssafience.model.dto.FreeBoard;
-import com.ssafy.ssafience.model.dto.FreeBoardLike;
 import com.ssafy.ssafience.model.dto.FreeComment;
 import com.ssafy.ssafience.model.hit.HitRequest;
 import com.ssafy.ssafience.model.like.LikeRequest;
