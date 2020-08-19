@@ -24,8 +24,8 @@
                    
                     <div v-html="freeBoardContent" class="inner">
                     </div>
-                    <v-btn depressed dark v-show="canEdit === true" @click="deleteHandler" class="mr-5" style="float: right;">삭제하기!</v-btn>
-                    <v-btn depressed dark v-show="canEdit === true" @click="toUpdate()" class="mr-1" style="float: right;">수정하기!</v-btn>
+                    <v-btn depressed tile dark v-show="canEdit === true" @click="deleteHandler" class="mr-5" style="float: right;">삭제하기!</v-btn>
+                    <v-btn depressed tile dark v-show="canEdit === true" @click="toUpdate()" class="mr-1" style="float: right;">수정하기!</v-btn>
                 
                     <div class="u_likeit">
                         <ul class="u_likeit_layer _faceLayer" role="menu">

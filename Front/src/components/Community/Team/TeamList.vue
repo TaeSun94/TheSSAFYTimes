@@ -4,52 +4,41 @@
         <v-container class="col-lg-9  elevation-5">
                 <v-card-title>
                     <div class="textfield">
-                        <h1 class="m-4 main-title"> 🧑‍🤝‍🧑 팀원 찾아요! </h1>
+                        
+                        <h1 class="m-4 main-title"> 🧑‍🤝‍🧑 팀 구해요 ! </h1>
                     </div>
                     <v-spacer></v-spacer>
                 </v-card-title>
                 <div class="text-right mr-5">
-                  <router-link class="write-link" :to="{path:'/community/teamWrite'}">팀원 구하기</router-link>
+                    <!-- <v-btn v-if="login===true" dark large tile :to="{path:'/community/teamWrite'}">팀원 구하기</v-btn> -->
+                    <v-btn dark large tile v-if="login===true" :to="{path:'/community/teamWrite'}">팀원 구하기</v-btn>
+                    <v-btn v-if="login===false" disabled large tile depressed :to="{path:'/community/teamWrite'}">팀원 구하기</v-btn>
                 </div>
              <div class="text-center">
                 <div class="item_card recruit_card col-lg-6" v-for="team in this.teams " :key="team.index" @click="rowClicked(team)">
                     <div class="card_image">
-                        <a data-v-74c97ae7="" style="background-color: rgb(255, 179, 71);text-align: center;display: flex;justify-content: center;align-items: center;">
-                            <p  class="team_title" >{{ team.teamBoardTitle }}</p>
+                        <a data-v-74c97ae7=""  class="team_title" style="text-align: center;display: flex;justify-content: center;align-items: center;">
+                            {{ team.teamBoardTitle }}
                         </a>
+                    
                     </div>
-                    <div class="card_contents">
-                        <div>
-                            <a>분야 / {{ team.teamBoardCategory }}</a>
+                    <hr style="width:80%;" class="line">
+                    <div class="card_contents mr-3">
+                        <div class="text-right mb-4">
+                            <v-chip label style="font-size:0.95rem;"> {{ team.teamBoardCategory }} </v-chip>
                         </div> 
-                        <div class="sub_title  mb-3 text-right">
-                            <span class="by_writer">작성자 🙋 <b>{{ team.memberId}}</b> </span> 
+
+                        <div class=" mb-3 text-right">
+                            <span class=""> 🙋 {{ team.memberId}} </span> 
 
                         </div> 
-                        <div class="recruit_title text-center">
-                            <v-chip
-                            class="ma-2"
-                            color="green"
-                            text-color="white"
-                            >
-                            📅 {{ $moment(team.teamBoardEndDatetime).format('YYYY-MM-DD') }}  
-                            
-                            <v-icon right></v-icon>
-                            </v-chip>
-                        </div> 
-                        <div class="recruit_desc">
-                            <li>프론트엔드 {{ team.teamBoardFrontRemainCount }}명</li>
-                            <li> 백엔드 {{ team.teamBoardBackRemainCount}}명 </li>
-                            <div class="text-right">
-                                <v-btn icon class="">
-                                    <v-icon>mdi-heart</v-icon>
-                                </v-btn>
-                                <v-btn icon class="">
-                                    <v-icon>mdi-bookmark</v-icon>
-                                </v-btn>
-                            </div>
+                        <div class=" mb-3 text-right">
+                            <span>📅 {{ $moment(team.teamBoardEndDatetime).format('YYYY-MM-DD') }} </span>
                         </div> 
                     </div>
+                    <div class="stack">
+                        <div>🟡 Front-end <b>{{ team.teamBoardFrontRemainCount }}</b> 명 / 🟣 Back-end <b>{{ team.teamBoardBackRemainCount}}</b> 명</div>
+                    </div> 
                 </div>
             </div>
         </v-container>
@@ -69,7 +58,7 @@ export default {
             perPage: 25,
             pageLength: 0,
             pageCount: this.pageLength/this.perPage,
-
+            login: false,
         }
     },
     computed: {
@@ -82,17 +71,37 @@ export default {
     },
     created() {
         this.$store.dispatch("getTeams", '/team/board');
+        var id = this.$cookies.get('memberId');
+        if(id==null){
+            this.login = false;
+            this.memberId = '';
+        } else  {
+            this.login = true;
+            this.memberId = id;
+        }       
     }
 }
 </script>
 
 <style scoped>
+
+.line {
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid;
+    color: #e0e0e0;
+}
 .main-title{
     font-size: 2rem;
+}
+.stack{
+    margin-bottom: 30px;
+    text-align: center;
 }
 .team_title{
     font-weight: 900px;
     font-size: 1.5rem;
+    padding: 20px;
 }
 .text-content{
     height: 250px;
@@ -106,7 +115,7 @@ export default {
     padding:0px;
 }
 .recruit_card {
-    border-radius: 10px;
+    
     border:0.3px solid grey;
 }
 .bottom_section{
@@ -114,7 +123,6 @@ export default {
 }
 .container{
   background: #fff;
-  border-radius: 20px;
   padding: 20px;
 }
 .item_card:hover {
@@ -123,7 +131,7 @@ export default {
 }
 .item_card {
     position: relative;
-    width: 330px;
+    width: 400px;
     vertical-align: top;
     margin: 40px;
     background-color: #ffffff;
@@ -134,6 +142,7 @@ export default {
     box-sizing: border-box;
     -webkit-transition: all 0.45s ease-in-out;
     transition: all 0.45s ease-in-out;
+    cursor: pointer;
 
 }
 a {
@@ -148,8 +157,6 @@ a {
     display: inline-block;
     background-position: center center;
     transition-duration: 0.2s;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
 }
 .recruit_card .card_image .card_hover {
     opacity: 0;
@@ -184,7 +191,7 @@ a {
     top: 6px;
     cursor: pointer;
 }
-a {
+.text-center a {
     color: #3c3c3c!important;
     text-decoration: none!important;
 }
@@ -204,8 +211,11 @@ a {
     margin-bottom: 20px;
     text-overflow: ellipsis;
 }
+.v-btn__content{
+    color: white!important;
+}
 .recruit_card .card_contents {
-    padding: 40px 15px;
+    padding: 20px 30px;
 }
 .v-chip__content{
     padding: 10px;
