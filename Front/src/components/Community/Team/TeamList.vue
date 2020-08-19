@@ -4,7 +4,6 @@
         <v-container class="col-lg-9  elevation-5">
                 <v-card-title>
                     <div class="textfield">
-                        
                         <h1 class="m-4 main-title"> 🧑‍🤝‍🧑 팀 구해요 ! </h1>
                     </div>
                     <v-spacer></v-spacer>
@@ -17,13 +16,13 @@
              <div class="text-center">
                 <div class="item_card recruit_card col-lg-4" v-for="team in this.teams " :key="team.index" @click="rowClicked(team)">
                     <div class="card_image">
-                        <a data-v-74c97ae7=""  class="team_title" style="text-align: center;display: flex;justify-content: center;align-items: center;">
+                        <a data-v-74c97ae7=""  class="team_title" style="text-align:center;display: flex;justify-content: center;align-items: center;">
                             {{ team.teamBoardTitle }}
                         </a>
                     
                     </div>
                     <hr style="width:80%;" class="line">
-                    <div class="card_contents mr-3">
+                    <div class="card_contents mr-1">
                         <div class="text-right mb-4">
                             <v-chip label style="font-size:0.95rem;"> {{ team.teamBoardCategory }} </v-chip>
                         </div> 
@@ -70,6 +69,7 @@ export default {
         },
     },
     created() {
+        
         this.$store.dispatch("getTeams", '/team/board');
         var id = this.$cookies.get('memberId');
         if(id==null){

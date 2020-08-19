@@ -9,6 +9,7 @@
             v-model="memberEmail"
             :rules="emailRules"
             label="Email*"
+            :color="tfColor"
             required
             ></v-text-field>
             <!--Pw-->
@@ -21,6 +22,7 @@
               label="비밀번호*"
               :type="pw"
               required
+              :color="tfColor"
               >
                 <template v-slot:append-outer>
                   <input id="l" type="checkbox" v-model="checkBox" @click="showPw">
@@ -29,7 +31,7 @@
             </div>
             <br>
             <footer class="login-foot">
-                <v-btn @click="submit" dark large tile width=100%>로그인</v-btn>
+                <v-btn @click="submit" @keyup.enter="submit" dark large tile width=100%>로그인</v-btn>
                 <div class="login-divider" role="separator"></div>
 
                 <p class="login-option mt-5 text-center">SSAFY TIMES 처음이신가요?
@@ -66,7 +68,8 @@ export default {
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || '이메일 형식이 틀립니다!'
       ],
       checkBox : false,
-      pw : "password"
+      pw : "password",
+      tfColor : "#c00000",
     }),
 
     methods: {
@@ -77,20 +80,20 @@ export default {
           http.post('/account/signin', { memberEmail, memberPw})
           .then(({data})=> {
             if(data.result == 'notavailable') {
-              alert(data.message);
+              this.$alert(data.message);
               location.reload();
             } else if(data.result == 'notvalid') {
-              alert(data.message);
+              this.$alert(data.message);
               this.$cookies.remove("memberEmail");
               this.$cookies.set("memberEmail", memberEmail, "30MIN");
               this.$router.push("/EmailCheck");
               location.reload();
             } else if(data.result == 'success') {
-              alert(data.message);
+              this.$alert(data.message);
               this.$cookies.set("memberId", data.data.memberId, "30MIN");
               this.$cookies.set("memberEmail", memberEmail, "30MIN");
-              this.$cookies.set("token", data.authorization, "30MIN");
-              this.$router.push("/");
+              this.$cookies.set("token", data.authorization, "30MIN");  
+              this.$router.push("/");            
               location.reload();
             }
           })

@@ -164,7 +164,7 @@ export default new Vuex.Store({
                 alert("프로필 등록 및 수정중 에러발생");
             }
 
-            location.href=`/profile/${state.profile.memberId}`;
+            location.hlocaref=`/profile/${state.profile.memberId}`;
             state.profile ={};
         },
         //기사 관련
@@ -204,7 +204,6 @@ export default new Vuex.Store({
             state.units = payload;
         },
         setProjects(state,payload){
-            console.log(state)
             state.projects = payload;
         },
         setRegions(state,payload){
@@ -305,36 +304,63 @@ export default new Vuex.Store({
         modifyProfile(context){
             const fd = new FormData();
             const path = this.state;
-            fd.append('file', path.profile.img)
-            http.put(`/member`,{
-                memberAddress: path.profile.memberAddress,
-                memberClass: path.profile.memberClass,
-                memberDesc: path.profile.memberDesc,
-                memberFirstName: path.profile.memberFirstName,
-                memberIntro: path.profile.memberIntro,
-                memberLastName: path.profile.memberLastName,
-                memberPhone: path.profile.memberPhone,
-                memberRegion: path.profile.memberRegion,
-                memberTrack: path.profile.memberTrack,
-                memberUnit: path.profile.memberUnit,
-                memberId: path.profile.memberId,
-                interestedList: path.profile.memberInterestedList,
-                skillList: path.profile.memberSkillList
-                
-            }).then(({data})=>{
-                console.log(data);
-                if(data.result==='success'){
-                    context.commit('updateProfile',data);
-                    http.post(`/upload/uploadFile/${path.profile.memberId}`,fd,{
-                        headers:{
-                            'Accept':'application/json',
-                            'Content-Type':"multipart/form-data"
-                        }
-                    }).then(({data})=>{
-                        console.log(data);
-                    })
-                }
-            });
+            if(path.profile.memberImgurl !== '' && path.profile.memberImgurl !== null){
+                fd.append('file', path.profile.memberImgurl)
+                http.post(`/upload/uploadFile/${path.profile.memberId}`,fd,{
+                    headers:{
+                        'Accept':'application/json',
+                        'Content-Type':"multipart/form-data"
+                    }
+                }).then(({data})=>{
+                    // console.log("파일올리고ㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗ",data);
+                    if(data.result === 'success'){
+                        http.put(`/member`,{
+                            memberAddress: path.profile.memberAddress,
+                            memberClass: path.profile.memberClass,
+                            memberDesc: path.profile.memberDesc,
+                            memberFirstName: path.profile.memberFirstName,
+                            memberIntro: path.profile.memberIntro,
+                            memberLastName: path.profile.memberLastName,
+                            memberPhone: path.profile.memberPhone,
+                            memberRegion: path.profile.memberRegion,
+                            memberTrack: path.profile.memberTrack,
+                            memberUnit: path.profile.memberUnit,
+                            memberId: path.profile.memberId,
+                            interestedList: path.profile.memberInterestedList,
+                            skillList: path.profile.memberSkillList,
+                            memberImgurl: data.data
+                        }).then(({data})=>{
+                            console.log(data);
+                            if(data.result==='success'){
+                                context.commit('updateProfile',data);
+                            }
+                        });
+                    }
+                })
+            }
+            else{
+                http.put(`/member`,{
+                    memberAddress: path.profile.memberAddress,
+                    memberClass: path.profile.memberClass,
+                    memberDesc: path.profile.memberDesc,
+                    memberFirstName: path.profile.memberFirstName,
+                    memberIntro: path.profile.memberIntro,
+                    memberLastName: path.profile.memberLastName,
+                    memberPhone: path.profile.memberPhone,
+                    memberRegion: path.profile.memberRegion,
+                    memberTrack: path.profile.memberTrack,
+                    memberUnit: path.profile.memberUnit,
+                    memberId: path.profile.memberId,
+                    interestedList: path.profile.memberInterestedList,
+                    skillList: path.profile.memberSkillList,
+                }).then(({data})=>{
+                    console.log(data);
+                    if(data.result==='success'){
+                        context.commit('updateProfile',data);
+                        
+                    }
+                });
+            }
         },
         getProfile(context, payload){
             http.get(`/member/${payload}`).then(({data})=>{
@@ -397,7 +423,7 @@ export default new Vuex.Store({
             })
         },
         teamCreate(context, { teamBoardTitle, teamBoardContent, teamBoardFrontRemainCount, teamBoardBackRemainCount, teamBoardCategory, memberId, teamBoardEndDatetime }) {
-            console.log(teamBoardCategory)
+            
             http.post('/team/board', {
                 
                     "memberId": memberId,
@@ -407,10 +433,6 @@ export default new Vuex.Store({
                     "teamBoardEndDatetime": teamBoardEndDatetime,
                     "teamBoardFrontRemainCount": teamBoardFrontRemainCount,
                     "teamBoardTitle": teamBoardTitle
-            })
-            .then(({data})=> {
-                console.log(data)
-
             })
         },
         //category 불러오기
@@ -509,7 +531,6 @@ export default new Vuex.Store({
         },
         getTeams(context, payload) {
             http.get(payload).then(({data}) => {
-                console.log(data)
                 context.commit("setTeams", data.list);
             });
         },

@@ -112,6 +112,14 @@ export default {
         })
       },
       createHandler() {
+        if(this.$cookies.isKey("token") != true) {
+          alert("로그인이 만료되었습니다. 다시 로그인 해주세요.");
+          this.$cookies.remove("memberId");
+          this.$cookies.remove("memberEmail");
+          this.$router.push({path:'/'});
+          location.reload();
+          return;
+        }
         http.post("/notice", {
           memberId: "",
           noticeContent: this.content,

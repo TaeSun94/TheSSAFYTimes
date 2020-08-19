@@ -17,7 +17,7 @@
                     <div class="text-right mr-5">
                         
                         <small class="description">👀 조회수 {{ freeBoardHit }} /</small>
-                        <small class="description"> SSAFY 3기 / </small>
+                        <small class="description"> SSAFY / </small>
                         <small class="description"> {{$moment(freeBoardDatetime).format('YYYY-MM-DD hh:mm:ss a')}} </small>
 
                     </div>

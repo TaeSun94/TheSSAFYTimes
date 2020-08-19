@@ -3,7 +3,7 @@
     <div class="row">
       <v-container class="col-lg-5 col-sm-6 elevation-5"> 
         <div class="form sm-m-0">
-          <v-form ref="form" lazy-validation>
+          <v-form ref="form" lazy-validation v-model="valid">
               <!--Id-->
             <v-text-field 
             v-model="memberId"
@@ -73,6 +73,7 @@ import http from '@/http-common'
   export default {
     name: 'Join', 
     data: () => ({
+      valid: false,
       memberId: '',
       IdRules: [
         v => !!v || '닉네임을 입력해주세요.',
@@ -81,12 +82,16 @@ import http from '@/http-common'
       memberPw: '',
       PwRules: [
         v => !!v || '비밀번호를 입력해주세요.',
-        v => (v && v.length <= 20) || 'Name must be less than 20 characters'
+        v => (v && v.length <= 20) || 'Name must be less than 20 characters',
+        value => !!value || 'Required.',
+        v => v.length >= 8 || 'Min 8 characters',
       ],
       memberPw2: '',
       PwRules2: [
         v => !!v || '비밀번호를 입력해주세요.',
-        v => (v && v.length <= 20) || 'Name must be less than 20 characters'
+        v => (v && v.length <= 20) || 'Name must be less than 20 characters',
+        value => !!value || 'Required.',
+        v => v.length >= 8 || 'Min 8 characters',
       ],
       memberEmail: '',
       emailRules: [
@@ -103,7 +108,7 @@ import http from '@/http-common'
           this.$router.push('/EmailCheck')
       },
       submit () {
-        if(this.idck==true && this.pwck==true && this.emailck==true){
+        if(this.valid == true &&this.idck==true && this.pwck==true && this.emailck==true){
           http.post('/account/signup', {
             memberId: this.memberId,
             memberEmail: this.memberEmail,
@@ -117,28 +122,38 @@ import http from '@/http-common'
               alert(data.message);
             }
           });
+        } else {
+          alert("입력값을 확인해주세요 !");
         }
       },
       clear () {
         this.$refs.form.reset()
       },
       checkIdDup() {
+        if(this.memberId=='') {
+          alert("닉네임을 입력하세요.");
+          return;
+        }
         http.post('/valid/id', {
           memberId : this.memberId
         })
         .then(({data})=> {
           if(data.result == "notavailable") {
             this.idck=false;
-            alert(data.message);
+            this.$alert(data.message);
             return;
           } else if(data.result == "success") {
             this.idck=true;
-            alert(data.message);
+            this.$alert(data.message);
             return;
           }
         })
       },
       checkPw() {
+        if(this.memberPw == '' || this.memberPw2 == ''){
+          alert("비밀번호를 입력해주세요.");
+          return;
+        }
         if(this.memberPw != this.memberPw2){
           this.pwck = false;
           alert("비밀번호가 일치하지 않습니다.");
@@ -147,16 +162,20 @@ import http from '@/http-common'
         }
       },
       checkEmail() {
+        if(this.memberEmail==''){
+          alert("이메일을 입력하세요.");
+          return;
+        }
         http.post('/valid/email', {
           memberEmail : this.memberEmail
         })
         .then(({data})=> {
           if(data.result == "success") {
             this.emailck = true;
-            alert(data.message);
+            this.$alert(data.message);
           } else if(data.result == "notavailable"){
             this.emailck = false;
-            alert(data.message);
+            this.$alert(data.message);
           }
         })
       }
