@@ -139,7 +139,7 @@
             onChangeImages(e) {
                 console.log(e)
                 this.preview = window.URL.createObjectURL(e);
-                this.member.img = e;
+                this.member.memberImgurl = e;
             }
         },
     };
