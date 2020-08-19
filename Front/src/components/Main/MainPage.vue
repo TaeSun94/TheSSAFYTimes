@@ -3,7 +3,7 @@
     <div class="row">
       <v-container class="col-lg-9 col-sm-10 mainpage">
           <v-row class="fill-height" align="center" justify="center">
-            <h1 class="mr-10" style="margin-top: 4%; margin-bottom:5%">Monthly</h1>
+            <h1 class="mr-10" style="margin-top: 4%; margin-bottom:5%"></h1>
             <div @click="to('ssafytimes')" class="book" style="margin: 6% 20% 0%;cursor: pointer;">
               <div class="cover"></div>
               <h2>The SSAFY <span>Times 8월호</span></h2>
