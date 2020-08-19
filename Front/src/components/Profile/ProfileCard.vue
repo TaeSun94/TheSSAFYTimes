@@ -6,7 +6,7 @@
                 <div class="col-lg-3">
                     <connect-here v-model="member"></connect-here>
                 </div>
-                <div class="col-lg-6 text-center" style="position:relative;">
+                <!-- <div v-if="member.memberImgUrl" class="col-lg-6 text-center" style="position:relative;">
                     <v-avatar :size="150">
                         <img
                             :src="getImg(member.memberId)"
@@ -14,6 +14,16 @@
                         >  
                     </v-avatar>
                 </div>
+                <div v-else class="col-lg-6 text-center" style="position:relative;"> -->
+                    <div class="col-lg-6 text-center" style="position:relative;">
+                    <v-avatar :size="150">
+                        <img
+                            src="@/assets/마스크.jpg"
+                            alt="John"
+                        >  
+                    </v-avatar>
+                    </div>
+                <!-- </div> -->
                 <div class="col-lg-3 text-center">
                     <!-- 만약 세션이 나이고 쿼리를 통해 들어온거와 같다면 -->
                     <div v-if="isMember">
@@ -167,7 +177,6 @@
                 isMember: false,
                 followingPeople:[],
                 isFollowing:false,
-                imgUrl: '',
             }
         },
         created(){
@@ -176,14 +185,11 @@
                 this.isMember = true;
             }
             http.get(`/follow/${id}/ing`).then(({data})=>{
-                // this.followingPeople = data.list;
                 for(var i = 0; i < data.list.length; i++){
                     this.followingPeople.push(data.list[i]["memberId"]);
                 }
                 console.log(this.followingPeople);
             });
-            this.imgUrl = "@/assets/"+id+".jpg";
-            // this.$store.dispatch('getFollowings',id)
         },
         components:{
             'connect-here':ConnectHere,
@@ -207,13 +213,9 @@
                 const id = this.$cookies.get("memberId");
                 this.$store.dispatch('delFollowing',id);
             },
-            getImg(id){
-                var pathUrl = "/home/ubuntu/ssafytimes/s03p13c208/Ssafience/src/main/resources/static/images/";
-                //"@/assets/마스크.jpg"
-                console.log(id);
-                return require(pathUrl+id+".jpg");
-                // return require("@/assets/"+id+".jpg");
-            }
+            // getImg(id){
+            //     return require("/home/ubuntu/ssafytimes/s03p13c208/Ssafience/src/main/resources/static/images/"+id+".jpg");
+            // }
         }
     }
 </script>
