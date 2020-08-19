@@ -106,12 +106,12 @@
 </template>
 
 <script>
-import { VueScrollProgressBar } from '@guillaumebriday/vue-scroll-progress-bar'
+// import { VueScrollProgressBar } from '@guillaumebriday/vue-scroll-progress-bar'
 export default {
     name:"AboutUsIndex",
-    components: {
-      VueScrollProgressBar
-    },
+    // components: {
+    //   VueScrollProgressBar
+    // },
     data() {
         return {
             tab: null,
