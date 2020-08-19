@@ -1,57 +1,64 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="elevation-8 col-lg-9" style="">            
-                <v-row 
-                no-gutters
-                >                
-                    <v-col v-for="team in teams" :key="team" class="p-6" cols="12" sm="5" style="margin:3%">
-                        <v-hover v-slot:default="{ hover }">
-                            <v-card
-                            class="mx-auto"
-                            color="grey lighten-4"
-                            max-width="600"
+        <v-container class="elevation-8 col-lg-9" style="">     
+            <h3> We are</h3>        
+            <v-img
+                src="@/assets/ssaf.png"
+                width="80%"
+            ></v-img>
+            <v-row 
+            no-gutters
+            >                
+                <v-col v-for="(team, k) in teams" :key="k" class="p-6" cols="12" sm="5" style="margin:3%">
+                    <v-hover v-slot:default="{ hover }">
+                        <v-card
+                        class="mx-auto"
+                        color="grey lighten-4"
+                        max-width="600"
+                        >
+                        
+                        <v-img
+                            :aspect-ratio="16/9"
+                            :src="getImg(team.thumbnail)"
+                        >
+                            <v-expand-transition>
+                            <div
+                                v-if="hover"
+                                class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-3"
+                                style="height: 100%; backgroundColor:white; color: black; font-weight:900"
                             >
-                            
-                            <v-img
-                                :aspect-ratio="16/9"
-                                :src="'../assets/dv2.jpg'"
+                            {{team.nic}}
+                            </div>
+                            </v-expand-transition>
+                        </v-img>
+                        <v-card-text
+                            class="pt-6"
+                            style="position: relative;"
+                        >
+                            <v-btn
+                            absolute
+                            :color="color"
+                            class="white--text"
+                            fab
+                            large
+                            right
+                            top
+                            :href="team.gitLink"
+                            target="_blank"
                             >
-                                <v-expand-transition>
-                                <div
-                                    v-if="hover"
-                                    class="d-flex transition-fast-in-fast-out darken-2 v-card--reveal display-3 white--text"
-                                    style="height: 100%; backgroundColor:#c00000"
-                                >
-                                {{team.name}}
-                                </div>
-                                </v-expand-transition>
-                            </v-img>
-                            <v-card-text
-                                class="pt-6"
-                                style="position: relative;"
-                            >
-                                <v-btn
-                                absolute
-                                :color="color"
-                                class="white--text"
-                                fab
-                                large
-                                right
-                                top
-                                >
-                                <v-icon>mdi-github</v-icon>
-                                </v-btn>
-                                <h3 class="display-1 font-weight-light mb-2"  style="color:#000066">{{team.name}}</h3>
-                                <div class="font-weight-light title mb-2" style="color:#000066">
-                                {{team.position}}
-                                </div>
-                            </v-card-text>
-                            </v-card>
-                        </v-hover>
-                    </v-col>         
-                </v-row>
-        </v-container>
+                            <v-icon x-large>mdi-github</v-icon>
+                            </v-btn>
+                            <h3 class="display-1 font-weight-light mb-2"  style="color:#000066">{{team.name}}</h3>
+                            <div class="font-weight-light title mb-2" style="color:#000066">
+                            {{team.position}}
+                            </div>
+                        </v-card-text>
+                        </v-card>
+                    </v-hover>
+                </v-col>         
+            </v-row>
+    </v-container>
     </div>
     <footer-bar></footer-bar>
 </div>
@@ -66,13 +73,15 @@ export default {
             teams : [
                 {
                     name : "공선아",
+                    nic : "선아",
                     saying : "열심히 하겠습니당.",
                     position :"Back-End",
-                    thumbnail : "dv2.jpg",
+                    thumbnail : "dv1.jpg",
                     gitLink : "https://github.com/Sunaaaa"
                 },
                 {
                     name : "김지웅",
+                    nic : "찌웅이형",
                     saying : "열심히 하겠습니당.",
                     position :"Back-End",
                     thumbnail : "dv2.jpg",
@@ -80,26 +89,34 @@ export default {
                 },
                 {
                     name : "유태선",
+                    nic : "태서니",
                     saying : "열심히 하겠습니당.",
                     position :"Front-End",
-                    thumbnail : "dv2.jpg",
+                    thumbnail : "dv3.jpg",
                     gitLink : "https://github.com/Sunaaaa"
                 },
                 {
                     name : "이승경",
+                    nic : "승경",
                     saying : "열심히 하겠습니당.",
                     position :"Front-End",
-                    thumbnail : "dv2.jpg",
+                    thumbnail : "dv4.jpg",
                     gitLink : "https://github.com/Sunaaaa"
                 },
                 {
                     name : "정성윤",
+                    nic : "정옴팡",
                     saying : "열심히 하겠습니당.",
                     position :"Front-End",
-                    thumbnail : "dv2.jpg",
+                    thumbnail : "dv5.jpg",
                     gitLink : "https://github.com/Sunaaaa"
                 }      
             ]
+        }
+    },
+    methods:{
+        getImg(img) {
+            return require("@/assets/"+img);
         }
     }
 }
@@ -113,5 +130,11 @@ export default {
   opacity: .5;
   position: absolute;
   width: 100%;
+}
+
+h1{
+    text-align: center;
+    justify-content: center;
+    font-size: 60px;
 }
 </style>
