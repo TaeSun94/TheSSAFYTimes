@@ -305,14 +305,15 @@ export default new Vuex.Store({
         modifyProfile(context){
             const fd = new FormData();
             const path = this.state;
-            if(path.profile.img !== '' && path.profile.img !== null){
-                fd.append('file', path.profile.img)
+            if(path.profile.memberImgurl !== '' && path.profile.memberImgurl !== null){
+                fd.append('file', path.profile.memberImgurl)
                 http.post(`/upload/uploadFile/${path.profile.memberId}`,fd,{
                     headers:{
                         'Accept':'application/json',
                         'Content-Type':"multipart/form-data"
                     }
                 }).then(({data})=>{
+                    // console.log("파일올리고ㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗ",data);
                     if(data.result === 'success'){
                         http.put(`/member`,{
                             memberAddress: path.profile.memberAddress,
@@ -328,7 +329,7 @@ export default new Vuex.Store({
                             memberId: path.profile.memberId,
                             interestedList: path.profile.memberInterestedList,
                             skillList: path.profile.memberSkillList,
-                            memberImg: data
+                            memberImgurl: data.data
                         }).then(({data})=>{
                             console.log(data);
                             if(data.result==='success'){
