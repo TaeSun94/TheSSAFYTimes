@@ -33,7 +33,7 @@ import Studio from "@/components/Studio/StudioMain";
 import Times from "@/components/Times/TimesMain";
 import News from "@/components/News/News";
 import FreeUpdate from "@/components/Community/Free/Update";
-
+import TeamUpdate from "@/components/Community/Team/TeamUpdate";
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -129,6 +129,11 @@ export default new VueRouter({
                     name:"TeamDetail",
                     component: TeamDetail
                 },
+                {
+                    path:"teamupdate/:no",
+                    name:"TeamUpdate",
+                    component: TeamUpdate
+                },                
                 {
                     path:"freelist",
                     name:"FreeList",
