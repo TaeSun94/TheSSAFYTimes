@@ -3,7 +3,7 @@
     <div class="row">
       <v-container class="col-lg-5 col-sm-6 elevation-5"> 
         <div class="form sm-m-0">
-          <v-form ref="form" lazy-validation>
+          <v-form ref="form" lazy-validation v-model="valid">
               <!--Id-->
             <v-text-field 
             v-model="memberId"
@@ -73,6 +73,7 @@ import http from '@/http-common'
   export default {
     name: 'Join', 
     data: () => ({
+      valid: false,
       memberId: '',
       IdRules: [
         v => !!v || '닉네임을 입력해주세요.',
@@ -81,12 +82,16 @@ import http from '@/http-common'
       memberPw: '',
       PwRules: [
         v => !!v || '비밀번호를 입력해주세요.',
-        v => (v && v.length <= 20) || 'Name must be less than 20 characters'
+        v => (v && v.length <= 20) || 'Name must be less than 20 characters',
+        value => !!value || 'Required.',
+        v => v.length >= 8 || 'Min 8 characters',
       ],
       memberPw2: '',
       PwRules2: [
         v => !!v || '비밀번호를 입력해주세요.',
-        v => (v && v.length <= 20) || 'Name must be less than 20 characters'
+        v => (v && v.length <= 20) || 'Name must be less than 20 characters',
+        value => !!value || 'Required.',
+        v => v.length >= 8 || 'Min 8 characters',
       ],
       memberEmail: '',
       emailRules: [
@@ -103,7 +108,7 @@ import http from '@/http-common'
           this.$router.push('/EmailCheck')
       },
       submit () {
-        if(this.idck==true && this.pwck==true && this.emailck==true){
+        if(this.valid == true &&this.idck==true && this.pwck==true && this.emailck==true){
           http.post('/account/signup', {
             memberId: this.memberId,
             memberEmail: this.memberEmail,
