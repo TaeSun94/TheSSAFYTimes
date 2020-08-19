@@ -123,7 +123,6 @@ export default {
 }
 .container{
   background: #fff;
-  padding: 20px;
 }
 .item_card:hover {
   -webkit-transform: scale(1.05);
@@ -146,6 +145,18 @@ export default {
     cursor: pointer;
 
 }
+
+@media screen and (max-width: 768px) { 
+    .item_card { 
+        margin-top:20px;
+        margin-left:0px;
+        margin-right:0px;
+        width: 500px;
+    } 
+    
+}
+
+
 a {
     color: #3c3c3c;
     text-decoration: none;

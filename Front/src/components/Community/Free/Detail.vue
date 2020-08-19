@@ -1,17 +1,11 @@
 <template>
     <div class="wrapper" style="margin-top:8%">
-        <!-- <div>
-            <SearchBar />
-        </div> -->
-
         <div class="row">
-            
             <v-container class="elevation-5 col-lg-7">
                 <div id="app">
                     <div class="textfield">
                         <div v-html="freeBoardTitle" class="ml-4 textfield-input"></div>
                         <hr>
-                    
                     </div>
                                     
                     <div class="text-right mr-5">

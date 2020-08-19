@@ -13,46 +13,47 @@
                 <v-text-field v-model="teamBoardTitle" class="ml-3 mr-3" placeholder="글 제목을 입력해주세요."           
                 ></v-text-field>
                 <span class="label ml-3">모집 분야</span>
+                
                 <v-select
-                    v-model="teamBoardCategory"
-                    :items="projects"
-                    chips
-                    persistent-hint
-                    class="ml-3 mr-3"
+                  v-model="teamBoardCategory"
+                  :items="projects"
+                  chips
+                  persistent-hint
+                  class="ml-3 mr-3"
                 ></v-select>
                 <div class="d-flex">
                   <div class="col-3">
                   <span class="label ml-3 d-inline">Front-end</span>
                       <v-select class="col-lg-6" 
-                          :items="front"
-                          label=""
-                          chips
-                          persistent-hint
-                          v-model="teamBoardFrontRemainCount"
+                        :items="front"
+                        label=""
+                        chips
+                        persistent-hint
+                        v-model="teamBoardFrontRemainCount"
                       ></v-select>
                   </div>
                   <div class="col-3">
                     <span class="label ml-3 d-inline">Back-end</span>
                       <v-select class="col-lg-6" 
-                          :items="back"
-                          label=""
-                          chips
-                          persistent-hint
-                          v-model="teamBoardBackRemainCount"
+                        :items="back"
+                        label=""
+                        chips
+                        persistent-hint
+                        v-model="teamBoardBackRemainCount"
                       ></v-select>          
                   </div>       
                 </div>  
                 <span class="label ml-3 d-inline">마감일</span><br>
                 <v-date-picker 
-                v-model="picker" 
-                :landscape="landscape" 
-                :reactive="reactive" 
-                :min="minDate"
-                locale="ko-KR"
-                class="ml-4 mt-4 mb-4"
-                color="green"
-                is-dark
-                is-inline
+                  v-model="picker" 
+                  :landscape="landscape" 
+                  :reactive="reactive" 
+                  :min="minDate"
+                  locale="ko-KR"
+                  class="ml-4 mt-4 mb-4"
+                  color="green lighten-1"
+                  is-dark
+                  is-inline
                 >
                 </v-date-picker>   
 
@@ -88,8 +89,17 @@ export default {
     created() {      
       this.$store.dispatch("getProjects");
       http.get(`/team/board/${this.$route.params.no}`).then(({data})=> {
-          console.log(data)
-     
+        var board = data.data;
+        this.teamBoardNo = board.teamBoardNo;
+        this.teamBoardTitle = board.teamBoardTitle;
+        this.teamBoardFrontRemainCount = board.teamBoardFrontRemainCount
+        this.teamBoardBackRemainCount = board.teamBoardBackRemainCount
+        this.teamBoardContent = board.teamBoardContent
+        this.teamBoardWriter = board.memberId;
+      }).then(()=> {
+          http.get("/member/"+this.teamBoardWriter).then(({data})=> {
+          this.member = data.data;
+        })
       });      
     },
     computed:{
@@ -103,13 +113,15 @@ export default {
         htmlForEditor: "",
         teamBoardFrontRemainCount: '',
         teamBoardBackRemainCount: '',
+        front:[1,2,3,4,'4명 이상'],
+        back:[1,2,3,4,'4명 이상'],
         teamBoardTitle: '',
         teamBoardContent: '',
         teamBoardCategory: '',
-        dateTime: '',
         minDate: new Date().toISOString().substr(0, 10),
         memberId: '',
         teamBoardNo: '',
+        teamBoardWriter: '',
         }
       } ,
     
@@ -139,39 +151,48 @@ export default {
     checkHandler() {
         //console.log(this.teamBoardTitle,this.picker, this.teamBoardContent, this.teamBoardFrontRemainCount, this.teamBoardBackRemainCount, this.teamBoardCategory)
       if (this.teamBoardTitle == "") {
-        alert("제목을 입력하세요");
+        this.$alert("제목을 입력하세요");
       } else if (this.teamBoardContent == "") {
-        alert("글 내용을 입력하세요");
+        this.$alert("글 내용을 입력하세요");
       } else if (this.teamBoardFrontRemainCount == "") {
-        alert("입력을 확인해주세요")
+        this.$alert("입력을 확인해주세요")
       } else if (this.teamBoardBackRemainCount == "") {
-        alert("입력을 확인해주세요")
+        this.$alert("입력을 확인해주세요")
       } else if (this.teamBoardCategory == "") {
-        alert("분야를 입력해주세요")
-      } else {
-        // 만약, 내용이 다 입력되어 있다면 createHandler 호출
-          this.$fire({
-            type: 'Success',
-            title: '등록 완료',
-            text: '글 등록이 완료 되었습니다.',
-          }).then(() =>{
-          var teamBoardTitle = this.teamBoardTitle
-          var teamBoardContent = this.teamBoardContent
-          var teamBoardFrontRemainCount = this.teamBoardFrontRemainCount
-          var teamBoardBackRemainCount = this.teamBoardBackRemainCount
-          var teamBoardCategory = this.teamBoardCategory
-          var teamBoardEndDatetime = this.picker
-          var memberId = this.$cookies.get("memberId")
-          this.$store.dispatch("teamCreate", { teamBoardTitle, teamBoardContent, teamBoardFrontRemainCount, teamBoardBackRemainCount, teamBoardCategory, memberId, teamBoardEndDatetime  });
-          this.$router.push("/community/teamlist");
-          location.reload();
-        })
+        this.$alert("카테고리를 선택해주세요")
+      } else if (this.picker == null) {
+        this.$alert("날짜를 선택해주세요")
+      }
+      else {
+          this.updateHandler()
       }
     },
-    
-    },
-  }
+    updateHandler() {
+      http.put("/team/board", {
 
+         teamBoardTitle:  this.teamBoardTitle,
+         teamBoardContent : this.teamBoardContent,
+         teamBoardFrontRemainCount : this.teamBoardFrontRemainCount,
+         teamBoardBackRemainCount: this.teamBoardBackRemainCount,
+         teamBoardCategory:this.teamBoardCategory,
+         teamBoardEndDatetime : this.picker,
+         teamBoardNo : this.teamBoardNo,
+         memberId : this.teamBoardWriter
+
+      }).then(({data})=> {
+        console.log(this.teamBoardWriter)
+        console.log(data)
+        if(data.result=="success"){
+          alert(data.message)
+          this.$router.push(`/community/teamdetail/${this.$route.params.no}`)
+        } else {
+          alert(data.message)
+          return
+        }
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>
