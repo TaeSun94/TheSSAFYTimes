@@ -306,13 +306,13 @@ export default new Vuex.Store({
             const path = this.state;
             if(path.profile.memberImgurl !== '' && path.profile.memberImgurl !== null){
                 fd.append('file', path.profile.memberImgurl)
-                http.post(`/upload/uploadFile/${path.profile.memberId}`,fd,{
+                http.post(`/upload/uploadFile`,fd,{
                     headers:{
                         'Accept':'application/json',
                         'Content-Type':"multipart/form-data"
                     }
                 }).then(({data})=>{
-                    // console.log("파일올리고ㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗ",data);
+                    console.log("파일올리고ㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗ",data);
                     if(data.result === 'success'){
                         http.put(`/member`,{
                             memberAddress: path.profile.memberAddress,
