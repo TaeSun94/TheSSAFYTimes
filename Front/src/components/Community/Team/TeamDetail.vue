@@ -10,16 +10,21 @@
                     <small class="description"> SSAFY 3기 / {{team.memberId}} </small>
                     <small class="description"> </small>
                 </div>
-
-                <div>
+                <div class="text-right mt-3 mr-3">
+                    <v-btn depressed tile dark @click="deleteHandler">삭제하기!</v-btn>
+                    <v-btn depressed tile dark @click="toUpdate()">수정하기!</v-btn>
                     <!-- <v-btn depressed tile dark v-show="canEdit === true" @click="deleteHandler" class="mr-5" style="float: right;">삭제하기!</v-btn>    -->
                 </div>
                 <div class="tei">
-                    <div class="title">
-                        <p> 모집분야 / {{team.teamBoardCategory}}</p>
+                    <div class="title text-right">
+                        <v-chip 
+                        label 
+                        style="font-size:1.1rem;" 
+                        color="green"
+                        outlined> Category  {{ team.teamBoardCategory }} </v-chip>
                     </div>
                     <div class="date text-right mr-4">
-                        <p> 마감일 📅 {{$moment(team.teamBoardDatetime).format('YYYY-MM-DD')}}</p>
+                        <p> 마감일 📅 {{$moment(team.teamBoardEndDatetime).format('YYYY-MM-DD')}}</p>
                          
                     </div>                    
                     <hr style="width:95%" >
@@ -49,7 +54,7 @@
                         </div>    
                     </div>          
                     <div class="text-right mr-4"><v-btn tile  v-if="(team.memberId != this.$cookies.get('memberId')) && (this.$cookies.get('memberId') != null) && (team.teamBoardFrontRemainCount!=0 || team.teamBoardBackRemainCount !=0)">관심등록</v-btn></div>
-                    <div class="text-right mr-4"><v-btn tile disabled v-if="(team.memberId == this.$cookies.get('memberId')) || (this.$cookies.get('memberId') == null) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">관심등록</v-btn></div>
+                   
                     <div class="likeContent mt-5 row justify-content-end">
                         <v-container v-if="(team.memberId != this.$cookies.get('memberId'))">
                             <v-textarea
@@ -147,6 +152,9 @@ export default {
                 }
             })
         },
+        toUpdate() {
+            this.$router.push(`/community/teamupdate/${this.$route.params.no}`);
+        },
         apply(position) {
             http.post("/team/board/apply", {
                 memberId:this.$cookies.get('memberId'),
@@ -162,7 +170,18 @@ export default {
                     return;
                 }
             })
-        }
+        },
+        deleteHandler() {
+            http.delete(`/team/board/${this.$route.params.no}`).then(({data}) => {
+                if(data.result == "success"){
+                    alert(data.message);
+                    this.$router.push("/community/teamlist");
+                } else {
+                    alert(data.message);
+                    return;
+                }
+            });
+        },
     },
 
 
@@ -241,9 +260,13 @@ hr{
 .team_name{
     font-size: 1.4rem;
 }
-.title, .content, .content_inner{
+.content, .content_inner{
     color:black;
     margin:30px;
+}
+.title {
+    margin-bottom: 20px;
+    margin-right: 15px
 }
 .team_content{
     text-align: left;

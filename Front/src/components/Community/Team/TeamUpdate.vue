@@ -76,14 +76,21 @@
 <script>
 import { VueEditor } from "vue2-editor";
 import axios from "axios";
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
+import http from "@/http-common.js"
+
+
 export default {
-    name:"TeamWrite",
+    name:"TeamUpdate",
     components: {
       VueEditor
     },
     created() {      
       this.$store.dispatch("getProjects");
+      http.get(`/team/board/${this.$route.params.no}`).then(({data})=> {
+          console.log(data)
+     
+      });      
     },
     computed:{
       ...mapGetters(['projects'])
@@ -94,9 +101,6 @@ export default {
         landscape: true,
         reactive: false,
         htmlForEditor: "",
-        front:[1,2,3,4,'4명 이상'],
-        back:[1,2,3,4,'4명 이상'],
-        stack: ['Java','jsp','머신러닝','딥러닝', 'Python', 'Vue.js', 'React', 'Spring', 'Django'],
         teamBoardFrontRemainCount: '',
         teamBoardBackRemainCount: '',
         teamBoardTitle: '',
@@ -104,6 +108,8 @@ export default {
         teamBoardCategory: '',
         dateTime: '',
         minDate: new Date().toISOString().substr(0, 10),
+        memberId: '',
+        teamBoardNo: '',
         }
       } ,
     

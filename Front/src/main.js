@@ -15,9 +15,12 @@ import vueMoment from 'vue-moment';
 import VueCookies from 'vue-cookies'
 import VueQuill from 'vue-quill'
 import VueSimpleAlert from "vue-simple-alert";
- 
-Vue.use(VueSimpleAlert);
+import VCalendar from 'v-calendar';
+import VuetifyConfirm from 'vuetify-confirm'
 
+Vue.use(VuetifyConfirm, { vuetify })
+Vue.use(VueSimpleAlert);
+Vue.use(VCalendar);
 VueMarkdownEditor.use(vuepressTheme);
 Vue.use(vueMoment)
 Vue.use(Vue2Editor);
