@@ -325,7 +325,7 @@ export default new Vuex.Store({
                 console.log(data);
                 if(data.result==='success'){
                     context.commit('updateProfile',data);
-                    http.post(`/upload/uploadFile/${member.memberId}`,fd,{
+                    http.post(`/upload/uploadFile/${path.profile.memberId}`,fd,{
                         headers:{
                             'Accept':'application/json',
                             'Content-Type':"multipart/form-data"
