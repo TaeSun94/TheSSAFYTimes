@@ -9,7 +9,7 @@
             </div>
             <div class="text-right mr-5">
                 <small class="description">👀 조회수 {{programHit}} / </small>
-                <small class="description"> SSAFY {{member.memberTrack}} {{programWriter}} / </small>
+                <small @click="to(programWriter)" id="follow" class="description"> SSAFY {{member.memberTrack}} {{programWriter}} / </small>
                 <small class="description">{{programDatetime | moment('YYYY-MM-DD HH:MM a')}}  </small>
             </div>
             <div></div>
@@ -60,7 +60,7 @@
                             <tbody>
                                 <tr>
                                     <p class="faq-content">{{ item.programCommentContent }}<br></p>
-                                    <p class="faq-txt text-right">🧑 {{ item.memberId }}님</p>
+                                    <p @click="to(item.memberId)" class="faq-txt text-right" id="follow">🧑 {{ item.memberId }}님</p>
                                 </tr>
                             </tbody>
                             </template>
@@ -199,7 +199,11 @@ export default {
                     location.reload();
                 }
             })
-        }
+        },
+        to(id){
+            var url = "/profile/"+id;
+            this.$router.push({path: url});
+        },
 
     },
     created() {
@@ -340,5 +344,8 @@ tbody tr {
 .u_likeit a, .u_likeit a:hover, .u_likeit a:visited {
     white-space: nowrap;
     text-decoration: none;
+}
+#follow:hover {
+   color: orange;
 }
 </style>

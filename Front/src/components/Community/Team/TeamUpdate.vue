@@ -10,49 +10,50 @@
               </div>
               <v-form class="ml-4 mr-4 mt-6">
                 <span class="label ml-3">제목</span>
-                <v-text-field v-model="teamBoardTitle" class="ml-3 mr-3" placeholder="글 제목을 입력해주세요."           
+                <v-text-field v-model="boardTitle" class="ml-3 mr-3" placeholder="글 제목을 입력해주세요."           
                 ></v-text-field>
                 <span class="label ml-3">모집 분야</span>
+                
                 <v-select
-                    v-model="teamBoardCategory"
-                    :items="projects"
-                    chips
-                    persistent-hint
-                    class="ml-3 mr-3"
+                  v-model="boardCategory"
+                  :items="projects"
+                  chips
+                  persistent-hint
+                  class="ml-3 mr-3"
                 ></v-select>
                 <div class="d-flex">
                   <div class="col-3">
                   <span class="label ml-3 d-inline">Front-end</span>
                       <v-select class="col-lg-6" 
-                          :items="front"
-                          label=""
-                          chips
-                          persistent-hint
-                          v-model="teamBoardFrontRemainCount"
+                        :items="front"
+                        label=""
+                        chips
+                        persistent-hint
+                        v-model="boardFrontRemainCount"
                       ></v-select>
                   </div>
                   <div class="col-3">
                     <span class="label ml-3 d-inline">Back-end</span>
                       <v-select class="col-lg-6" 
-                          :items="back"
-                          label=""
-                          chips
-                          persistent-hint
-                          v-model="teamBoardBackRemainCount"
+                        :items="back"
+                        label=""
+                        chips
+                        persistent-hint
+                        v-model="boardBackRemainCount"
                       ></v-select>          
                   </div>       
                 </div>  
                 <span class="label ml-3 d-inline">마감일</span><br>
                 <v-date-picker 
-                v-model="picker" 
-                :landscape="landscape" 
-                :reactive="reactive" 
-                :min="minDate"
-                locale="ko-KR"
-                class="ml-4 mt-4 mb-4"
-                color="green"
-                is-dark
-                is-inline
+                  v-model="boardEndDatetime" 
+                  :landscape="landscape" 
+                  :reactive="reactive" 
+                  :min="minDate"
+                  locale="ko-KR"
+                  class="ml-4 mt-4 mb-4"
+                  color="green lighten-1"
+                  is-dark
+                  is-inline
                 >
                 </v-date-picker>   
 
@@ -60,7 +61,7 @@
               <div class="textfield ml-5 row">
                 <span class="label ml-3">상세설명</span>
               </div>
-              <vue-editor id="editor" class="ml-5 mr-5" useCustomImageHandler @imageAdded="handleImageAdded" v-model="teamBoardContent"> </vue-editor>
+              <vue-editor id="editor" class="ml-5 mr-5" useCustomImageHandler @imageAdded="handleImageAdded" v-model="boardContent"> </vue-editor>
             </div>
             <div class="text-right mt-3 mr-5">
               <v-btn @click="checkHandler"> 등록할래요 👌</v-btn>
@@ -76,34 +77,51 @@
 <script>
 import { VueEditor } from "vue2-editor";
 import axios from "axios";
-import {mapGetters} from "vuex";
+import { mapGetters } from "vuex";
+import http from "@/http-common.js"
+
+
 export default {
-    name:"TeamWrite",
+    name:"TeamUpdate",
     components: {
       VueEditor
     },
     created() {      
       this.$store.dispatch("getProjects");
+      http.get(`/team/board/${this.$route.params.no}`).then(({data})=> {
+        var board = data.data;
+        this.boardNo = board.teamBoardNo;
+        this.boardTitle = board.teamBoardTitle;
+        this.boardFrontRemainCount = board.teamBoardFrontRemainCount
+        this.boardBackRemainCount = board.teamBoardBackRemainCount
+        this.boardContent = board.teamBoardContent
+        this.teamBoardWriter = board.memberId;
+      }).then(()=> {
+          http.get("/member/"+this.teamBoardWriter).then(({data})=> {
+          this.member = data.data;
+        })
+      });      
     },
     computed:{
       ...mapGetters(['projects'])
     },
     data() {
       return {
-        picker: null,
+        boardEndDatetime: null,
         landscape: true,
         reactive: false,
         htmlForEditor: "",
+        boardFrontRemainCount: '',
+        boardBackRemainCount: '',
         front:[1,2,3,4,'4명 이상'],
         back:[1,2,3,4,'4명 이상'],
-        stack: ['Java','jsp','머신러닝','딥러닝', 'Python', 'Vue.js', 'React', 'Spring', 'Django'],
-        teamBoardFrontRemainCount: '',
-        teamBoardBackRemainCount: '',
-        teamBoardTitle: '',
-        teamBoardContent: '',
-        teamBoardCategory: '',
-        dateTime: '',
+        boardTitle: '',
+        boardContent: '',
+        boardCategory: '',
         minDate: new Date().toISOString().substr(0, 10),
+        memberId: '',
+        boardNo: '',
+        teamBoardWriter: '',
         }
       } ,
     
@@ -132,40 +150,47 @@ export default {
     },
     checkHandler() {
         //console.log(this.teamBoardTitle,this.picker, this.teamBoardContent, this.teamBoardFrontRemainCount, this.teamBoardBackRemainCount, this.teamBoardCategory)
-      if (this.teamBoardTitle == "") {
-        alert("제목을 입력하세요");
-      } else if (this.teamBoardContent == "") {
-        alert("글 내용을 입력하세요");
-      } else if (this.teamBoardFrontRemainCount == "") {
-        alert("입력을 확인해주세요")
-      } else if (this.teamBoardBackRemainCount == "") {
-        alert("입력을 확인해주세요")
-      } else if (this.teamBoardCategory == "") {
-        alert("분야를 입력해주세요")
-      } else {
-        // 만약, 내용이 다 입력되어 있다면 createHandler 호출
-          this.$fire({
-            type: 'Success',
-            title: '등록 완료',
-            text: '글 등록이 완료 되었습니다.',
-          }).then(() =>{
-          var teamBoardTitle = this.teamBoardTitle
-          var teamBoardContent = this.teamBoardContent
-          var teamBoardFrontRemainCount = this.teamBoardFrontRemainCount
-          var teamBoardBackRemainCount = this.teamBoardBackRemainCount
-          var teamBoardCategory = this.teamBoardCategory
-          var teamBoardEndDatetime = this.picker
-          var memberId = this.$cookies.get("memberId")
-          this.$store.dispatch("teamCreate", { teamBoardTitle, teamBoardContent, teamBoardFrontRemainCount, teamBoardBackRemainCount, teamBoardCategory, memberId, teamBoardEndDatetime  });
-          this.$router.push("/community/teamlist");
-          location.reload();
-        })
+      if (this.boardTitle == "") {
+        this.$alert("제목을 입력하세요");
+      } else if (this.boardContent == "") {
+        this.$alert("글 내용을 입력하세요");
+      } else if (this.boardFrontRemainCount == "") {
+        this.$alert("입력을 확인해주세요")
+      } else if (this.boardBackRemainCount == "") {
+        this.$alert("입력을 확인해주세요")
+      } else if (this.boardCategory == "") {
+        this.$alert("카테고리를 선택해주세요")
+      } else if (this.boardEndDatetime == null) {
+        this.$alert("날짜를 선택해주세요")
+      }
+      else {
+          this.updateHandler()
       }
     },
-    
-    },
-  }
+    updateHandler() {
+      http.put("/team/board", {
 
+         boardTitle:  this.boardTitle,
+         boardContent : this.boardContent,
+         boardFrontRemainCount : this.boardFrontRemainCount,
+         boardBackRemainCount: this.boardBackRemainCount,
+         boardCategory:this.boardCategory,
+         boardEndDatetime : this.boardEndDatetime,
+         boardNo : this.boardNo,
+         memberId : this.teamBoardWriter
+
+      }).then(({data})=> {
+        if(data.result=="success"){
+          this.$alert(data.message)
+          this.$router.push(`/community/teamdetail/${this.$route.params.no}`)
+        } else {
+          this.$alert(data.message)
+          return
+        }
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>
