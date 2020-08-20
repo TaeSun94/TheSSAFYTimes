@@ -85,9 +85,9 @@ export default {
     },
     checkHandler() {
       if (this.freeBoardTitle == "") {
-        alert("글 제목을 입력하세요");
+        this.$alert("글 제목을 입력하세요");
       } else if (this.freeBoardContent == "") {
-        alert("글 내용을 입력하세요");
+        this.$alert("글 내용을 입력하세요");
       } else {
         this.updateHandler()
       }
@@ -101,10 +101,10 @@ export default {
 
         }).then(({data})=>{
             if(data.result =="success") {
-                alert(data.message)
+                this.$alert(data.message)
                 this.$router.push(`/community/freedetail/${this.$route.params.no}`)
             } else {
-                alert(data.message)
+                this.$alert(data.message)
                 return
             }
         })

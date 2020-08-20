@@ -133,15 +133,15 @@ export default {
     checkHandler() {
         //console.log(this.teamBoardTitle,this.picker, this.teamBoardContent, this.teamBoardFrontRemainCount, this.teamBoardBackRemainCount, this.teamBoardCategory)
       if (this.teamBoardTitle == "") {
-        alert("제목을 입력하세요");
+        this.$alert("제목을 입력하세요");
       } else if (this.teamBoardContent == "") {
-        alert("글 내용을 입력하세요");
+        this.$alert("글 내용을 입력하세요");
       } else if (this.teamBoardFrontRemainCount == "") {
-        alert("입력을 확인해주세요")
+        this.$alert("입력을 확인해주세요")
       } else if (this.teamBoardBackRemainCount == "") {
-        alert("입력을 확인해주세요")
+        this.$alert("입력을 확인해주세요")
       } else if (this.teamBoardCategory == "") {
-        alert("분야를 입력해주세요")
+        this.$alert("분야를 입력해주세요")
       } else {
         // 만약, 내용이 다 입력되어 있다면 createHandler 호출
           this.$fire({
