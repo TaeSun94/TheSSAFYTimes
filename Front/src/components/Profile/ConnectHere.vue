@@ -3,11 +3,8 @@
   <v-row justify="center">
     <v-dialog v-model="dialog" max-width="290">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs"
-          v-on="on">
-              <v-chip id="phone"> ☎️ </v-chip>
-        </v-btn>
-          
+        <v-btn tile large depressed dark v-bind="attrs"
+          v-on="on">연락처</v-btn>
       </template>
       <v-card>
         <v-card-title class="headline">{{ value.memberLastName}}{{value.memberFirstName}}'s 연락처</v-card-title>
