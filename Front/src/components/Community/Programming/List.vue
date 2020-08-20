@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="col-lg-7  elevation-5">
+        <v-container class="col-lg-7 col-sm-10 elevation-5">
             <v-card>
                 <v-card-title>
                     <div class="textfield">
@@ -30,7 +30,6 @@
                     @click:row="rowClicked"
                     class="table"
                 >
-
                 </v-data-table>
                 <div class="text-center pt-2">
                     <v-pagination v-model="page" :length="pageCount"></v-pagination>
@@ -71,7 +70,6 @@ export default {
         },
         pageCount() {
             return Math.ceil(this.pageLength / 25);
-            
         }
     },
     methods: {
@@ -81,7 +79,6 @@ export default {
     },
     created() {
         this.$store.dispatch("getPrograms", '/program/board');
-        //지금은 이메일 인증이 안되도 쓸수 있는데 된 사람만 쓸 수 있게 status를 들고와야함
         var id = this.$cookies.get('memberId');
         if(id==null){
             this.login = false;

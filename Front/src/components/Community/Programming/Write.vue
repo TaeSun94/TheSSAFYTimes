@@ -116,9 +116,6 @@ hr{
     margin-bottom: 20px;
     margin-left: 20px;  
 }
-/* .textfield-input:focus{
-    background: white;
-} */
 .v-btn.v-size--default, .v-btn.v-size--large {
     font-size: 1rem;
     font-family: 'Noto Sans KR', sans-serif;
@@ -131,7 +128,4 @@ hr{
 .ql-editor {
   height: 400px;
 }
-/* .ql-editor:focus{
-  background-color: white;
-} */
 </style>
