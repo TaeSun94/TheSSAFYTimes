@@ -1,26 +1,21 @@
 <template>
     <div class="wrapper" style="margin-top:8%">
         <div class="row">
-            <v-container class="elevation-5 col-lg-7">
+            <v-container class="elevation-5 col-lg-7 col-sm-10">
                 <div id="app">
                     <div class="textfield">
                         <div v-html="freeBoardTitle" class="ml-4 textfield-input"></div>
                         <hr>
                     </div>
-                                    
                     <div class="text-right mr-5">
-                        
                         <small class="description">👀 조회수 {{ freeBoardHit }} /</small>
                         <small class="description"> SSAFY / </small>
                         <small class="description"> {{$moment(freeBoardDatetime).format('YYYY-MM-DD hh:mm:ss a')}} </small>
-
                     </div>
-                   
                     <div v-html="freeBoardContent" class="inner">
                     </div>
                     <v-btn depressed tile dark v-show="canEdit === true" @click="deleteHandler" class="mr-5" style="float: right;">삭제하기!</v-btn>
                     <v-btn depressed tile dark v-show="canEdit === true" @click="toUpdate()" class="mr-1" style="float: right;">수정하기!</v-btn>
-                
                     <div class="u_likeit">
                         <ul class="u_likeit_layer _faceLayer" role="menu">
                             <li class="u_likeit_list good" role="menuitem">
@@ -37,8 +32,6 @@
                             </li>
                         </ul>
                     </div>
-                    
-                  <!--댓글 쓰기 폼-->
                     <div>
                         <div class="text-right comment" @click="commentShow">
                             댓글 달기
@@ -61,8 +54,6 @@
                         </div>
                     </div>
                     <hr style="width:95%" class="mt-5">
-                    
-                    <!--댓글 목록-->
                     <div class="ml-5 mb-5">
                         댓글이 총 <b>{{ free_comments.length }}</b> 건 있습니다.
                     </div>
@@ -80,8 +71,6 @@
                             </v-simple-table>
                         </div>
                     </div>
-
-                    
                 </div>
             </v-container>
         </div>
@@ -113,7 +102,6 @@ export default {
             freeBoardContent: '',
             freeBoardHit: 0,
             freeBoardDislike : '',
-            //edit, delete관련
             canEdit: false,
             member: {},
             commentCount: '',
@@ -144,7 +132,6 @@ export default {
                 this.member = data.data;
             })
         });
-
     },
     methods: {
         commentShow() {
@@ -244,7 +231,6 @@ export default {
             this.commentCountShow = true
         } 
     }
-
 }
 </script>
 
@@ -349,7 +335,6 @@ hr{
     border-radius: 10px;
     
 }
-
 .inner-comment, .inner-comment .container {
     background-color: #ebebeb;
 }
@@ -368,11 +353,9 @@ tbody tr {
     margin-right:20px;
     border-radius: 10px;
 }
-/*  */
 .description{
     display: inline;
 }
-
 .comment-content{
     margin: 5px;
     margin-left:20px;

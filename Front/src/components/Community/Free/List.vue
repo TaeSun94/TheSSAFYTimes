@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="col-lg-7 elevation-3">
+        <v-container class="col-lg-7 col-sm-10 elevation-3">
                 <v-card-title>
                     <div class="textfield">
                         <h1 class="m-5 mb-3"> 🧑‍🤝‍🧑 자유게시판 </h1>
