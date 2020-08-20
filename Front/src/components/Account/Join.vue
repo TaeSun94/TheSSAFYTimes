@@ -4,7 +4,6 @@
       <v-container class="col-lg-5 col-sm-6 elevation-5"> 
         <div class="form sm-m-0">
           <v-form ref="form" lazy-validation v-model="valid">
-              <!--Id-->
             <v-text-field 
             v-model="memberId"
             :rules="IdRules"
@@ -14,7 +13,6 @@
             :color="color"
             @blur="checkIdDup"
             ></v-text-field>
-            <!--Email-->
             <v-text-field
             v-model="memberEmail"
             :rules="emailRules"
@@ -28,8 +26,6 @@
                 </v-btn>
               </template>
             </v-text-field>
-            
-            <!--Pw-->
             <v-text-field 
             v-model="memberPw"
             :rules="PwRules"
@@ -39,7 +35,6 @@
             required
             :color="color"
             ></v-text-field>
-            <!--Pw 확인-->
             <v-text-field 
             v-model="memberPw2"
             :rules="PwRules2"
@@ -271,8 +266,6 @@ import http from '@/http-common'
 .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
     background-color: #f5f5f5;
 }
-
-
 .v-text-field {
     padding-top: 30px;
 }

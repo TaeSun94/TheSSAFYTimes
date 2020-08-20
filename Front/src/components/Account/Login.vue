@@ -1,10 +1,9 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-5 col-sm-6"> <!-- 기본틀 푸터까지 -->
+        <v-container class="elevation-5 col-lg-5 col-sm-6">
         <div class="form sm-m-0">
           <v-form ref="form" v-model="valid" lazy-validation>
-              <!--Email-->
             <v-text-field 
             v-model="memberEmail"
             :rules="emailRules"
@@ -12,8 +11,6 @@
             :color="tfColor"
             required
             ></v-text-field>
-            <!--Pw-->
-
             <div>
               <v-text-field 
               v-model="memberPw"
@@ -34,11 +31,9 @@
             <footer class="login-foot">
                 <v-btn @click="submit" @keyup.enter="submit" dark large tile width=100%>로그인</v-btn>
                 <div class="login-divider" role="separator"></div>
-
                 <p class="login-option mt-5 text-center">SSAFY TIMES 처음이신가요?
                 <router-link class="login-option-link" :to="{path:'/join'}">가입하기</router-link>
                 </p>
-                                 
             </footer>
           </v-form>
         </div>
@@ -101,15 +96,13 @@ export default {
         }
       },
       showPw (){
-        if (this.checkBox) { // password
+        if (this.checkBox) {
           this.pw = "password";
-        } else {  // text
+        } else {
           this.pw = "text";
-
         }
       }
     }
-    
 }
 </script>
 
@@ -143,12 +136,9 @@ export default {
 .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined) {
     background-color: #f5f5f5;
 }
-
-
 .v-text-field {
     padding-top: 30px;
 }
-
 #l {
 	background-color: rgba(0,0,0,0.7);
 	border-radius: 0.75em;
@@ -192,7 +182,6 @@ export default {
 	width: 1.2em;
 	height: 1em;
 }
-/* Checked */
 #l:checked {
 	background-color: rgba(0,0,0,0.45);
 	box-shadow: 0.125em 0.125em 0 0.125em rgba(0,0,0,0.1) inset;
@@ -205,9 +194,7 @@ export default {
 	border-left-color: currentColor;
 	transform: translateX(-2.5%) rotateY(180deg);
 }
-/* Other States */
 #l:focus {
-	/* Usually an anti-A11Y practice but set to remove an annoyance just for this demo */
 	outline: 0;
 }
 </style>
