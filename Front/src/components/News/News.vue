@@ -57,7 +57,6 @@ export default {
     },
     created(){
         http.get(`/article/list/${this.page}`).then(({ data }) => {
-            console.log("우어ㅗ오오어어앙",data);
             this.page += 1;
             this.$store.state.articles = data.list;
         });

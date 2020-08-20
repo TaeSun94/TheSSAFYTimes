@@ -6,9 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        // login
         member: {},
-        // program
         programs: [],
         program: {},
         articles:[],
@@ -16,15 +14,9 @@ export default new Vuex.Store({
         articles_count:'',
         profile:{},
         program_comments: [],
-
-        // free
         frees: [],
-        // free: {},
-        
-        //followings
         followings:[],
         following:{},
-        //categorys
         article_types:[],
         tracks:[],
         units:[],
@@ -38,27 +30,19 @@ export default new Vuex.Store({
             status: "",
 
         },
-        // comment
         free_comments: [],
-        //notices
         notices: [],
-
         teams: [],
         team: {},
-
         team_category: [],
         applys: [],
-
-        //프로젝트 현황(profile 들어간 아이디 기준)
         my_apply_projects:[],
         my_confirm_projects:[],
     },
     getters: {
-        // login
         member(state) {
             return state.member;
         },
-        // program
         programs(state) {
             return state.programs;
         },
@@ -134,12 +118,10 @@ export default new Vuex.Store({
         },
     },
     mutations: {
-        // login
         setMember(state, payload) {
             state.member = payload;
             document.$cookies.set("memberId", payload.memberId);
         },
-        // program
         setPrograms(state, payload) {
             state.programs = payload;
         },
@@ -151,13 +133,9 @@ export default new Vuex.Store({
         },
         setProfile(state, payload){
             state.profile=payload;
-            console.log(state.profile);
         },
-
-        //profile 등록 및 수정
         updateProfile(state, payload){
             if(payload.result === "success"){
-                // alert(payload.message);
                 location.href=`/profile/${state.profile.memberId}`;
                 state.profile ={};
             }
@@ -167,9 +145,7 @@ export default new Vuex.Store({
                 state.profile ={};
             }
         },
-        //기사 관련
         insertArticle(state, payload){
-            console.log(payload);
             if(payload.result ==='success'){
                 location.href=`/profile/${state.profile.memberId}`;
                 state.profile ={};
@@ -179,19 +155,14 @@ export default new Vuex.Store({
                 location.href=`/profile/${state.profile.memberId}`;
                 state.profile ={};
             }
-            
         },
         setMyArticles(state,payload){
             state.articles = payload.list;
         },
-        // Free
         setFrees(state, payload){
-            
             state.frees = payload;
-            
         },
         setFree(state, payload){
-            console.log(payload)
             state.free = payload;
         },
         setArticleTypes(state,payload){
@@ -218,24 +189,17 @@ export default new Vuex.Store({
         setFreeComments(state, payload){
             state.free_comments = payload;
         },
-        // Notice
         setNotices(state, payload) {
             state.notices = payload;
         },
-
         setFreeLike(state){
             state.free.data.freeBoardLike = ++state.free.data.freeBoardLike;
-            console.log(state.free.data.freeBoardLike)
-            console.log(state.free)
         },
         setFreeLikeDown(state){
             state.free.data.freeBoardDislike = ++state.free.data.freeBoardDislike;
-            console.log(state.free.data.freeBoardDislike)
-            console.log(state.free)
         },
         setTeams(state, payload){
             state.teams = payload;
-            
         },
         setTeam(state, payload){
             state.team = payload;
@@ -254,7 +218,6 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        //login
         login(context, {memberEmail, memberPw}) {
             http.post('/account/signin',{
                 memberEmail,
@@ -267,7 +230,6 @@ export default new Vuex.Store({
                 } else if(data.result=='notavailable'){
                     alert(data.message);
                     document.$cookies.set("memberEmail", memberEmail, "1D");
-                    //이메일 인증페이지로 가면 됌
                     router.push("/EmailCheck");
                     location.reload();
                 } else if(data.result=='success'){
@@ -278,7 +240,6 @@ export default new Vuex.Store({
                 }
             });
         },
-        // program
         getPrograms(context, payload) {
             http.get(payload).then(({data}) => {
                 context.commit("setPrograms", data.list);
@@ -294,19 +255,15 @@ export default new Vuex.Store({
                 context.commit("setProgramComments", data.list);
             });
         },
-        // 멤버확인할때
         getMember(context, payload) {
             http.get(payload).then(({data}) => {
                 context.commit("setMember", data);
             });
         },
-        //profile
         modifyProfile(context,payload){
             const fd = new FormData();
             const path = this.state;
-            console.log(payload);
             if(payload.length>0){
-                console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",payload);
                 fd.append('file', payload.pop())
                 http.post(`/upload/uploadFile`,fd,{
                     headers:{
@@ -331,7 +288,6 @@ export default new Vuex.Store({
                             skillList: path.profile.memberSkillList,
                             memberImgurl: data.data
                         }).then(({data})=>{
-                            console.log(data);
                             context.commit('updateProfile',data);
                         });
                     }
@@ -354,7 +310,6 @@ export default new Vuex.Store({
                     skillList: path.profile.memberSkillList,
                     memberImgurl: path.profile.memberImgurl
                 }).then(({data})=>{
-                    console.log(data);
                     context.commit('updateProfile',data);
                 });
             }
@@ -366,23 +321,18 @@ export default new Vuex.Store({
         },
         writeArticle(context){
             const path = this.state;
-            // console.log(path.article.articleContent);
-            // console.log(path.article.articleTitle);
-            console.log(path.article.articleType);
             http.post('/article',{
                 articleContent: path.article.articleContent,
                 articleTitle: path.article.articleTitle,
                 articleType: path.article.articleType,
                 memberId: path.profile.memberId,
             }).then(({data})=>{
-                console.log(data);
                 context.commit('insertArticle',data);
             });
         },
         getMyArticles(context, payload){
             http.get(`/article/${payload}`).then(({data})=>{
                 context.commit('setMyArticles',data);
-                console.log(data);
             });
         },
         getMemberX(context, payload){
@@ -390,11 +340,9 @@ export default new Vuex.Store({
                 context.commit('setPrfile',data);
             });
         },
-        //Free
         getFrees(context,payload) {
             http.get(payload).then(({data}) => {
                 context.commit("setFrees", data.list)
-
             });
         },
         getFree(context, payload) {
@@ -419,9 +367,7 @@ export default new Vuex.Store({
             })
         },
         teamCreate(context, { teamBoardTitle, teamBoardContent, teamBoardFrontRemainCount, teamBoardBackRemainCount, teamBoardCategory, memberId, teamBoardEndDatetime }) {
-            
             http.post('/team/board', {
-                
                     "memberId": memberId,
                     "teamBoardBackRemainCount": teamBoardBackRemainCount,
                     "teamBoardCategory": teamBoardCategory,
@@ -433,7 +379,6 @@ export default new Vuex.Store({
         },
 
         teamUpdate(context, { boardTitle, boardContent, boardFrontRemainCount, boardBackRemainCount, boardCategory, boardEndDatetime, boardNo, memberId }) {
-            
             http.post('/team/board', {
                 "boardTitle":  boardTitle,
                 "boardContent" : boardContent,
@@ -445,7 +390,6 @@ export default new Vuex.Store({
                 "memberId" : memberId
             })
         },
-        //category 불러오기
         getArticleTypes(context){
             http.get(`/category/article`).then(({data})=>{
                 context.commit('setArticleTypes', data.list);
@@ -458,7 +402,6 @@ export default new Vuex.Store({
         },
         getUnits(context,payload){
             http.get(`/category/${payload}/unit`).then(({data})=>{
-                console.log(data);
                 context.commit('setUnits', data.list);
             })
         },
@@ -469,7 +412,6 @@ export default new Vuex.Store({
         },
         getRegions(context){
             http.get(`/category/region`).then(({data})=>{
-                console.log(data);
                 context.commit('setRegions', data.list);
             })
         },
@@ -485,7 +427,6 @@ export default new Vuex.Store({
         },
         deleteFree(context, payload) {
             http.delete(`/free/board/${payload}`).then(({data})=>{
-                console.log(data)
                 if (data.result === "success") {
                     location.href='/community/freelist';
                 } else {
@@ -498,7 +439,6 @@ export default new Vuex.Store({
                 context.commit("setFreeComments", data.list);
             })
         },
-        // notice
         getNotices(context, payload) {
             http.get(payload).then(({data}) => {
                 context.commit("setNotices", data.list);
@@ -525,17 +465,9 @@ export default new Vuex.Store({
                 boardNo,
                 memberId,
             })
-            .then(({data})=> {
-                if(data.result != "success") {
-                    console.log(data.message)
-                }else{
-                    console.log(data.message)
-                }
-            })
         },
         getProfileMod(context, payload){
             http.get(`/member/mod/${payload}`).then(({data})=>{
-                // console.log(data);
                 context.commit('setProfile',data.data);
             });
         },
@@ -556,14 +488,11 @@ export default new Vuex.Store({
         },
         delFollowing(context, payload){
             const path = this.state;
-            const from_id = payload;
             const id = path.profile.memberId;
             http.post(`/unfollow`,{
                 "memberIdFrom": payload,
                 "memberIdTo": id
               }).then(({data})=>{
-                console.log(from_id);
-                console.log(data);
                 if(data.result==="success"){
                     location.href=`/profile/${path.profile.memberId}`;
                 }
@@ -574,17 +503,14 @@ export default new Vuex.Store({
             })
         },
         getMyApplyProject(context, payload){
-            console.log(payload);
             http.get(`/team/board/apply/${payload}/date`).then(({data})=>{
                 context.commit('setMyApplyProject',data.list);
             });
         },
         getMyConfirmProject(context, payload){
-            console.log(payload);
             http.get(`/team/board/apply/${payload}/status`).then(({data})=>{
                 context.commit('setMyConfirmProject',data.list);
             });
         },
     }
-    
 })
