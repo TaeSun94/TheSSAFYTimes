@@ -5,7 +5,7 @@
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs"
           v-on="on">
-              <span id="phone">☎ 연락처</span>
+              <v-chip id="phone"> ☎️ </v-chip>
         </v-btn>
           
       </template>
@@ -38,5 +38,8 @@
 <style scoped>
 #phone{
   font-size: 20px;
+  color: black;
+  cursor: pointer;
 }
+
 </style>
