@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="elevation-3 col-lg-7">
+        <v-container class="elevation-3 col-lg-7 col-sm-10">
             <div id="app">
                 <div class="text-center main-title">
                     <h1 class="mb-2">{{team.teamBoardTitle}}</h1>
@@ -11,9 +11,7 @@
                     <small class="description"> </small>
                 </div>
                 <div class="text-right mt-3 mr-3">
-                    <!-- <v-btn depressed tile dark v-show="canEdit" @click="deleteHandler">삭제하기!</v-btn> -->
                     <v-btn depressed tile dark v-show="canEdit" @click="toUpdate()">수정하기!</v-btn>
-                   
                 </div>
                 <div class="tei">
                     <div class="title text-right">
@@ -25,7 +23,6 @@
                     </div>
                     <div class="date text-right mr-4">
                         <p> 마감일 📅 {{$moment(team.teamBoardEndDatetime).format('YYYY-MM-DD')}}</p>
-                         
                     </div>                    
                     <hr style="width:95%" >
                     <div v-html="team.teamBoardContent" class="content_inner">
@@ -54,7 +51,6 @@
                         </div>    
                     </div>          
                     <div class="text-right mr-4"><v-btn tile  v-if="(team.memberId != this.$cookies.get('memberId')) && (this.$cookies.get('memberId') != null) && (team.teamBoardFrontRemainCount!=0 || team.teamBoardBackRemainCount !=0)">관심등록</v-btn></div>
-                   
                     <div class="likeContent mt-5 row justify-content-end">
                         <v-container v-if="(team.memberId != this.$cookies.get('memberId'))">
                             <v-textarea
@@ -72,7 +68,6 @@
                         <div class="text-right mr-4"><v-btn  dark large tile disabled  v-if="(team.memberId == this.$cookies.get('memberId')) || (this.$cookies.get('memberId') == null) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">Front할래요!</v-btn></div>  
                         <div class="text-right mr-4"><v-btn  dark large tile disabled  v-if="(team.memberId == this.$cookies.get('memberId')) || (this.$cookies.get('memberId') == null) || (team.teamBoardFrontRemainCount==0 && team.teamBoardBackRemainCount ==0)">Back할래요!</v-btn></div>          
                     </div>
-
                     <div v-if="team.memberId===this.$cookies.get('memberId')">
                         <div class="comment-content" v-for="item in applys" :key="item.teamApplyNo">
                             <v-simple-table>
@@ -142,7 +137,6 @@ export default {
     created() {
         this.$store.dispatch("getTeam", `/team/board/${this.$route.params.no}`);
         this.$store.dispatch("getApplys", `/team/board/apply/${this.$route.params.no}/list`);
-        
     },
     methods: {
         recruit(no) {
@@ -185,13 +179,10 @@ export default {
                 }
             });
         },
-
-
         to(id){
             var url = "/profile/"+id;
             this.$router.push({path: url});
         },
-    
     }
 }
 </script>
@@ -206,9 +197,6 @@ export default {
     
     padding: 20px;
     margin-top:30px
-}
-.member{
-    /* border-right: 0.3px solid #333; */
 }
 .col-6{
     text-align: center;
@@ -290,7 +278,6 @@ hr{
         padding: 0px;
     }
 }
-
 .inner {
     margin: 30px;
 }
