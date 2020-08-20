@@ -118,11 +118,11 @@
         </div>
         <!-- </v-container> -->
         <!-- 프로필 및 친구 관계가 들어갈 공간 -->
-        <div class="col-lg-4">
+        <div class="col-lg-4 news_content">
             <profile-card v-model="profile.memberId"></profile-card>
             <br>
             <div class="row">
-                <v-container class="elevation-5 col-lg-12">
+                <div class="elevation-5 col-lg-12">
                     <v-card-title>
                         <div class="textfield">
                             <h3 class="m-4">Followings</h3>
@@ -155,11 +155,11 @@
                         <p>등록된 Followr가 없습니다.</p>
                     </div>
                     </v-card>
-                </v-container>
+                </div>
             </div>
             <br>
             <div class="row">
-                <v-container class="elevation-5">
+                <div class="elevation-5">
                     <v-card-title>
                         <div class="textfield">
                             <h3 class="m-4">지원 확정 프로젝트 현황</h3>
@@ -205,7 +205,7 @@
                             <p>지원중인 프로젝트가 없습니다.</p>
                         </div>
                     </v-card>
-                </v-container>
+                </div>
             </div>
         </div>
     </div>
@@ -350,5 +350,5 @@
     }
     .v-sheet.v-card:not(.v-sheet--outlined) {
     box-shadow: none
-}
+    }
 </style>
