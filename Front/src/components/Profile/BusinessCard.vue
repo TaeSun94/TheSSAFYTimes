@@ -17,14 +17,12 @@
                 <v-list-item-title class="headline mb-1">{{value.memberId}}</v-list-item-title>
                 <v-list-item-subtitle>{{value.memberDesc}}</v-list-item-subtitle>
             </v-list-item-content>
-
             <v-list-item-avatar
                 tile
                 size="80"
                 color="grey"
             ></v-list-item-avatar>
             </v-list-item>
-
             <v-card-actions>
             <v-btn text @click="moveBlog">Blog로 이동하기</v-btn>
             </v-card-actions>

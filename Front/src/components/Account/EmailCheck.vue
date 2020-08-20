@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
     <div class="row">
-        <v-container class="elevation-8 col-lg-5"> <!-- 기본틀 푸터까지 -->
+        <v-container class="elevation-8 col-lg-5">
         <form class="login" name="login">
             <v-text-field
             v-model="memberEmail"
@@ -10,20 +10,16 @@
             disabled
             required
             ></v-text-field>
-
             <footer class="login-foot">
                 <button class="primary-button mt-3 is-fullwidth" type="submit" v-on:click="emailValid()">이메일 인증하기</button>
                 <div class="login-divider" role="separator"></div>
-
                 <p class="login-option">이메일 인증이 필요해요!
                 </p>
                 <p class="login-option">인증 완료 됐나요?
                     <a class="login-option-link" href="/login">로그인하기</a>
                 </p> 
-                                 
             </footer>
         </form>
-        
         </v-container>
     </div>
     <footer-bar></footer-bar>

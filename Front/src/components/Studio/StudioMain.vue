@@ -9,13 +9,10 @@
 
 <script>
 import {ImageEditor} from '@toast-ui/vue-image-editor';
-// To use the basic UI, the svg files for the icons is required.
 import 'tui-image-editor/dist/svg/icon-a.svg';
 import 'tui-image-editor/dist/svg/icon-b.svg';
 import 'tui-image-editor/dist/svg/icon-c.svg';
 import 'tui-image-editor/dist/svg/icon-d.svg';
-
-// Load Style Code
 import 'tui-image-editor/dist/tui-image-editor.css';
 export default {
     name:"Studio",
@@ -25,7 +22,7 @@ export default {
     data() {
         return {
             useDefaultUI: true, 
-            options: { // for tui-image-editor component's "options" prop
+            options: {
                 includeUI: {
                     uiSize: {
                         width: '1000px',

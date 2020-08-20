@@ -1,16 +1,13 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-7">
+        <v-container class="elevation-5 col-lg-7 col-sm-10">
                 <v-card-title>
                     <div class="textfield">
                         <h1 class="m-5 mb-3"> 📰 뉴스 피드 </h1>
                         <small class="ml-3">SSAFY의 뉴스를 확인해보세요! </small>
                     </div>
                     <v-spacer></v-spacer>
-                    <v-btn v-if="login===false" disabled large tile depressed :to="{  path: '/community/freewrite'}">글쓰기!</v-btn>
-                    <v-btn v-if="login===true"  tile large depressed dark :to="{  path: '/community/freewrite'}">글쓰기!</v-btn>
-               
                 </v-card-title>
                 <div v-if="articles.length">
                     <div class="item_card elevation-2" v-for="(item, index) in articles" :key="index + '_articles'">
@@ -33,7 +30,6 @@
                         </div>
                         <br>
                     </div>
-                    <!-- infinite loading -->
                     <infinite-loading @infinite="infiniteHandler"></infinite-loading>
                 </div>
                 <div v-else class="text-center">
@@ -61,7 +57,6 @@ export default {
     },
     created(){
         http.get(`/article/list/${this.page}`).then(({ data }) => {
-            console.log("우어ㅗ오오어어앙",data);
             this.page += 1;
             this.$store.state.articles = data.list;
         });
@@ -102,7 +97,6 @@ export default {
     display: flex;
     justify-content: space-between;
 }
-
 .header_content h3{
     font-size: 1.5rem;
     font-weight: 700;

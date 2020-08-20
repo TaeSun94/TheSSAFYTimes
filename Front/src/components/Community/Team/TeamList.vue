@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="col-lg-9  elevation-5">
+        <v-container class="col-lg-9 col-sm-10 elevation-5">
                 <v-card-title>
                     <div class="textfield">
                         <h1 class="m-4 main-title"> 👭 팀 구해요 ! </h1>
@@ -10,7 +10,6 @@
                     <v-spacer></v-spacer>
                 </v-card-title>
                 <div class="text-right mr-5">
-                    <!-- <v-btn v-if="login===true" dark large tile :to="{path:'/community/teamWrite'}">팀원 구하기</v-btn> -->
                     <v-btn dark large tile v-if="login===true" :to="{path:'/community/teamWrite'}">팀원 구하기</v-btn>
                     <v-btn v-if="login===false" disabled large tile depressed :to="{path:'/community/teamWrite'}">팀원 구하기</v-btn>
                 </div>
@@ -20,17 +19,14 @@
                         <a data-v-74c97ae7=""  class="team_title" style="text-align:center;display: flex;justify-content: center;align-items: center;">
                             {{ team.teamBoardTitle }}
                         </a>
-                    
                     </div>
                     <hr style="width:80%;" class="line">
                     <div class="card_contents mr-1">
                         <div class="text-right mb-4">
                             <v-chip label style="font-size:0.95rem;"> {{ team.teamBoardCategory }} </v-chip>
                         </div> 
-
                         <div class=" mb-3 text-right">
                             <span class=""> 🙋 {{ team.memberId}} </span> 
-
                         </div> 
                         <div class=" mb-3 text-right">
                             <span>📅 {{ $moment(team.teamBoardEndDatetime).format('YYYY-MM-DD') }} </span>
@@ -70,7 +66,6 @@ export default {
         },
     },
     created() {
-        
         this.$store.dispatch("getTeams", '/team/board');
         var id = this.$cookies.get('memberId');
         if(id==null){
@@ -146,7 +141,6 @@ export default {
     -webkit-transition: all 0.45s ease-in-out;
     transition: all 0.45s ease-in-out;
     cursor: pointer;
-
 }
 
 @media screen and (max-width: 768px) { 
@@ -156,17 +150,12 @@ export default {
         margin-right:0px;
         width: 500px;
     } 
-    
 }
-
-
-
 a {
     color: #3c3c3c;
     text-decoration: none;
     font-weight: 900;
 }
-
 .recruit_card .card_image > a {
     width: 100%;
     height: 100px;

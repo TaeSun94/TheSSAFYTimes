@@ -1,8 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
-    
     <div class="row">
-        <v-container class="elevation-5 col-lg-7">
+        <v-container class="elevation-5 col-lg-7 col-sm-10">
             <div id="app">
               <div class="text-center main-title">
                 <h1 class="mb-2">팀원 찾기 서비스</h1>
@@ -55,7 +54,6 @@
                 is-inline
                 >
                 </v-date-picker>   
-
               </v-form>
               <div class="textfield ml-5 row">
                 <span class="label ml-3">상세설명</span>
@@ -64,10 +62,8 @@
             </div>
             <div class="text-right mt-3 mr-5">
               <v-btn @click="checkHandler"> 등록할래요 👌</v-btn>
-              
             </div>
         </v-container>
-
     </div>
     <footer-bar></footer-bar>
 </div>
@@ -109,20 +105,15 @@ export default {
     
     methods: {
     handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
-      // An example of using FormData
-      // NOTE: Your key could be different such as:
-      // formData.append('file', file)
-
       var formData = new FormData();
       formData.append("image", file);
-
       axios({
         url: "https://fakeapi.yoursite.com/images",
         method: "POST",
         data: formData
       })
         .then(result => {
-          let url = result.data.url; // Get url from response
+          let url = result.data.url;
           Editor.insertEmbed(cursorLocation, "image", url);
           resetUploader();
         })
@@ -131,7 +122,6 @@ export default {
         });
     },
     checkHandler() {
-        //console.log(this.teamBoardTitle,this.picker, this.teamBoardContent, this.teamBoardFrontRemainCount, this.teamBoardBackRemainCount, this.teamBoardCategory)
       if (this.teamBoardTitle == "") {
         this.$alert("제목을 입력하세요");
       } else if (this.teamBoardContent == "") {
@@ -143,9 +133,8 @@ export default {
       } else if (this.teamBoardCategory == "") {
         this.$alert("분야를 입력해주세요")
       } else {
-        // 만약, 내용이 다 입력되어 있다면 createHandler 호출
           this.$fire({
-            type: 'Success',
+            type: 'success',
             title: '등록 완료',
             text: '글 등록이 완료 되었습니다.',
           }).then(() =>{
@@ -162,10 +151,8 @@ export default {
         })
       }
     },
-    
     },
   }
-
 </script>
 
 <style scoped>
@@ -180,7 +167,6 @@ export default {
   width: 80%;
   display: inline-block;
 }
-
 .textfield-input {
     display: block;
     width: 100%;
@@ -209,5 +195,4 @@ small {
   border-radius: 20px;
   padding: 30px;
 }
-
 </style>

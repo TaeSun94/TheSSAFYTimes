@@ -1,5 +1,4 @@
 <template>
-<!-- <div data-app> -->
   <v-row justify="center">
     <v-dialog v-model="dialog" max-width="290">
       <template v-slot:activator="{ on, attrs }">
@@ -15,7 +14,6 @@
       </v-card>
     </v-dialog>
   </v-row>
-<!-- </div> -->
 </template>
 
 <script>

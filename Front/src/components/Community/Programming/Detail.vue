@@ -133,10 +133,10 @@ export default {
             }).
             then(({data}) =>{
                 if(data.result == "success") {
-                    alert(data.message);
+                    this.$alert(data.message);
                     location.reload();
                 } else {
-                    alert(data.message);
+                    this.$alert(data.message);
                     return;
                 }
             })
@@ -144,10 +144,10 @@ export default {
         deleteHandler() {
             http.delete(`/program/board/${this.$route.params.no}`).then(({data}) => {
                 if(data.result == "success"){
-                    alert(data.message);
+                    this.$alert(data.message);
                     this.$router.push("/community/programlist");
                 } else {
-                    alert(data.message);
+                    this.$alert(data.message);
                     return;
                 }
             });
@@ -157,7 +157,7 @@ export default {
         },
         upButton() {
             if(this.$cookies.get('memberId') == null) {
-                alert("로그인이 필요합니다.")
+                this.$alert("로그인이 필요합니다.")
                 return;
             }
             var boardLikeCheck = 1;
@@ -171,16 +171,16 @@ export default {
             })
             .then(({data})=> {
                 if(data.result != "success"){
-                    alert(data.message)
+                    this.$alert(data.message)
                 } else {
-                    alert(data.message);
+                    this.$alert(data.message);
                     location.reload();
                 }
             })
         },
         downButton() {
             if(this.$cookies.get('memberId') == null) {
-                alert("로그인이 필요합니다.")
+                this.$alert("로그인이 필요합니다.")
                 return;
             }
             var boardLikeCheck = 0;
@@ -194,7 +194,7 @@ export default {
             })
             .then(({data})=> {
                 if(data.result != "success") {
-                    alert(data.message);
+                    this.$alert(data.message);
                 } else {
                     location.reload();
                 }
@@ -204,7 +204,6 @@ export default {
             var url = "/profile/"+id;
             this.$router.push({path: url});
         },
-
     },
     created() {
         this.$store.dispatch("getProgramComments", `/program/${this.$route.params.no}/comment`);

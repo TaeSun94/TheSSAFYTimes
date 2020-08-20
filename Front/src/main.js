@@ -25,15 +25,11 @@ VueMarkdownEditor.use(vuepressTheme);
 Vue.use(vueMoment)
 Vue.use(Vue2Editor);
 Vue.use(VueMarkdownEditor);
- // global register
 Vue.use(Editor);
 Vue.config.productionTip = false;
 Vue.prototype.$Axios = axios;
 Vue.use(globalcomponents);
 Vue.use(VueCookies);
-// use
-
- 
 Vue.use(VueQuill)
 
 new Vue({

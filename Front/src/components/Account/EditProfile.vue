@@ -2,7 +2,6 @@
 <div class="wrapper" style="margin-top:5%">
     <div class="row">
         <v-container class="elevation-5 col-lg-5">
-
                 <form>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
@@ -19,7 +18,6 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
-
         </v-container>
         <div class="col-4">
             <div class="card-profile-stats  mt-md-5">
@@ -29,12 +27,9 @@
                 <div>
                     <button>등록완료!</button>
                 </div>
-
-            
             </div>
         </div>
     </div>
-
     <footer-bar></footer-bar>
 </div>
 </template>

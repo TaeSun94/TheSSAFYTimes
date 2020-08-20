@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
 import Notice from "@/components/Notice.vue";
 import MainPage from "@/components/Main/MainPage.vue";
 import NoticeList from "@/components/Notice/NoticeList.vue";
@@ -162,8 +161,6 @@ export default new VueRouter({
             name:"Editor",
             component:Editor,
         },
-    
-
         {
             path: "/edit",
             name: "EditProfile",
@@ -173,13 +170,6 @@ export default new VueRouter({
             path:'/profile/:memberid',
             name:"Profile",
             component: UserProfile,
-            // children:[
-            //     {
-            //         path:"ProfileCard/:memberId",
-            //         name:"ProfileCard",
-            //         component: ProfileCard
-            //     }
-            // ]
         },
         {
             path:'/profileEdit/:memberid',

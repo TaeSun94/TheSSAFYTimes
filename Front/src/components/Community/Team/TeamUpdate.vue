@@ -1,6 +1,5 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
-    
     <div class="row">
         <v-container class="elevation-5 col-lg-7">
             <div id="app">
@@ -13,7 +12,6 @@
                 <v-text-field v-model="boardTitle" class="ml-3 mr-3" placeholder="글 제목을 입력해주세요."           
                 ></v-text-field>
                 <span class="label ml-3">모집 분야</span>
-                
                 <v-select
                   v-model="boardCategory"
                   :items="projects"
@@ -56,7 +54,6 @@
                   is-inline
                 >
                 </v-date-picker>   
-
               </v-form>
               <div class="textfield ml-5 row">
                 <span class="label ml-3">상세설명</span>
@@ -65,7 +62,6 @@
             </div>
             <div class="text-right mt-3 mr-5">
               <v-btn @click="checkHandler"> 등록할래요 👌</v-btn>
-              
             </div>
         </v-container>
 
@@ -79,7 +75,6 @@ import { VueEditor } from "vue2-editor";
 import axios from "axios";
 import { mapGetters } from "vuex";
 import http from "@/http-common.js"
-
 
 export default {
     name:"TeamUpdate",
@@ -124,23 +119,17 @@ export default {
         teamBoardWriter: '',
         }
       } ,
-    
     methods: {
     handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
-      // An example of using FormData
-      // NOTE: Your key could be different such as:
-      // formData.append('file', file)
-
       var formData = new FormData();
       formData.append("image", file);
-
       axios({
         url: "https://fakeapi.yoursite.com/images",
         method: "POST",
         data: formData
       })
         .then(result => {
-          let url = result.data.url; // Get url from response
+          let url = result.data.url;
           Editor.insertEmbed(cursorLocation, "image", url);
           resetUploader();
         })
@@ -149,7 +138,6 @@ export default {
         });
     },
     checkHandler() {
-        //console.log(this.teamBoardTitle,this.picker, this.teamBoardContent, this.teamBoardFrontRemainCount, this.teamBoardBackRemainCount, this.teamBoardCategory)
       if (this.boardTitle == "") {
         this.$alert("제목을 입력하세요");
       } else if (this.boardContent == "") {
@@ -169,7 +157,6 @@ export default {
     },
     updateHandler() {
       http.put("/team/board", {
-
          boardTitle:  this.boardTitle,
          boardContent : this.boardContent,
          boardFrontRemainCount : this.boardFrontRemainCount,
@@ -178,7 +165,6 @@ export default {
          boardEndDatetime : this.boardEndDatetime,
          boardNo : this.boardNo,
          memberId : this.teamBoardWriter
-
       }).then(({data})=> {
         if(data.result=="success"){
           this.$alert(data.message)
@@ -205,7 +191,6 @@ export default {
   width: 80%;
   display: inline-block;
 }
-
 .textfield-input {
     display: block;
     width: 100%;
@@ -220,7 +205,6 @@ export default {
 }
 .main-title h1{
   color: #FFB459;
-
 }
 small {
   border-bottom: 0.3px solid green;
@@ -234,5 +218,4 @@ small {
   border-radius: 20px;
   padding: 30px;
 }
-
 </style>

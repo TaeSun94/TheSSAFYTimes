@@ -1,14 +1,11 @@
 <template>
   <v-app>
-    
     <side-bar app></side-bar>
     <v-main style="background-color:#ebebeb ">
     <nav-bar app></nav-bar>
-    
     <vue-scroll-progress-bar height="0.3rem" backgroundColor="orange" style=""/>
     <router-view></router-view>
     </v-main>
-    
   </v-app>
 </template>
 

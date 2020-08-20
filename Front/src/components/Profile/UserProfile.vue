@@ -1,6 +1,6 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
-    <v-container class="col-lg-10">
+    <v-container class="col-lg-10 col-sm-10">
         <div class="row">
             <div class="col-lg-12" v-if="profile.memberIntro !== null && profile.memberDesc !==null">
             <div class="ml-5">
@@ -8,11 +8,8 @@
                 <p>{{ profile.memberDesc }}</p>
             </div>
             </div>
-            <!-- <bussiness-card v-model="member"></bussiness-card> -->
         </div>
     <div class="row">
-        <!-- 기사가 들어갈 공간 -->
-        <!-- <v-container class="col-lg-6"> -->
         <div class="col" >
             <div v-if="isMember">
                 <v-card-actions>
@@ -42,7 +39,6 @@
                                     </div>
                                     <hr class="my-4" />
                                     <template>
-                                            <!-- <h6 class="heading-small text-muted mb-4">기사 작성</h6> -->
                                             <div class="pl-lg-4">
                                                 <div class="row">
                                                     <div class="col-md-8">
@@ -61,8 +57,6 @@
                                                             persistent-hint
                                                             :rules="type_rules"
                                                         ></v-select>
-                                                        <!-- <label class="form-control-label">기사 분류</label>
-                                                        <v-select bv-model="selected" :options="options" attach chips multiple></v-select> -->
                                                     </div>
                                                 </div> 
                                             </div>
@@ -85,7 +79,6 @@
             <div>
                 <div v-if="articles.length">
                     <div class="item_card elevation-2" v-for="(item, index) in articles" :key="index + '_articles'">
-                <!-- 작성된 기사 부분 -->
                     <div slot="header" class="header bg-white border-0">
                         <div class="header_content">
                             <h3> {{item.articleTitle}}</h3>
@@ -105,19 +98,14 @@
                             <p style="font-size:12px">{{item.memberId}}, {{$moment(item.articleDatetime).format('YYYY-MM-DD hh:mm:ss a')}}</p>
                         </div>
                     </div>
-                    <!-- infinite loading -->
                     <infinite-loading @infinite="infiniteHandler"></infinite-loading>
                 </div>
                 <div v-else class="text-center" style="padding-top:8%" >
                     <img src="@/assets/옴팡이.jpg"/>
-                    <!-- <v-container class="elevation-5"> -->
                     <h1>등록된 기사가 없습니당...ㅠ</h1>
-                    <!-- </v-container> -->
                 </div>
             </div>
         </div>
-        <!-- </v-container> -->
-        <!-- 프로필 및 친구 관계가 들어갈 공간 -->
         <div class="col-lg-4 profile_container">
             <profile-card v-model="profile.memberId"></profile-card>
             <br>
@@ -129,8 +117,6 @@
                     </v-card-title>
                     <v-card>
                     <div v-if="followings.length" id="following_table">
-                        <!-- 친구 목록 table -->
-                        <!-- Id, region, unit만 보이게 -->
                         <v-data-table
                             :headers="followingHeaders"
                             :items="followings"
@@ -141,14 +127,6 @@
                             @click:row="followingClicked"
                         >
                         </v-data-table>
-                        <!-- <table class="text-center">
-                        <tr v-for="(following,index) in followings" :key="index+'_followings'">
-                            <business-card v-bind="following"></business-card>
-                            <td>{{following.memberId}}</td>
-                            <td>{{following.memberEmail}}</td>
-                            <td>{{following.memberUnit}}</td>
-                        </tr>
-                        </table> -->
                     </div>
                     <div v-else class="text-center">
                         <p>등록된 Follower가 없습니다.</p>
@@ -302,57 +280,56 @@
     };
 </script>
 <style scoped>
-    .container{
-        padding: 10px;
-    }
-    .checkbox {
-    display: none; 
-    }
+.container{
+    padding: 10px;
+}
+.checkbox {
+display: none; 
+}
 
-    .profile_title {
-    color: darkorange;
-    font-weight: bold;
-    }
+.profile_title {
+color: darkorange;
+font-weight: bold;
+}
 
-    .desc {
-    max-height: 0px;
-    overflow: hidden;
-    }
-    .checkbox:checked + .title + .desc {
-    max-height: 1000px;
-    }
-    #se{
-        padding-top: 3px;
-    }
-    #reg-button{
-        float: right;
-    }
-    .item_card{
-        padding: 20px;
-    }
-    .project_content{
-        padding: 10px;
-    }
-    .v-application .mr-15 {
-    margin-right: 0px !important; 
-    }
-    .news_content p {
-        padding: 20px;
-    }
-    .header_content{
-        display: flex;
-        justify-content: space-between;
-    }
+.desc {
+max-height: 0px;
+overflow: hidden;
+}
+.checkbox:checked + .title + .desc {
+max-height: 1000px;
+}
+#se{
+    padding-top: 3px;
+}
+#reg-button{
+    float: right;
+}
+.item_card{
+    padding: 20px;
+}
+.project_content{
+    padding: 10px;
+}
+.v-application .mr-15 {
+margin-right: 0px !important; 
+}
+.news_content p {
+    padding: 20px;
+}
+.header_content{
+    display: flex;
+    justify-content: space-between;
+}
+.project_hr {
+    border: 0.5px dashed gray;
+}
 
-    .project_hr {
-        border: 0.5px dashed gray;
-    }
-
-    .header_content h3{
-        font-size: 1.5rem;
-        font-weight: 700;
-    }
-    .v-sheet.v-card:not(.v-sheet--outlined) {
-    box-shadow: none
+.header_content h3{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.v-sheet.v-card:not(.v-sheet--outlined) {
+box-shadow: none
 }
 </style>
