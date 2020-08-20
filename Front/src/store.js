@@ -156,16 +156,16 @@ export default new Vuex.Store({
 
         //profile 등록 및 수정
         updateProfile(state, payload){
-            console.log(payload);
             if(payload.result === "success"){
                 // alert(payload.message);
+                location.href=`/profile/${state.profile.memberId}`;
+                state.profile ={};
             }
             else{
                 alert("프로필 등록 및 수정중 에러발생");
+                location.href=`/profile/${state.profile.memberId}`;
+                state.profile ={};
             }
-
-            location.hlocaref=`/profile/${state.profile.memberId}`;
-            state.profile ={};
         },
         //기사 관련
         insertArticle(state, payload){
@@ -301,18 +301,17 @@ export default new Vuex.Store({
             });
         },
         //profile
-        modifyProfile(context){
+        modifyProfile(context,payload){
             const fd = new FormData();
             const path = this.state;
-            if(path.profile.memberImgurl !== '' && path.profile.memberImgurl !== null){
-                fd.append('file', path.profile.memberImgurl)
+            if(payload.length){
+                fd.append('file', payload)
                 http.post(`/upload/uploadFile`,fd,{
                     headers:{
                         'Accept':'application/json',
                         'Content-Type':"multipart/form-data"
                     }
                 }).then(({data})=>{
-                    console.log("파일올리고ㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗㅗ",data);
                     if(data.result === 'success'){
                         http.put(`/member`,{
                             memberAddress: path.profile.memberAddress,
@@ -331,9 +330,7 @@ export default new Vuex.Store({
                             memberImgurl: data.data
                         }).then(({data})=>{
                             console.log(data);
-                            if(data.result==='success'){
-                                context.commit('updateProfile',data);
-                            }
+                            context.commit('updateProfile',data);
                         });
                     }
                 })
@@ -353,18 +350,15 @@ export default new Vuex.Store({
                     memberId: path.profile.memberId,
                     interestedList: path.profile.memberInterestedList,
                     skillList: path.profile.memberSkillList,
+                    memberImgurl: path.profile.memberImgurl
                 }).then(({data})=>{
                     console.log(data);
-                    if(data.result==='success'){
-                        context.commit('updateProfile',data);
-                        
-                    }
+                    context.commit('updateProfile',data);
                 });
             }
         },
         getProfile(context, payload){
             http.get(`/member/${payload}`).then(({data})=>{
-                // console.log(data);
                 context.commit('setProfile',data.data);
             });
         },

@@ -85,7 +85,7 @@
                 ></v-select>
             </v-form>
             <div class="text-center" id="btn_profile">
-                <v-btn @click="modifyProfile">프로필 등록 및 수정</v-btn>
+                <v-btn @click="modify">프로필 등록 및 수정</v-btn>
             </div>
             </v-card>
         </v-container>
@@ -95,7 +95,7 @@
 </template>
 <script>
     // import http from "@/http-common";
-    import {mapGetters, mapActions, mapState} from 'vuex';
+    import {mapGetters, mapState} from 'vuex';
     export default {
         name: 'ProfileEdit',
         data() {
@@ -103,7 +103,7 @@
                 region:[],
                 memberId:'',
                 preview: '',
-                imageUrl: null,
+                img: {},
                 region_rules:[
                     value => !!value || '지역을 선택해 주세요.'
                 ],
@@ -127,7 +127,10 @@
             ...mapState({member: state=>state.profile}),
         },
         methods:{
-            ...mapActions(['modifyProfile']),
+            // ...mapActions(['modifyProfile']),
+            modify(){
+                this.$store.dispatch('modifyProfile',this.img);
+            },
             getUnit(value){
                 console.log(value);
                 this.$store.dispatch('getUnits',value);
@@ -139,7 +142,7 @@
             onChangeImages(e) {
                 console.log(e)
                 this.preview = window.URL.createObjectURL(e);
-                this.member.memberImgurl = e;
+                this.img = e;
             }
         },
     };
