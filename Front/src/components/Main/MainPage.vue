@@ -21,7 +21,6 @@
                           class="fill-height flex-column"
                           justify="space-between">
                           <p class="mt-4 subheading text-center">{{item.title}}</p>
-
                           <div>
                             <p class="ma-0 body-1 font-weight-bold text-center">{{item.text}}</p>
                             <p class="caption font-weight-medium text-center">{{item.subtext}}</p>
@@ -33,7 +32,6 @@
                 </v-hover>
               </v-col>
             </template>
-            
           </v-row>
       </v-container>
     </div>
@@ -67,7 +65,6 @@ export default {
             subtext: '동료와 함께라면 못할 것이 없어요.',
             img: 'https://cdn.pixabay.com/photo/2020/07/08/04/12/work-5382501_960_720.jpg',
             to: "/community/teamlist"
-
           },
         ],
       }
@@ -148,13 +145,10 @@ export default {
 .book h2 span
 {
   background-color: black;
-  /* background: url(https://cdn.pixabay.com/photo/2015/05/01/14/46/new-york-748595_960_720.jpg); */
   background-attachment: fixed;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: "Times New Roman", Times, serif;
-
-
 }
 .book .writer {
   position: absolute;
