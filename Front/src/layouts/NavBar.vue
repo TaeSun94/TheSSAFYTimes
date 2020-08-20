@@ -120,6 +120,7 @@ export default {
             this.$cookies.remove("memberEmail");
             this.$alert("로그아웃 되었습니다.");
             this.$router.push('/');
+            location.reload();
         },
         memClick(){
             location.href=`/profile/${this.memberId}`;

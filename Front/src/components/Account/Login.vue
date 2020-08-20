@@ -23,6 +23,7 @@
               :type="pw"
               required
               :color="tfColor"
+              @keydown.enter="submit"
               >
                 <template v-slot:append-outer>
                   <input id="l" type="checkbox" v-model="checkBox" @click="showPw">
