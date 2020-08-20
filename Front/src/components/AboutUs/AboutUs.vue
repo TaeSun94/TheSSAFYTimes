@@ -93,7 +93,7 @@ export default {
                     saying : "열심히 하겠습니당.",
                     position :"Front-End",
                     thumbnail : "dv3.jpg",
-                    gitLink : "https://github.com/Sunaaaa"
+                    gitLink : "https://github.com/Taesun94"
                 },
                 {
                     name : "이승경",
@@ -101,7 +101,7 @@ export default {
                     saying : "열심히 하겠습니당.",
                     position :"Front-End",
                     thumbnail : "dv4.jpg",
-                    gitLink : "https://github.com/Sunaaaa"
+                    gitLink : "https://github.com/leeseungkyung"
                 },
                 {
                     name : "정성윤",
@@ -109,7 +109,7 @@ export default {
                     saying : "열심히 하겠습니당.",
                     position :"Front-End",
                     thumbnail : "dv5.jpg",
-                    gitLink : "https://github.com/Sunaaaa"
+                    gitLink : "https://github.com/mznx13579"
                 }      
             ]
         }
