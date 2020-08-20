@@ -210,7 +210,7 @@
                 this.$store.dispatch('delFollowing',id);
             },
             getImg(id){
-                console.log(id);
+                //console.log(id);
                 return id;
                 // http://adasdsa/images/a.jpg
                 // return require("/home/ubuntu/ssafytimes/s03p13c208/Ssafience/src/main/resources/static/images/"+id+".jpg");

@@ -1,8 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="col-lg-7  elevation-5">
-            <v-card>
+        <v-container class="col-lg-7 ">
                 <v-card-title>
                     <div class="textfield">
                         <h1 class="m-5 mb-3"> 🧑‍🤝‍🧑 프로그래밍 </h1>
@@ -22,12 +21,14 @@
                 <v-data-table
                     :headers="headers"
                     :items="programs"
+                    
                     :search="search"
                     :page.sync="page"
                     :items-per-page="perPage"
                     hide-default-footer
                     :per-page="perPage"
                     @click:row="rowClicked"
+                    
                     class="table"
                 >
 
@@ -35,7 +36,6 @@
                 <div class="text-center pt-2">
                     <v-pagination v-model="page" :length="pageCount"></v-pagination>
                 </div>
-            </v-card>
         </v-container>
     </div>
     <footer-bar></footer-bar>
