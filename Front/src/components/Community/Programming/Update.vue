@@ -63,11 +63,11 @@ export default {
         checkHandler() {
             var content = this.$refs.toastuiEditor.invoke("getMarkdown");
             if(this.programTitle ==""){
-                alert("글 제목을 입력하세요.");
+                this.$alert("글 제목을 입력하세요.");
             } else if(content =="") {
-                alert("글 내용을 입력하세요.");
+                this.$alert("글 내용을 입력하세요.");
             } else if(this.programTrack =="A" || this.programTrack =="B" || this.programTrack == "C" || this.programTrack == "P" || this.programTrack == "기타" || this.programTrack == "") {
-                alert("카테고리를 선택하세요");
+                this.$alert("카테고리를 선택하세요");
             } else  {
                 this.updateHandler();
             }
@@ -83,10 +83,10 @@ export default {
             }).
             then(({data}) => {
                 if(data.result == "success"){
-                    alert(data.message);
+                    this.$alert(data.message);
                     this.$router.push(`/community/programdetail/${this.$route.params.no}`);
                 } else {
-                    alert(data.message);
+                    this.$alert(data.message);
                     return;
                 }
             })
