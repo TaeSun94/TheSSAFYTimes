@@ -19,7 +19,7 @@
         <br>
         <v-list-item v-if="login===false">
             <v-list-item-avatar style="margin-right:auto; margin-left:auto" size=100>
-                <v-img src="@/assets/TheSSAFYTimes_small.png"></v-img>
+                <v-img @click="to('/')" src="@/assets/TheSSAFYTimes_small.png"></v-img>
             </v-list-item-avatar>
         </v-list-item>
         <v-list-item v-if="login===false" style="margin-top:3%">
@@ -35,7 +35,7 @@
             
         <v-list-item v-if="login===true">
             <v-list-item-avatar style="margin-right:auto; margin-left:auto" size=70>
-                <v-img src="https://img1.daumcdn.net/thumb/S240x240/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99A4654C5C63B09028"></v-img>
+                <v-img @click="to('/')" src="@/assets/TheSSAFYTimes_small.png"></v-img>
             </v-list-item-avatar>
         </v-list-item>
         <v-list-item style="margin-top:3%" v-if="login===true"> 
