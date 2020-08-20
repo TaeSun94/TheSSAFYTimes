@@ -1,8 +1,8 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="elevation-8 col-lg-7 col-sm-10" style="">     
-            <h3 class="ml-6"> We are</h3>        
+        <v-container class="elevation-8 col-lg-7 col-sm-10 title_img" style="">     
+            <h2 class="ml-6"> We are</h2>        
             <v-img
                 src="@/assets/ssaf.png"
                 width="80%"
@@ -49,8 +49,8 @@
                             >
                             <v-icon x-large>mdi-github</v-icon>
                             </v-btn>
-                            <h3 class="display-1 font-weight-light mb-2"  style="color:#000066">{{team.name}}</h3>
-                            <div class="font-weight-light title mb-2" style="color:#000066">
+                            <h3 class="display-1 font-weight-light mb-2 text-center"  style="color:#000066">{{team.name}}</h3>
+                            <div class="font-weight-light title mb-2 text-center" style="color:#000066">
                             {{team.position}}
                             </div>
                         </v-card-text>
@@ -136,5 +136,19 @@ h1{
     text-align: center;
     justify-content: center;
     font-size: 60px;
+}
+
+.v-image {
+    margin-left: auto;
+    margin-right:auto;
+}
+.no-gutters{
+
+    justify-content: center;
+}
+
+h2{
+    font-style: italic;
+    border-bottom: 0px;
 }
 </style>

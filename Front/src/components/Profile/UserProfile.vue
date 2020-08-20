@@ -3,8 +3,8 @@
     <v-container class="col-lg-10">
         <div class="row">
             <div class="col-lg-12" v-if="profile.memberIntro !== null && profile.memberDesc !==null">
-            <div>
-                <h1>{{ profile.memberIntro }}</h1>
+            <div class="ml-5">
+                <h1 class="mb-3 profile_title">{{ profile.memberIntro }}</h1>
                 <p>{{ profile.memberDesc }}</p>
             </div>
             </div>
@@ -118,11 +118,10 @@
         </div>
         <!-- </v-container> -->
         <!-- 프로필 및 친구 관계가 들어갈 공간 -->
-        <div class="col-lg-4 news_content">
+        <div class="col-lg-4 profile_container">
             <profile-card v-model="profile.memberId"></profile-card>
             <br>
-            <div class="row">
-                <div class="elevation-5 col-lg-12">
+            <div class="elevation-5 col-lg-12">
                     <v-card-title>
                         <div class="textfield">
                             <h3 class="m-4">Followings</h3>
@@ -152,17 +151,15 @@
                         </table> -->
                     </div>
                     <div v-else class="text-center">
-                        <p>등록된 Followr가 없습니다.</p>
+                        <p>등록된 Follower가 없습니다.</p>
                     </div>
                     </v-card>
-                </div>
             </div>
             <br>
-            <div class="row">
-                <div class="elevation-5">
+            <div class="elevation-5 col-lg-12">
                     <v-card-title>
                         <div class="textfield">
-                            <h3 class="m-4">지원 확정 프로젝트 현황</h3>
+                            <h3 class="m-4"> 🟠 지원 확정 프로젝트 현황</h3>
                         </div>
                     </v-card-title>
                     <v-card>
@@ -183,9 +180,10 @@
                         </div>
                     </v-card>
                     <br>
+                    <hr class="project_hr">
                     <v-card-title>
                         <div class="textfield">
-                            <h3 class="m-4">지원 중인 프로젝트 현황</h3>
+                            <h3 class="m-4">🟢 지원 중인 프로젝트 현황</h3>
                         </div>
                     </v-card-title>
                     <v-card>
@@ -205,7 +203,6 @@
                             <p>지원중인 프로젝트가 없습니다.</p>
                         </div>
                     </v-card>
-                </div>
             </div>
         </div>
     </div>
@@ -253,7 +250,6 @@
                     {text:'프로젝트 번호', value:'boardNo'},
                     {text: '분류', value: 'boardType'},
                     {text: '프로젝트 이름', value: 'boardTitle'},
-                    {text: '현재 상태', value: 'applyStatus'},
                 ],
                 profileArticle:[],
                 memid:'',
@@ -306,14 +302,18 @@
     };
 </script>
 <style scoped>
-
+    .container{
+        padding: 10px;
+    }
     .checkbox {
     display: none; 
     }
-    .title {
-    color: purple;
+
+    .profile_title {
+    color: darkorange;
     font-weight: bold;
     }
+
     .desc {
     max-height: 0px;
     overflow: hidden;
@@ -344,11 +344,15 @@
         justify-content: space-between;
     }
 
+    .project_hr {
+        border: 0.5px dashed gray;
+    }
+
     .header_content h3{
         font-size: 1.5rem;
         font-weight: 700;
     }
     .v-sheet.v-card:not(.v-sheet--outlined) {
     box-shadow: none
-    }
+}
 </style>
