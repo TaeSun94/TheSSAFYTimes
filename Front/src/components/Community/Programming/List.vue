@@ -2,7 +2,6 @@
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
         <v-container class="col-lg-7 col-sm-10 elevation-5">
-            <v-card>
                 <v-card-title>
                     <div class="textfield">
                         <h1 class="m-5 mb-3"> 🧑‍🤝‍🧑 프로그래밍 </h1>
@@ -36,7 +35,6 @@
                 <div class="text-center pt-2">
                     <v-pagination v-model="page" :length="pageCount"></v-pagination>
                 </div>
-            </v-card>
         </v-container>
     </div>
     <footer-bar></footer-bar>

@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="col-lg-9  elevation-5">
+        <v-container class="col-lg-9 col-sm-10 elevation-5">
                 <v-card-title>
                     <div class="textfield">
                         <h1 class="m-4 main-title"> 👭 팀 구해요 ! </h1>
