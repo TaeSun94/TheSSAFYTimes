@@ -103,7 +103,7 @@
                 region:[],
                 memberId:'',
                 preview: '',
-                img: {},
+                img: [],
                 region_rules:[
                     value => !!value || '지역을 선택해 주세요.'
                 ],
@@ -142,7 +142,13 @@
             onChangeImages(e) {
                 console.log(e)
                 this.preview = window.URL.createObjectURL(e);
-                this.img = e;
+                if(this.img.length !== 0){
+                    this.img.pop();
+                    this.img.push(e);
+                }
+                else{
+                    this.img.push(e);
+                }
             }
         },
     };
