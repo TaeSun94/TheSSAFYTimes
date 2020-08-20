@@ -2,9 +2,9 @@
 
 
 
-## 💛 PROJECT 
+## 💛 [PROJECT](###▶ 처음으로)
 
-- [이미지](#test)
+
 
 - ####  The SSAFY Times
 
@@ -87,10 +87,12 @@ npm run serve
 - [WireFrame](https://lab.ssafy.com/s03-webmobile1-sub2/s03p12c208/wikis/WireFrame-%EC%9D%B4%EB%AF%B8%EC%A7%80)
 - [ERD Diagram](https://lab.ssafy.com/s03-webmobile1-sub2/s03p12c208/wikis/%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B2%A0%EC%9D%B4%EC%8A%A4)
 
-# test
 
-sksksksk
 
 ## 💛 TEAM Ssafience
 
 ![image-20200820193131511](README.assets/image-20200820193131511.png)
+
+
+
+### ▶ 처음으로
