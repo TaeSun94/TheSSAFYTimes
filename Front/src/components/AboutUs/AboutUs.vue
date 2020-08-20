@@ -85,7 +85,7 @@ export default {
                     saying : "열심히 하겠습니당.",
                     position :"Back-End",
                     thumbnail : "dv2.jpg",
-                    gitLink : "https://github.com/Sunaaaa"
+                    gitLink : "https://www.youtube.com/channel/UCtckgmUcpzqGnzcs7xEqMzQ"
                 },
                 {
                     name : "유태선",
