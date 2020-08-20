@@ -11,8 +11,6 @@
         <div class="topnav-centered">
             <router-link :to="{ path: '/'}"><img width="480" src="@/assets/times.png"/></router-link>
         </div>
-        
-
         <v-navigation-drawer
             v-model="drawer"
             absolute
@@ -51,7 +49,6 @@
             </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
-
         <v-list rounded style="text-align:center">
             <v-list-item @click="to('/notice')">
             <v-list-item-content>
