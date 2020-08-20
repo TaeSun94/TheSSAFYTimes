@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="col-lg-7  elevation-5">
+        <v-container class="col-lg-7 col-sm-10 elevation-5">
             <vue-scroll-progress-bar height="0.3rem" backgroundColor="orange"/>
             <v-card>
               <v-card-title>
@@ -52,7 +52,6 @@
                         <v-fade-transition leave-absolute>
                           <span v-if="open">
                             {{$moment(item.noticeDatetime).format('YYYY-MM-DD hh:mm:ss')}}
-                            
                           </span>
                         </v-fade-transition>
                       </v-col>
@@ -62,7 +61,6 @@
                     {{item.noticeContent}}
                     <v-card-actions>
                       <v-spacer></v-spacer>
-                      <!-- <v-btn v-if="isAdmin == true" text color="info"> 수정하기 </v-btn> -->
                       <v-btn v-if="isAdmin == true" text color="red" @click="deleteHandler(item.noticeNo)"> 삭제하기 </v-btn>
                     </v-card-actions>
                   </v-expansion-panel-content>

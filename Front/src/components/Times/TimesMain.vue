@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:5%">
     <div class="row" style="">
-        <div class="container">
+        <div class="container col-sm-10">
             <input type="checkbox" id="c1">
             <input type="checkbox" id="c2">
             <input type="checkbox" id="c3">

@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-10">
+        <v-container class="elevation-5 col-lg-10 col-sm-10">
             <div class="textfield">
                 <v-row>
                     <v-col>
@@ -54,7 +54,6 @@ export default {
             programContent: '',
             programHit: 0,
             category: [],
-
         };
     },
     computed: {
@@ -107,10 +106,6 @@ export default {
         http.get("/category/program-track").then(({data})=> {
             this.category = data.list;
         })
-    },
-    updated() {
-        // this.title = this.program.programBoardTitle;
-        // this.content = this.program.programBoardContent;
     }
 }
 </script>
@@ -138,9 +133,6 @@ hr{
     margin-bottom: 20px;
     margin-left: 20px;  
 }
-/* .textfield-input:focus{
-    background: white;
-} */
 .v-btn.v-size--default, .v-btn.v-size--large {
     font-size: 1rem;
     font-family: 'Noto Sans KR', sans-serif;
@@ -153,7 +145,4 @@ hr{
 .ql-editor {
   height: 400px;
 }
-/* .ql-editor:focus{
-  background-color: white;
-} */
 </style>

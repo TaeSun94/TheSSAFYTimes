@@ -1,7 +1,7 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-6 col-sm-10">
+        <v-container class="elevation-5 col-lg-7 col-sm-10">
             <vue-scroll-progress-bar height="0.3rem" backgroundColor="orange"/>
             <div class="textfield">
                 <div class="ml-4"><h1>{{programTitle}}</h1></div>
@@ -53,7 +53,6 @@
                     </v-container>
                 </div>
                 <hr style="width:95%" class="mt-5">
-                <!--댓글 목록-->
                 <div class="ml-5 mb-5">
                     댓글이 총 <b>{{ program_comments.length }}</b> 건 있습니다.
                 </div>
@@ -104,11 +103,8 @@ export default {
             dislike: 0,
             like: 0,
             content: false,
-            //comment 
             commentContent: true,
             commentInput: '',
-            
-            //edit, delete관련
             canEdit: false,
             member: {},
         }
@@ -211,7 +207,6 @@ export default {
 
     },
     created() {
-        // this.$store.dispatch("getProgram", `/board/program/${this.$route.params.no}`);
         this.$store.dispatch("getProgramComments", `/program/${this.$route.params.no}/comment`);
         http.get(`/program/board/${this.$route.params.no}`).then(({data})=> {
             var board = data.data;
@@ -230,9 +225,6 @@ export default {
             })
         });
     },
-    mounted() {
-        
-    },
     updated() {
         var id = this.$cookies.get('memberId');
         var author = this.programWriter;
@@ -241,7 +233,6 @@ export default {
     }
 }
 </script>
-
 
 <style scoped>
 p {
@@ -252,7 +243,6 @@ hr{
     border: 3px solid darkorange;
     margin-bottom: 20px;
     margin-left: 20px;
-
 }
 .comment {
     cursor: pointer;
@@ -274,7 +264,6 @@ hr{
     padding: 20px;
     padding-bottom: 50px;
     border-radius: 10px;
-    
 }
 
 .inner-comment, .inner-comment .container {
@@ -295,11 +284,9 @@ tbody tr {
     margin-right:20px;
     border-radius: 10px;
 }
-/*  */
 .description{
     display: inline;
 }
-
 .comment-content{
     margin: 5px;
     margin-left:20px;
