@@ -52,9 +52,9 @@ export default {
             .then(({data})=> {
                 console.log(data);
                 if(data.result=="success"){
-                    alert(data.message);
+                    this.$alert(data.message);
                 } else if(data.result=="fail"){
-                    alert(data.message);
+                    this.$alert(data.message);
                 }
             });
         }

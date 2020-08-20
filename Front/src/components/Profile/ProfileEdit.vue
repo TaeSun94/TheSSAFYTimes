@@ -132,15 +132,15 @@
                 this.$store.dispatch('modifyProfile',this.img);
             },
             getUnit(value){
-                console.log(value);
+                //console.log(value);
                 this.$store.dispatch('getUnits',value);
             },
             getTrack(value){
-                console.log(value);
+                //console.log(value);
                 this.$store.dispatch('getTracks',value);
             },
             onChangeImages(e) {
-                console.log(e)
+                //console.log(e)
                 this.preview = window.URL.createObjectURL(e);
                 if(this.img.length !== 0){
                     this.img.pop();

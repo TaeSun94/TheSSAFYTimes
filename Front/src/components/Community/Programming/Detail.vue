@@ -5,7 +5,7 @@
             <vue-scroll-progress-bar height="0.3rem" backgroundColor="orange"/>
             <div class="textfield">
                 <div class="ml-4"><h1>{{programTitle}}</h1></div>
-                <hr>
+                <hr class="mt-3">
             </div>
             <div class="text-right mr-5">
                 <small class="description">👀 조회수 {{programHit}} / </small>

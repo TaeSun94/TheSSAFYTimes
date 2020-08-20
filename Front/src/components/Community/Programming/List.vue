@@ -22,12 +22,14 @@
                 <v-data-table
                     :headers="headers"
                     :items="programs"
+                    
                     :search="search"
                     :page.sync="page"
                     :items-per-page="perPage"
                     hide-default-footer
                     :per-page="perPage"
                     @click:row="rowClicked"
+                    
                     class="table"
                 >
                 </v-data-table>
