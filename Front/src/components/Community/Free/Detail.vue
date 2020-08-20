@@ -158,17 +158,17 @@ export default {
             }).
             then(({data}) =>{
                 if(data.result == "success") {
-                    alert(data.message);
+                    this.$alert(data.message);
                     location.reload();
                 } else {
-                    alert(data.message);
+                    this.$alert(data.message);
                     return;
                 }
             })
         },
         commentCheck() {
             if(this.commentInput == ""){
-                alert("댓글을 입력하세요");
+                this.$alert("댓글을 입력하세요");
                 return;
             } else {
                 this.commentCreate();
@@ -177,17 +177,17 @@ export default {
         deleteHandler() {
             http.delete(`/free/board/${this.$route.params.no}`).then(({data}) => {
                 if(data.result == "success"){
-                    alert(data.message);
+                    this.$alert(data.message);
                     this.$router.push("/community/freelist");
                 } else {
-                    alert(data.message);
+                    this.$alert(data.message);
                     return;
                 }
             });
         },
         upButton() {
             if(this.$cookies.get('memberId') == null) {
-                alert("로그인이 필요합니다.")
+                this.$alert("로그인이 필요합니다.")
                 return;
             }
             var boardLikeCheck = 1;
@@ -201,9 +201,9 @@ export default {
             })
             .then(({data})=> {
                 if(data.result != "success"){
-                    alert(data.message)
+                    this.$alert(data.message)
                 } else {
-                    alert(data.message);
+                    this.$alert(data.message);
                     location.reload();
                 }
             })
@@ -224,7 +224,7 @@ export default {
             })
             .then(({data})=> {
                 if(data.result != "success") {
-                    alert(data.message);
+                    this.$alert(data.message);
                 } else {
                     location.reload();
                 }

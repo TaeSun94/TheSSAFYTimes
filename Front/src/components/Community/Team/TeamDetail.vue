@@ -177,10 +177,10 @@ export default {
         deleteHandler() {
             http.delete(`/team/board/${this.$route.params.no}`).then(({data}) => {
                 if(data.result == "success"){
-                    alert(data.message);
+                    this.$alert(data.message);
                     this.$router.push("/community/teamlist");
                 } else {
-                    alert(data.message);
+                    this.$alert(data.message);
                     return;
                 }
             });

@@ -124,7 +124,9 @@ export default {
 }
 .container{
   background: #fff;
+  padding: 20px;
 }
+
 .item_card:hover {
   -webkit-transform: scale(1.05);
   transform: scale(1.05);
@@ -133,7 +135,7 @@ export default {
     position: relative;
     width: 320px;
     vertical-align: top;
-    margin: 20px;
+    margin: 5px;
     margin-top:40px;
     background-color: #ffffff;
     display: inline-block;
@@ -156,6 +158,7 @@ export default {
     } 
     
 }
+
 
 
 a {

@@ -160,15 +160,15 @@ import http from '@/http-common'
       },
       submit () {
         if (this.valid != true) {
-            alert("주어진 규칙에 맞춰 작성해주세요.");
+            this.$alert("주어진 규칙에 맞춰 작성해주세요.");
         } else if (this.idck != true) {
-            alert("닉네임을 입력하세요.");
+            this.$alert("닉네임을 입력하세요.");
         } else if (this.pwck != true) {
-            alert("비밀번호를 확인해주세요.")          
+            this.$alert("비밀번호를 확인해주세요.")          
         } else if (this.emailck != true) {
-            alert("이메일 확인해주세요.")          
+            this.$alert("이메일 확인해주세요.")          
         } else if (this.termck != true) {
-            alert("약관에 동의해주세요.")          
+            this.$alert("약관에 동의해주세요.")          
         } else {
           http.post('/account/signup', {
             memberId: this.memberId,
@@ -177,10 +177,10 @@ import http from '@/http-common'
           })
           .then(({data})=> {
             if(data.result=="success"){
-              alert(data.message);
+              this.$alert(data.message);
               this.$router.push({path: '/login'});
             } else if(data.result=="fail"){
-              alert(data.message);
+              this.$alert(data.message);
             }
           });
         }
@@ -190,7 +190,7 @@ import http from '@/http-common'
       },
       checkIdDup() {
         if(this.memberId=='') {
-          alert("닉네임을 입력하세요.");
+          this.$alert("닉네임을 입력하세요.");
           return;
         }
         http.post('/valid/id', {
@@ -210,19 +210,19 @@ import http from '@/http-common'
       },
       checkPw() {
         if(this.memberPw == '' || this.memberPw2 == ''){
-          alert("비밀번호를 입력해주세요.");
+          this.$alert("비밀번호를 입력해주세요.");
           return;
         }
         if(this.memberPw != this.memberPw2){
           this.pwck = false;
-          alert("비밀번호가 일치하지 않습니다.");
+          this.$alert("비밀번호가 일치하지 않습니다.");
         } else {
           this.pwck = true;
         }
       },
       checkEmail() {
         if(this.memberEmail==''){
-          alert("이메일을 입력하세요.");
+          this.$alert("이메일을 입력하세요.");
           return;
         }
         http.post('/valid/email', {
