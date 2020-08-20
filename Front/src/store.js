@@ -304,8 +304,10 @@ export default new Vuex.Store({
         modifyProfile(context,payload){
             const fd = new FormData();
             const path = this.state;
-            if(payload.length){
-                fd.append('file', payload)
+            console.log(payload);
+            if(payload.length>0){
+                console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",payload);
+                fd.append('file', payload.pop())
                 http.post(`/upload/uploadFile`,fd,{
                     headers:{
                         'Accept':'application/json',
