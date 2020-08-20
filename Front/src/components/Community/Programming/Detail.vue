@@ -53,6 +53,10 @@
                     </v-container>
                 </div>
                 <hr style="width:95%" class="mt-5">
+                <!--댓글 목록-->
+                <div class="ml-5 mb-5">
+                    댓글이 총 <b>{{ program_comments.length }}</b> 건 있습니다.
+                </div>
                 <div v-show="commentContent">
                     <div class="comment-content" v-for="item in program_comments" :key="item.programCommentNo">
                         <v-simple-table>
