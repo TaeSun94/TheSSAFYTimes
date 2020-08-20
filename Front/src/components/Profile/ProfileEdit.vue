@@ -1,7 +1,6 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <!-- Edit Profile 들어갈 공간 -->
         <v-container class="elevation-5 col-lg-6">
             <v-card>
             <p id="edit_header">🖊️ 프로필 등록 및 수정</p>
@@ -37,7 +36,6 @@
                     label="핸드폰 번호(-)포함"
                     v-model="member.memberPhone"
                 ></v-text-field>
-                <!-- select로 설정 (Not multiple) -->
                 <div class="row">
                     <v-select class="col-lg-2"
                         v-model="member.memberRegion"
@@ -94,7 +92,6 @@
 </div>
 </template>
 <script>
-    // import http from "@/http-common";
     import {mapGetters, mapState} from 'vuex';
     export default {
         name: 'ProfileEdit',
@@ -127,20 +124,16 @@
             ...mapState({member: state=>state.profile}),
         },
         methods:{
-            // ...mapActions(['modifyProfile']),
             modify(){
                 this.$store.dispatch('modifyProfile',this.img);
             },
             getUnit(value){
-                //console.log(value);
                 this.$store.dispatch('getUnits',value);
             },
             getTrack(value){
-                //console.log(value);
                 this.$store.dispatch('getTracks',value);
             },
             onChangeImages(e) {
-                //console.log(e)
                 this.preview = window.URL.createObjectURL(e);
                 if(this.img.length !== 0){
                     this.img.pop();

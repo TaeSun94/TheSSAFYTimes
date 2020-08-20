@@ -21,7 +21,6 @@
                     </v-avatar>
                 </div>
                 <div class="col-lg-3 text-center">
-                    <!-- 만약 세션이 나이고 쿼리를 통해 들어온거와 같다면 -->
                     <div v-if="isMember">
                         <div v-if="member.memberFirstName === null || member.memberFirstName === ''">
                             <v-btn tile large depressed dark @click="mvEditProfile" >등록</v-btn>
@@ -30,10 +29,7 @@
                             <v-btn tile large depressed dark @click="mvEditProfile" >수정</v-btn>
                         </div>
                     </div>
-
-                    <!-- 아니라면 -->
                     <div v-else>
-                        <!-- 만약 친구라면 언팔 친구가 아니면 팔로우 -->
                         <div v-if="followingPeople.includes(member.memberId) !== false">
                             <div>
                                 <v-btn tile large depressed dark @click="delFollow" >언팔로우</v-btn>
@@ -70,7 +66,7 @@
                     <div >
                         <div class="text-center">
                         <h3 class="mb-4">
-                            {{ member.memberFirstName }}, {{ member.memberLastName }}<!-- <span class="font-weight-light">, 나이</span> -->
+                            {{ member.memberFirstName }}, {{ member.memberLastName }}
                         </h3>
                         <div class="h5 font-weight-300">
                             <i class="ni location_pin mr-2"></i>현재 거주지 : {{ member.memberAddress }}
@@ -78,7 +74,6 @@
                         <div class="h5 mt-4">
                             <i class="ni business_briefcase-24 mr-2"></i>지역 : <b>{{ member.memberRegion }}</b> / 기수 : <b>{{ member.memberUnit }}</b> / 트랙 : <b>{{ member.memberTrack }}</b>
                         </div>
-                        
                         <hr class="my-4" />
                         <v-btn icon @click="show = !show">
                                 <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
@@ -183,9 +178,7 @@
                 for(var i = 0; i < data.list.length; i++){
                     this.followingPeople.push(data.list[i]["memberId"]);
                 }
-                //console.log(this.followingPeople);
             });
-            // this.xx = require("/home/ubuntu/ssafytimes/s03p13c208/Ssafience/src/main/resources/static/images/"+id+".jpg");
         },
         components:{
             'connect-here':ConnectHere,
@@ -200,20 +193,14 @@
             ...mapActions(['addFollowing','delFollowing']),
             addFollow(){
                 const id = this.$cookies.get("memberId");
-                //console.log(this.$store.state.profile.memberId);
                 this.$store.dispatch('addFollowing',id);
-                // ...mapActions(['addFollowing'],this.$store.state.profile.memberid)
             },
             delFollow(){
-                //console.log(this.$store.state.profile.memberId);
                 const id = this.$cookies.get("memberId");
                 this.$store.dispatch('delFollowing',id);
             },
             getImg(id){
-                //console.log(id);
                 return id;
-                // http://adasdsa/images/a.jpg
-                // return require("/home/ubuntu/ssafytimes/s03p13c208/Ssafience/src/main/resources/static/images/"+id+".jpg");
             }
         }
     }
