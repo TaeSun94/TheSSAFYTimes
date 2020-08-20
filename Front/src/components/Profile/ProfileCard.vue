@@ -1,6 +1,4 @@
 <template>
-<div class="wrapper">
-    <div class="row">
         <v-container class="elevation-5 col-lg-12">
             <v-card-actions>
                 <div class="col-lg-3">
@@ -78,7 +76,7 @@
                             <i class="ni location_pin mr-2"></i>현재 거주지 : {{ member.memberAddress }}
                         </div>
                         <div class="h5 mt-4">
-                            <i class="ni business_briefcase-24 mr-2"></i>지역 : {{ member.memberRegion }} - 기수 : {{ member.memberUnit }} - 트랙 : {{ member.memberTrack }}
+                            <i class="ni business_briefcase-24 mr-2"></i>지역 : <b>{{ member.memberRegion }}</b> / 기수 : <b>{{ member.memberUnit }}</b> / 트랙 : <b>{{ member.memberTrack }}</b>
                         </div>
                         
                         <hr class="my-4" />
@@ -158,8 +156,6 @@
                 </div>
             </div>
         </v-container>
-    </div>
-</div>
 </template>
 
 <script>
@@ -187,7 +183,7 @@
                 for(var i = 0; i < data.list.length; i++){
                     this.followingPeople.push(data.list[i]["memberId"]);
                 }
-                console.log(this.followingPeople);
+                //console.log(this.followingPeople);
             });
             // this.xx = require("/home/ubuntu/ssafytimes/s03p13c208/Ssafience/src/main/resources/static/images/"+id+".jpg");
         },
@@ -204,12 +200,12 @@
             ...mapActions(['addFollowing','delFollowing']),
             addFollow(){
                 const id = this.$cookies.get("memberId");
-                console.log(this.$store.state.profile.memberId);
+                //console.log(this.$store.state.profile.memberId);
                 this.$store.dispatch('addFollowing',id);
                 // ...mapActions(['addFollowing'],this.$store.state.profile.memberid)
             },
             delFollow(){
-                console.log(this.$store.state.profile.memberId);
+                //console.log(this.$store.state.profile.memberId);
                 const id = this.$cookies.get("memberId");
                 this.$store.dispatch('delFollowing',id);
             },
@@ -223,6 +219,13 @@
     }
 </script>
 
-<style>
+<style scoped>
+.container{
+    border-radius: 0px;
+}
+
+.heading{
+    color: darkorange;
+}
 
 </style>

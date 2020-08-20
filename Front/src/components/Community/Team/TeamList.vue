@@ -4,7 +4,8 @@
         <v-container class="col-lg-9  elevation-5">
                 <v-card-title>
                     <div class="textfield">
-                        <h1 class="m-4 main-title"> 🧑‍🤝‍🧑 팀 구해요 ! </h1>
+                        <h1 class="m-4 main-title"> 👭 팀 구해요 ! </h1>
+                        <small class="ml-3">팀원을 모집해 보세요. </small>
                     </div>
                     <v-spacer></v-spacer>
                 </v-card-title>

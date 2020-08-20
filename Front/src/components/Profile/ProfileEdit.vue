@@ -1,10 +1,10 @@
 <template>
-<div class="wrapper" style="margin-top:5%">
+<div class="wrapper" style="margin-top:8%">
     <div class="row">
         <!-- Edit Profile 들어갈 공간 -->
         <v-container class="elevation-5 col-lg-6">
             <v-card>
-            <p id="edit_header">프로필 등록 및 수정</p>
+            <p id="edit_header">🖊️ 프로필 등록 및 수정</p>
             <v-form class="ml-4 mr-4 mt-6">
                 <v-file-input @change="onChangeImages" show-size counter label="프로필 사진 등록"></v-file-input>
                 <div v-if="preview"><img v-bind:src="preview"></div>
@@ -103,7 +103,7 @@
                 region:[],
                 memberId:'',
                 preview: '',
-                img: {},
+                img: [],
                 region_rules:[
                     value => !!value || '지역을 선택해 주세요.'
                 ],
@@ -142,7 +142,13 @@
             onChangeImages(e) {
                 console.log(e)
                 this.preview = window.URL.createObjectURL(e);
-                this.img = e;
+                if(this.img.length !== 0){
+                    this.img.pop();
+                    this.img.push(e);
+                }
+                else{
+                    this.img.push(e);
+                }
             }
         },
     };

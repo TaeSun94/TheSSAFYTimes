@@ -1,28 +1,36 @@
 <template>
 <div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-5">
+        <v-container class="elevation-5 col-lg-7">
+                <v-card-title>
+                    <div class="textfield">
+                        <h1 class="m-5 mb-3"> 📰 뉴스 피드 </h1>
+                        <small class="ml-3">SSAFY의 뉴스를 확인해보세요! </small>
+                    </div>
+                    <v-spacer></v-spacer>
+                    <v-btn v-if="login===false" disabled large tile depressed :to="{  path: '/community/freewrite'}">글쓰기!</v-btn>
+                    <v-btn v-if="login===true"  tile large depressed dark :to="{  path: '/community/freewrite'}">글쓰기!</v-btn>
+               
+                </v-card-title>
                 <div v-if="articles.length">
-                    <div class="item_card" v-for="(item, index) in articles" :key="index + '_articles'">
-                        <v-container class="elevation-5">
-                                <div slot="header" class="bg-white border-0">
-                                    <div class="row align-items-center">
-                                        <div class="col-8 ml-3">
-                                            <h3>제목 : {{item.articleTitle}}</h3>
-                                        </div>
-                                        <div class="col-3" style="padding-top:20px">
-                                            <h5>분야 : {{item.articleType}}</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="my-4" />
-                                <div>
-                                    <p>{{item.articleContent}}</p>
-                                </div>
+                    <div class="item_card elevation-2" v-for="(item, index) in articles" :key="index + '_articles'">
+                        <div slot="header" class="header bg-white border-0">
+                            <div class="header_content">
+                                <h3> {{item.articleTitle}}</h3>
                                 <div class="text-right">
-                                    <p style="font-size:12px">{{item.memberId}}, {{$moment(item.articleDatetime).format('YYYY-MM-DD hh:mm:ss a')}}</p>
+                                    <v-chip color="#FFB459">
+                                        {{item.articleType}}
+                                    </v-chip>
                                 </div>
-                        </v-container>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="news_content">
+                            <p>{{item.articleContent}}</p>
+                        </div>
+                        <div class="text-right news_content">
+                            <p style="font-size:12px">{{item.memberId}}, {{$moment(item.articleDatetime).format('YYYY-MM-DD hh:mm:ss a')}}</p>
+                        </div>
                         <br>
                     </div>
                     <!-- infinite loading -->
@@ -80,6 +88,23 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.item_card{
+    margin: 30px;
+}
+.news_content p {
+    padding: 20px;
+}
+.header {
+    padding: 20px;
+}
+.header_content{
+    display: flex;
+    justify-content: space-between;
+}
 
+.header_content h3{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
 </style>

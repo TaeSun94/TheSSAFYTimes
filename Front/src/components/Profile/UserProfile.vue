@@ -1,10 +1,10 @@
 <template>
-<div class="wrapper" style="margin-top:5%">
+<div class="wrapper" style="margin-top:8%">
     <v-container class="col-lg-10">
         <div class="row">
             <div class="col-lg-12" v-if="profile.memberIntro !== null && profile.memberDesc !==null">
-            <div style="padding-left: 5%">
-                <h1>{{ profile.memberIntro }}</h1>
+            <div class="ml-5">
+                <h1 class="mb-3 profile_title">{{ profile.memberIntro }}</h1>
                 <p>{{ profile.memberDesc }}</p>
             </div>
             </div>
@@ -13,7 +13,7 @@
     <div class="row">
         <!-- 기사가 들어갈 공간 -->
         <!-- <v-container class="col-lg-6"> -->
-        <div class="col" style="padding-left: 5%">
+        <div class="col" >
             <div v-if="isMember">
                 <v-card-actions>
                     나만의 기사 작성하기!
@@ -27,7 +27,7 @@
                 <v-expand-transition>
                     <div v-show="show">
                         <v-divider></v-divider>
-                        <v-container class="elevation-5">
+                        <div class="elevation-5 mt-5">
                             <v-form>
                                 <div class="item_card">
                                     <div slot="header" class="bg-white border-0">
@@ -77,40 +77,38 @@
                                     </template>
                                 </div>
                             </v-form>
-                        </v-container>
+                        </div>
                     </div>
                 </v-expand-transition>
             </div>
             <br>
             <div>
                 <div v-if="articles.length">
-                    <div class="item_card" v-for="(item, index) in articles" :key="index + '_articles'">
+                    <div class="item_card elevation-2" v-for="(item, index) in articles" :key="index + '_articles'">
                 <!-- 작성된 기사 부분 -->
-                        <v-container class="elevation-5">
-                                <div slot="header" class="bg-white border-0">
-                                    <div class="row align-items-center">
-                                        <div class="col-8 ml-3">
-                                            <h3>제목 : {{item.articleTitle}}</h3>
-                                        </div>
-                                        <div class="col-3" style="padding-top:20px">
-                                            <h5>분야 : {{item.articleType}}</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="my-4" />
-                                <div>
-                                    <p>{{item.articleContent}}</p>
-                                </div>
-                                <div class="text-right">
-                                    <p style="font-size:12px">{{item.memberId}}, {{$moment(item.articleDatetime).format('YYYY-MM-DD hh:mm:ss a')}}</p>
-                                </div>
-                        </v-container>
+                    <div slot="header" class="header bg-white border-0">
+                        <div class="header_content">
+                            <h3> {{item.articleTitle}}</h3>
+                            <div class="text-right">
+                                <v-chip color="#FFB459">
+                                    {{item.articleType}}
+                                </v-chip>
+                            </div>
+                        </div>
                         <br>
+                    </div>
+                        <hr/>
+                        <div class="news_content">
+                            <p>{{item.articleContent}}</p>
+                        </div>
+                        <div class="text-right news_content">
+                            <p style="font-size:12px">{{item.memberId}}, {{$moment(item.articleDatetime).format('YYYY-MM-DD hh:mm:ss a')}}</p>
+                        </div>
                     </div>
                     <!-- infinite loading -->
                     <infinite-loading @infinite="infiniteHandler"></infinite-loading>
                 </div>
-                <div v-else class="text-center" style="padding-top:8%">
+                <div v-else class="text-center" style="padding-top:8%" >
                     <img src="@/assets/옴팡이.jpg"/>
                     <!-- <v-container class="elevation-5"> -->
                     <h1>등록된 기사가 없습니당...ㅠ</h1>
@@ -120,11 +118,10 @@
         </div>
         <!-- </v-container> -->
         <!-- 프로필 및 친구 관계가 들어갈 공간 -->
-        <div class="col-lg-4 mr-15" style="padding-top: 7%">
+        <div class="col-lg-4 profile_container">
             <profile-card v-model="profile.memberId"></profile-card>
             <br>
-            <div class="row">
-                <v-container class="elevation-5 col-lg-12">
+            <div class="elevation-5 col-lg-12">
                     <v-card-title>
                         <div class="textfield">
                             <h3 class="m-4">Followings</h3>
@@ -154,17 +151,15 @@
                         </table> -->
                     </div>
                     <div v-else class="text-center">
-                        <p>등록된 Followr가 없습니다.</p>
+                        <p>등록된 Follower가 없습니다.</p>
                     </div>
                     </v-card>
-                </v-container>
             </div>
             <br>
-            <div class="row">
-                <v-container class="elevation-5">
+            <div class="elevation-5 col-lg-12">
                     <v-card-title>
                         <div class="textfield">
-                            <h3 class="m-4">지원 확정 프로젝트 현황</h3>
+                            <h3 class="m-4"> 🟠 지원 확정 프로젝트 현황</h3>
                         </div>
                     </v-card-title>
                     <v-card>
@@ -185,9 +180,10 @@
                         </div>
                     </v-card>
                     <br>
+                    <hr class="project_hr">
                     <v-card-title>
                         <div class="textfield">
-                            <h3 class="m-4">지원 중인 프로젝트 현황</h3>
+                            <h3 class="m-4">🟢 지원 중인 프로젝트 현황</h3>
                         </div>
                     </v-card-title>
                     <v-card>
@@ -207,7 +203,6 @@
                             <p>지원중인 프로젝트가 없습니다.</p>
                         </div>
                     </v-card>
-                </v-container>
             </div>
         </div>
     </div>
@@ -255,7 +250,6 @@
                     {text:'프로젝트 번호', value:'boardNo'},
                     {text: '분류', value: 'boardType'},
                     {text: '프로젝트 이름', value: 'boardTitle'},
-                    {text: '현재 상태', value: 'applyStatus'},
                 ],
                 profileArticle:[],
                 memid:'',
@@ -276,7 +270,6 @@
                 this.articlepage += 1;
                 this.$store.state.articles = data.list;
             });
-            console.log("기사드아아",this.$store.state.articles);
         },
         computed:{
             ...mapState({article: state=> state.article},{member: state=>state.profile}),
@@ -294,7 +287,6 @@
             infiniteHandler($state) {
                 http.get(`/article/${this.memid}/${this.articlepage}`).then(({ data }) => {
                     setTimeout(()=>{
-                        console.log(data);
                         if (data.list.length) {
                             this.articlepage += 1;
                             for(var i = 0; i < data.list.length; i++)
@@ -309,25 +301,58 @@
         }
     };
 </script>
-<style>
-  .checkbox {
+<style scoped>
+    .container{
+        padding: 10px;
+    }
+    .checkbox {
     display: none; 
-  }
-  .title {
-    color: purple;
+    }
+
+    .profile_title {
+    color: darkorange;
     font-weight: bold;
-  }
-  .desc {
+    }
+
+    .desc {
     max-height: 0px;
     overflow: hidden;
-  }
-  .checkbox:checked + .title + .desc {
+    }
+    .checkbox:checked + .title + .desc {
     max-height: 1000px;
-  }
-  #se{
-      padding-top: 3px;
-  }
-  #reg-button{
-      float: right;
-  }
+    }
+    #se{
+        padding-top: 3px;
+    }
+    #reg-button{
+        float: right;
+    }
+    .item_card{
+        padding: 20px;
+    }
+    .project_content{
+        padding: 10px;
+    }
+    .v-application .mr-15 {
+    margin-right: 0px !important; 
+    }
+    .news_content p {
+        padding: 20px;
+    }
+    .header_content{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .project_hr {
+        border: 0.5px dashed gray;
+    }
+
+    .header_content h3{
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+    .v-sheet.v-card:not(.v-sheet--outlined) {
+    box-shadow: none
+}
 </style>
