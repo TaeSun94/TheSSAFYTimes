@@ -21,7 +21,7 @@
                         label 
                         style="font-size:1.1rem;" 
                         color="green"
-                        outlined> Category  {{ team.teamBoardCategory }} </v-chip>
+                        outlined> Category - {{ team.teamBoardCategory }} </v-chip>
                     </div>
                     <div class="date text-right mr-4">
                         <p> 마감일 📅 {{$moment(team.teamBoardEndDatetime).format('YYYY-MM-DD')}}</p>

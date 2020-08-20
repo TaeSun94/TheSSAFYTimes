@@ -35,5 +35,8 @@
 <style scoped>
 #phone{
   font-size: 20px;
+  color: black;
+  cursor: pointer;
 }
+
 </style>

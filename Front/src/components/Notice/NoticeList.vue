@@ -6,8 +6,8 @@
             <v-card>
               <v-card-title>
                   <div class="textfield">
-                      <h1 class="m-5 mb-3"> 🧑‍🤝‍🧑 공지사항 </h1>
-                      <small class="ml-3"></small>
+                      <h1 class="m-5 mb-3"> 💡 공지사항 </h1>
+                      <small class="ml-3">공지사항을 확인해보세요! </small>
                   </div>
                 <v-spacer></v-spacer>
                 <v-dialog v-if="isAdmin===true" v-model="dialog" persistent max-width="45%">
@@ -153,7 +153,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .v-expansion-panel-header:hover {
   background-color: rgb(255, 179, 71);
 }
