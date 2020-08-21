@@ -73,6 +73,7 @@ public class MemberServiceImpl implements MemberService{
 		System.out.println(member);
 		if (member != null) {
 			result = new MemberDetailResult<String>(member);
+			System.out.println(result);
 			if (member.getMemberInterested()!=null) {
 				List<String> interestedList = Arrays.asList(member.getMemberInterested().split(","));				
 				List<String> ilist = cRepo.getInterestedAndSkillList(interestedList);

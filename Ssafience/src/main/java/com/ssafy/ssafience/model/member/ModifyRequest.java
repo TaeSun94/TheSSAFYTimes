@@ -28,6 +28,7 @@ public class ModifyRequest {
 	private List<Integer> interestedList;
 	private List<Integer> skillList;
 	
+	private String memberImgurl;
 	public ModifyRequest() {
 		this.interestedList = new ArrayList<Integer>();
 		this.skillList = new ArrayList<Integer>();
