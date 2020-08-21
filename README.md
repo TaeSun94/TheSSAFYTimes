@@ -92,4 +92,4 @@ npm run serve
 
 ![image-20200820193131511](README.assets/image-20200820193131511.png)
 
-
+![Ssafience 로고]()
