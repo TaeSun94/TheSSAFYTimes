@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ssafience.repo.FollowRepo">
+	
+	<select id="getFollowerList" resultType="followmember">
+		SELECT m.member_id as memberId, m.member_email as memberEmail
+		FROM  member m
+		INNER JOIN (SELECT member_id_from FROM follow WHERE member_id_to = #{memberId}) f ON f.member_id_from = m.member_id;
+	</select>
+	<select id="getFollowingList" resultType="followmember">
+		SELECT m.member_id, m.member_email
+		FROM  member m
+	    INNER JOIN (SELECT member_id_to FROM follow WHERE member_id_from = #{memberId}) f ON f.member_id_to = m.member_id;
+	</select>
+
+	<select id="isFollow" resultType="follow">
+		select *
+		from follow
+		where member_id_from = #{memberIdFrom} and member_id_to = #{memberIdTo}
+	</select>
+	
+	<insert id="follow">
+		insert into follow 
+			( member_id_from, member_id_to )
+		values (#{memberIdFrom}, #{memberIdTo})
+	</insert>
+	
+	<delete id="unFollow">
+		delete from follow
+		where member_id_from = #{memberIdFrom} and member_id_to = #{memberIdTo}
+	</delete>
+
+</mapper>
+

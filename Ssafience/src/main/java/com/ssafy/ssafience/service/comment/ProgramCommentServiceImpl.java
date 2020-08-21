@@ -1,92 +1,81 @@
 package com.ssafy.ssafience.service.comment;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.ssafy.ssafience.model.board.ProgramBoard;
-import com.ssafy.ssafience.model.comment.ProgramComment;
-import com.ssafy.ssafience.repo.ProgramBoardRepo;
-import com.ssafy.ssafience.repo.ProgramCommentRepo;
+import com.ssafy.ssafience.model.comment.CommentModifyRequest;
+import com.ssafy.ssafience.model.comment.CommentResult;
+import com.ssafy.ssafience.model.comment.CommentWriteRequest;
+import com.ssafy.ssafience.model.dto.Member;
+import com.ssafy.ssafience.model.dto.ProgramBoard;
+import com.ssafy.ssafience.model.dto.ProgramComment;
+import com.ssafy.ssafience.repo.MemberRepo;
+import com.ssafy.ssafience.repo.ProgramRepo;
 
-@Service("ProgramCommentServiceImpl")
-public class ProgramCommentServiceImpl implements ProgramCommentService {
+@Service
+public class ProgramCommentServiceImpl implements ProgramCommentService{
 
 	@Autowired
-	@Qualifier("ProgramCommentJPARepo")
-	ProgramCommentRepo cRepo;
-
+	private ProgramRepo repo;
+	
 	@Autowired
-	@Qualifier("ProgramBoardJPARepo")
-	ProgramBoardRepo bRepo;
-
+	private MemberRepo mRepo;
+	
 	@Override
-	public List<ProgramComment> getCommentList(int programBoardNo) throws Exception {
-		Optional<ProgramBoard> boardOpt = bRepo.findByProgramBoardNo(programBoardNo);
-		if (boardOpt.isPresent()) {
-			List<ProgramComment> commentList = cRepo.findByProgramBoardNo(programBoardNo);
-			return commentList;
-		} else
-			return null;
+	public CommentResult<ProgramComment> selectBoardCommentList(int boardNo) throws Exception {
+		CommentResult<ProgramComment> result = new CommentResult<>();
+		ProgramBoard board = repo.selectBoardOne(boardNo);
+		if (board != null) {
+			List<ProgramComment> list = repo.selectBoardCommentList(boardNo);
+			result.setThere(true);
+			result.setCommentList(list);
+		} else {
+			result.setThere(false);
+		}
+		return result;
+	}
+
+	// 특정 댓글 상세
+	@Override
+	public CommentResult<ProgramComment> selectCommentOne(int boardNo, int commentNo) throws Exception {
+		CommentResult<ProgramComment> result = new CommentResult<>();
+		ProgramBoard board = repo.selectBoardOne(boardNo);
+		if (board != null) {
+			result.setThere(true);
+			ProgramComment comment = repo.selectCommentOne(commentNo);
+			result.setData(comment);
+		} else {
+			result.setThere(false);
+		}
+		
+		return result;
 	}
 
 	@Override
-	public ProgramComment getCommentOne(int programBoardNo, int programCommentNo) throws Exception {
-		Optional<ProgramBoard> boardOpt = bRepo.findByProgramBoardNo(programBoardNo);
-		if (boardOpt.isPresent()) {
-			Optional<ProgramComment> commentOpt = cRepo.findByProgramBoardNoAndProgramCommentNo(programBoardNo,
-					programCommentNo);
-			if (commentOpt.isPresent()) {
-				return commentOpt.get();
-			} else
-				return null;
-		} else
-			return null;
+	public int insertComment(CommentWriteRequest request) throws Exception {
+		ProgramBoard board = repo.selectBoardOne(request.getBoardNo());
+		Member member = mRepo.selectMemberOne(request.getMemberId());
+		if (member != null && board != null) {
+			return repo.insertComment(request);
+		} else return -1; // 없는 회원 또는 없는 게시글
 	}
 
 	@Override
-	public boolean insertComment(ProgramComment comment) throws Exception {
-		Optional<ProgramBoard> boardOpt = bRepo.findByProgramBoardNo(comment.getProgramBoardNo());
-		if (boardOpt.isPresent()) {
-			cRepo.save(comment);
-			return true;
-		} else
-			return false;
+	public int updateComment(CommentModifyRequest request) throws Exception {
+		ProgramComment comment = repo.selectCommentOne(request.getCommentNo());
+		if (comment != null) {
+			return repo.updateComment(request);
+		} else return -1; // 없는 댓글
 	}
 
 	@Override
-	public boolean updateComment(ProgramComment comment) throws Exception {
-		Optional<ProgramBoard> boardOpt = bRepo.findByProgramBoardNo(comment.getProgramBoardNo());
-		if (boardOpt.isPresent()) {
-			Optional<ProgramComment> commentOpt = cRepo.findByProgramBoardNoAndProgramCommentNo(
-					comment.getProgramBoardNo(), comment.getProgramCommentNo());
-			if (commentOpt.isPresent()) {
-				ProgramComment tempComment = commentOpt.get();
-				tempComment.setProgramCommentContent(comment.getProgramCommentContent());
-				cRepo.save(tempComment);
-				return true;
-			} else
-				return false;
-		} else
-			return false;
-	}
-
-	@Override
-	public boolean deleteComment(int programBoardNo, int programCommentNo) throws Exception {
-		Optional<ProgramBoard> boardOpt = bRepo.findByProgramBoardNo(programBoardNo);
-		if (boardOpt.isPresent()) {
-			Optional<ProgramComment> commentOpt = cRepo.findByProgramBoardNoAndProgramCommentNo(programBoardNo,
-					programCommentNo);
-			if (commentOpt.isPresent()) {
-				cRepo.delete(commentOpt.get());
-				return true;
-			} else
-				return false;
-		} else
-			return false;
+	public int deleteComment(int commentNo) throws Exception {
+		ProgramComment comment = repo.selectCommentOne(commentNo);
+		if (comment != null) {
+			return repo.deleteComment(commentNo);
+		} else return -1; // 없는 댓글
 	}
 
 }

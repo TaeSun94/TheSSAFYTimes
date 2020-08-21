@@ -8,8 +8,9 @@
             class="ml-10"
             ><v-icon>mdi-menu</v-icon></v-btn>
         </div>
-        <div class="topnav-centered"><button><img @click="to('/')" width="480" src="@/assets/times.png"/></button></div>
-
+        <div class="topnav-centered">
+            <router-link :to="{ path: '/'}"><img width="480" src="@/assets/times.png"/></router-link>
+        </div>
         <v-navigation-drawer
             v-model="drawer"
             absolute
@@ -17,38 +18,37 @@
         >
         <br>
         <v-list-item v-if="login===false">
-            <v-list-item-avatar style="margin-right:auto; margin-left:auto" size=70>
-                <v-img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQDLFnxu6sy4oQgCw4yuNZeNq1p604iMXTq-Q&usqp=CAU"></v-img>
+            <v-list-item-avatar style="margin-right:auto; margin-left:auto" size=100>
+                <v-img @click="to('/')" src="@/assets/TheSSAFYTimes_small.png"></v-img>
             </v-list-item-avatar>
         </v-list-item>
         <v-list-item v-if="login===false" style="margin-top:3%">
             <v-list-item-content>
-                <v-btn rounded @click="to('/login')">로그인</v-btn>
+                <v-btn @click="to('/login')">로그인</v-btn>
             </v-list-item-content>
         </v-list-item>
         <v-list-item v-if="login===false">
             <v-list-item-content>
-                <v-btn rounded @click="to('/join')">회원가입</v-btn>
+                <v-btn @click="to('/join')">회원가입</v-btn>
             </v-list-item-content>
         </v-list-item>
             
         <v-list-item v-if="login===true">
             <v-list-item-avatar style="margin-right:auto; margin-left:auto" size=70>
-                <v-img src="https://img1.daumcdn.net/thumb/S240x240/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99A4654C5C63B09028"></v-img>
+                <v-img @click="to('/')" src="@/assets/TheSSAFYTimes_small.png"></v-img>
             </v-list-item-avatar>
         </v-list-item>
         <v-list-item style="margin-top:3%" v-if="login===true"> 
             <v-list-item-content >
-                <v-btn rounded @click="to('/profile')">{{memberId}}</v-btn>
+                <v-btn @click="memClick">{{memberId}}</v-btn>
             </v-list-item-content>
         </v-list-item>
         <v-list-item v-if="login===true">
             <v-list-item-content>
-                <v-btn rounded @click="invalidate()">로그아웃</v-btn>
+                <v-btn @click="invalidate()">로그아웃</v-btn>
             </v-list-item-content>
         </v-list-item>
         <v-divider></v-divider>
-
         <v-list rounded style="text-align:center">
             <v-list-item @click="to('/notice')">
             <v-list-item-content>
@@ -58,7 +58,7 @@
 
             <v-list-item @click="to('/community/programlist')">
             <v-list-item-content>
-                <v-list-item-title>🙋  프로그래밍</v-list-item-title>
+                <v-list-item-title>🖥️  프로그래밍</v-list-item-title>
             </v-list-item-content>
             </v-list-item>
 
@@ -70,13 +70,19 @@
 
             <v-list-item @click="to('/community/teamlist')">
             <v-list-item-content>
-                <v-list-item-title>🙋  팀구해요 !</v-list-item-title>
+                <v-list-item-title>👭  팀구해요 !</v-list-item-title>
             </v-list-item-content>
             </v-list-item>
 
-            <v-list-item @click="to('/profile')">
+            <v-list-item @click="to('/news')">
             <v-list-item-content>
-                <v-list-item-title>🧑  PROFILE</v-list-item-title>
+                <v-list-item-title>📰  뉴스 피드</v-list-item-title>
+            </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item @click="to('/studio')">
+            <v-list-item-content>
+                <v-list-item-title>📷  싸-피 사진관</v-list-item-title>
             </v-list-item-content>
             </v-list-item>
 
@@ -85,6 +91,7 @@
                 <v-list-item-title>🎈 AboutUs</v-list-item-title>
             </v-list-item-content>
             </v-list-item>
+
         </v-list>
         </v-navigation-drawer>
     </div>
@@ -96,10 +103,6 @@ export default {
     data () {
       return {
         drawer: null,
-        items: [
-          { title: 'Home' },
-          { title: 'About' },
-        ],
         login: false,
         memberId: '',
         memberEmail: '',
@@ -110,23 +113,24 @@ export default {
             this.$router.push({path: url});
         },
         invalidate() {
-            sessionStorage.clear();
-            this.$router.push({path:'/'});
-            alert("로그아웃 되었습니다.");
+            this.$cookies.remove("memberId");
+            this.$cookies.remove("memberEmail");
+            this.$alert("로그아웃 되었습니다.");
+            this.$router.push('/');
             location.reload();
+        },
+        memClick(){
+            location.href=`/profile/${this.memberId}`;
         }
     },
     created() {
-        var id = sessionStorage.getItem('memberId');
-        var email = sessionStorage.getItem('memberEmail');
+        var id = this.$cookies.get("memberId");
         if(id==null){
             this.login = false;
             this.memberId = '';
-            this.memberEmail = '';
         } else  {
             this.login = true;
             this.memberId = id;
-            this.memberEmail = email;
         }
     }
 }
@@ -137,7 +141,11 @@ export default {
   position: relative;
   overflow: hidden;
 }
-
+@media (max-width: 750px) {
+  .topnav-centered img{
+      display: none;
+  }
+}
 .topnav-centered img {
   float: none;
   position: absolute;

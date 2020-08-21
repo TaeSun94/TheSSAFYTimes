@@ -29,3 +29,31 @@
 
 * [삭제] member 테이블 컬럼 `member_class`
 * [수정] er-diagram 수정
+
+
+
+
+
+# 0803
+
+* [수정] member의 카테고리 제약조건
+* [추가] 작성 기사 수 자동 증가 트리거
+
+
+
+
+
+# 0804
+
+* [수정] 프로그램, 자유 게시판 좋아요 컬럼명 수정 (likeCount -> like)
+* [추가] 싫어요, 좋아요 자동 증가 트리거 | 싫어요 컬럼 (dislike)
+
+
+
+
+
+# 0805
+
+* [추가] team_board, team_apply 테이블
+* [수정] notice 테이블 notice_datetime 기본값 설정 안 되어있었음 (X -> CURRENT_TIMESTAMP)
+* [추가] team_board, team_apply 테이블 datetime 컬럼

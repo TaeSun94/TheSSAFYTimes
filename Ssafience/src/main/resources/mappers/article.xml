@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ssafience.repo.ArticleRepo">
+	
+ 	<select id="selectArticleOne" resultType="article">
+		select *
+		from article
+		where article_no = #{articleNo}
+	</select>
+	
+ 	<select id="selectArticleDetailOne" resultType="articleresultdto">
+		SELECT a.article_no , a.member_id, a.article_title, a.article_content, c.category_name article_type, a.article_datetime 
+		FROM article a LEFT OUTER JOIN category c 
+		ON a.article_type = c.category_no		
+		where article_no = #{articleNo}
+	</select>
+	
+	<select id="selectArticleList" resultType="articleresultdto">
+		SELECT a.article_no , a.member_id, a.article_title, a.article_content, c.category_name article_type, a.article_datetime 
+		FROM article a LEFT OUTER JOIN category c 
+		ON a.article_type = c.category_no		
+		order by article_no desc
+		limit #{pageno},#{per}
+	</select>
+	
+	<select id="selectMemberArticleList" resultType="articleresultdto">
+		SELECT a.article_no , a.member_id, a.article_title, a.article_content, c.category_name article_type, a.article_datetime 
+		FROM article a LEFT OUTER JOIN category c 
+		ON a.article_type = c.category_no		
+		where member_id = #{memberId}
+		order by article_no desc
+		limit #{pageno},#{per}
+	</select>
+	
+	<insert id="insert">
+		insert into article 
+			(
+				member_id, article_title, article_content, article_type					
+			)
+		values (#{memberId}, #{articleTitle}, #{articleContent}, #{articleType})
+	</insert>
+	
+	<update id="update">
+		update article
+		set article_title = #{articleTitle},
+			article_content = #{articleContent},
+			article_type = #{articelType}
+		where article_no = #{articleNo}
+	</update>
+	
+	<delete id="delete">
+		delete from article
+		where article_no = #{articleNo}
+	</delete>
+
+</mapper>
+

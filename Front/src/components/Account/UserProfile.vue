@@ -14,9 +14,7 @@
                         <div>
                             <span class="heading">89</span>
                             <span class="description">Comments</span>
-   
                         </div>
-                    
                     </div>
                 </div>
                 <div class="col-4">
@@ -27,12 +25,9 @@
                         <div>
                         <button> <router-link :to="{ name: 'EditProfile'}" tag="sideitem">🖊️ 추가정보 입력하기 !</router-link></button>
                         </div>
-
-                    
                     </div>
                 </div>
     </div>
-
     <footer-bar></footer-bar>
 </div>
 </template>

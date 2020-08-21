@@ -2,8 +2,9 @@ package com.ssafy.ssafience.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,192 +18,180 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.ssafience.model.BasicResponse;
-import com.ssafy.ssafience.model.Article.Article;
-import com.ssafy.ssafience.model.Article.ArticleResponse;
-import com.ssafy.ssafience.service.ArticleService;
-import com.ssafy.ssafience.service.MemberService;
+import com.ssafy.ssafience.model.ListResponse;
+import com.ssafy.ssafience.model.article.ArticleModifyRequest;
+import com.ssafy.ssafience.model.article.ArticleResult;
+import com.ssafy.ssafience.model.article.WriteRequest;
+import com.ssafy.ssafience.model.dto.ArticleResultDTO;
+import com.ssafy.ssafience.service.article.ArticleService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @ApiResponses(value = { @ApiResponse(code = 401, message = "Unauthorized", response = BasicResponse.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
-        @ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
-        @ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
+		@ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
+		@ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
+		@ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
 
 //@CrossOrigin(origins = { "http://localhost:3000" })
+@Api(tags = "Article : 뉴스피드")
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/article")
 public class ArticleController {
+
+	private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
+
 	static final String SUCCESS = "success";
 	static final String FAIL = "fail";
 	static final String NOTAVAILABLE = "notavailable";
-	
+
 	@Autowired
-	@Qualifier("ArticleServiceImpl")
-	ArticleService aService;
-	
-	@Autowired
-	@Qualifier("MemberServiceImpl")
-	MemberService mService;
-	
-	@GetMapping
-	@ApiOperation(value = "전제 뉴스피드 목록 조회")
-	public ResponseEntity<ArticleResponse> getNoticeList(){
-		final ArticleResponse result = new ArticleResponse();
+	private ArticleService aService;
+
+	@ApiOperation(value = "모든 뉴스피드 목록 반환")
+	@GetMapping("/list/{pageno}")
+	public ResponseEntity<ListResponse<ArticleResultDTO>> getArticleList(@PathVariable int pageno) {
+		logger.debug("getArticleList 호출");
+		final ListResponse<ArticleResultDTO> result = new ListResponse<>();
 		try {
-			List<Article> articleList = aService.getArticleList();
+			List<ArticleResultDTO> list = aService.selectArticleList(pageno);
 			result.result = SUCCESS;
 			result.status = HttpStatus.OK;
-			result.message = "총"+articleList.size()+"건의 뉴스피드가 있습니다.";
-			result.articleList = articleList;
+			result.setList(list);
+			result.message = "뉴스피드 목록 가져오는데 성공했습니다.";
+
 		} catch (Exception e) {
 			result.result = FAIL;
-			result.status = HttpStatus.HTTP_VERSION_NOT_SUPPORTED.INTERNAL_SERVER_ERROR;
-			result.message = "뉴스피드 목록조회 중 문제가 발생했습니다. \n 잠시후 다시 시도해주세요. ";
-			e.printStackTrace();
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message = "모든 뉴스피드 목록 가져오는 중 문제가 발생했습니다.";
 		}
-		
-		return new ResponseEntity<ArticleResponse>(result, HttpStatus.OK);
+		return new ResponseEntity<ListResponse<ArticleResultDTO>>(result, HttpStatus.OK);
 	}
 
-	@GetMapping("/{memberId}")
-	@ApiOperation(value = "회원의 뉴스피드 목록 조회")
-	public ResponseEntity<ArticleResponse> getMyArticleList(@PathVariable String memberId){
+	@ApiOperation(value = "특정 회원의 뉴스피드 목록 반환")
+	@GetMapping("/{memberid}/{pageno}")
+	public ResponseEntity<ListResponse<ArticleResultDTO>> getMemberArticleList(@PathVariable String memberid,
+			@PathVariable int pageno) {
+		logger.debug("getMemberArticleList 호출");
+		final ListResponse<ArticleResultDTO> result = new ListResponse<>();
 
-		final ArticleResponse result = new ArticleResponse();
 		try {
-			if (mService.getMemberOne(memberId) != null) {
-				List<Article> articleList = aService.getMyArticleList(memberId);
+			ArticleResult<ArticleResultDTO> myArticleResult = aService.selectMemberArticleList(memberid, pageno);
+			if (myArticleResult.isMember()) {
 				result.result = SUCCESS;
 				result.status = HttpStatus.OK;
-				result.message = "총"+articleList.size()+"건의 뉴스피드가 있습니다.";
-				result.articleList = articleList;				
+				result.setList(myArticleResult.getList());
+				result.message = "뉴스피드 목록 가져오는데 성공했습니다.";
 			} else {
 				result.result = NOTAVAILABLE;
 				result.status = HttpStatus.NO_CONTENT;
-				result.message = "존재하지 않는 회원입니다. 확인 후 다시 시도해주세요.";
+				result.message = "목록 가져오는데 실패했습니다. 해당 뉴스피드의 작성자가 맞는지 확인하고 다시 시도해주세요";
 			}
-			
+
 		} catch (Exception e) {
 			result.result = FAIL;
-			result.status = HttpStatus.HTTP_VERSION_NOT_SUPPORTED.INTERNAL_SERVER_ERROR;
-			result.message = "뉴스피드 목록조회 중 문제가 발생했습니다. \n 잠시후 다시 시도해주세요. ";
-			e.printStackTrace();
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message = "뉴스피드 목록 가져오는 중 문제가 발생했습니다.";
 		}
-		
-		return new ResponseEntity<ArticleResponse>(result, HttpStatus.OK);
+
+		return new ResponseEntity<ListResponse<ArticleResultDTO>>(result, HttpStatus.OK);
 	}
-	
-	@PostMapping
+
 	@ApiOperation(value = "새로운 뉴스피드 등록")
-	public ResponseEntity<BasicResponse> insertArtice(@RequestBody Article a){
-		final BasicResponse result = new ArticleResponse();
+	@PostMapping
+	public ResponseEntity<BasicResponse> insertArticle(@RequestBody WriteRequest request) {
+		logger.debug("insertArticle 호출");
+		final BasicResponse result = new BasicResponse();
+
 		try {
-			if (mService.getMemberOne(a.getMemberId()) != null) {
-				Article newArticle = aService.insertArticle(a);
-				if (newArticle != null) {
-					result.result = SUCCESS;
-					result.status = HttpStatus.OK;
-					result.message="새로운 뉴스피드 등록이 성공적으로 이루어졌습니다. ";
-				} else {
-					result.result = FAIL;
-					result.status = HttpStatus.NO_CONTENT;
-					result.message="새로운 뉴스피드 등록에 실패했습니다. \n 확인 후 다시 시도해주세요.";
-				}				
-			} else {
+			int insertArticle = aService.insert(request);
+			if (insertArticle == -1) {
 				result.result = NOTAVAILABLE;
 				result.status = HttpStatus.NO_CONTENT;
-				result.message="존재하지 않는 회원입니다. 확인 후 다시 시도해주세요.";
-			}
-			
-		} catch (Exception e) {
-			result.result = FAIL;
-			result.status = HttpStatus.HTTP_VERSION_NOT_SUPPORTED.INTERNAL_SERVER_ERROR;
-			result.message = "뉴스피드 등록 중 문제가 발생했습니다. \n 잠시후 다시 시도해주세요. ";
-			e.printStackTrace();
-		}
-		
-		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
-	}
-	
-	@PutMapping
-	@ApiOperation(value = "뉴스피드 수정")
-	public ResponseEntity<BasicResponse> updateArticle(@RequestBody Article a){
-		final BasicResponse result = new ArticleResponse();
-		
-		try {
-			if (mService.getMemberOne(a.getMemberId()) != null) {
-				boolean updateArticle = aService.updateArticle(a);
-				if (updateArticle) {
-					result.result = SUCCESS;
-					result.status = HttpStatus.OK;
-					result.message="뉴스피드 수정이 성공적으로 이루어졌습니다. ";
-				} else {
-					result.result = FAIL;
-					result.status = HttpStatus.NO_CONTENT;
-					result.message="해당 뉴스피드가 존재하지 않습니다.. \n 확인 후 다시 시도해주세요.";
-				}			
-			} else {
-				result.result = NOTAVAILABLE;
-				result.status = HttpStatus.NO_CONTENT;
-				result.message="존재하지 않는 회원입니다. 확인 후 다시 시도해주세요.";
-			}
-			
-		} catch (Exception e) {
-			result.result = FAIL;
-			result.status = HttpStatus.HTTP_VERSION_NOT_SUPPORTED.INTERNAL_SERVER_ERROR;
-			result.message = "뉴스피드 수정 중 문제가 발생했습니다. \n 잠시후 다시 시도해주세요. ";
-			e.printStackTrace();
-		}
-		
-		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
-	}
-	
-	@DeleteMapping("/{articleNo}")
-	@ApiOperation(value = "뉴스피드 삭제")
-	public ResponseEntity<BasicResponse> deleteArticle(@PathVariable int articleNo){
-		final BasicResponse result = new ArticleResponse();
-		
-		try {
-			boolean deleteArticle = aService.deleteArticle(articleNo);
-			if (deleteArticle) {
+				result.message = "없는 회원";
+			} else if (insertArticle == 1) {
 				result.result = SUCCESS;
 				result.status = HttpStatus.OK;
-				result.message="뉴스피드 삭제가 성공적으로 이루어졌습니다. ";
+				result.message = "등록 성공";
 			} else {
 				result.result = FAIL;
 				result.status = HttpStatus.NO_CONTENT;
-				result.message="뉴스피드 삭제에 실패했습니다. \n 확인 후 다시 시도해주세요.";
+				result.message = "등록 실패";
 			}
-			
 		} catch (Exception e) {
 			result.result = FAIL;
-			result.status = HttpStatus.HTTP_VERSION_NOT_SUPPORTED.INTERNAL_SERVER_ERROR;
-			result.message = "뉴스피드 삭제 중 문제가 발생했습니다. \n 잠시후 다시 시도해주세요. ";
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message = "등록 중 문제발생";
 			e.printStackTrace();
 		}
-		
+
 		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
-		
+	}
+
+	@ApiOperation(value = "뉴스피드 수정")
+	@PutMapping
+	public ResponseEntity<BasicResponse> updateArticle(@RequestBody ArticleModifyRequest request) {
+		logger.debug("updateArticle 호출");
+		final BasicResponse result = new BasicResponse();
+
+		try {
+			int updateArticle = aService.update(request);
+			if (updateArticle == -1) {
+				result.result = NOTAVAILABLE;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "없는 피드";
+			} else if (updateArticle == 1) {
+				result.result = SUCCESS;
+				result.status = HttpStatus.OK;
+				result.message = "수정 성공";
+			} else {
+				result.result = FAIL;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "수정 실패";
+			}
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message = "수정 중 문제발생";
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "뉴스피드 삭제")
+	@DeleteMapping("/{articleno}")
+	public ResponseEntity<BasicResponse> deleteArticle(@PathVariable int articleno) {
+		logger.debug("deleteArticle 호출");
+		final BasicResponse result = new BasicResponse();
+
+		try {
+			int deleteArticle = aService.delete(articleno);
+			if (deleteArticle == -1) {
+				result.result = NOTAVAILABLE;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "없는 뉴스피드";
+			} else if (deleteArticle == 1) {
+				result.result = SUCCESS;
+				result.status = HttpStatus.OK;
+				result.message = "삭제 성공";
+			} else {
+				result.result = FAIL;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "삭제 실패";
+			}
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message = "삭제 중 문제발생";
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

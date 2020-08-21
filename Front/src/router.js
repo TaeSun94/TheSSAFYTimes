@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
 import Notice from "@/components/Notice.vue";
 import MainPage from "@/components/Main/MainPage.vue";
 import NoticeList from "@/components/Notice/NoticeList.vue";
@@ -22,14 +21,18 @@ import TeamList from "@/components/Community/Team/TeamList";
 import TeamWrite from "@/components/Community/Team/TeamWrite";
 import TeamDetail from "@/components/Community/Team/TeamDetail";
 import DetailPage from "@/components/Editor/DetailPage.vue";
-import OtherProfile from "@/components/Profile/OtherProfile";
-// import ProfileCard from "@/components/Profile/ProfileCard";
 import AboutUs from "@/components/AboutUs.vue";
 import AboutUsIndex from "@/components/AboutUs/AboutUsIndex.vue";
+import AboutUs2 from "@/components/AboutUs/AboutUs.vue";
 import FreeList from "@/components/Community/Free/List";
 import FreeWrite from "@/components/Community/Free/Write";
 import FreeDetail from "@/components/Community/Free/Detail";
-
+import ProgramUpdate from "@/components/Community/Programming/Update";
+import Studio from "@/components/Studio/StudioMain";
+import Times from "@/components/Times/TimesMain";
+import News from "@/components/News/News";
+import FreeUpdate from "@/components/Community/Free/Update";
+import TeamUpdate from "@/components/Community/Team/TeamUpdate";
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -106,6 +109,11 @@ export default new VueRouter({
                     component: ProgramWrite,
                 },
                 {
+                    path:"programupdate/:no",
+                    name:"ProgramUpdate",
+                    component: ProgramUpdate,
+                },
+                {
                     path:"teamlist",
                     name:"TeamList",
                     component: TeamList,
@@ -121,6 +129,11 @@ export default new VueRouter({
                     component: TeamDetail
                 },
                 {
+                    path:"teamupdate/:no",
+                    name:"TeamUpdate",
+                    component: TeamUpdate
+                },                
+                {
                     path:"freelist",
                     name:"FreeList",
                     component: FreeList,
@@ -135,7 +148,11 @@ export default new VueRouter({
                     name:"FreeDetail",
                     component: FreeDetail,
                 },
-
+                {
+                    path:"FreeUpdate/:no",
+                    name:"FreeUpdate",
+                    component: FreeUpdate,
+                },
 
             ]
         },
@@ -144,34 +161,20 @@ export default new VueRouter({
             name:"Editor",
             component:Editor,
         },
-    
-
         {
             path: "/edit",
             name: "EditProfile",
             component: EditProfile,
         },
         {
-            path:'/profile',
+            path:'/profile/:memberid',
             name:"Profile",
             component: UserProfile,
-            // children:[
-            //     {
-            //         path:"ProfileCard/:memberId",
-            //         name:"ProfileCard",
-            //         component: ProfileCard
-            //     }
-            // ]
         },
         {
-            path:'/profileEdit',
+            path:'/profileEdit/:memberid',
             name:'ProfileEdit',
             component: ProfileEdit,
-        },
-        {
-            path:'/otherprofile',
-            name:'OtherProfile',
-            component: OtherProfile,
         },
         {
             path: "/detail",
@@ -182,14 +185,34 @@ export default new VueRouter({
             path:"/aboutus",
             name:"AboutUs",
             component: AboutUs,
-            redirect: "/aboutus/aboutusindex",
+            redirect: "/aboutus/aboutus2",
             children: [
                 {
                     path:"aboutusindex",
                     name:"AboutUsIndex",
                     component:AboutUsIndex
+                },
+                {
+                    path:"aboutus2",
+                    name:"AboutUs2",
+                    component:AboutUs2
                 }
             ]
+        },
+        {
+            path:"/studio",
+            name:"Studio",
+            component: Studio
+        },
+        {
+            path:"/ssafytimes",
+            name:"Times",
+            component: Times,
+        },
+        {
+            path:"/news",
+            name:"News",
+            component: News,
         }
 
     ]

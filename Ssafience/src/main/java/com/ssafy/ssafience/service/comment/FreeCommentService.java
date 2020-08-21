@@ -1,13 +1,14 @@
 package com.ssafy.ssafience.service.comment;
 
-import java.util.List;
-
-import com.ssafy.ssafience.model.comment.FreeComment;
+import com.ssafy.ssafience.model.comment.CommentModifyRequest;
+import com.ssafy.ssafience.model.comment.CommentResult;
+import com.ssafy.ssafience.model.comment.CommentWriteRequest;
+import com.ssafy.ssafience.model.dto.FreeComment;
 
 public interface FreeCommentService {
-	public List<FreeComment> getCommentList(int freeBoardNo) throws Exception;
-	public FreeComment getCommentOne(int freeBoardNo, int freeCommentNo) throws Exception;
-	public boolean insertComment(FreeComment comment) throws Exception;
-	public boolean updateComment(FreeComment comment) throws Exception;
-	public boolean deleteComment(int freeBoardNo, int freeCommentNo) throws Exception;
+	public CommentResult<FreeComment> selectBoardCommentList(int boardNo) throws Exception;
+	public CommentResult<FreeComment> selectCommentOne(int boardNo, int commentNo) throws Exception;
+	public int insertComment(CommentWriteRequest request) throws Exception;
+	public int updateComment(CommentModifyRequest request) throws Exception;
+	public int deleteComment(int commentNo) throws Exception;
 }

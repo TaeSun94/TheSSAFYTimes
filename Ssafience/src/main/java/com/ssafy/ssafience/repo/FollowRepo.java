@@ -1,14 +1,19 @@
 package com.ssafy.ssafience.repo;
 
-import java.util.Optional;
+import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.mapstruct.Mapper;
 
-import com.ssafy.ssafience.model.follow.Follow;
-import com.ssafy.ssafience.model.member.Member;
+import com.ssafy.ssafience.model.dto.Follow;
+import com.ssafy.ssafience.model.dto.FollowMember;
+import com.ssafy.ssafience.model.follow.FollowWriteRequest;
+import com.ssafy.ssafience.model.follow.UnFollowWriteRequest;
 
-@Repository("FollowJPARepo")
-public interface FollowRepo extends JpaRepository<Follow, Integer>{
-	Optional<Follow> findByMemberIdFromAndMemberIdTo(String memberIdFrom, String memberIdTo);
+@Mapper
+public interface FollowRepo {
+	public Follow isFollow(FollowWriteRequest request);
+	public int follow(FollowWriteRequest request);
+	public int unFollow(UnFollowWriteRequest request);
+	public List<FollowMember> getFollowerList(String memberId);
+	public List<FollowMember> getFollowingList(String memberId);
 }

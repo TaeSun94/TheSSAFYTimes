@@ -5,17 +5,22 @@
 */
 CREATE TABLE `member` (
 	`member_no` INT PRIMARY KEY AUTO_INCREMENT,
-	`member_id` VARCHAR(20) UNIQUE KEY NOT NULL,
-	`member_pw` VARCHAR(60) NOT NULL,
 	`member_email` VARCHAR(320) UNIQUE KEY NOT NULL,
+	`member_id` VARCHAR(20) UNIQUE KEY ,
+	`member_pw` VARCHAR(60) NOT NULL,
 	`member_first_name` VARCHAR(100),
 	`member_last_name` VARCHAR(100),
 	`member_phone` VARCHAR(32),
-	`member_region` INT DEFAULT 0,
-	`member_track` INT DEFAULT 0,
-	`member_unit` INT DEFAULT 0,
+	`member_region` INT,
+	`member_track` INT,
+	`member_unit` INT,
 	`member_intro` VARCHAR(500),
 	`member_desc` TEXT,
+    `member_article` INT NOT NULL DEFAULT 0,
+	`member_follow` INT NOT NULL DEFAULT 0,
+	`member_follower` INT NOT NULL DEFAULT 0,
+	`member_interested` TEXT ,
+	`member_skill` TEXT,
 	`member_auth` VARCHAR(20),
 	`member_auth_status` BOOL NOT NULL DEFAULT FALSE,
 	`member_auth_datetime` DATETIME,
@@ -24,10 +29,43 @@ CREATE TABLE `member` (
 	FOREIGN KEY (member_region) REFERENCES category(category_no) ON UPDATE CASCADE ON DELETE SET NULL ,
 	FOREIGN KEY (member_track) REFERENCES category(category_no) ON UPDATE CASCADE ON DELETE SET NULL ,
 	FOREIGN KEY (member_unit) REFERENCES category(category_no) ON UPDATE CASCADE ON DELETE SET NULL
-
 );
 
-ALTER TABLE member ADD `member_class` INT DEFAULT 0;
+/*카테고리 no 대신 이름으로 회원 정보 불러오기*/
+SELECT member_no, member_email, member_id, member_pw, member_first_name, member_last_name, member_phone, cr.category_name member_region, ct.category_name member_track, cu.category_name member_unit, member_intro, member_desc, member_article, member_follow, member_follower, member_interested, member_skill, member_auth, member_auth_status, member_auth_datetime, member_address, member_datetime, member_no, member_id, member_pw, member_email, member_first_name, member_last_name, member_phone, cr.category_name, ct.category_name, cu.category_name, member_intro, member_desc, member_article, member_follow, member_follower, member_interested, member_skill, member_auth, member_auth_status, member_auth_datetime, member_address, member_datetime
+FROM member
+    LEFT OUTER JOIN category cr ON member_region = cr.category_no
+    LEFT OUTER JOIN category ct ON member_track = ct.category_no
+    LEFT OUTER JOIN category cu ON member_unit = cu.category_no
+-- WHERE m.member_id = ?
+;
+
+
+SELECT member_no, member_email, member_id, member_pw, member_first_name, member_last_name, member_phone, (SELECT category_name FROM category WHERE category_no = member.member_region) member_region, (SELECT category_name FROM category WHERE category_no = member.member_track) member_track, (SELECT category_name FROM category WHERE category_no = member.member_unit) member_unit, member_intro, member_desc, member_article, member_follow, member_follower, member_interested, member_skill, member_auth, member_auth_status, member_auth_datetime, member_address, member_datetime
+FROM member
+-- WHERE m.meber_id = ?
+;
+SELECT * FROM category;
+
+
+
+SELECT * FROM member;
+
+START TRANSACTION ;
+ALTER TABLE member MODIFY member_region INT;
+ALTER TABLE member MODIFY member_unit INT;
+ALTER TABLE member MODIFY member_track INT;
+UPDATE member
+    SET member_region = NULL,
+        member_unit = NULL,
+        member_track = NULL
+WHERE member_region = 0;
+COMMIT ;
+ROLLBACK ;
+
+
+SELECT * FROM  member;
+
 /*============================================================================*/
 
 /*
@@ -118,4 +156,64 @@ SELECT m.*
 FROM  member m
     INNER JOIN (SELECT member_id_from FROM follow WHERE member_id_to = ?) f ON f.member_id_from = m.member_id;
 
+/*
+제작일: 2020.08.03
+유형: Trigger
+설명: 팔로우 시, 팔로우한 사람과 팔로우 된 사람의 팔로워 / 팔로우 수를 증가시킨다.
+ */
+DELIMITER //
+CREATE OR REPLACE TRIGGER TRG_FOLLOW_INCREMENT
+AFTER INSERT ON follow
+FOR EACH ROW
+    BEGIN
+        UPDATE member m
+            SET m.member_follow = (SELECT COUNT(f.member_id_to) FROM follow f WHERE f.member_id_from = NEW.member_id_from)
+        WHERE m.member_id = NEW.member_id_from;
+
+        UPDATE member m
+            SET m.member_follower = (SELECT COUNT(f.member_id_from) FROM follow f WHERE f.member_id_to = NEW.member_id_to)
+        WHERE m.member_id = NEW.member_id_to;
+    END //
+DELIMITER ;
+
+
+/*
+제작일: 2020.08.03
+유형: Trigger
+설명: 팔로우 해제 시, 팔로우한 사람과 팔로우 된 사람의 팔로워 / 팔로우 수를 감소시킨다.
+ */
+DELIMITER //
+CREATE OR REPLACE TRIGGER TRG_FOLLOW_DECREMENT
+AFTER DELETE ON follow
+FOR EACH ROW
+    BEGIN
+        UPDATE member m
+            SET m.member_follow = (SELECT COUNT(f.member_id_to) FROM follow f WHERE f.member_id_from = OLD.member_id_from)
+        WHERE m.member_id = OLD.member_id_from;
+
+        UPDATE member m
+            SET m.member_follower = (SELECT COUNT(f.member_id_from) FROM follow f WHERE f.member_id_to = OLD.member_id_to)
+        WHERE m.member_id = OLD.member_id_to;
+    END //
+DELIMITER ;
+
+
+
 /*============================================================================*/
+
+/*
+제작일: 2020.08.11
+유형: Table
+설명: 인증 관련 테이블(임시)
+ */
+CREATE OR REPLACE TABLE auth (
+    id VARCHAR(20),
+    password VARCHAR(20),
+    authority VARCHAR(100),
+    enabled BOOL,
+    name VARCHAR(50)
+);
+
+show tables;
+
+SELECT * FROM auth;

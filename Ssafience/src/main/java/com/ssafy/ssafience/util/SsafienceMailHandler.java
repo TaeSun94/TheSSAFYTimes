@@ -29,7 +29,7 @@ public class SsafienceMailHandler {
 	}
 	
 	public void setText(String memberEmail, String memberAuth) throws MessagingException {
-		String url = "http://i3c208.p.ssafy.io:8888/ssafience/api/valid/emailKeyValid?memberEmail="+memberEmail
+		String url = "http://i3c208.p.ssafy.io:8888/ssafience/api/mail/emailKeyValid?memberEmail="+memberEmail
 					+ "&memberAuth="+memberAuth;		
 		String text = "<h1>The SSAFY Times 이메일 인증</h1><p>The SSAFY Times 를 찾아주셔서 감사합니다. <br>" +
 						"아래의 링크를 클릭하여 회원가입을 완료하세요 :)</p><p>" +
@@ -54,18 +54,5 @@ public class SsafienceMailHandler {
 	public void send() {
 		mailSender.send(message);
 	}
-	
+		
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

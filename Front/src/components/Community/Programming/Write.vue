@@ -1,14 +1,25 @@
 <template>
-<div class="wrapper" style="margin-top:5%">
+<div class="wrapper" style="margin-top:8%">
     <div class="row">
-        <v-container class="elevation-5 col-lg-7">
+        <v-container class="elevation-5 col-lg-10 col-sm-10">
             <div class="textfield">
-                <input type="text" class="textfield-input" v-model="title" placeholder="제목을 입력하세요" value="">
-                <hr>
+                <v-row>
+                    <v-col>
+                        <input type="text" class="textfield-input" v-model="title" placeholder="제목을 입력하세요" value="">
+                        <hr>
+                    </v-col>
+                    <v-col cols="2">
+                        <v-select v-model="track" :items="category" solo label="카테고리"></v-select>
+                    </v-col>
+                </v-row>
             </div>
-            <vue-editor id="editor" useCustomImageHandler @imageAdded="handleImageAdded" v-model="htmlForEditor"></vue-editor>
+            <editor 
+              :options="editorOptions"
+              height="500px"
+              previewStyle="vertical"
+              ref="toastuiEditor"/>
             <div class="text-right mt-3">
-                <v-btn @click="checkHandler"> 등록할래요 👌</v-btn>
+                <v-btn @click="checkHandler" tile> 등록할래요 👌</v-btn>
             </div>
         </v-container>
     </div>
@@ -17,64 +28,63 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
-import axios from "axios";
 import http from "@/http-common";
+import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/vue-editor';
+
 export default {
     name:"ProgramWrite",
     components: {
-        VueEditor
+        editor: Editor
     },
     data() {
         return {
-            htmlForEditor: "",
             title: "",
+            editorOptions: {
+                hideModeSwitch: true
+            },
+            member : {},
+            category: [],
+            track: '',
         };
     },
+    created() {
+        var id = this.$cookies.get('memberId');
+        http.get("/member/"+id).then(({data})=> {
+            this.member = data.data;
+        });
+        http.get("/category/program-track").then(({data})=>{
+            this.category = data.list;
+        })
+    },
     methods: {
-        handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
-            var formData = new FormData();
-            formData.append("image", file);
-
-            axios({
-                url: "https://fakeapi.yoursite.com/images",
-                method: "POST",
-                data: formData
-            })
-            .then(result => {
-                let url = result.data.url; // Get url from response
-                Editor.insertEmbed(cursorLocation, "image", url);
-                resetUploader();
-            })
-            .catch(err => {
-                console.log(err);
-            });
-        },
-        handleSavingContent: function() {
-            this.$router.push('/community/programlist');
-        },
         checkHandler() {
+            var content = this.$refs.toastuiEditor.invoke("getMarkdown");
             if(this.title ==""){
-                alert("글 제목을 입력하세요.");
-            } else if(this.htmlForEditor =="") {
-                alert("글 내용을 입력하세요.");
+                this.$alert("글 제목을 입력하세요.");
+            } else if(content =="") {
+                this.$alert("글 내용을 입력하세요.");
+            }  else if(this.track =="") {
+                this.$alert("카테고리를 선택하세요");
             } else  {
                 this.createHandler();
             }
         },
         createHandler() {
-            http.post("/board/program", {
-                memberId: sessionStorage.getItem("memberId"),
+            var content = this.$refs.toastuiEditor.invoke("getMarkdown");
+            http.post("/program/board", {
+                memberId: this.$cookies.get("memberId"),
                 programBoardTitle: this.title,
-                programBoardContent: this.htmlForEditor,
-                programBoardTrack: 0,
+                programBoardContent: content,
+                programBoardTrack: this.track,
             }).
             then(({data}) => {
                 if(data.result == "success"){
-                    alert(data.message);
+                    this.$alert(data.message);
                     this.$router.push("/community/programlist");
                 } else {
-                    alert(data.message);
+                    this.$alert(data.message);
                     return;
                 }
             })
@@ -106,9 +116,6 @@ hr{
     margin-bottom: 20px;
     margin-left: 20px;  
 }
-/* .textfield-input:focus{
-    background: white;
-} */
 .v-btn.v-size--default, .v-btn.v-size--large {
     font-size: 1rem;
     font-family: 'Noto Sans KR', sans-serif;
@@ -121,7 +128,4 @@ hr{
 .ql-editor {
   height: 400px;
 }
-/* .ql-editor:focus{
-  background-color: white;
-} */
 </style>

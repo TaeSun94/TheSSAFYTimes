@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ssafience.repo.ProgramRepo">
+
+	<!-- 게시글 관련-->	
+	
+	<select id="selectBoardOne" resultType="programboard">
+		select *
+		from program_board
+		where program_board_no = #{boardNo}
+	</select>
+	
+	<select id="selectBoardDetailOne" resultType="programboardresultdto">
+		SELECT pb.program_board_no, pb.member_id, pb.program_board_title, pb.program_board_content, 
+				pb.program_board_hit, pb.program_board_update_datetime,
+				pb.program_board_datetime, pb.program_board_like, pb.program_board_dislike,
+					c.category_name program_board_track 
+		FROM program_board pb LEFT OUTER JOIN category c 
+		ON pb.program_board_track = c.category_no		
+		where pb.program_board_no = #{boardNo}
+	</select>
+	
+	<select id="selectBoardList" resultType="programboardresultdto">
+		SELECT pb.program_board_no, pb.member_id, pb.program_board_title, pb.program_board_content, 
+				pb.program_board_hit, pb.program_board_update_datetime,
+				pb.program_board_datetime, pb.program_board_like, pb.program_board_dislike,
+					c.category_name program_board_track 
+		FROM program_board pb LEFT OUTER JOIN category c 
+		ON pb.program_board_track = c.category_no		
+		order by program_board_no desc
+	</select>
+	
+	<select id="selectMemberBoardList" resultType="programboardresultdto">
+		SELECT pb.program_board_no, pb.member_id, pb.program_board_title, pb.program_board_content, 
+				pb.program_board_hit, pb.program_board_update_datetime,
+				pb.program_board_datetime, pb.program_board_like, pb.program_board_dislike,
+					c.category_name program_board_track 
+		FROM program_board pb LEFT OUTER JOIN category c 
+		ON pb.program_board_track = c.category_no		
+		where member_id = #{memberId}
+		order by program_board_no desc
+	</select>
+	
+	<insert id="insert">
+		insert into program_board 
+			(
+				member_id, program_board_title, program_board_content, program_board_track
+			)
+		values (#{memberId}, #{programBoardTitle}, #{programBoardContent}, #{programBoardTrack})
+	</insert>
+	
+	<update id="update">
+		update program_board
+		set program_board_title = #{programBoardTitle},
+			program_board_content = #{programBoardContent},
+			program_board_track = #{programBoardTrack},
+			program_board_update_datetime = now()
+		where program_board_no = #{programBoardNo}
+	</update>
+	
+	<delete id="delete">
+		delete from program_board
+		where program_board_no = #{boardNo}
+	</delete>
+	
+		
+	<!-- 조회수  -->
+	<insert id="hit">
+		INSERT IGNORE INTO board_hit(board_name, board_no, board_hit_ip)
+		VALUES ('program_board', #{boardNo}, #{ipAddress});
+	</insert>
+	
+
+	<!-- 댓글 관련 -->
+	<select id="selectBoardCommentList" resultType="programComment">
+		select * 
+		from program_comment
+		where program_board_no = #{boardNo}
+	</select>
+	
+	<select id="selectCommentOne" resultType="programComment">
+		select * 
+		from program_comment
+		where program_comment_no = #{commentNo}
+	</select>
+	
+	<insert id="insertComment">
+		insert into program_comment 
+				(member_id, program_board_no, 
+				program_comment_content)
+				
+		values (#{memberId}, #{boardNo}, 
+				#{commentContent})	
+	</insert>
+
+	<update id="updateComment">
+		update program_comment
+		set	program_comment_content = #{commentContent}
+		where program_comment_no = #{commentNo}
+	</update>
+
+	<delete id="deleteComment">
+		delete from program_comment
+		where program_comment_no = #{commentNo}
+	</delete>
+	
+	<!-- 좋아요 -->
+	<insert id="insertLike">
+		insert ignore into program_board_like
+				(program_board_no, member_id, program_board_like_check)
+		values
+				(#{boardNo}, #{memberId}, #{boardLikeCheck})
+				
+	</insert>	
+	
+</mapper>
+

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ssafience.repo.TeamRepo">
+
+	<!-- 게시글 관련-->	
+	
+	<select id="selectBoardOne" resultType="teamboard">
+		select *
+		from team_board
+		where team_board_no = #{boardNo}
+	</select>
+	
+	<select id="selectBoardDetailOne" resultType="teamboardresultdto">
+		select t.team_board_no, t.member_id, t.team_board_title,
+				t.team_board_content, t.team_board_start_datetime, t.team_board_end_datetime,
+				t.team_board_total_count, t.team_board_front_remain_count,
+				t.team_board_back_remain_count, t.team_board_datetime ,
+				c.category_name team_board_category			
+		from team_board t LEFT OUTER JOIN category c
+		on t.team_board_category = c.category_no
+		where t.team_board_no = #{boardNo}
+	</select>
+	
+	<select id="selectBoardList" resultType="teamboardresultdto">
+		select t.team_board_no, t.member_id, t.team_board_title,
+				t.team_board_content, t.team_board_start_datetime, t.team_board_end_datetime,
+				t.team_board_total_count, t.team_board_front_remain_count,
+				t.team_board_back_remain_count, t.team_board_datetime ,
+				c.category_name team_board_category			
+		from team_board t LEFT OUTER JOIN category c
+		on t.team_board_category = c.category_no
+		order by team_board_no desc
+	</select>
+	
+	<insert id="insert">
+		insert into team_board 
+			(
+				member_id, team_board_category, team_board_title, team_board_content,
+				team_board_start_datetime, team_board_end_datetime, team_board_total_count,
+				team_board_front_remain_count, team_board_back_remain_count
+			)
+		values 
+			(
+				#{memberId}, #{teamBoardCategory}, #{teamBoardTitle}, #{teamBoardContent},
+				#{teamBoardStartDatetime}, #{teamBoardEndDatetime}, #{teamBoardTotalCount},
+				#{teamBoardFrontRemainCount}, #{teamBoardBackRemainCount}				
+			)
+	</insert>
+	
+	<update id="update">
+		update team_board
+		set team_board_title = #{boardTitle},
+			team_board_content = #{boardContent},
+			team_board_category = #{boardCategory},
+			team_board_start_datetime = #{boardStartDatetime},
+			team_board_end_datetime = #{boardEndDatetime},
+			team_board_total_count = #{boardTotalCount},
+			team_board_front_remain_count = #{boardFrontRemainCount},
+			team_board_back_remain_count = #{boardBackRemainCount}			
+		where team_board_no = #{boardNo}
+	</update>
+	
+	<delete id="delete">
+		delete from team_board
+		where team_board_no = #{boardNo}
+	</delete>
+	
+	<!-- 지원 목록 (모집자) -->
+	<select id="selectApplyList" resultType="teamapply">
+		select *
+		from team_apply
+		where team_board_no = #{boardNo}
+	</select>
+
+	<!-- 지원 목록 (지원자) -->
+	<select id="selectMyAppliedTeam" resultType="teamapplylist">
+		select tb.team_board_no as boardNo, tb.team_board_title as boardTitle, c.category_name as boardType, t.team_apply_status as applyStatus, tb.team_board_end_datetime as endDate
+		from team_apply t join team_board tb
+		on t.team_board_no = tb.team_board_no 
+		join category c
+		on c.category_no = tb.team_board_category 
+		where t.member_id = #{memberId} and t.team_apply_status = 1
+	</select>
+	
+	<select id="selectMyApplyList" resultType="teamapplylist">
+		select tb.team_board_no as boardNo, tb.team_board_title as boardTitle, c.category_name as boardType, t.team_apply_status as applyStatus, tb.team_board_end_datetime as endDate
+		from team_apply t join team_board tb
+		on t.team_board_no = tb.team_board_no 
+		join category c
+		on c.category_no = tb.team_board_category 
+		where t.member_id = #{memberId} and tb.team_board_end_datetime >= CURDATE() 
+	</select>
+	
+	<!-- 지원 -->
+	<insert id="apply">
+		insert ignore into team_apply
+			(
+				member_id, team_board_no, team_apply_content, team_apply_position
+			)
+		values 
+			(
+				#{memberId}, #{teamBoardNo}, #{teamApplyContent}, #{teamApplyPosition}
+			)
+	</insert>
+
+	<!-- 영입 -->
+	<update id="accept">
+		update team_apply
+		set team_apply_status = 1
+		where team_apply_no = #{applyNo}
+	</update>
+	
+
+</mapper>
+

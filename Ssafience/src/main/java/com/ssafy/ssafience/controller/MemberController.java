@@ -1,9 +1,8 @@
 package com.ssafy.ssafience.controller;
 
-import java.util.Optional;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,231 +16,188 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.ssafience.model.BasicResponse;
-import com.ssafy.ssafience.model.member.LoginResponse;
-import com.ssafy.ssafience.model.member.Member;
-import com.ssafy.ssafience.model.member.MemberResponse;
-import com.ssafy.ssafience.model.member.PasswordRequest;
-import com.ssafy.ssafience.model.member.SignupResponse;
-import com.ssafy.ssafience.service.MemberService;
-import com.ssafy.ssafience.service.ValidService;
+import com.ssafy.ssafience.model.SingleResponse;
+import com.ssafy.ssafience.model.dto.Member;
+import com.ssafy.ssafience.model.member.MemberDetailResult;
+import com.ssafy.ssafience.model.member.ModifyRequest;
+import com.ssafy.ssafience.model.member.SignUpRequest;
+import com.ssafy.ssafience.service.member.MemberService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @ApiResponses(value = { @ApiResponse(code = 401, message = "Unauthorized", response = BasicResponse.class),
-        @ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
-        @ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
-        @ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
+		@ApiResponse(code = 403, message = "Forbidden", response = BasicResponse.class),
+		@ApiResponse(code = 404, message = "Not Found", response = BasicResponse.class),
+		@ApiResponse(code = 500, message = "Failure", response = BasicResponse.class) })
 
 //@CrossOrigin(origins = { "http://localhost:3000" })
+@Api(tags = "Member : 회원")
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/member")
 public class MemberController {
+
+	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+
 	static final String SUCCESS = "success";
 	static final String FAIL = "fail";
 	static final String NOTAVAILABLE = "notavailable";
-	
-	@Autowired
-	@Qualifier("MemberServiceImpl")
-	MemberService mService;
 
 	@Autowired
-	@Qualifier("ValidServiceImpl")
-	ValidService vService;
+	private MemberService mService;
 
-    @PostMapping("/signup")
-    @ApiOperation(value = "가입하기")
-    public ResponseEntity<BasicResponse> signup(@RequestBody Member m) {
-    	
-    	final SignupResponse result = new SignupResponse();
-    	
-		try {
-			boolean avaliableEmailReg = vService.checkEmailRegex(m.getMemberEmail());
-			if (!avaliableEmailReg) {	// 이메일 형식 아님	
-				result.status=HttpStatus.OK;
-				result.result=NOTAVAILABLE;
-				result.message="이메일 형식을 확인하세요.";
-			} else {
-				try {
-					Member newMember = mService.insertMember(m);
-					if (newMember != null) {
-						result.result=SUCCESS;
-						result.status=HttpStatus.OK;				
-						result.message="회원가입이 성공적으로 이루어졌습니다.";
-					} else {
-						result.result=FAIL;
-						result.status=HttpStatus.OK;				
-						result.message="회원가입에 실패했습니다. 다시 시도해주시기 바랍니다.";
-					}		
-				} catch (Exception e) {
-					result.result=FAIL;
-					result.status=HttpStatus.INTERNAL_SERVER_ERROR;				
-					result.message="회원가입 진행 중 문제가 발생하여 회원가입에 실패했습니다. 다시 시도해주시기 바랍니다.";
-					e.printStackTrace();
-				}
-			}
-		} catch (Exception e1) {
-			result.result=FAIL;
-			result.status=HttpStatus.INTERNAL_SERVER_ERROR;				
-			result.message="이메일 형식을 체크하던 중 문제가 발생했습니다. 다시 시도해주시기 바랍니다.";
-			e1.printStackTrace();
-		}
-    	
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-    
-    @PostMapping("/login")
-    @ApiOperation(value = "로그인")
-    public ResponseEntity<LoginResponse> login(@RequestBody Member m){
-
-    	final LoginResponse result = new LoginResponse();
+	@ApiOperation(value = "특정 회원 정보 반환")
+	@GetMapping("/{memberid}")
+	public ResponseEntity<SingleResponse<MemberDetailResult<String>>> getMemberList(@PathVariable String memberid) {
+		logger.debug("getMemberList 호출");
+	final SingleResponse<MemberDetailResult<String>> result = new SingleResponse<>();
 
 		try {
-			Optional<Member> memberOpt = mService.login(m.getMemberId(), m.getMemberPw());
-			if (memberOpt != null) {	// 로그인 성공
-				if (memberOpt.get().isMemberAuthStatus()) {		// 이메일 인증 완료
-					result.result=SUCCESS;
-					result.member=memberOpt.get();
-					result.status=HttpStatus.OK;
-					result.member_auth_status=true;
-					result.message="성공적으로 로그인되었습니다. ";				
-				} else {
-					result.result=NOTAVAILABLE;
-					result.member=memberOpt.get();
-					result.status=HttpStatus.OK;
-					result.member_auth_status=false;
-					result.message="이메일 인증이 필요합니다. \n 이메일 인증을 진행하세요.";				
-				}
-			} else {	// 로그인 실패
-				result.result=FAIL;
-				result.status=HttpStatus.NO_CONTENT;
-				result.message="가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.";
-			}
-		} catch (Exception e) {
-			result.result=FAIL;
-			result.status=HttpStatus.INTERNAL_SERVER_ERROR;
-			result.message="로그인 중 문제가 발생하여 회원가입에 실패했습니다. 다시 시도해주시기 바랍니다.";
-			e.printStackTrace();
-		}
-    	
-
-
-    	return new ResponseEntity<LoginResponse>(result, HttpStatus.OK);
-    	
-    }
-    
-    @GetMapping("/{memberId}")
-    @ApiOperation(value = "회원 상세 정보 조회")
-    public ResponseEntity<MemberResponse> getMemberProfile(@PathVariable String memberId){
-    	final MemberResponse result = new MemberResponse();
-    	
-    	try {
-			Member memberOne = mService.getMemberOne(memberId);
-			if (memberOne != null) {
+			MemberDetailResult<String> memberResult = mService.selectMemberOneDetail(memberid);
+			System.out.println(memberResult);
+			if (memberResult != null) {
 				result.result = SUCCESS;
 				result.status = HttpStatus.OK;
-				result.message = "회원 조회가 성공적으로 이루어졌습니다. ";
-				result.member = memberOne;
+				result.setData(memberResult);
+				result.message = "회원 목록 가져오는데 성공했습니다.";
 			} else {
 				result.result = NOTAVAILABLE;
 				result.status = HttpStatus.NO_CONTENT;
-				result.message = "없는 회원 입니다. 확인하고 다시 시도해주세요.";
+				result.message = "존재하지 않는 아이디 입니다. 확인하고 다시 시도해주세요.";
 			}
-			
+
 		} catch (Exception e) {
 			result.result = FAIL;
 			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-			result.message = "회원 조회 중 문제가 발생했습니다. \n 잠시후 다시 시도해주세요.";
+			result.message = "모든 회원 목록 가져오는 중 문제가 발생했습니다.";
 			e.printStackTrace();
 		}
-    	
-    	return new ResponseEntity<MemberResponse>(result, HttpStatus.OK);
-    }
-    
-    @PutMapping
-    @ApiOperation(value = "회원 정보 수정")
-    public ResponseEntity<BasicResponse> updateMember(@RequestBody Member m){
 
-    	final BasicResponse result = new BasicResponse();
-    	try {
-			boolean updateMember = mService.updateMember(m);
-			if (updateMember) {
+		return new ResponseEntity<SingleResponse<MemberDetailResult<String>>>(result, HttpStatus.OK);
+	}
+
+
+	@ApiOperation(value = "특정 회원 정보 반환 (수정 시 사용)")
+	@GetMapping("/mod/{memberid}")
+	public ResponseEntity<SingleResponse<MemberDetailResult<Integer>>> getMemberListForModify(@PathVariable String memberid) {
+		logger.debug("getMemberListForModify 호출");
+		final SingleResponse<MemberDetailResult<Integer>> result = new SingleResponse<>();
+
+		try {
+			MemberDetailResult<Integer> memberResult = mService.selectMemberOneForModify(memberid);
+			if (memberResult != null) {
 				result.result = SUCCESS;
 				result.status = HttpStatus.OK;
-				result.message = "회원 수정이 성공적으로 이루어졌습니다.";
+				result.setData(memberResult);
+				result.message = "회원 목록 가져오는데 성공했습니다.";
 			} else {
 				result.result = NOTAVAILABLE;
 				result.status = HttpStatus.NO_CONTENT;
-				result.message = "없는 회원 입니다. 확인하고 다시 시도해주세요.";
+				result.message = "존재하지 않는 아이디 입니다. 확인하고 다시 시도해주세요.";
 			}
-			
+
 		} catch (Exception e) {
 			result.result = FAIL;
 			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-			result.message = "회원 수정 중 문제가 발생했습니다. \n 잠시후 다시 시도해주세요.";
+			result.message = "모든 회원 목록 가져오는 중 문제가 발생했습니다.";
 			e.printStackTrace();
 		}
-    	
-    	return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 
-    }
-    
-    @DeleteMapping("/{memberId}")
-    @ApiOperation(value = "회원삭제")
-    public ResponseEntity<BasicResponse> deleteMember(@PathVariable String memberId){
-    	final BasicResponse result = new BasicResponse();
-    	try {
-			boolean deleteMember = mService.deleteMember(memberId);
-			if (deleteMember) {
+		return new ResponseEntity<SingleResponse<MemberDetailResult<Integer>>>(result, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "새로운 회원 등록")
+	@PostMapping
+	public ResponseEntity<SingleResponse<Member>> signup(@RequestBody SignUpRequest request) {
+		logger.debug("signup 호출");
+		final SingleResponse<Member> result = new SingleResponse<>();
+
+		try {
+			int insertMember = mService.insert(request);
+			if (insertMember == 1) {
 				result.result = SUCCESS;
 				result.status = HttpStatus.OK;
-				result.message = "회원 삭제가 성공적으로 이루어졌습니다.";
+				result.message = "등록 성공";
 			} else {
-				result.result = NOTAVAILABLE;
+				result.result = FAIL;
 				result.status = HttpStatus.NO_CONTENT;
-				result.message = "없는 회원 입니다. 확인하고 다시 시도해주세요.";
+				result.message = "등록 실패";
 			}
-			
 		} catch (Exception e) {
 			result.result = FAIL;
 			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-			result.message = "회원 삭제 중 문제가 발생했습니다. \n 잠시후 다시 시도해주세요.";
+			result.message = "등록 중 문제발생";
 			e.printStackTrace();
 		}
-    	
-    	return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
-    }
 
-    @PutMapping("/updatePw")
-    @ApiOperation(value = "비밀번호 변경")
-    public ResponseEntity<BasicResponse> updateMemberPw(@RequestBody PasswordRequest request){
+		return new ResponseEntity<SingleResponse<Member>>(result, HttpStatus.OK);
+	}
 
-    	final BasicResponse result = new BasicResponse();
-    	try {
-			boolean updateMemberPw = mService.updateMemberPw(request);
-			if (updateMemberPw) {
+	@ApiOperation(value = "회원 정보 수정")
+	@PutMapping
+	public ResponseEntity<BasicResponse> updateMember(@RequestBody ModifyRequest request) {
+		logger.debug("updateMember 호출");
+		final BasicResponse result = new BasicResponse();
+		
+
+		try {
+			int updateMember = mService.update(request);
+			if (updateMember == -1) {
+				result.result = NOTAVAILABLE;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "없는 회원";
+			} else if (updateMember == 1) {
 				result.result = SUCCESS;
 				result.status = HttpStatus.OK;
-				result.message = "비밀번호 변경이 성공적으로 이루어졌습니다.";
+				result.message = "수정 성공";
 			} else {
-				result.result = NOTAVAILABLE;
+				result.result = FAIL;
 				result.status = HttpStatus.NO_CONTENT;
-				result.message = "일치하는 회원이 없거나 비밀번호가 잘못되었습니다. 확인하고 다시 시도해주세요.";
+				result.message = "수정 실패";
 			}
-			
 		} catch (Exception e) {
 			result.result = FAIL;
 			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
-			result.message = "비밀번호 변경 중 문제가 발생했습니다. \n 잠시후 다시 시도해주세요.";
+			result.message = "수정 중 문제발생";
 			e.printStackTrace();
 		}
-    	
-    	return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
 
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+	}
 
-    	
-    }
-    
+	@ApiOperation(value = "회원 삭제")
+	@DeleteMapping("/{memberId}")
+	public ResponseEntity<BasicResponse> deleteMember(@PathVariable String memberId) {
+		logger.debug("deleteMember 호출");
+		final BasicResponse result = new BasicResponse();
+
+		try {
+			int deleteMember = mService.delete(memberId);
+			if (deleteMember == -1) {
+				result.result = NOTAVAILABLE;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "없는 회원";
+			} else if (deleteMember == 1) {
+				result.result = SUCCESS;
+				result.status = HttpStatus.OK;
+				result.message = "삭제 성공";
+			} else {
+				result.result = FAIL;
+				result.status = HttpStatus.NO_CONTENT;
+				result.message = "삭제 실패";
+			}
+		} catch (Exception e) {
+			result.result = FAIL;
+			result.status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result.message = "삭제 중 문제발생";
+			e.printStackTrace();
+		}
+
+		return new ResponseEntity<BasicResponse>(result, HttpStatus.OK);
+
+	}
+
 }
