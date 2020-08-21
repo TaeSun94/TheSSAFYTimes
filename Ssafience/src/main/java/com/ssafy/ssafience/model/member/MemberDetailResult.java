@@ -38,6 +38,7 @@ public class MemberDetailResult<T> extends MemberResultDTO{
 		super.setMemberAuthDatetime(m.getMemberAuthDatetime());
 		super.setMemberInterested(m.getMemberInterested());
 		super.setMemberSkill(m.getMemberSkill());
+		super.setMemberImgurl(m.getMemberImgurl());
 	}
 	
 	public void insertIntList(List<T> memberInterestedList) {

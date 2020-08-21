@@ -24,6 +24,7 @@ public class ModifyRepoRequest extends ModifyRequest{
 		this.setMemberUnit(request.getMemberUnit());
 		this.setMemberIntro(request.getMemberIntro());
 		this.setMemberDesc(request.getMemberDesc());
+		this.setMemberImgurl(request.getMemberImgurl());
 	}
 	
 	public void insertInterested(String interested) {

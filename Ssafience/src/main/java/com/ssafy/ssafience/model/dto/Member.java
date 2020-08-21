@@ -43,7 +43,7 @@ public class Member {
 	private Date memberDatetime;
 	private Date memberAuthDatetime;
 
-	
+	private String memberImgurl;	
 	@Builder
 	public Member(String memberId, String memberPw, String memberEmail) {
 		this.memberId = memberId;

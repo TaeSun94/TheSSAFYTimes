@@ -28,8 +28,7 @@ import com.ssafy.ssafience.model.board.ProgramWriteRequest;
 import com.ssafy.ssafience.model.dto.ProgramBoardResultDTO;
 import com.ssafy.ssafience.model.hit.HitRequest;
 import com.ssafy.ssafience.service.board.ProgramBoardService;
-import com.ssafy.ssafience.util.ClientIPUtils;
-
+import com.ssafy.ssafience.util.ClientUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -113,7 +112,7 @@ public class ProgramBoardController {
 		final SingleResponse<ProgramBoardResultDTO> result = new SingleResponse<>();
 		
 		try {
-			HitRequest request = new HitRequest(boardno, ClientIPUtils.getLocalHostAddress());
+			HitRequest request = new HitRequest(boardno, ClientUtils.getRemoteIP(req));
 			System.out.println(request);
 			ProgramBoardResultDTO board = fService.selectBoardDetailOne(request);
 			if (board != null) {
