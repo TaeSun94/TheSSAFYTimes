@@ -29,7 +29,7 @@
             </div>
             <br>
             <footer class="login-foot">
-                <v-btn @click="submit" @keyup.enter="submit" dark large tile width=100%>로그인</v-btn>
+                <v-btn @click="submit" dark large tile width=100%>로그인</v-btn>
                 <div class="login-divider" role="separator"></div>
                 <p class="login-option mt-5 text-center">SSAFY TIMES 처음이신가요?
                 <router-link class="login-option-link" :to="{path:'/join'}">가입하기</router-link>
