@@ -12,7 +12,7 @@
 	
 	<select id="selectMemberDetail" resultType="memberresultdto">
 	SELECT member_no, member_email, member_id, member_pw, member_first_name, member_last_name, member_phone, cr.category_name member_region, ct.category_name member_track, cu.category_name member_unit, member_intro, member_desc, member_article, member_follow, member_follower, member_interested, member_skill, member_auth, member_auth_status, member_auth_datetime, member_address, member_datetime, 
-    	member_no, member_id, member_pw, member_email, member_first_name, member_last_name, member_phone, cr.category_name, ct.category_name, cu.category_name, member_intro, member_desc, member_article, member_follow, member_follower, member_interested, member_skill, member_auth, member_auth_status, member_auth_datetime, member_address, member_datetime
+    	member_no, member_id, member_pw, member_email, member_first_name, member_last_name, member_phone, cr.category_name, ct.category_name, cu.category_name, member_intro, member_desc, member_article, member_follow, member_follower, member_interested, member_skill, member_auth, member_auth_status, member_auth_datetime, member_address, member_datetime, member_imgurl
 	FROM member
 	    LEFT OUTER JOIN category cr ON member_region = cr.category_no
 	    LEFT OUTER JOIN category ct ON member_track = ct.category_no
@@ -40,7 +40,8 @@
 			member_track = #{memberTrack},
 			member_unit = #{memberUnit}, member_intro = #{memberIntro},
 			member_desc = #{memberDesc}, member_interested = #{memberInterested},
-			member_skill = #{memberSkill}			
+			member_skill = #{memberSkill},
+			member_imgurl = #{memberImgurl}
 		where member_id = #{memberId}
 	</update>
 	

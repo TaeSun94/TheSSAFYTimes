@@ -43,6 +43,7 @@ public class MemberResultDTO {
 	private Date memberDatetime;
 	private Date memberAuthDatetime;
 
+	private String memberImgurl;
 	
 	@Builder
 	public MemberResultDTO(String memberId, String memberPw, String memberEmail) {

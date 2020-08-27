@@ -72,7 +72,7 @@ export default {
   methods: {
     to(link) {
       if(link==='ssafytimes'){
-        alert("The SSAFY Times 최근 호를 불러옵니다.")
+        this.$alert("The SSAFY Times 최근 호를 가져왔어요 !")
       }
       this.$router.push({path: link});
     },

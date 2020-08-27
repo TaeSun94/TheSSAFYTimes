@@ -115,8 +115,8 @@ export default {
         invalidate() {
             this.$cookies.remove("memberId");
             this.$cookies.remove("memberEmail");
-            this.$alert("로그아웃 되었습니다.");
             this.$router.push('/');
+            this.$alert("로그아웃 되었습니다.");
             location.reload();
         },
         memClick(){

@@ -92,4 +92,4 @@ npm run serve
 
 ![image-20200820193131511](README.assets/image-20200820193131511.png)
 
-
+![Ssafience 로고](https://lab.ssafy.com/s03-webmobile1-sub3/s03p13c208/uploads/8b4cf3d4bf424bda24ea963c9442cc7b/ssafience.png)

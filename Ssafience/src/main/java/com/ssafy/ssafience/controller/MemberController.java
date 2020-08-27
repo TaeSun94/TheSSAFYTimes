@@ -57,6 +57,7 @@ public class MemberController {
 
 		try {
 			MemberDetailResult<String> memberResult = mService.selectMemberOneDetail(memberid);
+			System.out.println(memberResult);
 			if (memberResult != null) {
 				result.result = SUCCESS;
 				result.status = HttpStatus.OK;
