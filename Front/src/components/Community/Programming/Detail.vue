@@ -119,7 +119,7 @@ export default {
         },
         commentCheck() {
             if(this.commentInput == ""){
-                alert("댓글을 입력하세요");
+                this.$alert("댓글을 입력하세요");
                 return;
             } else {
                 this.commentCreate();
